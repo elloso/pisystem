@@ -7,34 +7,49 @@
     <title>Suppy Inventory System</title>
     <link rel="stylesheet" href="asset/css/bootstrap.min.css" />
     <link rel="stylesheet" href="asset/css/style.css" />
-
+    <style>
+      #intro_login {
+          background-image: url(Images/slsuloginpage.jpg);
+          height: 108.5vh;
+          background-size: cover; 
+          background-position: center; 
+      }.bg-transparent {
+          background-color: rgba(255, 255, 255, 0.5);
+          border: 2px solid #000;
+          border-radius: 10px;
+        }
+        .login-opacity {
+          opacity: 0.7;
+        }
+    </style>
 </head>
 <body>
-    <!-- Background image -->
+<form action="<?php echo base_url('Dashboard'); ?>" method="post"> 
     <div id="intro_login" class="bg-image shadow-2-strong">
-      <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+      <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0.8, 0.8, 0.6);">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-5 col-md-8">
-              <form class="bg-white rounded shadow-5-strong p-5">    
-                <div class="form-floating mb-4">
-                  <input type="email" id="form1Example1" class="form-control" />
-                  <label class="form-label" for="form1Example1">Username :</label>
+                <div class="bg-secondary rounded shadow-5-strong p-5 login-opacity">   
+                  <div class="form-floating mb-4 rounded">
+                      <input type="email" id="form1Example1" name="username" class="form-control bg-secondary" />
+                      <label class="form-label" for="form1Example1">Username :</label>
+                  </div>
+                  <div class="form-floating mb-4 rounded">
+                      <input type="password" id="form1Example2" name="password" class="form-control bg-secondary" />
+                      <label class="form-label" for="form1Example2">Password :</label>
+                  </div>
+                  <div class="text-center">
+                      <button type="submit" class="btn btn-dark btn-block">Sign in</button>
+                  </div>
                 </div>
-                <div class="form-floating mb-4">
-                  <input type="password" id="form1Example2" class="form-control" />
-                  <label class="form-label" for="form1Example2">Password :</label>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                </div>
+              
               </div>
-              </form>
             </div>
           </div>
         </div>
-      </div> <!-- Background image -->
+      </div>
+</form>
 <script type="text/javascript" src="asset/js/bootstrap.bundle.min.jss"></script>
-
 </body>
 </html>

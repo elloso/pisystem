@@ -1,25 +1,56 @@
-<!-- Header-->
-<header id="header" class="header">
-            <div class="top-left">
-                <div class="navbar-header font-weight-bold">
-                    Supply Inventory System
-                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
-                </div>
-            </div>
-            <div class="top-right">
-                <div class="header-menu">
-                    <div class="header-left">
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="" alt="User Avatar">
-                        </a>
-                        <div class="user-menu dropdown-menu">  
-                            <a class="nav-link" href="<?php echo base_url('Resetpassword'); ?>"><i class="fa fa-power -off"></i>Change Password</a>
-                            <a class="nav-link" href="<?php echo base_url('LogOut'); ?>"><i class="fa fa-power -off"></i>Logout</a>
-                        </div>
-                    </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
+    <div class="container">
+      <a class="navbar-brand" href="#!"><span style="color: #5e9693;">Supply</span><span style="color: #fff;">logist</span></a>
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Offer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Reference</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Contact</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav d-flex flex-row">
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#!">
+              <i class="fas fa-shopping-cart"></i>
+            </a>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#!">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#!">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
 
-                </div>
-            </div>
-        </header>
-<!-- /#header -->
+ 

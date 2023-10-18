@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
 
-  
-
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -35,12 +33,12 @@
       <li><a href="#hero">Home</a></li>
       <li class="dropdown"><a href="#"><span>Stocks</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
         <ul>
-          <li><a href="#">Purchase Order</a></li>
-          <li><a href="#">Inspection / Acceptance Form</a></li>
-          <li><a href="#">Property Acknowledgment List</a></li>
-          <li><a href="#">Inventory Custodian List</a></li>
-          <li><a href="#">Property Card List</a></li>
-          <li><a href="#">Stock Card</a></li>
+          <li><a href="<?php echo base_url('purchase'); ?>">Purchase Order</a></li>
+          <li><a href="<?php echo base_url('inspection'); ?>">Inspection / Acceptance Form</a></li>
+          <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment List</a></li>
+          <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian List</a></li>
+          <li><a href="<?php echo base_url('propertycard'); ?>">Property Card List</a></li>
+          <li><a href="<?php echo base_url('stockcard'); ?>">Stock Card</a></li>
         </ul>
       </li>
       <li class="dropdown"><a href="#"><span>Equipments</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>

@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Suppy Inventory System</title>
-  <link rel="stylesheet" href="asset/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="asset/css/style.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <style>
     #intro_login {
       background-image: url(Images/slsuloginpage.jpg);
@@ -27,9 +27,8 @@
     }
   </style>
 </head>
-
 <body>
-  <form action="<?php echo base_url('Login-Authentication'); ?>" method="post">
+  <form action="<?php echo base_url('dashboard'); ?>" method="post">
     <div id="intro_login" class="bg-image shadow-2-strong">
       <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0.8, 0.8, 0.6);">
         <div class="container">
@@ -55,7 +54,6 @@
       </div>
     </div>
   </form>
-  <script type="text/javascript" src="asset/js/bootstrap.bundle.min.jss"></script>
+  <script type="text/javascript" src="assets/js/bootstrap.bundle.min.jss"></script>
 </body>
-
 </html>

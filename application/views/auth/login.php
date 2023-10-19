@@ -36,8 +36,8 @@
             <div class="col-xl-5 col-md-8">
               <div class="bg-secondary rounded shadow-5-strong p-5 login-opacity">
                 <div class="form-floating mb-4 rounded">
-                  <input type="email" id="form1Example1" name="username" class="form-control bg-secondary" />
-                  <label class="form-label" for="form1Example1">Username :</label>
+                  <input type="email" id="form1Example1" name="Email" class="form-control bg-secondary" />
+                  <label class="form-label" for="form1Example1">Email Address :</label>
                 </div>
                 <div class="form-floating mb-4 rounded">
                   <input type="password" id="form1Example2" name="password" class="form-control bg-secondary" />

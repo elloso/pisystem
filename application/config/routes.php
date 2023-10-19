@@ -19,6 +19,8 @@ $route['acknowledgement'] = 'Post_Controller/PropertyAcknowledgement';
 $route['custodian'] = 'Post_Controller/InventoryCustodian';
 $route['propertycard'] = 'Post_Controller/PropertyCard';
 $route['stockcard'] = 'Post_Controller/StockCard';
+$route['suppliesledger'] = 'Post_Controller/SuppliesLedgerCard';
+$route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
 
 // account/maintenance
 $route['account-list'] = 'Post_Controller/accountList';

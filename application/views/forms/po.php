@@ -5,23 +5,23 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="data-table-iar" class="table table-striped table-bordered">
+                <table id="po-data-table" class="table table-hover">
                     <button type="button" class="btn btn-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#Modal_InspectionAcceptance">
                          New Entry
                     </button>
                     <thead>
                         <tr>
+                            <th>ITEM No.</th>
                             <th>SUPPLIER</th>
                             <th>P.O No.</th>
                             <th>DATE</th>
-                            <th>MODE OF PROCUREMENT</th>
-                            <th>PR No,</th>
-                            <th>PG REF No.</th>
-                            <th>ITEM No.</th>
+                            <!-- <th>MODE OF PROCUREMENT</th> -->
+                            <th>PR No.</th>
+                            <!-- <th>PG REF No.</th> -->
                             <th>QUANTITY</th>
                             <th>UNIT</th>
                             <th>ITEMS / <br/> DESCRIPTION</th>
-                            <th>UNIT COST</th>
+                            <!-- <th>UNIT COST</th> -->
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -36,11 +36,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
                         </tr>
-                        <!-- Add more table rows here -->
                     </tbody>
                  </table>
             </div>
@@ -53,7 +49,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="Modal_InspectionAcceptanceLabel">Purchase Order</h1>
+        <h1 class="modal-title fs-5" id="Modal_InspectionAcceptanceLabel">New Purchase Order</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

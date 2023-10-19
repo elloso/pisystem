@@ -2,43 +2,47 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Suppy Inventory System</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Suppy Inventory System</title>
 
-  <!-- bootstrap 5.3.1 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css" />
-  <link href="<?php echo base_url(); ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="<?php echo base_url(); ?>assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="<?php echo base_url(); ?>assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="<?php echo base_url(); ?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+<!-- bootstrap 5.3.1 -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css" />
+<link href="<?php echo base_url(); ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="<?php echo base_url(); ?>assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="<?php echo base_url(); ?>assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="<?php echo base_url(); ?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylecustom.css"/>
 
-  <!-- Datatables -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<!-- Template Main CSS File -->
+<link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
 
-  <style>
-    .table th {
-      font-family: "Bahnschrift SemiCondensed", sans-serif;
-      font-size: 18px;
-      text-align: center;
-      width: 100px;
-    }
+<!-- Datatables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
-    .table td {
-      font-family: "Bahnschrift SemiCondensed", sans-serif;
-      font-size: 16px;
-    }
+<style>
+.table th {
+  font-family: "Bahnschrift SemiCondensed", sans-serif;
+  font-size: 18px;
+  text-align: center;
+  width: 100px;
+}
 
-    .container_table {
-      margin-top: 8rem;
-    }
-  </style>
+.table td {
+  font-family: "Bahnschrift SemiCondensed", sans-serif;
+  font-size: 16px;
+  }
+
+.container_table {
+  margin-top: 8rem;
+  }
+
+</style>
 </head>
 
 <body>

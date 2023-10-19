@@ -39,7 +39,7 @@ class Post_Controller extends CI_Controller
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $this->load->view('template/header');
-            $this->load->view('forms/pal');
+            $this->load->view('forms/par');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
@@ -50,7 +50,7 @@ class Post_Controller extends CI_Controller
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $this->load->view('template/header');
-            $this->load->view('forms/icl');
+            $this->load->view('forms/ics');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
@@ -61,7 +61,7 @@ class Post_Controller extends CI_Controller
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $this->load->view('template/header');
-            $this->load->view('forms/pcl');
+            $this->load->view('forms/pc');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
@@ -72,12 +72,34 @@ class Post_Controller extends CI_Controller
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $this->load->view('template/header');
-            $this->load->view('forms/stock');
+            $this->load->view('forms/sc');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
         }
     }
+
+    public function SuppliesLedgerCard()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $this->load->view('template/header');
+            $this->load->view('forms/slc');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    public function ReportPhysicalCountInventories()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $this->load->view('template/header');
+            $this->load->view('forms/rpci');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+
     public function accountList()
     {
         if ($this->session->userdata('is_login') == TRUE) {

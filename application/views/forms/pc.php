@@ -1,11 +1,11 @@
 <div class="container justify-content-center align-items-center p-5" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header">
-            <div class="card-title">Stock Card</div>
+            <div class="card-title">Property Card</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="data-table-iar" class="table table-striped table-bordered">
+                <table id="pc-data-table" class="table table-hover">
                     <button class="btn btn-success btn-sm mb-2">
                         New Entry
                     </button>
@@ -21,14 +21,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>Sample 1</td>
+                            <td>Sample 1</td>
+                            <td>Sample 1</td>
+                            <td>Sample 1</td>
+                            <td>Sample 1</td>
+                            <td>Sample 1</td>
                         </tr>
-                        <!-- Add more table rows here -->
                     </tbody>
                  </table>
             </div>

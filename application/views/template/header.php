@@ -16,15 +16,24 @@
 
     <!-- Template Main CSS File -->
     <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+    
     <style>
-    th {
+    .table th{
       font-family: "Bahnschrift SemiCondensed", sans-serif;
-      font-size: 18px;
-      text-align: Center;
+        font-size: 18px;
+        text-align: center;
+        width: 100px; 
+    } 
+    .table td{
+      font-family: "Bahnschrift SemiCondensed", sans-serif;
+      font-size: 16px;
     }
     .container_table{
       margin-top: 8rem;
-     
     }
     </style>
 </head>
@@ -37,15 +46,17 @@
   </a>
   <nav id="navbar" class="navbar">
     <ul>
-      <li><a href="#hero">Home</a></li>
+      <li><a href="<?php echo base_url('dashboard'); ?>">Home</a></li>
       <li class="dropdown"><a href="#"><span>Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
         <ul>
           <li><a href="<?php echo base_url('purchase'); ?>">Purchase Order</a></li>
-          <li><a href="<?php echo base_url('inspection'); ?>">Inspection / Acceptance Form</a></li>
-          <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment List</a></li>
-          <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian List</a></li>
-          <li><a href="<?php echo base_url('propertycard'); ?>">Property Card List</a></li>
+          <li><a href="<?php echo base_url('inspection'); ?>">Inspection / Acceptance Report</a></li>
+          <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a></li>
+          <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment Receipt</a></li>
+          <li><a href="<?php echo base_url('propertycard'); ?>">Property Card</a></li>
           <li><a href="<?php echo base_url('stockcard'); ?>">Stock Card</a></li>
+          <li><a href="<?php echo base_url('suppliesledger'); ?>">Supplies Ledger Card</a></li>
+          <li><a href="<?php echo base_url('countinventories'); ?>">Report on the physical count of Inventories</a></li>
         </ul>
       </li>
       <li class="dropdown"><a href="#"><span>RPCPPE</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>

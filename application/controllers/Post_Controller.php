@@ -21,25 +21,36 @@ class Post_Controller extends CI_Controller{
 
     public function PropertyAcknowledgement(){
         $this->load->view('template/header');
-        $this->load->view('forms/pal');
+        $this->load->view('forms/par');
         $this->load->view('template/footer');
     }
 
     public function InventoryCustodian(){
         $this->load->view('template/header');
-        $this->load->view('forms/icl');
+        $this->load->view('forms/ics');
         $this->load->view('template/footer');
     }
 
     public function PropertyCard(){
         $this->load->view('template/header');
-        $this->load->view('forms/pcl');
+        $this->load->view('forms/pc');
         $this->load->view('template/footer');
     }
 
     public function StockCard(){
         $this->load->view('template/header');
-        $this->load->view('forms/stock');
+        $this->load->view('forms/sc');
+        $this->load->view('template/footer');
+    }
+
+    public function SuppliesLedgerCard(){
+        $this->load->view('template/header');
+        $this->load->view('forms/slc');
+        $this->load->view('template/footer');
+    }
+    public function ReportPhysicalCountInventories(){
+        $this->load->view('template/header');
+        $this->load->view('forms/rpci');
         $this->load->view('template/footer');
     }
 

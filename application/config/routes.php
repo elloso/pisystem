@@ -14,6 +14,8 @@ $route['acknowledgement'] = 'Post_Controller/PropertyAcknowledgement';
 $route['custodian'] = 'Post_Controller/InventoryCustodian';
 $route['propertycard'] = 'Post_Controller/PropertyCard';
 $route['stockcard'] = 'Post_Controller/StockCard';
+$route['suppliesledger'] = 'Post_Controller/SuppliesLedgerCard';
+$route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
 
 
 $route['404_override'] = '';

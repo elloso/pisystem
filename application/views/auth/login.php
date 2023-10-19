@@ -27,16 +27,22 @@
     }
   </style>
 </head>
+
 <body>
-  <form action="<?php echo base_url('dashboard'); ?>" method="post">
+  <form action="<?php echo base_url('login-user'); ?>" method="post">
     <div id="intro_login" class="bg-image shadow-2-strong">
       <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0.8, 0.8, 0.6);">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-5 col-md-8">
               <div class="bg-secondary rounded shadow-5-strong p-5 login-opacity">
+                <?php if (!empty($this->session->flashdata('login-error'))) : ?>
+                  <div class="alert alert-danger alert-dismissible fade show text-center" style="width:100%;" role="alert">
+                    <?php echo $this->session->flashdata('login-error'); ?>
+                  </div>
+                <?php endif; ?>
                 <div class="form-floating mb-4 rounded">
-                  <input type="email" id="form1Example1" name="Email" class="form-control bg-secondary" />
+                  <input type="email" id="form1Example1" name="email" class="form-control bg-secondary" />
                   <label class="form-label" for="form1Example1">Email Address :</label>
                 </div>
                 <div class="form-floating mb-4 rounded">
@@ -47,7 +53,6 @@
                   <button type="submit" class="btn btn-dark btn-block">Sign in</button>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -56,4 +61,5 @@
   </form>
   <script type="text/javascript" src="assets/js/bootstrap.bundle.min.jss"></script>
 </body>
+
 </html>

@@ -134,6 +134,15 @@
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Submit</button>
             </div>
-        </div>
+        </div><script>
+    $(document).ready(function() {
+        $('#iar-data-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ]
+        });
+    });
+</script>
     </div>
 </div>

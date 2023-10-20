@@ -42,6 +42,21 @@
       margin-top: 8rem;
     }
   </style>
+  .table td {
+  font-family: "Bahnschrift SemiCondensed", sans-serif;
+  font-size: 16px;
+  }
+
+  .container_table {
+  margin-top: 8rem;
+  }
+
+  .custom-row-height td {
+  padding: 40px; /* Adjust the padding as needed to control the row height */
+  }
+
+
+  </style>
 </head>
 
 <body>

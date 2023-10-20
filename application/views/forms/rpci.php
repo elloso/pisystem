@@ -53,3 +53,13 @@
     </div>
   </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#rpci-data-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ]
+        });
+    });
+</script>

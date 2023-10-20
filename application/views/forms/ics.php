@@ -81,3 +81,13 @@
     </div>
   </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#ics-data-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ]
+        });
+    });
+</script>

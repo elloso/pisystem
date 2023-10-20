@@ -42,6 +42,11 @@
   margin-top: 8rem;
   }
 
+  .custom-row-height td {
+    padding: 40px; /* Adjust the padding as needed to control the row height */
+  }
+
+
 </style>
 </head>
 

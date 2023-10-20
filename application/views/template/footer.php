@@ -39,85 +39,32 @@
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#iar-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
+<!-- <script>
+    var table = document.getElementById("table2");
+    var button1 = document.getElementById("addRow");
+    button1.addEventListener("click", function() {
+        event.preventDefault();
+        var newRow = table.insertRow(-1);
+        var itemnoCell = newRow.insertCell(0);
+        var itemquantityCell = newRow.insertCell(1);
+        var itemdescriptionCell = newRow.insertCell(2);
+        var itemunitcostCell = newRow.insertCell(3);
+        itemnoCell.innerHTML = '<input type="number" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" placeholder="1" required>';
+        itemquantityCell.innerHTML = '<input type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="30" placeholder="1" required>';
+        itemdescriptionCell.innerHTML = '<input type="textarea" class="form-control" id="item_description" maxlength="95" name="item_description[]" size="50" placeholder="Supply Description" autocomplete="off" required>';
+        itemunitcostCell.innerHTML = '<input type="textarea" class="form-control" id="txtItemUnitCost" maxlength="95" name="txtItemUnitCost[]" size="50" placeholder="0" autocomplete="off" required>';
+        
+
+
     });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#ics-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#par-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#pc-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#po-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#rpci-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#sc-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#slc-data-table').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-    });
-</script>
+</script> -->
+
+
+
+
+
+
+
+
 </body>
 </html>

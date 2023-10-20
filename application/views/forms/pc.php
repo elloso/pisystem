@@ -34,3 +34,13 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#pc-data-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ]
+        });
+    });
+</script>

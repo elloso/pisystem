@@ -51,24 +51,16 @@
                             <label class="form-label fw-bold text-dark" for="txtEntityName">Entity Name :</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <textarea id="txtSupplier" class="form-control" name="txtSupplier" style="height: 13.5em; width: 100%;" readonly>
-                            
+                            <textarea id="txtSupplier" class="form-control" name="txtSupplier" style="height: 9.5em; width: 100%;" readonly>
                             </textarea>
                             <label class="form-label fw-bold text-dark" for="txtSupplier">Supplier:</label>
                         </div>
                         <div class="form-floating mb-2">
                             <input type="text" id="txtFundcluster" class="form-control" name="txtFundcluster">
                             <label class="form-label fw-bold text-dark" for="txtFundcluster">Fund Cluster:</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input type="text" id="txtMOP" class="form-control" name="txtMOPD">
-                            <label class="form-label fw-bold text-dark" for="txtMOP">Requisitioning Office/Dept.:</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input type="text" id="txtRCC" class="form-control" name="txtRCC">
-                            <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
-                        </div>
+                        </div>  
                     </div>
+                   
                     <div class="col-lg-4 col-xl-8">
                         <div class="form-floating mb-2">
                             <select class="form-select" aria-label="Default select example" name="txtPONo">
@@ -93,17 +85,10 @@
                                 </div>
                                 <div class="col-lg-4 col-xl-12">
                                     <div class="form-floating mb-2">
-                                            <input type="text" id="txtStock" class="form-control" name="txtStock" readonly>
-                                            <label class="form-label fw-bold text-dark" for="txtStock">Stock/Item No.:</label>
+                                        <input type="text" id="txtMOP" class="form-control" name="txtMOPD">
+                                        <label class="form-label fw-bold text-dark" for="txtMOP">Office/Dept.:</label>
                                     </div>
-                                    <div class="form-floating mb-2">
-                                            <input type="text" id="txtQuantity" class="form-control" name="txtQuantity" readonly>
-                                            <label class="form-label fw-bold text-dark" for="txtQuantity">Quantity:</label>
-                                    </div>
-                                    <div class="form-floating mb-2">
-                                            <input type="text" id="txtUnit" class="form-control" name="txtUnit" readonly>
-                                            <label class="form-label fw-bold text-dark" for="txtUnit">Unit:</label>
-                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="col-lg-4 col-xl-6">
@@ -118,13 +103,37 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-8 col-xl-12">
-                                <div class="form-floating mb-2">
-                                    <textarea id="txtStock" class="form-control" name="txtStock" style="height: 16em; width: 100%;">
-                                   
-                                    </textarea>
-                                    <label class="form-label fw-bold text-dark" for="txtStock">Item Description:</label>
+                                    <div class="form-floating mb-2">
+                                        <input type="text" id="txtRCC" class="form-control" name="txtRCC">
+                                        <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
+                                    </div>
                                 </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xl-6">
+                        <div class="border p-2 mb-2">
+                            <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
+                                <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
+                                <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-lg-4 col-xl-6">
+                        <div class="border p-2 mb-2">
+                            <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
+                                <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Property Custodian:</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
+                                <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
                             </div>
                         </div>
                     </div>

@@ -61,4 +61,60 @@ class Function_Controller extends CI_Controller
             redirect(base_url('my-account'));
         }
     }
+    // submit(save) form
+    public function submitPo()
+    {
+        $txtSupplier = $this->input->post('txtSupplier');
+        $txtPONumber = $this->input->post('txtPONumber');
+        $txtDate = $this->input->post('txtDate');
+        $txtMOP = $this->input->post('txtMOP');
+        $txtPRNumber = $this->input->post('txtPRNumber');
+        $txtPGEFNumber = $this->input->post('txtPGEFNumber');
+        $txtTotaCost = $this->input->post('txtTotaCost');
+
+        if ($this->Function_Model->isTransactionIdExists($txtPONumber, $txtPRNumber, $txtPGEFNumber)) {
+            $this->session->set_flashdata('error', 'Transaction number already exists!');
+            redirect(base_url('purchase'));
+            return;
+        }
+        $dataPO = array(
+            'po_number' => $txtPONumber,
+            'pr_number' => $txtPRNumber,
+            'pgr_number ' => $txtPGEFNumber,
+            'supplier' => $txtSupplier,
+            'po_date' => $txtDate,
+            'made_of_procurment ' => $txtMOP,
+            'total_cost ' => $txtTotaCost
+        );
+        $this->Function_Model->SubmitPoData($dataPO);
+        $txtItemNo = $this->input->post('txtItemNo');
+        $txtItemQuantity = $this->input->post('txtItemQuantity');
+        $txtDescription = $this->input->post('txtDescription');
+        $txtItemUnitCost = $this->input->post('txtItemUnitCost');
+        $txtUnit = $this->input->post('txtUnit');
+        if (
+            is_array($txtItemNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && count($txtItemNo) === count($txtItemQuantity) && count($txtDescription) === count($txtItemUnitCost)
+        ) {
+            $count = count($txtItemNo);
+            for ($i = 0; $i < $count; $i++) {
+                $itemData = array(
+                    'po_number' => $txtPONumber,
+                    'pr_number' => $txtPRNumber,
+                    'pgr_number' => $txtPGEFNumber,
+                    'item_no' => $txtItemNo[$i],
+                    'quantity' => $txtItemQuantity[$i],
+                    'unit' => $txtUnit[$i],
+                    'item_description' => $txtDescription[$i],
+                    'unit_cost' => $txtItemUnitCost[$i],
+                );
+                $this->Function_Model->SubmitPoItemData($itemData);
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Insert Data Failed!');
+            redirect(base_url('purchase'));
+        }
+        $this->session->set_flashdata('success', 'Insert Data Success!');
+        redirect(base_url('purchase'));
+    }
+    // submit(save) form
 }

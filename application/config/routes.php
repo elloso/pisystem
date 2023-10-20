@@ -14,6 +14,10 @@ $route['login-user'] = 'Login_Controller/loginUser';
 $route['update-account'] = 'Function_Controller/updateAccount';
 $route['delete-user/(:any)'] = 'Function_Controller/deleteUser/$1';
 $route['generate-password/(:any)'] = 'Function_Controller/generatePassword/$1';
+
+// submit(save) form
+$route['submit-po'] = 'Function_Controller/submitPo';
+
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';
 //Stocks forms

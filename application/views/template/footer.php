@@ -59,14 +59,21 @@
 
     });
 </script> -->
-
-
-
-
-
-
-
-
+<script>
+    $(document).ready(function() {
+        $('#user-list-table').DataTable({});
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#po-data-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ]
+        });
+    });
+</script>
 </body>
 
 </html>

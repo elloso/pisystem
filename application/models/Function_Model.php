@@ -34,4 +34,20 @@ class Function_Model extends CI_Model
             return false;
         }
     }
+    public function isTransactionIdExists($txtPONumber, $txtPRNumber, $txtPGEFNumber)
+    {
+        $this->db->where("(po_number = '$txtPONumber' OR pr_number = '$txtPRNumber' OR pgr_number = '$txtPGEFNumber')");
+        $query = $this->db->get('tblpo');
+        return $query->num_rows() > 0;
+    }
+    public function SubmitPoData($dataPO)
+    {
+        $this->db->insert('tblpo', $dataPO);
+        return $this->db->insert_id();
+    }
+    public function SubmitPoItemData($itemData)
+    {
+        $this->db->insert('tblpo_item', $itemData);
+        return $this->db->insert_id();
+    }
 }

@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Suppy Inventory System</title>
-
   <!-- bootstrap 5.3.1 -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css" />
@@ -16,15 +15,13 @@
   <link href="<?php echo base_url(); ?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="<?php echo base_url(); ?>assets/fontawesome/all.css" rel="stylesheet">
   <!-- Custom CSS -->
+  <link rel="icon" href="<?php echo base_url(); ?>assets/img/slsu/slsu_logo.png" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylecustom.css" />
-
   <!-- Template Main CSS File -->
   <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
-
   <!-- Datatables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
-
   <style>
     .table th {
       font-family: "Bahnschrift SemiCondensed", sans-serif;
@@ -44,6 +41,7 @@
     }
   </style>
 </head>
+
 <body>
   <header id="header" class="header d-flex align-items-center">
 
@@ -73,31 +71,15 @@
               <li><a href="#">Report 3</a></li>
             </ul>
           </li>
-          <!-- <li class="dropdown"><a href="#"><span>Inventory Report</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-        <ul>
-          <li><a href="#">Account Ledger</a></li>
-          <li><a href="#">Condemn Summary</a></li>
-          <li><a href="#">Job Order Summary</a></li>
-          <li><a href="#">Property List Summary</a></li>
-          <li><a href="#">Disposed Asset Inventory</a></li>
-          <li><a href="#">Undisposed Asset Inventory</a></li>
-        </ul>
-      </li> -->
           <li class="dropdown"><a href="#"><span>Settings</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url(); ?>my-account">My Account</a></li>
               <li><a href="<?php echo base_url(); ?>change-password">Change Password</a></li>
-
-
               <?php
               if ($userDetails->user_type === 'Admin') {
               ?>
                 <li><a href="<?php echo base_url(); ?>account-list">Account list</a></li>
               <?php } ?>
-
-
-
-
               <li><a href="#" data-bs-toggle="modal" data-bs-target="#logutModal">Logout</a></li>
             </ul>
           </li>

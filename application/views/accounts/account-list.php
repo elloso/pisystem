@@ -117,8 +117,3 @@
         })
     })()
 </script>
-<script>
-    $(document).ready(function() {
-        $('#user-list-table').DataTable({});
-    });
-</script>

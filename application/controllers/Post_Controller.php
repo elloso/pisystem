@@ -38,7 +38,6 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
-
     public function InspectionAcceptance()
     {
         if ($this->session->userdata('is_login') == TRUE) {
@@ -53,7 +52,6 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
-
     public function PropertyAcknowledgement()
     {
         if ($this->session->userdata('is_login') == TRUE) {

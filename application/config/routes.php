@@ -6,10 +6,14 @@ $route['default_controller'] = 'Login_Controller/loginPage';
 $route['login'] = 'Login_Controller/loginPage';
 $route['logout-page'] = 'Login_Controller/logoutPage';
 // account
-$route['update-password'] = 'Login_Controller/updatePassword';
 $route['change-password'] = 'Post_Controller/changePassword';
+$route['my-account'] = 'Post_Controller/myAccount';
+$route['update-password'] = 'Login_Controller/updatePassword';
 $route['save-user'] = 'Login_Controller/saveUser';
 $route['login-user'] = 'Login_Controller/loginUser';
+$route['update-account'] = 'Function_Controller/updateAccount';
+$route['delete-user/(:any)'] = 'Function_Controller/deleteUser/$1';
+$route['generate-password/(:any)'] = 'Function_Controller/generatePassword/$1';
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';
 //Stocks forms

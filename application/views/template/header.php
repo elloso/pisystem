@@ -2,47 +2,46 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta http-equiv="x-ua-compatible" content="ie=edge" />
-<title>Suppy Inventory System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Suppy Inventory System</title>
 
-<!-- bootstrap 5.3.1 -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css" />
-<link href="<?php echo base_url(); ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="<?php echo base_url(); ?>assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="<?php echo base_url(); ?>assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-<link href="<?php echo base_url(); ?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- bootstrap 5.3.1 -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css" />
+  <link href="<?php echo base_url(); ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/fontawesome/all.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylecustom.css" />
 
-<!-- Custom CSS -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylecustom.css"/>
+  <!-- Template Main CSS File -->
+  <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
 
-<!-- Template Main CSS File -->
-<link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
+  <!-- Datatables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
-<!-- Datatables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  <style>
+    .table th {
+      font-family: "Bahnschrift SemiCondensed", sans-serif;
+      font-size: 18px;
+      text-align: center;
+      width: 100px;
+    }
 
-<style>
-.table th {
-  font-family: "Bahnschrift SemiCondensed", sans-serif;
-  font-size: 18px;
-  text-align: center;
-  width: 100px;
-}
+    .table td {
+      font-family: "Bahnschrift SemiCondensed", sans-serif;
+      font-size: 16px;
+    }
 
-.table td {
-  font-family: "Bahnschrift SemiCondensed", sans-serif;
-  font-size: 16px;
-  }
-
-.container_table {
-  margin-top: 8rem;
-  }
-
-</style>
+    .container_table {
+      margin-top: 8rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -86,9 +85,20 @@
       </li> -->
           <li class="dropdown"><a href="#"><span>Settings</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
+              <li><a href="<?php echo base_url(); ?>my-account">My Account</a></li>
               <li><a href="<?php echo base_url(); ?>change-password">Change Password</a></li>
-              <li><a href="<?php echo base_url(); ?>account-list">Account list</a></li>
-              <li><a href="<?php echo base_url(); ?>logout-page">Logout</a></li>
+
+
+              <?php
+              if ($userDetails->user_type === 'Admin') {
+              ?>
+                <li><a href="<?php echo base_url(); ?>account-list">Account list</a></li>
+              <?php } ?>
+
+
+
+
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#logutModal">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -97,3 +107,26 @@
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </div>
   </header><!-- End Header -->
+  <!-- Logout Modal -->
+  <div class="modal fade" id="logutModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header text-muted">
+          <h4 class="modal-title fw-bolder">Ready to Leave?</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body text-muted fw-semibold">
+          Select "Logout" below if you are ready to end your current session.
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <form action="<?php echo base_url(); ?>logout-page">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

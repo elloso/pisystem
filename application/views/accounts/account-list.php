@@ -1,11 +1,11 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header">
-            <div class="card-title">Manage User Account</div>
+            <div class="card-title fw-bold">Manage User Account</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="data-table-iar" class="table table-striped table-bordered">
+                <table id="user-list-table" class="table table-hover">
                     <button type="button" class="btn btn-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#Modal_InspectionAcceptance">
                         Add User
                     </button>
@@ -18,12 +18,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <!-- Add more table rows here -->
+                        <?php
+                        foreach ($userlistResult as $userlist) {
+                        ?>
+                            <tr>
+                                <td><?php echo $userlist->first_name . ' ' .  $userlist->last_name ?></td>
+                                <td><?php echo $userlist->email ?></td>
+                                <td><?php echo $userlist->user_type ?></td>
+                                <td>
+                                    <a href="<?= base_url('generate-password/' . md5($userlist->id)) ?>" onclick="return confirm('Are you sure you want to generate new password for <?php echo $userlist->first_name . ' ' .  $userlist->last_name ?>?');" class="m-1 text-primary" title="Generate new password"><i class="fa-solid fa-key"></i></a>
+                                    <a href="<?php echo base_url('delete-user/' . md5($userlist->id)); ?>" onclick="return confirm('Are you sure you want to delete <?php echo $userlist->first_name . ' ' .  $userlist->last_name ?>?');" class="m-1 text-primary" title="Delete user"><i class="fa-solid fa-trash-can"></i></a>
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -59,6 +68,9 @@
                         <div class="form-floating mb-2">
                             <input id="rEmail" class="form-control" name="rEmail" type="email" pattern=".+@slsu\.edu\.ph" required>
                             <label class="form-label fw-bold text-dark" for="rEmail">Email:</label>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
                             <div class="invalid-feedback">
                                 Please choose a valid email ending with @slsu.edu.ph.
                             </div>
@@ -104,4 +116,9 @@
             }, false)
         })
     })()
+</script>
+<script>
+    $(document).ready(function() {
+        $('#user-list-table').DataTable({});
+    });
 </script>

@@ -3,10 +3,11 @@
         <div class="card-header">
             <div class="card-title fw-bold">Change Password</div>
         </div>
-        <form action="<?php echo base_url() ?>update-password>" method="post" class="needs-validation" novalidate>
+        <form action="<?php echo base_url() ?>update-password" method="post" class="needs-validation" novalidate>
             <div class="card-body">
                 <div class="col-auto mt-2">
                     <label class="fw-bold" for="">Email:</label>
+                    <input type="hidden" value="<?= $userDetails->id ?>" name="id" class="form-control" readonly>
                     <input type="email" class="form-control" value="<?= $user_email ?>" name="email" pattern=".+@slsu\.edu\.ph" required readonly>
                     <div class="valid-feedback">
                         Looks good!
@@ -37,18 +38,13 @@
 <script>
     (() => {
         'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
         const forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', event => {
                 if (!form.checkValidity()) {
                     event.preventDefault()
                     event.stopPropagation()
                 }
-
                 form.classList.add('was-validated')
             }, false)
         })

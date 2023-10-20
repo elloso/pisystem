@@ -247,15 +247,22 @@
 </script>
 <script>
 function formatCurrency(input) {
-    const numericValue = input.value.replace(/[^\d.]/g, '');
-    const formattedValue = parseFloat(numericValue).toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'PHP',
-        minimumFractionDigits: 0
-    });
-    input.value = formattedValue;
+    const cleanedValue = input.value.replace(/[^\d.]/g, '').replace(/\./, '');
+    if (cleanedValue === '' || cleanedValue === '.') {
+        input.value = '0';
+    } else {
+        const numericValue = parseFloat(cleanedValue);
+        const formattedValue = numericValue.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'PHP',
+            minimumFractionDigits: 0
+        });
+        input.value = formattedValue;
+    }
 }
 </script>
+
+
 <script>
     $(document).ready(function() {
         $('#po-data-table').DataTable({

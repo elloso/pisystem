@@ -64,6 +64,7 @@ class Function_Controller extends CI_Controller
     // submit(save) form
     public function submitPo()
     {
+        $po_id = $this->input->post('po_id');
         $txtSupplier = $this->input->post('txtSupplier');
         $txtPONumber = $this->input->post('txtPONumber');
         $txtDate = $this->input->post('txtDate');
@@ -71,13 +72,13 @@ class Function_Controller extends CI_Controller
         $txtPRNumber = $this->input->post('txtPRNumber');
         $txtPGEFNumber = $this->input->post('txtPGEFNumber');
         $txtTotaCost = $this->input->post('txtTotaCost');
-
         if ($this->Function_Model->isTransactionIdExists($txtPONumber, $txtPRNumber, $txtPGEFNumber)) {
             $this->session->set_flashdata('error', 'Transaction number already exists!');
             redirect(base_url('purchase'));
             return;
         }
         $dataPO = array(
+            'po_id' => $po_id,
             'po_number' => $txtPONumber,
             'pr_number' => $txtPRNumber,
             'pgr_number ' => $txtPGEFNumber,
@@ -98,6 +99,7 @@ class Function_Controller extends CI_Controller
             $count = count($txtItemNo);
             for ($i = 0; $i < $count; $i++) {
                 $itemData = array(
+                    'po_id' => $po_id,
                     'po_number' => $txtPONumber,
                     'pr_number' => $txtPRNumber,
                     'pgr_number' => $txtPGEFNumber,
@@ -116,5 +118,41 @@ class Function_Controller extends CI_Controller
         $this->session->set_flashdata('success', 'Insert Data Success!');
         redirect(base_url('purchase'));
     }
-    // submit(save) form
+
+    public function updatepoDetails()
+    {
+        $poid = $this->input->post('poid');
+        $po_id = $this->input->post('po_id');
+        $txtSupplier = strip_tags($this->input->post('txtSupplier'));
+        $txtPONumber = strip_tags($this->input->post('txtPONumber'));
+        $txtDate = strip_tags($this->input->post('txtDate'));
+        $txtMOP = strip_tags($this->input->post('txtMOP'));
+        $txtPRNumber = strip_tags($this->input->post('txtPRNumber'));
+        $txtPGEFNumber = strip_tags($this->input->post('txtPGEFNumber'));
+        $txtTotalCost = strip_tags($this->input->post('txtTotalCost'));
+        $data = array(
+            'po_number' => $txtPONumber,
+            'pr_number' => $txtPRNumber,
+            'pgr_number' => $txtPGEFNumber,
+            'supplier' => $txtSupplier,
+            'po_date' => $txtDate,
+            'made_of_procurment' => $txtMOP,
+            'total_cost' => $txtTotalCost
+        );
+        $dataItem = array(
+            'po_number' => $txtPONumber,
+            'pr_number' => $txtPRNumber,
+            'pgr_number' => $txtPGEFNumber
+        );
+        $this->db->where('po_id', $po_id);
+        $this->db->update('tblpo_item', $dataItem);
+        $this->db->where('po_id', $po_id);
+        $this->db->update('tblpo', $data);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data updated successfully!');
+        } else {
+            $this->session->set_flashdata('error', 'Data update failed!');
+        }
+        echo '<script>window.history.back();</script>';
+    }
 }

@@ -11,23 +11,27 @@
                     </button>
                     <thead>
                         <tr>
-                            <th>DATE</th>
-                            <th>ENTITY NAME</th>
-                            <th>IAR#</th>
-                            <th>FUND CLUSTER</th>
-                            <th>SUPPLIER</th>
-                            <th>ACTION</th>
+                            <th class="text-center">DATE</th>
+                            <th class="text-center">ENTITY NAME</th>
+                            <th class="text-center">IAR#</th>
+                            <th class="text-center">FUND CLUSTER</th>
+                            <th class="text-center">SUPPLIER</th>
+                            <th class="text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <?php foreach ($IARDatas as $IARData): ?>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $IARData->iar_date; ?></td>
+                            <td><?php echo $IARData->entity_name; ?></td>
+                            <td><?php echo $IARData->iar_number; ?></td>
+                            <td><?php echo $IARData->fund_cluster; ?></td>
+                            <td><?php echo $IARData->iar_supplier; ?></td>
+                            <td class="text-center">
+                                <a href="#" class="text-primary mx-2"> <i class="fa-solid fa-eye"></i></i></a>
+                                <a href="#" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                            </td>
                             <?php endforeach; ?>
                         </tr>
                     </tbody>
@@ -36,7 +40,6 @@
         </div>
     </div>
 </div>
-
 <form action="<?php echo base_url('submit-iar'); ?>" method="post">
 <!-- Modal -->
 <div class="modal fade" id="Modal_InspectionAcceptance" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -56,6 +59,10 @@
                         <div class="form-floating mb-2">
                             <textarea id="txtSupplier" class="form-control" name="txtSupplier" style="height: 9.5em; width: 100%;" id="selectedData" readonly></textarea>
                             <label class="form-label fw-bold text-dark" for="txtSupplier">Supplier:</label>
+                        </div>
+                        <div class="form-floating mb-2 d-none">
+                            <!-- <textarea id="txtPrice" class="form-control" name="txtPrice" style="height: 9.5em; width: 100%;" id="selectedData" readonly></textarea> -->
+                            <input type="text" id="txtPrice" class="form-control" name="txtPrice"readonly>
                         </div>
                         <div class="form-floating mb-2">
                             <input type="text" id="txtFundcluster" class="form-control" name="txtFundcluster">

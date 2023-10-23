@@ -8,6 +8,7 @@
   <title>Suppy Inventory System</title>
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="<?php echo base_url(); ?>assets/fontawesome/all.css" rel="stylesheet">
   <style>
     #intro_login {
       background-image: url(Images/slsuloginpage.jpg);
@@ -15,17 +16,22 @@
       background-size: cover;
       background-position: center;
     }
-
     .bg-transparent {
       background-color: rgba(255, 255, 255, 0.5);
       border: 2px solid #000;
       border-radius: 10px;
     }
-
     .login-opacity {
       opacity: 0.7;
     }
-  </style>
+    #email, #password {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #000000;
+    outline:none;
+    box-shadow:none;
+    }
+    </style>
 </head>
 
 <body>
@@ -41,13 +47,13 @@
                     <?php echo $this->session->flashdata('login-error'); ?>
                   </div>
                 <?php endif; ?>
-                <div class="form-floating mb-4 rounded">
-                  <input type="email" id="form1Example1" name="email" class="form-control bg-secondary" />
-                  <label class="form-label" for="form1Example1">Email Address :</label>
+                <div class="floating mb-4 rounded">
+                  <input type="email" id="email" name="email" class="form-control bg-secondary" />
+                  <label class="form-label" for="email"><i class="fa-solid fa-user" style="font-size: 15px;"></i> Email Address</label>
                 </div>
-                <div class="form-floating mb-4 rounded">
-                  <input type="password" id="form1Example2" name="password" class="form-control bg-secondary" />
-                  <label class="form-label" for="form1Example2">Password :</label>
+                <div class="floating mb-4 rounded">
+                  <input type="password" id="password" name="password" class="form-control bg-secondary" />
+                  <label class="form-label" for="password"><i class="fa-solid fa-lock" ></i> Password</label>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-dark btn-block">Sign in</button>
@@ -60,6 +66,7 @@
     </div>
   </form>
   <script type="text/javascript" src="assets/js/bootstrap.bundle.min.jss"></script>
+  <script src="<?php echo base_url(); ?>assets/js/fontawesome.all.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

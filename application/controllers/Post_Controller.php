@@ -2,14 +2,6 @@
 
 class Post_Controller extends CI_Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Post_model');
-        $this->load->model('Login_Model');
-        $this->load->library('form_validation');
-    }
-
     public function Dashboard()
     {
         if ($this->session->userdata('is_login') == TRUE) {
@@ -30,6 +22,7 @@ class Post_Controller extends CI_Controller
             $data['user_email'] = $this->session->userdata('email');
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
+            $data['po_id'] = $this->Post_model->get_allPoList();
             $data['PODatas'] = $this->Post_model->viewPOtable();
             $data['userDetails'] = $userEmail;
             $this->load->view('template/header', $data);
@@ -192,6 +185,24 @@ class Post_Controller extends CI_Controller
             $data['userDetails'] = $userEmail;
             $this->load->view('template/header', $data);
             $this->load->view('accounts/change-password');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    public function editpoDetails($editPodetails, $itemDetails)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $editpo_details = $this->Post_model->get_podetails_by_id($editPodetails);
+            $poitemList = $this->Post_model->get_poitemList($itemDetails);
+            $data['poitemList'] = $poitemList;
+            $data['editpo_details'] = $editpo_details;
+            $data['userDetails'] = $userEmail;
+            $this->load->view('template/header', $data);
+            $this->load->view('view-forms/editpo-details');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));

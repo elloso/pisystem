@@ -1,7 +1,7 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header">
-            <div class="card-title">Purchase Order</div>
+            <div class="card-title fw-bold">Purchase Order</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -11,22 +11,25 @@
                     </button>
                     <thead>
                         <tr>
-                            <th>SUPPLIER</th>
-                            <th>P.O No.</th>
-                            <th>DATE</th>
-                            <th>PR No.</th>
-                            <th>Action</th>
+                            <th class="text-center">SUPPLIER</th>
+                            <th class="text-center">P.O No.</th>
+                            <th class="text-center">DATE</th>
+                            <th class="text-center">PR No.</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($PODatas as $POData): ?>
-                        <tr>
-                            <td><?php echo $POData->supplier; ?></td>
-                            <td><?php echo $POData->po_number; ?></td>
-                            <td><?php echo $POData->po_date; ?></td>
-                            <td><?php echo $POData->pr_number ; ?></td>
-                            <td></td>
-                        </tr>
+                        <?php foreach ($PODatas as $POData) : ?>
+                            <tr>
+                                <td><?php echo $POData->supplier; ?></td>
+                                <td><?php echo $POData->po_number; ?></td>
+                                <td><?php echo $POData->po_date; ?></td>
+                                <td><?php echo $POData->pr_number; ?></td>
+                                <td class="text-center">
+                                    <a href="<?= base_url('editpo-details/' . md5($POData->id) . '/' . md5($POData->po_id)) ?>" title='edit details' class='text-primary po-data'><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="#" class="p-2 text-primary" title="print"><i class="fa-solid fa-print"></i></a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -43,9 +46,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <?php $po_id_plus_one = $po_id + 1; ?>
                 <form action="<?php echo base_url() ?>submit-po" method="post" class="needs-validation" novalidate>
-                    <div class="scrollable-content" style="max-height: 420px; overflow-y: auto;">
+                    <div class="scrollable-content" style="max-height: 420px; overflow-y: auto; overflow-x: hidden;">
                         <div class="row">
+                            <input type="hidden" value="<?php echo $po_id_plus_one; ?>" id="po_id" class="form-control" name="po_id" required>
                             <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
                                     <input type="text" id="txtSupplier" class="form-control" name="txtSupplier" required>
@@ -213,19 +218,3 @@
         }
     });
 </script>
-<!-- <script>
-    function formatCurrency(input) {
-        const cleanedValue = input.value.replace(/[^\d.]/g, '').replace(/\./, '');
-        if (cleanedValue === '' || cleanedValue === '.') {
-            input.value = '0';
-        } else {
-            const numericValue = parseFloat(cleanedValue);
-            const formattedValue = numericValue.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'PHP',
-                minimumFractionDigits: 0
-            });
-            input.value = formattedValue;
-        }
-    }
-</script> -->

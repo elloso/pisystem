@@ -27,14 +27,12 @@
     .table th {
       font-family: "Bahnschrift SemiCondensed", sans-serif;
       font-size: 18px;
-      text-align: center;
       width: 100px;
     }
 
     .table td {
       font-family: "Bahnschrift SemiCondensed", sans-serif;
       font-size: 16px;
-      text-align: center;
     }
 
     .container_table {
@@ -42,6 +40,7 @@
     }
   </style>
 </head>
+
 <body>
   <header id="header" class="header d-flex align-items-center">
 

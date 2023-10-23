@@ -53,4 +53,16 @@ class Function_Model extends CI_Model
     public function insertIARData($dataiar) {
         return $this->db->insert('tbliar', $dataiar);
     }
+    // public function updatePoRecord($poid, $data)
+    // {
+    //     $this->db->where('id', $poid);
+    //     $this->db->update('tblpo', $data);
+    //     return $this->db->affected_rows() > 0;
+    // }
+    // public function updatePoItemRecord($txtPONumber, $dataItem)
+    // {
+    //     $this->db->where('po_number', $txtPONumber);
+    //     $this->db->update('tblpo_item', $dataItem);
+    //     return $this->db->affected_rows() > 0;
+    // }
 }

@@ -18,6 +18,8 @@ $route['generate-password/(:any)'] = 'Function_Controller/generatePassword/$1';
 // submit(save) form
 $route['submit-po'] = 'Function_Controller/submitPo';
 $route['submit-iar'] = 'Function_Controller/insertData_IAR';
+$route['updatepo-details'] = 'Function_Controller/updatepoDetails';
+$route['editpo-details/(:any)/(:any)'] = 'Post_Controller/editpoDetails/$1/$2';
 
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';

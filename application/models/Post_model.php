@@ -45,11 +45,12 @@ class Post_Model extends CI_Model
             return array();
         }
     }
-    public function getSupplierNameByPONumber($po_number) {
+    public function getSupplierNameByPONumber($po_number)
+    {
         $this->db->select('supplier');
         $this->db->where('po_number', $po_number);
         $query = $this->db->get('tblpo');
-        
+
         if ($query->num_rows() > 0) {
             $row = $query->row();
             return $row->supplier;
@@ -57,9 +58,11 @@ class Post_Model extends CI_Model
             return;
         }
     }
-    public function viewIAtable() {
+    public function viewIAtable()
+    {
         $this->db->select('*');
         $this->db->from('tbliar');
+    }
     public function get_podetails_by_id($poID)
     {
         $this->db->where('md5(id)', $poID);
@@ -82,8 +85,8 @@ class Post_Model extends CI_Model
             return array();
         }
     }
-   
-    
+
+
     public function get_allPoList()
     {
         $this->db->select_max('po_id');

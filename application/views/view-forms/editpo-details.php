@@ -69,10 +69,11 @@
                                 <table id="table-itemno-data" class="table table-hover">
                                     <tr>
                                         <th style="width: 8%;">Item No.</th>
-                                        <th style="width: 15%;">Quantity</th>
+                                        <th style="width: 12%;">Quantity</th>
                                         <th style="width: 15%;">Unit</th>
                                         <th style="width: 47%;">Items / Description</th>
-                                        <th style="width: 15%;">Unit Cost</th>
+                                        <th style="width: 13%;">Unit Cost</th>
+                                        <th style="width: 5%;">Action</th>
                                     </tr>
                                     <tbody>
                                         <?php
@@ -84,28 +85,29 @@
                                                         Please enter Item No.
                                                     </div>
                                                 </td>
-                                                <td><input required type="number" value="<?php echo $poitem->quantity ?>" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1">
+                                                <td><input required type="number" value="<?php echo $poitem->quantity ?>" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Quantity.
                                                     </div>
                                                 </td>
-                                                <td><input required type="text" value="<?php echo $poitem->unit ?>" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">
+                                                <td><input required type="text" value="<?php echo $poitem->unit ?>" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter unit.
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <textarea required class="form-control" name="txtDescription[]" style="height: 4em;"><?php echo $poitem->item_description ?></textarea>
+                                                    <textarea required class="form-control" name="txtDescription[]" style="height: 4em;" readonly><?php echo $poitem->item_description ?></textarea>
                                                     <div class="invalid-feedback">
                                                         Please enter item description.
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input required type="number" value="<?php echo $poitem->unit_cost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)">
+                                                    <input required type="number" value="<?php echo $poitem->unit_cost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a unit cost.
                                                     </div>
                                                 </td>
+                                                <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>')" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             </tr>
                                         <?php
                                         }
@@ -119,5 +121,56 @@
                 <button type="button" class="btn btn-secondary mt-2" style="width: 10%;" onclick=" history.back()">Back</button>
                 <button type="submit" class="btn btn-primary mt-2" style="width: 10%;">Save</button>
             </form>
+        </div>
+    </div>
+    <script>
+        function displayEditModal(id, quantity, unit, item_description, unit_cost) {
+            document.getElementById('edit_id').value = id;
+            document.getElementById('editQuantity').value = quantity;
+            document.getElementById('editUnit').value = unit;
+            document.getElementById('editDescription').value = item_description;
+            document.getElementById('editCost').value = unit_cost;
+        }
+    </script>
+
+    <div class="modal fade modal-lg" id="editRow">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Item Details</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="<?php echo base_url(); ?>editItem-details" method="post">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="" class="fw-bold">Quantity</label>
+                                <input type="hidden" class="form-control" name="id" id="edit_id" required>
+                                <input type="number" class="form-control" name="quantity" oninput="this.value = Math.abs(this.value)" id="editQuantity" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" class="fw-bold">Unit</label>
+                                <input type="text" class="form-control" maxlength="25" name="unit" id="editUnit" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="" class="fw-bold">Item Description</label>
+                                <input type="text" class="form-control" maxlength="76" name="description" id="editDescription" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" class="fw-bold">Unit Cost</label>
+                                <input type="text" class="form-control" maxlength="76" name="unit_cost" id="editCost" required>
+                            </div>
+                        </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                </form>
+            </div>
+
         </div>
     </div>

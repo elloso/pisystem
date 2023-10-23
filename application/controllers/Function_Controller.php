@@ -159,13 +159,12 @@ class Function_Controller extends CI_Controller
                 $this->session->set_flashdata('InsertedIARData', 'New Data successfully added.');
                 redirect(base_url('inspection'));
             } else {
-                echo"Error Uploading";
+                echo "Error Uploading";
             }
-    } else {
-        redirect(base_url('login'));
+        } else {
+            redirect(base_url('login'));
+        }
     }
-
-    }   
 
     public function updatepoDetails()
     {
@@ -202,5 +201,28 @@ class Function_Controller extends CI_Controller
             $this->session->set_flashdata('error', 'Data update failed!');
         }
         echo '<script>window.history.back();</script>';
+    }
+    public function editItemDetails()
+    {
+        $id = $this->input->post('id');
+        $quantity = $this->input->post('quantity');
+        $unit = $this->input->post('unit');
+        $description = $this->input->post('description');
+        $unit_cost = $this->input->post('unit_cost');
+        $data = array(
+            'quantity' => $quantity,
+            'unit' => $unit,
+            'item_description' => $description,
+            'unit_cost' => $unit_cost,
+        );
+        $this->db->where('id', $id);
+        $result = $this->db->update('tblpo_item', $data);
+        if ($result) {
+            $this->session->set_flashdata('success', 'Update Data Successfully!');
+            echo '<script>window.history.back();</script>';
+        } else {
+            $this->session->set_flashdata('error', 'Update Data Failed!');
+            echo '<script>window.history.back();</script>';
+        }
     }
 }

@@ -58,10 +58,16 @@ class Post_Model extends CI_Model
             return;
         }
     }
-    public function viewIAtable()
+    public function viewIARtable()
     {
         $this->db->select('*');
         $this->db->from('tbliar');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
     }
     public function get_podetails_by_id($poID)
     {

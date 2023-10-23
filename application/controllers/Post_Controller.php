@@ -40,7 +40,7 @@ class Post_Controller extends CI_Controller
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
             $data['PO_IARDatas'] = $this->Post_model->viewPOtable();
-            $data['IARDatas'] = $this->Post_model->viewIAtable();
+            $data['IARDatas'] = $this->Post_model->viewIARtable();
             $this->load->view('template/header', $data);
             $this->load->view('forms/iar');
             $this->load->view('template/footer');

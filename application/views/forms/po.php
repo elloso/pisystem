@@ -44,7 +44,7 @@
             </div>
             <div class="modal-body">
                 <form action="<?php echo base_url() ?>submit-po" method="post" class="needs-validation" novalidate>
-                    <div class="scrollable-content" style="max-height: 420px; overflow-y: auto;">
+                    <div class="scrollable-content" style="max-height: 420px; overflow-y: auto; overflow-x: hidden;">
                         <div class="row">
                             <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">

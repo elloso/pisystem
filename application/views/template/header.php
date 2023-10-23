@@ -41,7 +41,6 @@
     }
   </style>
 </head>
-
 <body>
   <header id="header" class="header d-flex align-items-center">
 

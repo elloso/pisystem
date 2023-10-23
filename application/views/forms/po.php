@@ -11,7 +11,6 @@
                     </button>
                     <thead>
                         <tr>
-                            <th>ITEM No.</th>
                             <th>SUPPLIER</th>
                             <th>P.O No.</th>
                             <th>DATE</th>
@@ -20,14 +19,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php foreach ($PODatas as $POData): ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $POData->supplier; ?></td>
+                            <td><?php echo $POData->po_number; ?></td>
+                            <td><?php echo $POData->po_date; ?></td>
+                            <td><?php echo $POData->pr_number ; ?></td>
                             <td></td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

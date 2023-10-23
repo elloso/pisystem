@@ -34,4 +34,14 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+    public function viewPOtable() {
+        $this->db->select('*');
+        $this->db->from('tblpo');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
 }

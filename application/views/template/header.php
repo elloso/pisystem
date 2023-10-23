@@ -22,6 +22,7 @@
   <!-- Datatables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <style>
     .table th {
       font-family: "Bahnschrift SemiCondensed", sans-serif;

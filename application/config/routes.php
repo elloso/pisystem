@@ -17,10 +17,11 @@ $route['generate-password/(:any)'] = 'Function_Controller/generatePassword/$1';
 
 // submit(save) form
 $route['submit-po'] = 'Function_Controller/submitPo';
+$route['submit-iar'] = 'Function_Controller/insertData_IAR';
 
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';
-//Stocks forms
+// forms
 $route['purchase'] = 'Post_Controller/PurchaseOrder';
 $route['inspection'] = 'Post_Controller/InspectionAcceptance';
 $route['acknowledgement'] = 'Post_Controller/PropertyAcknowledgement';
@@ -29,6 +30,8 @@ $route['propertycard'] = 'Post_Controller/PropertyCard';
 $route['stockcard'] = 'Post_Controller/StockCard';
 $route['suppliesledger'] = 'Post_Controller/SuppliesLedgerCard';
 $route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
+
+
 
 // account/maintenance
 $route['account-list'] = 'Post_Controller/accountList';

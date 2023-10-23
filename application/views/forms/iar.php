@@ -21,12 +21,14 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
+                            <?php foreach ($IARDatas as $IARData): ?>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <?php endforeach; ?>
                         </tr>
                     </tbody>
                 </table>
@@ -35,6 +37,7 @@
     </div>
 </div>
 
+<form action="<?php echo base_url('submit-iar'); ?>" method="post">
 <!-- Modal -->
 <div class="modal fade" id="Modal_InspectionAcceptance" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -51,8 +54,7 @@
                             <label class="form-label fw-bold text-dark" for="txtEntityName">Entity Name :</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <textarea id="txtSupplier" class="form-control" name="txtSupplier" style="height: 9.5em; width: 100%;" readonly>
-                            </textarea>
+                            <textarea id="txtSupplier" class="form-control" name="txtSupplier" style="height: 9.5em; width: 100%;" id="selectedData" readonly></textarea>
                             <label class="form-label fw-bold text-dark" for="txtSupplier">Supplier:</label>
                         </div>
                         <div class="form-floating mb-2">
@@ -60,15 +62,14 @@
                             <label class="form-label fw-bold text-dark" for="txtFundcluster">Fund Cluster:</label>
                         </div>  
                     </div>
-                   
                     <div class="col-lg-4 col-xl-8">
                         <div class="form-floating mb-2">
-                            <select class="form-select" aria-label="Default select example" name="txtPONo">
-                                <option selected>Select Purchase Order</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                        <select class="form-select" aria-label="Default select example" name="txtPONo" id="txtPONo">
+                            <option selected>Select Purchase Order</option>
+                            <?php foreach ($PO_IARDatas as $PO_IARData): ?>
+                                <option value="<?php echo $PO_IARData->po_number; ?>"><?php echo $PO_IARData->po_number; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                             <label class="form-label fw-bold text-dark" for="txtPONo">P.O No. :</label>
                          </div>
                         <div class="row">
@@ -128,12 +129,12 @@
                         <div class="border p-2 mb-2">
                             <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
                             <div class="form-floating mb-2">
-                                <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
-                                <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Property Custodian:</label>
+                                <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
+                                <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
                             </div>
                             <div class="form-floating mb-2">
-                                <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
-                                <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
+                                <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
+                                <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
                             </div>
                         </div>
                     </div>
@@ -141,9 +142,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-        </div><script>
+        </div>   
+        </div>
+</div>
+</form>  
+<script>
     $(document).ready(function() {
         $('#iar-data-table').DataTable({
             dom: 'Bfrtip',
@@ -153,5 +158,21 @@
         });
     });
 </script>
-    </div>
-</div>
+<script>
+$(document).ready(function () {
+    $("#txtPONo").change(function () {
+        var selectedPONo = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "Post_Controller/getSupplierName",
+            data: {
+                po_number: selectedPONo
+            },
+            dataType: "json",
+            success: function (response) {
+                $("#txtSupplier").val(response.supplier);
+            }
+        });
+    });
+});
+</script>

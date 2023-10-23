@@ -44,4 +44,28 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+    public function getSupplierNameByPONumber($po_number) {
+        $this->db->select('supplier');
+        $this->db->where('po_number', $po_number);
+        $query = $this->db->get('tblpo');
+        
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->supplier;
+        } else {
+            return;
+        }
+    }
+    public function viewIAtable() {
+        $this->db->select('*');
+        $this->db->from('tbliar');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+   
+    
 }

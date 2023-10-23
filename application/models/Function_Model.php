@@ -50,4 +50,7 @@ class Function_Model extends CI_Model
         $this->db->insert('tblpo_item', $itemData);
         return $this->db->insert_id();
     }
+    public function insertIARData($dataiar) {
+        return $this->db->insert('tbliar', $dataiar);
+    }
 }

@@ -46,6 +46,8 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
+            $data['PO_IARDatas'] = $this->Post_model->viewPOtable();
+            $data['IARDatas'] = $this->Post_model->viewIAtable();
             $this->load->view('template/header', $data);
             $this->load->view('forms/iar');
             $this->load->view('template/footer');
@@ -53,6 +55,17 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
+    public function getSupplierName()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $po_number = $this->input->post('po_number');
+            $supplier_name = $this->Post_model->getSupplierNameByPONumber($po_number);
+            echo json_encode(['supplier' => $supplier_name]);
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    
     public function PropertyAcknowledgement()
     {
         if ($this->session->userdata('is_login') == TRUE) {

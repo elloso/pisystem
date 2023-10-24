@@ -91,8 +91,6 @@ class Post_Model extends CI_Model
             return array();
         }
     }
-
-
     public function get_allPoList()
     {
         $this->db->select_max('po_id');
@@ -102,6 +100,16 @@ class Post_Model extends CI_Model
             return $query->row()->po_id;
         } else {
             return;
+        }
+    }
+    public function get_iardetails_by_id($iarID)
+    {
+        $this->db->where('md5(iar_id)', $iarID);
+        $query = $this->db->get('tbliar');
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
         }
     }
 }

@@ -1,6 +1,6 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
-        <div class="card-header">
+        <div class="card-header border-success" style="border-top:solid;">
             <div class="card-title">Inspection / Acceptance Form</div>
         </div>
         <div class="card-body">
@@ -20,20 +20,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php foreach ($IARDatas as $IARData): ?>
                         <tr>
-                            <?php foreach ($IARDatas as $IARData): ?>
                             <td><?php echo $IARData->iar_date; ?></td>
                             <td><?php echo $IARData->entity_name; ?></td>
                             <td><?php echo $IARData->iar_number; ?></td>
                             <td><?php echo $IARData->fund_cluster; ?></td>
                             <td><?php echo $IARData->iar_supplier; ?></td>
                             <td class="text-center">
-                                <a href="#" class="text-primary mx-2"> <i class="fa-solid fa-eye"></i></i></a>
-                                <a href="#" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="<?= base_url('editiar-details/'. md5($IARData->iar_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                             </td>
-                            <?php endforeach; ?>
                         </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -60,10 +59,6 @@
                             <textarea id="txtSupplier" class="form-control" name="txtSupplier" style="height: 9.5em; width: 100%;" id="selectedData" readonly></textarea>
                             <label class="form-label fw-bold text-dark" for="txtSupplier">Supplier:</label>
                         </div>
-                        <div class="form-floating mb-2 d-none">
-                            <!-- <textarea id="txtPrice" class="form-control" name="txtPrice" style="height: 9.5em; width: 100%;" id="selectedData" readonly></textarea> -->
-                            <input type="text" id="txtPrice" class="form-control" name="txtPrice"readonly>
-                        </div>
                         <div class="form-floating mb-2">
                             <input type="text" id="txtFundcluster" class="form-control" name="txtFundcluster">
                             <label class="form-label fw-bold text-dark" for="txtFundcluster">Fund Cluster:</label>
@@ -83,7 +78,7 @@
                             <div class="col-lg-4 col-xl-6">
                                 <div class="border p-2 mb-2">
                                     <div class="form-floating mb-2">
-                                        <input type="text" id="txtIARNo" class="form-control" name="txtIARNo">
+                                        <input type="number" id="txtIARNo" class="form-control" name="txtIARNo">
                                         <label class="form-label fw-bold text-dark" for="txtIARNo">IAR No. :</label>
                                     </div>
                                     <div class="form-floating mb-2">
@@ -102,7 +97,7 @@
                             <div class="col-lg-4 col-xl-6">
                                 <div class="border p-2 mb-2">
                                     <div class="form-floating mb-2">
-                                        <input type="text" id="txtInvoice" class="form-control" name="txtInvoice">
+                                        <input type="number" id="txtInvoice" class="form-control" name="txtInvoice">
                                         <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
                                     </div>
                                     <div class="form-floating mb-2">

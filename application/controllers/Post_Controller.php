@@ -208,4 +208,16 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
+    public function editiarDetails($editiardetails)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $editiardetails = $this->Post_model->get_iardetails_by_id($editiardetails);
+            $data['editiar_details'] = $editiardetails;
+            $this->load->view('template/header',$data);
+            $this->load->view('view-forms/editiar-details');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
 } // End Bracket

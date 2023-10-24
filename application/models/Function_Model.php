@@ -62,6 +62,11 @@ class Function_Model extends CI_Model
         $this->db->insert('tblpo', $dataPO);
         return $this->db->insert_id();
     }
+    public function SubmitPotoIarData($dataPotoIar)
+    {
+        $this->db->insert('tbliar', $dataPotoIar);
+        return $this->db->insert_id();
+    }
     public function SubmitPoItemData($itemData)
     {
         $this->db->insert('tblpo_item', $itemData);

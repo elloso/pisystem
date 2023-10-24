@@ -71,12 +71,8 @@ class Function_Controller extends CI_Controller
         $txtMOP = $this->input->post('txtMOP');
         $txtPRNumber = $this->input->post('txtPRNumber');
         $txtPGEFNumber = $this->input->post('txtPGEFNumber');
-        $txtTotaCost = $this->input->post('txtTotaCost');
-        // if ($this->Function_Model->isTransactionIdExists($txtPONumber, $txtPRNumber, $txtPGEFNumber)) {
-        //     $this->session->set_flashdata('error', 'Transaction number already exists!');
-        //     redirect(base_url('purchase'));
-        //     return;
-        // }
+        $txtTotalCost = $this->input->post('txtTotalCost');
+
         $dataPO = array(
             'po_id' => $po_id,
             'po_number' => $txtPONumber,
@@ -85,16 +81,23 @@ class Function_Controller extends CI_Controller
             'supplier' => $txtSupplier,
             'po_date' => $txtDate,
             'made_of_procurment ' => $txtMOP,
-            'total_cost ' => $txtTotaCost
+            'total_cost ' => $txtTotalCost
         );
         $this->Function_Model->SubmitPoData($dataPO);
+        $dataPotoIar = array(
+            'iar_po_id' => $po_id,
+            'iar_po_number' => $txtPONumber,
+            'iar_supplier' => $txtSupplier
+        );
+        $this->Function_Model->SubmitPotoIarData($dataPotoIar);
         $txtItemNo = $this->input->post('txtItemNo');
         $txtItemQuantity = $this->input->post('txtItemQuantity');
         $txtDescription = $this->input->post('txtDescription');
         $txtItemUnitCost = $this->input->post('txtItemUnitCost');
         $txtUnit = $this->input->post('txtUnit');
+        $txtTotalUnitCost = $this->input->post('txtTotalUnitCost');
         if (
-            is_array($txtItemNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && count($txtItemNo) === count($txtItemQuantity) && count($txtDescription) === count($txtItemUnitCost)
+            is_array($txtItemNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && is_array($txtTotalUnitCost) && count($txtItemNo) === count($txtItemQuantity) && count($txtDescription) === count($txtItemUnitCost) && count($txtUnit) === count($txtTotalUnitCost)
         ) {
             $count = count($txtItemNo);
             for ($i = 0; $i < $count; $i++) {
@@ -108,6 +111,7 @@ class Function_Controller extends CI_Controller
                     'unit' => $txtUnit[$i],
                     'item_description' => $txtDescription[$i],
                     'unit_cost' => $txtItemUnitCost[$i],
+                    'total_unit_cost' => $txtTotalUnitCost[$i],
                 );
                 $this->Function_Model->SubmitPoItemData($itemData);
             }
@@ -239,6 +243,10 @@ class Function_Controller extends CI_Controller
             'made_of_procurment' => $txtMOP,
             'total_cost' => $txtTotalCost
         );
+        $dataPotoIar = array(
+            'iar_po_number' => $txtPONumber,
+            'iar_supplier' => $txtSupplier,
+        );
         $dataItem = array(
             'po_number' => $txtPONumber,
             'pr_number' => $txtPRNumber,
@@ -246,6 +254,8 @@ class Function_Controller extends CI_Controller
         );
         $this->db->where('po_id', $po_id);
         $this->db->update('tblpo_item', $dataItem);
+        $this->db->where('iar_po_id', $po_id);
+        $this->db->update('tbliar', $dataPotoIar);
         $this->db->where('po_id', $po_id);
         $this->db->update('tblpo', $data);
         if ($this->db->affected_rows() > 0) {
@@ -262,11 +272,13 @@ class Function_Controller extends CI_Controller
         $unit = $this->input->post('unit');
         $description = $this->input->post('description');
         $unit_cost = $this->input->post('unit_cost');
+        $total_unit_cost = $this->input->post('total_unit_cost');
         $data = array(
             'quantity' => $quantity,
             'unit' => $unit,
             'item_description' => $description,
             'unit_cost' => $unit_cost,
+            'total_unit_cost' => $total_unit_cost
         );
         $this->db->where('id', $id);
         $result = $this->db->update('tblpo_item', $data);

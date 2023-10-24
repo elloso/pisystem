@@ -1,6 +1,6 @@
-<div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
+<div class="container justify-content-center align-items-center container_table" style="min-height: 10vh;">
     <div class="card" style="max-width: 1500px;">
-        <div class="card-header">
+        <div class="card-header border-success" style="border-top:solid;">
             <div class="card-title fw-bold">Purchase Order Details</div>
         </div>
         <div class="card-body">
@@ -59,7 +59,10 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" id="txtTotaCost" class="form-control" value="<?= $editpo_details->total_cost ?>" name="txtTotalCost" required>
+                            <?php
+                            $formatTotalCost = number_format($editpo_details->total_cost, 2);
+                            ?>
+                            <input type="text" id="txtTotaCost" class="form-control" value="<?= $formatTotalCost ?>" name="txtTotalCost" required>
                             <label class="form-label fw-bold text-dark" for="txtTotaCost">Total Cost:</label>
                             <div class="invalid-feedback">
                                 Please choose a total cost.
@@ -76,8 +79,9 @@
                                         <th style="width: 8%;">Item No.</th>
                                         <th style="width: 12%;">Quantity</th>
                                         <th style="width: 15%;">Unit</th>
-                                        <th style="width: 47%;">Items / Description</th>
-                                        <th style="width: 13%;">Unit Cost</th>
+                                        <th style="width: 40%;">Items / Description</th>
+                                        <th style="width: 10%;">Unit Cost</th>
+                                        <th style="width: 10%;">Total Unit Cost</th>
                                         <th style="width: 5%;">Action</th>
                                     </tr>
                                     <tbody>
@@ -106,13 +110,22 @@
                                                         Please enter item description.
                                                     </div>
                                                 </td>
+                                                <?php
+                                                $formatUnitCost = number_format($poitem->unit_cost, 2);
+                                                $formatTotalUnitCost = number_format($poitem->total_unit_cost, 2);
+                                                ?>
                                                 <td>
-                                                    <input required type="number" value="<?php echo $poitem->unit_cost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                    <input required type="text" value="<?php echo $formatUnitCost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a unit cost.
                                                     </div>
                                                 </td>
-                                                <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>')" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                <td><input required type="text" value="<?php echo $formatTotalUnitCost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                    <div class="invalid-feedback">
+                                                        Please enter a total unit cost.
+                                                    </div>
+                                                </td>
+                                                <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>', <?php echo $poitem->total_unit_cost ?>)" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             </tr>
                                         <?php
                                         }
@@ -129,12 +142,13 @@
         </div>
     </div>
     <script>
-        function displayEditModal(id, quantity, unit, item_description, unit_cost) {
+        function displayEditModal(id, quantity, unit, item_description, unit_cost, total_unit_cost) {
             document.getElementById('edit_id').value = id;
             document.getElementById('editQuantity').value = quantity;
             document.getElementById('editUnit').value = unit;
             document.getElementById('editDescription').value = item_description;
             document.getElementById('editCost').value = unit_cost;
+            document.getElementById('editTotalCost').value = total_unit_cost;
         }
     </script>
 
@@ -166,6 +180,12 @@
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Unit Cost</label>
                                 <input type="text" class="form-control" maxlength="76" name="unit_cost" id="editCost" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col" style="width: 100%;">
+                                <label for="" class="fw-bold">Total Unit Cost</label>
+                                <input type="text" class="form-control" maxlength="76" name="total_unit_cost" id="editTotalCost" required>
                             </div>
                         </div>
                 </div>

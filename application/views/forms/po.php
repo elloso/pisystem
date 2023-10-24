@@ -1,7 +1,7 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title">Purchase Order</div>
+            <div class="card-title fw-bold">Purchase Order</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -11,11 +11,11 @@
                     </button>
                     <thead>
                         <tr>
-                            <th class="text-center">SUPPLIER</th>
-                            <th class="text-center">P.O No.</th>
-                            <th class="text-center">DATE</th>
-                            <th class="text-center">PR No.</th>
-                            <th class="text-center">Action</th>
+                            <th>SUPPLIER</th>
+                            <th>P.O No.</th>
+                            <th>DATE</th>
+                            <th>PR No.</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@
                                 <td><?php echo $POData->po_number; ?></td>
                                 <td><?php echo $POData->po_date; ?></td>
                                 <td><?php echo $POData->pr_number; ?></td>
-                                <td class="text-center">
+                                <td>
                                     <a href="<?= base_url('editpo-details/' . md5($POData->id) . '/' . md5($POData->po_id)) ?>" title='edit details' class='text-primary po-data'><i class="fa-solid fa-pen-to-square"></i></a>
                                     <!-- <a href="#" class="p-2 text-primary" title="print"><i class="fa-solid fa-print"></i></a> -->
                                 </td>
@@ -99,8 +99,8 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input type="number" id="txtTotaCost" class="form-control" name="txtTotaCost" required>
-                                    <label class="form-label fw-bold text-dark" for="txtTotaCost">Total Cost:</label>
+                                    <input type="text" id="txtTotalCost" class="form-control" name="txtTotalCost" readonly>
+                                    <label class="form-label fw-bold text-dark" for="txtTotalCost" readonly>Total Cost:</label>
                                     <div class="invalid-feedback">
                                         Please choose a total cost.
                                     </div>
@@ -121,10 +121,11 @@
                                             <table id="table-itemno-data" class="table table-bordered table-hover">
                                                 <tr>
                                                     <th style="width: 8%;">Item No.</th>
-                                                    <th style="width: 15%;">Quantity</th>
-                                                    <th style="width: 15%;">Unit</th>
-                                                    <th style="width: 47%;">Items / Description</th>
+                                                    <th style="width: 12%;">Quantity</th>
+                                                    <th style="width: 9%;">Unit</th>
+                                                    <th style="width: 40%;">Items / Description</th>
                                                     <th style="width: 15%;">Unit Cost</th>
+                                                    <th style="width: 16%;">Total Unit Cost</th>
                                                 </tr>
                                                 <tr>
                                                     <td><input required type="text" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>
@@ -154,6 +155,11 @@
                                                             Please enter a unit cost.
                                                         </div>
                                                     </td>
+                                                    <td><input required type="number" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a total unit cost.
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -161,8 +167,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- End Scroll Container -->
-            </div> <!-- End Modal body -->
+                    </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" id="proceedButton">Submit</button>
@@ -255,6 +261,9 @@
     var button1 = document.getElementById("addRow");
     var button2 = document.getElementById("deleteRow");
     var currentItemNo = 2;
+
+    table.addEventListener("input", updateTotalUnitCost);
+
     button1.addEventListener("click", function() {
         event.preventDefault();
         var newRow = table.insertRow(-1);
@@ -263,11 +272,15 @@
         var itemunitCell = newRow.insertCell(2);
         var itemdescriptionCell = newRow.insertCell(3);
         var itemunitcostCell = newRow.insertCell(4);
-        itemnoCell.innerHTML = '<input required type="text"  value="' + currentItemNo + '" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>';
+        var itemtotalunitcostCell = newRow.insertCell(5);
+
+        itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '" oninput="this.value = Math.abs(this.value)" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>';
         itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">';
         itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">';
         itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;"></textarea> <div class="invalid-feedback">Please enter item description.</div>';
-        itemunitcostCell.innerHTML = ' <input required type="number" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
+        itemunitcostCell.innerHTML = '<input required type="number" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
+        itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" readonly><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
+
         currentItemNo++;
         button2.disabled = false;
     });
@@ -283,4 +296,27 @@
             button2.disabled = true;
         }
     });
+
+    function updateTotalUnitCost() {
+        var rows = table.rows;
+
+        for (var i = 1; i < rows.length; i++) {
+            var quantity = parseFloat(rows[i].querySelector('input[name^="txtItemQuantity[]"]').value) || 0;
+            var unitCost = parseFloat(rows[i].querySelector('input[name^="txtItemUnitCost[]"]').value) || 0;
+            var totalUnitCost = quantity * unitCost;
+            rows[i].querySelector('input[name^="txtTotalUnitCost[]"]').value = totalUnitCost.toFixed(2);
+        }
+
+        updateTotalCost();
+    }
+
+    function updateTotalCost() {
+        var totalCost = 0;
+        var totalUnitCostInputs = document.querySelectorAll('input[name^="txtTotalUnitCost[]"]');
+
+        totalUnitCostInputs.forEach(function(input) {
+            totalCost += parseFloat(input.value) || 0;
+        });
+        document.getElementById('txtTotalCost').value = totalCost.toFixed(2);
+    }
 </script>

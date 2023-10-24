@@ -100,56 +100,70 @@
                                         <input type="number" id="txtInvoice" class="form-control" name="txtInvoice">
                                         <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
                                     </div>
-                                    <div class="form-floating mb-2">
-                                        <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date" />
-                                        <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date :</label>
+                                    <div class="col-lg-4 col-xl-12">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" id="txtMOP" class="form-control" name="txtMOPD">
+                                            <label class="form-label fw-bold text-dark" for="txtMOP">Office/Dept.:</label>
+                                        </div>
+
                                     </div>
                                 </div>
-                                <div class="col-lg-8 col-xl-12">
-                                    <div class="form-floating mb-2">
-                                        <input type="text" id="txtRCC" class="form-control" name="txtRCC">
-                                        <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
+                                <div class="col-lg-4 col-xl-6">
+                                    <div class="border p-2 mb-2">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" id="txtInvoice" class="form-control" name="txtInvoice">
+                                            <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date" />
+                                            <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date :</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-xl-12">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" id="txtRCC" class="form-control" name="txtRCC">
+                                            <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-xl-6">
-                        <div class="border p-2 mb-2">
-                            <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
-                            <div class="form-floating mb-2">
-                                <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
-                                <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
-                            </div>
-                            <div class="form-floating mb-2">
-                                <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
-                                <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
+                        <div class="col-lg-4 col-xl-6">
+                            <div class="border p-2 mb-2">
+                                <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
+                                    <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
+                                    <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
+                                </div>
                             </div>
                         </div>
-                    </div> 
-                    <div class="col-lg-4 col-xl-6">
-                        <div class="border p-2 mb-2">
-                            <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
-                            <div class="form-floating mb-2">
-                                <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
-                                <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
-                            </div>
-                            <div class="form-floating mb-2">
-                                <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
-                                <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
+                        <div class="col-lg-4 col-xl-6">
+                            <div class="border p-2 mb-2">
+                                <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
+                                    <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
+                                    <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>   
         </div>
-</div>
-</form>  
+    </div>
+</form>
 <script>
     $(document).ready(function() {
         $('#iar-data-table').DataTable({
@@ -161,20 +175,20 @@
     });
 </script>
 <script>
-$(document).ready(function () {
-    $("#txtPONo").change(function () {
-        var selectedPONo = $(this).val();
-        $.ajax({
-            type: "POST",
-            url: "Post_Controller/getSupplierName",
-            data: {
-                po_number: selectedPONo
-            },
-            dataType: "json",
-            success: function (response) {
-                $("#txtSupplier").val(response.supplier);
-            }
+    $(document).ready(function() {
+        $("#txtPONo").change(function() {
+            var selectedPONo = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "Post_Controller/getSupplierName",
+                data: {
+                    po_number: selectedPONo
+                },
+                dataType: "json",
+                success: function(response) {
+                    $("#txtSupplier").val(response.supplier);
+                }
+            });
         });
     });
-});
 </script>

@@ -27,7 +27,7 @@
                                 <td><?php echo $POData->pr_number; ?></td>
                                 <td class="text-center">
                                     <a href="<?= base_url('editpo-details/' . md5($POData->id) . '/' . md5($POData->po_id)) ?>" title='edit details' class='text-primary po-data'><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="p-2 text-primary" title="print"><i class="fa-solid fa-print"></i></a>
+                                    <!-- <a href="#" class="p-2 text-primary" title="print"><i class="fa-solid fa-print"></i></a> -->
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -63,8 +63,9 @@
                                     <input type="number" id="txtPONumber" class="form-control" name="txtPONumber" required>
                                     <label class="form-label fw-bold text-dark" for="txtPONumber">P.O Number :</label>
                                     <div class="invalid-feedback">
-                                        Please choose a p.o number.
+                                        Please choose a P.O. number.
                                     </div>
+                                    <div id="msg"></div>
                                 </div>
                                 <div class="form-floating mb-2">
                                     <input id="txtDate" class="form-control" name="txtDate" type="date" required>
@@ -88,6 +89,7 @@
                                     <div class="invalid-feedback">
                                         Please choose a purchase request number.
                                     </div>
+                                    <div id="prmsg"></div>
                                 </div>
                                 <div class="form-floating mb-2">
                                     <input type="number" id="txtPGEFNumber" class="form-control" name="txtPGEFNumber">
@@ -97,7 +99,7 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtTotaCost" class="form-control" name="txtTotaCost" required>
+                                    <input type="number" id="txtTotaCost" class="form-control" name="txtTotaCost" required>
                                     <label class="form-label fw-bold text-dark" for="txtTotaCost">Total Cost:</label>
                                     <div class="invalid-feedback">
                                         Please choose a total cost.
@@ -169,6 +171,70 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#txtPRNumber").blur(function() {
+            var txtPRNumber = $('#txtPRNumber').val();
+            if (txtPRNumber !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('checkPr-number'); ?>",
+                    dataType: 'json',
+                    data: {
+                        txtPRNumber: txtPRNumber
+                    },
+                    success: function(data) {
+                        if (data.exists) {
+                            $("#prmsg").css("color", "red").text("This Purchase Request Number already exists");
+                            $("#proceedButton").css("pointer-events", "none");
+                        } else {
+                            $("#prmsg").css("color", "green").text("Purchase Request Number available!");
+                            $("#proceedButton").css("pointer-events", "auto");
+                        }
+                    },
+                    error: function() {
+                        $("#prmsg").css("color", "red").text('Some error');
+                    }
+                });
+            } else {
+                // Remove the alert and display the message in the 'msg' element
+                $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $("#txtPONumber").blur(function() {
+            var txtPONumber = $('#txtPONumber').val();
+            if (txtPONumber !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('checkPo-number'); ?>",
+                    dataType: 'json',
+                    data: {
+                        txtPONumber: txtPONumber
+                    },
+                    success: function(data) {
+                        if (data.exists) {
+                            $("#msg").css("color", "red").text("This P.O. Number already exists");
+                            $("#proceedButton").css("pointer-events", "none");
+                        } else {
+                            $("#msg").css("color", "green").text("P.O. Number available!");
+                            $("#proceedButton").css("pointer-events", "auto");
+                        }
+                    },
+                    error: function() {
+                        $("#msg").css("color", "red").text('Some error');
+                    }
+                });
+            } else {
+                // Remove the alert and display the message in the 'msg' element
+                $("#msg").css("color", "red").text("Please enter a P.O. Number");
+            }
+        });
+    });
+</script>
 <script>
     (() => {
         'use strict'

@@ -5,6 +5,11 @@
         </div>
         <div class="card-body">
             <form action="<?php echo base_url() ?>updatepo-details" method="post">
+                <?php if (!empty($this->session->flashdata('trn-error'))) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show text-center" style="width:100%;" role="alert">
+                        <?php echo $this->session->flashdata('trn-error'); ?>
+                    </div>
+                <?php endif; ?>
                 <div class="row">
                     <div class="col-lg-6 col-xl-6">
                         <input type="hidden" id="poid" value="<?= $editpo_details->id ?>" class="form-control" name="poid" required>

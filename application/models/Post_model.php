@@ -47,15 +47,15 @@ class Post_Model extends CI_Model
     }
     public function getSupplierNameByPONumber($po_number)
     {
-        $this->db->select('supplier');
-        $this->db->where('po_number', $po_number);
-        $query = $this->db->get('tblpo');
-
+        $this->db->select('iar_supplier, iar_po_id'); 
+        $this->db->where('iar_po_number', $po_number);
+        $query = $this->db->get('tbliar');
+    
         if ($query->num_rows() > 0) {
             $row = $query->row();
-            return $row->supplier;
+            return $row; 
         } else {
-            return;
+            return null;
         }
     }
     public function viewIARtable()
@@ -110,6 +110,18 @@ class Post_Model extends CI_Model
             return $query->row();
         } else {
             return false;
+        }
+    }
+    public function get_iaritemList($iarPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->where('md5(po_id)', $iarPoID);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
         }
     }
 }

@@ -120,11 +120,52 @@ class Function_Controller extends CI_Controller
     }
     // submit(save) form
 
-    public function insertData_IAR()
+    // public function insertData_IAR()
+    // {
+    //     if ($this->session->userdata('is_login') == TRUE) {
+    //         $iar_entityname = $this->input->post('txtEntityName');
+    //         $iar_iarnumber = $this->input->post('txtIARNo');
+    //         $iardate = $this->input->post('txtIARDate');
+    //         $iar_invoicenumber = $this->input->post('txtInvoice');
+    //         $iar_invoicedate = $this->input->post('txtInvoiceDate');
+    //         $iar_fundcluster = $this->input->post('txtFundcluster');
+    //         $iar_officedept = $this->input->post('txtMOPD');
+    //         $iar_rcc = $this->input->post('txtRCC');
+    //         $iar_inspectionOfficer = $this->input->post('txtInspectionOfficer');
+    //         $iar_inspectionDate = $this->input->post('txtDateInspected');
+    //         $iar_acceptance = $this->input->post('txtAccepted');
+    //         $iar_acceptancedate = $this->input->post('txtAcceptedDate');
+
+    //         $IAR_Data = array(
+    //             'entity_name' => $iar_entityname,
+    //             'iar_number' => $iar_iarnumber,
+    //             'iar_date' => $iardate,
+    //             'invoice_number' => $iar_invoicenumber,
+    //             'invoice_date' => $iar_invoicedate,
+    //             'fund_cluster' => $iar_fundcluster,
+    //             'office_dept' => $iar_officedept,
+    //             'rcc' => $iar_rcc,
+    //             'inspection_officer' => $iar_inspectionOfficer,
+    //             'inspection_date' => $iar_inspectionDate,
+    //             'acceptance_custodian' => $iar_acceptance,
+    //             'acceptance_date' => $iar_acceptancedate
+    //         );
+
+    //         if ($this->Function_Model->insertIARData($IAR_Data)) {
+    //             $this->session->set_flashdata('InsertedIARData', 'New Data successfully added.');
+    //             redirect(base_url('inspection'));
+    //         } else {
+    //             echo "Error Uploading";
+    //         }
+    //     } else {
+    //         redirect(base_url('login'));
+    //     }
+    // }
+    public function updateData_IAR()
     {
         if ($this->session->userdata('is_login') == TRUE) {
-            $iar_ponumber = $this->input->post('txtPONo');
-            $iar_supplier = $this->input->post('txtSupplier');
+            $iar_po_number = $this->input->post('txtPONo');
+
             $iar_entityname = $this->input->post('txtEntityName');
             $iar_iarnumber = $this->input->post('txtIARNo');
             $iardate = $this->input->post('txtIARDate');
@@ -139,8 +180,6 @@ class Function_Controller extends CI_Controller
             $iar_acceptancedate = $this->input->post('txtAcceptedDate');
 
             $IAR_Data = array(
-                'iar_po_number' => $iar_ponumber,
-                'iar_supplier' => $iar_supplier,
                 'entity_name' => $iar_entityname,
                 'iar_number' => $iar_iarnumber,
                 'iar_date' => $iardate,
@@ -155,11 +194,11 @@ class Function_Controller extends CI_Controller
                 'acceptance_date' => $iar_acceptancedate
             );
 
-            if ($this->Function_Model->insertIARData($IAR_Data)) {
-                $this->session->set_flashdata('InsertedIARData', 'New Data successfully added.');
+            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data)) {
+                $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
                 redirect(base_url('inspection'));
             } else {
-                echo "Error Uploading";
+                echo "Error Updating";
             }
         } else {
             redirect(base_url('login'));

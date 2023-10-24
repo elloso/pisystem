@@ -11,22 +11,22 @@
                     </button>
                     <thead>
                         <tr>
-                            <th>DATE</th>
+                            <th>ICS No.</th>
+                            <th>IAR No.</th>
                             <th>ENTITY NAME</th>
-                            <th>IAR#</th>
-                            <th>FUND CLUSTER</th>
+                            <th>FUND</th>
                             <th>SUPPLIER</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                  </table>

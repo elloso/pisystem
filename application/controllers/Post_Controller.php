@@ -39,7 +39,7 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
-            $data['PO_IARDatas'] = $this->Post_model->viewPOtable();
+            $data['PO_IARDatas'] = $this->Post_model->viewIARtable();
             $data['IARDatas'] = $this->Post_model->viewIARtable();
             $this->load->view('template/header', $data);
             $this->load->view('forms/iar');
@@ -51,9 +51,9 @@ class Post_Controller extends CI_Controller
     public function getSupplierName()
     {
         if ($this->session->userdata('is_login') == TRUE) {
-            $po_number = $this->input->post('po_number');
-            $supplier_name = $this->Post_model->getSupplierNameByPONumber($po_number);
-            echo json_encode(['supplier' => $supplier_name]);
+            $po_number = $this->input->post('iar_po_number');
+            $iardata = $this->Post_model->getSupplierNameByPONumber($po_number);
+            echo json_encode(['iar_supplier' => $iardata->iar_supplier, 'iar_po_id' => $iardata->iar_po_id]);
         } else {
             redirect(base_url('login'));
         }
@@ -208,11 +208,13 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
-    public function editiarDetails($editiardetails)
+    public function editiarDetails($editiardetails,$iarPoID)
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $editiardetails = $this->Post_model->get_iardetails_by_id($editiardetails);
+            $iaritemList = $this->Post_model->get_iaritemList($iarPoID);
             $data['editiar_details'] = $editiardetails;
+            $data['iar_details'] = $iaritemList;
             $this->load->view('template/header',$data);
             $this->load->view('view-forms/editiar-details');
             $this->load->view('template/footer');

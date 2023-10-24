@@ -28,7 +28,7 @@
                             <td><?php echo $IARData->fund_cluster; ?></td>
                             <td><?php echo $IARData->iar_supplier; ?></td>
                             <td class="text-center">
-                                <a href="<?= base_url('editiar-details/'. md5($IARData->iar_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="<?= base_url('editiar-details/'. md5($IARData->iar_id).'/'.md5($IARData->iar_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                             </td>
                         </tr>
@@ -59,6 +59,10 @@
                             <textarea id="txtSupplier" class="form-control" name="txtSupplier" style="height: 9.5em; width: 100%;" id="selectedData" readonly></textarea>
                             <label class="form-label fw-bold text-dark" for="txtSupplier">Supplier:</label>
                         </div>
+                        <div class="form-floating mb-2 d-none">
+                            <textarea id="txtIARPOID" class="form-control" name="txtIARPOID" style="height: 9.5em; width: 100%;" id="selectedData" readonly></textarea>
+                            <label class="form-label fw-bold text-dark" for="txtIARPOID">IAR P.O ID:</label>
+                        </div>
                         <div class="form-floating mb-2">
                             <input type="text" id="txtFundcluster" class="form-control" name="txtFundcluster">
                             <label class="form-label fw-bold text-dark" for="txtFundcluster">Fund Cluster:</label>
@@ -69,8 +73,11 @@
                         <select class="form-select" aria-label="Default select example" name="txtPONo" id="txtPONo">
                             <option selected>Select Purchase Order</option>
                             <?php foreach ($PO_IARDatas as $PO_IARData): ?>
-                                <option value="<?php echo $PO_IARData->po_number; ?>"><?php echo $PO_IARData->po_number; ?></option>
+                                <?php if ($PO_IARData->iar_number == 0): ?>
+                                    <option value="<?php echo $PO_IARData->iar_po_number; ?>"><?php echo $PO_IARData->iar_po_number; ?></option>
+                                <?php endif; ?>
                             <?php endforeach; ?>
+>
                         </select>
                             <label class="form-label fw-bold text-dark" for="txtPONo">P.O No. :</label>
                          </div>
@@ -100,70 +107,56 @@
                                         <input type="number" id="txtInvoice" class="form-control" name="txtInvoice">
                                         <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
                                     </div>
-                                    <div class="col-lg-4 col-xl-12">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" id="txtMOP" class="form-control" name="txtMOPD">
-                                            <label class="form-label fw-bold text-dark" for="txtMOP">Office/Dept.:</label>
-                                        </div>
-
+                                    <div class="form-floating mb-2">
+                                        <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date" />
+                                        <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date :</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-xl-6">
-                                    <div class="border p-2 mb-2">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" id="txtInvoice" class="form-control" name="txtInvoice">
-                                            <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
-                                        </div>
-                                        <div class="form-floating mb-2">
-                                            <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date" />
-                                            <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date :</label>
-                                        </div>
+                                <div class="col-lg-8 col-xl-12">
+                                    <div class="form-floating mb-2">
+                                        <input type="text" id="txtRCC" class="form-control" name="txtRCC">
+                                        <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
                                     </div>
-                                    <div class="col-lg-8 col-xl-12">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" id="txtRCC" class="form-control" name="txtRCC">
-                                            <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-6">
-                            <div class="border p-2 mb-2">
-                                <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
-                                <div class="form-floating mb-2">
-                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
-                                    <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
-                                </div>
-                                <div class="form-floating mb-2">
-                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
-                                    <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-6">
-                            <div class="border p-2 mb-2">
-                                <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
-                                <div class="form-floating mb-2">
-                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
-                                    <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
-                                </div>
-                                <div class="form-floating mb-2">
-                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
-                                    <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="col-lg-4 col-xl-6">
+                        <div class="border p-2 mb-2">
+                            <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
+                                <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
+                                <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-lg-4 col-xl-6">
+                        <div class="border p-2 mb-2">
+                            <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
+                                <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
+                                <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>   
         </div>
-    </div>
-</form>
+</div>
+</form>  
 <script>
     $(document).ready(function() {
         $('#iar-data-table').DataTable({
@@ -175,20 +168,22 @@
     });
 </script>
 <script>
-    $(document).ready(function() {
-        $("#txtPONo").change(function() {
-            var selectedPONo = $(this).val();
-            $.ajax({
-                type: "POST",
-                url: "Post_Controller/getSupplierName",
-                data: {
-                    po_number: selectedPONo
-                },
-                dataType: "json",
-                success: function(response) {
-                    $("#txtSupplier").val(response.supplier);
-                }
-            });
+$(document).ready(function() {
+    $("#txtPONo").change(function() {
+        var selectedPONo = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "Post_Controller/getSupplierName",
+            data: {
+                iar_po_number: selectedPONo
+            },
+            dataType: "json",
+            success: function(response) {
+                $("#txtSupplier").val(response.iar_supplier);
+                $("#txtIARPOID").val(response.iar_po_id);
+            }
         });
     });
+});
+
 </script>

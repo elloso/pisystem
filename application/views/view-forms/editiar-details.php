@@ -92,42 +92,53 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="table-itemno-data" class="table table-hover">
-                            <tr>
-                                <th style="width: 8%;">Item No.</th>
-                                <th style="width: 12%;">Quantity</th>
-                                <th style="width: 15%;">Unit</th>
-                                <th style="width: 47%;">Items / Description</th>
-                                <th style="width: 5%;">Action</th>
-                            </tr>
+                                <tr>
+                                    <th style="width: 8%;">Item No.</th>
+                                    <th style="width: 12%;">Quantity</th>
+                                    <th style="width: 15%;">Unit</th>
+                                    <th style="width: 40%;">Items / Description</th>
+                                    <th style="width: 10%;">Unit Cost</th>
+                                    <th style="width: 10%;">Total Unit Cost</th>
+                                    <th style="width: 5%;">Action</th>
+                                </tr>
                             <tbody>
-                                    <tr>
-                                        <td><input required type="text" value="" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
-                                            <div class="invalid-feedback">
-                                                Please enter Item No.
-                                            </div>
-                                        </td>
-                                        <td><input required type="number" value="" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" readonly>
-                                            <div class="invalid-feedback">
-                                                Please enter Quantity.
-                                            </div>
-                                        </td>
-                                        <td><input required type="text" value="" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1" readonly>
-                                            <div class="invalid-feedback">
-                                                Please enter unit.
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <textarea required class="form-control" name="txtDescription[]" style="height: 4em;" readonly></textarea>
-                                            <div class="invalid-feedback">
-                                                Please enter item description.
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="#" class="text-primary">
-                                            <i class="fa-solid fa-pen-to-square"></i> 
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <?php foreach ($iar_details as $iar_detail): ?>
+                                <tr>
+                                    <td><input required type="text" value="" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                        <div class="invalid-feedback">
+                                            Please enter Item No.
+                                        </div>
+                                    </td>
+                                    <td><input required type="number" value="" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" readonly>
+                                        <div class="invalid-feedback">
+                                            Please enter Quantity.
+                                        </div>
+                                    </td>
+                                    <td><input required type="text" value="" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1" readonly>
+                                        <div class="invalid-feedback">
+                                            Please enter unit.
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <textarea required class="form-control" name="txtDescription[]" style="height: 4em;" readonly></textarea>
+                                        <div class="invalid-feedback">
+                                            Please enter item description.
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input required type="text" value="" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                        <div class="invalid-feedback">
+                                            Please enter a unit cost.
+                                        </div>
+                                    </td>
+                                    <td><input required type="text" value="" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                        <div class="invalid-feedback">
+                                            Please enter a total unit cost.
+                                        </div>
+                                    </td>
+                                    <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#editRow" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>

@@ -77,6 +77,11 @@ class Function_Model extends CI_Model
         $this->db->where('iar_po_number', $iar_po_number);
         return $this->db->update('tbliar', $dataiar);
     }
+    public function SubmitIARtoICSData($dataPotoIar)
+    {
+        $this->db->insert('tblics', $dataPotoIar);
+        return $this->db->insert_id();
+    }
 
     // public function updatePoRecord($poid, $data)
     // {

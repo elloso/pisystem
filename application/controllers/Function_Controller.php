@@ -122,14 +122,10 @@ class Function_Controller extends CI_Controller
         $this->session->set_flashdata('success', 'Insert Data Success!');
         redirect(base_url('purchase'));
     }
-    // submit(save) form
-
     public function updateData_IAR()
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $iar_po_number = $this->input->post('txtPONo');
-            $iar_supplier = $this->input->post('txtSupplier');
-            $iar_po_id = $this->input->post('txtIARPOID');
 
             $iar_entityname = $this->input->post('txtEntityName');
             $iar_iarnumber = $this->input->post('txtIARNo');
@@ -159,14 +155,7 @@ class Function_Controller extends CI_Controller
                 'acceptance_date' => $iar_acceptancedate
             );
 
-            $dataIARtoICS = array(
-                'iar_po_id' => $iar_po_id,
-                'iar_number' => $iar_po_number,
-                'iar_supplier' => $iar_supplier
-            );
-           
-
-            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) || $this->Function_Model->SubmitIARtoICSData($dataIARtoICS);) {
+            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data)) {
                 $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
                 redirect(base_url('inspection'));
             } else {

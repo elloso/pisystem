@@ -34,9 +34,26 @@ class Function_Model extends CI_Model
             return false;
         }
     }
-    public function isTransactionIdExists($txtPONumber, $txtPRNumber, $txtPGEFNumber)
+    public function getPoInfoById($po_id)
     {
-        $this->db->where("(po_number = '$txtPONumber' OR pr_number = '$txtPRNumber' OR pgr_number = '$txtPGEFNumber')");
+        $this->db->where('po_id', $po_id);
+        $query = $this->db->get('tblpo');
+
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
+    }
+    public function isPrIdExists($txtPRNumber)
+    {
+        $this->db->where("(pr_number = '$txtPRNumber')");
+        $query = $this->db->get('tblpo');
+        return $query->num_rows() > 0;
+    }
+    public function isPoIdExists($txtPONumber)
+    {
+        $this->db->where("(po_number = '$txtPONumber')");
         $query = $this->db->get('tblpo');
         return $query->num_rows() > 0;
     }
@@ -50,7 +67,8 @@ class Function_Model extends CI_Model
         $this->db->insert('tblpo_item', $itemData);
         return $this->db->insert_id();
     }
-    public function insertIARData($dataiar) {
+    public function insertIARData($dataiar)
+    {
         return $this->db->insert('tbliar', $dataiar);
     }
     // public function updatePoRecord($poid, $data)
@@ -65,4 +83,21 @@ class Function_Model extends CI_Model
     //     $this->db->update('tblpo_item', $dataItem);
     //     return $this->db->affected_rows() > 0;
     // }
+
+    // AJAX
+    public function checkPoNumber($txtPONumber)
+    {
+        $this->db->where('po_number', $txtPONumber);
+        $query = $this->db->get('tblpo');
+
+        return $query->num_rows() > 0;
+    }
+    // AJAX
+    public function checkPrNumber($txtPRNumber)
+    {
+        $this->db->where('pr_number', $txtPRNumber);
+        $query = $this->db->get('tblpo');
+
+        return $query->num_rows() > 0;
+    }
 }

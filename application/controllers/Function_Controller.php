@@ -72,11 +72,11 @@ class Function_Controller extends CI_Controller
         $txtPRNumber = $this->input->post('txtPRNumber');
         $txtPGEFNumber = $this->input->post('txtPGEFNumber');
         $txtTotaCost = $this->input->post('txtTotaCost');
-        if ($this->Function_Model->isTransactionIdExists($txtPONumber, $txtPRNumber, $txtPGEFNumber)) {
-            $this->session->set_flashdata('error', 'Transaction number already exists!');
-            redirect(base_url('purchase'));
-            return;
-        }
+        // if ($this->Function_Model->isTransactionIdExists($txtPONumber, $txtPRNumber, $txtPGEFNumber)) {
+        //     $this->session->set_flashdata('error', 'Transaction number already exists!');
+        //     redirect(base_url('purchase'));
+        //     return;
+        // }
         $dataPO = array(
             'po_id' => $po_id,
             'po_number' => $txtPONumber,
@@ -168,7 +168,6 @@ class Function_Controller extends CI_Controller
 
     public function updatepoDetails()
     {
-        $poid = $this->input->post('poid');
         $po_id = $this->input->post('po_id');
         $txtSupplier = strip_tags($this->input->post('txtSupplier'));
         $txtPONumber = strip_tags($this->input->post('txtPONumber'));
@@ -177,6 +176,21 @@ class Function_Controller extends CI_Controller
         $txtPRNumber = strip_tags($this->input->post('txtPRNumber'));
         $txtPGEFNumber = strip_tags($this->input->post('txtPGEFNumber'));
         $txtTotalCost = strip_tags($this->input->post('txtTotalCost'));
+        $currentPoInfo = $this->Function_Model->getPoInfoById($po_id);
+        if ($txtPONumber !== $currentPoInfo['po_number']) {
+            if ($this->Function_Model->isPoIdExists($txtPONumber)) {
+                $this->session->set_flashdata('trn-error', 'P.O. number already exists!');
+                echo '<script>window.history.back();</script>';
+                return;
+            }
+        }
+        if ($txtPRNumber !== $currentPoInfo['pr_number']) {
+            if ($this->Function_Model->isPrIdExists($txtPRNumber)) {
+                $this->session->set_flashdata('trn-error', 'Purchase Request number already exists!');
+                echo '<script>window.history.back();</script>';
+                return;
+            }
+        }
         $data = array(
             'po_number' => $txtPONumber,
             'pr_number' => $txtPRNumber,
@@ -224,5 +238,27 @@ class Function_Controller extends CI_Controller
             $this->session->set_flashdata('error', 'Update Data Failed!');
             echo '<script>window.history.back();</script>';
         }
+    }
+    // ajax
+    public function checkPoNumber()
+    {
+        $txtPONumber = $this->input->post('txtPONumber');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkPoNumber($txtPONumber);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkPrNumber()
+    {
+        $txtPRNumber = $this->input->post('txtPRNumber');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkPrNumber($txtPRNumber);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
     }
 }

@@ -1,6 +1,6 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
-        <div class="card-header">
+        <div class="card-header border-success" style="border-top:solid;">
             <div class="card-title fw-bold">Manage User Account</div>
         </div>
         <div class="card-body">
@@ -100,18 +100,13 @@
 <script>
     (() => {
         'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
         const forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', event => {
                 if (!form.checkValidity()) {
                     event.preventDefault()
                     event.stopPropagation()
                 }
-
                 form.classList.add('was-validated')
             }, false)
         })

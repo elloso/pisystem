@@ -1,6 +1,6 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
-        <div class="card-header">
+        <div class="card-header border-success" style="border-top:solid;">
             <div class="card-title fw-bold">My Account</div>
         </div>
         <form action="<?php echo base_url() ?>update-account" method="post" class="needs-validation" novalidate>

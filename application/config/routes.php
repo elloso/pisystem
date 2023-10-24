@@ -41,8 +41,9 @@ $route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
 $route['account-list'] = 'Post_Controller/accountList';
 
 
-
-
+// ajax
+$route['checkPo-number'] = 'Function_Controller/checkPoNumber';
+$route['checkPr-number'] = 'Function_Controller/checkPrNumber';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

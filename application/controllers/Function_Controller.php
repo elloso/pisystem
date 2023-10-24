@@ -127,6 +127,10 @@ class Function_Controller extends CI_Controller
         if ($this->session->userdata('is_login') == TRUE) {
             $iar_po_number = $this->input->post('txtPONo');
 
+            $iar_ics_id = $this->input->post('txtIARPOID');
+            $iar_ics_supplier = $this->input->post('txtSupplier');
+            
+
             $iar_entityname = $this->input->post('txtEntityName');
             $iar_iarnumber = $this->input->post('txtIARNo');
             $iardate = $this->input->post('txtIARDate');
@@ -155,7 +159,19 @@ class Function_Controller extends CI_Controller
                 'acceptance_date' => $iar_acceptancedate
             );
 
-            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data)) {
+            $dataIARtoICS = array(
+                'ics_po_id' => $iar_ics_id,
+                'ics_iar_no' => $iar_iarnumber,
+                'ics_supplier' => $iar_ics_supplier
+            );
+
+            $dataIARtoPAR = array(
+                'par_po_id' => $iar_ics_id,
+                'par_iarno' => $iar_iarnumber,
+                'par_supplier' => $iar_ics_supplier
+            );
+
+            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR) ) {
                 $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
                 redirect(base_url('inspection'));
             } else {
@@ -245,6 +261,54 @@ class Function_Controller extends CI_Controller
         } else {
             $this->session->set_flashdata('error', 'Update Data Failed!');
             echo '<script>window.history.back();</script>';
+        }
+    }
+
+    public function editIARDetails()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $iar_id= $this->input->post('txt_iar_id');
+            $iar_ics_id= $this->input->post('txt_ics_id');
+
+            // $iar_ics_number = $this->input->post('txtIARNo');
+            $iar_editiarnumber = $this->input->post('edit_iarno');
+            $iar_editdate = $this->input->post('edit_iardate');
+            $iar_editinvoicenumber = $this->input->post('edit_invoice');
+            $iar_editinvoicedate = $this->input->post('edit_invoicedate');
+            $iar_editfundcluster = $this->input->post('edit_fundcluster');
+            $iar_editofficedept = $this->input->post('edit_officedept');
+            $iar_editrcc = $this->input->post('edit_rcc');
+            $iar_editinspectionOfficer = $this->input->post('edit_inspectionofficer');
+            $iar_editinspectionDate = $this->input->post('edit_dateinspected');
+            $iar_editacceptance = $this->input->post('edit_acceptance');
+            $iar_editacceptancedate = $this->input->post('edit_acceptancedate');
+
+            $editdataiar = array(
+                'iar_number' => $iar_editiarnumber,
+                'iar_date' => $iar_editdate,
+                'invoice_number' => $iar_editinvoicenumber,
+                'invoice_date' => $iar_editinvoicedate,
+                'fund_cluster' => $iar_editfundcluster,
+                'office_dept' => $iar_editofficedept,
+                'rcc' => $iar_editrcc,
+                'inspection_officer' => $iar_editinspectionOfficer,
+                'inspection_date' => $iar_editinspectionDate,
+                'acceptance_custodian' => $iar_editacceptance,
+                'acceptance_date' => $iar_editacceptancedate
+            );
+
+            $editdataIARtoICS = array(
+                'ics_iar_no' => $iar_editiarnumber,
+            );
+
+            if ($this->Function_Model->editIARData($iar_id, $editdataiar) && $this->Function_Model->editIARNOtoICSData($iar_ics_id,$editdataIARtoICS) ) {
+                $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
+                redirect(base_url('inspection'));
+            } else {
+                echo "Error Updating";
+            }
+        } else {
+            redirect(base_url('login'));
         }
     }
     // ajax

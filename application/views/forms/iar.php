@@ -28,8 +28,13 @@
                                 <td><?php echo $IARData->fund_cluster; ?></td>
                                 <td><?php echo $IARData->iar_supplier; ?></td>
                                 <td class="text-center">
+                                <?php if($IARData->iar_number == 0): ?>
+                                    <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="#" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-print"></i></a>
+                                <?php else: ?>
                                     <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                                <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

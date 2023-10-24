@@ -4,15 +4,23 @@
             <div class="card-title fw-bold">Inspection / Acceptance Report</div>
         </div>
         <div class="card-body">
-            <form action="#" method="post">
+            <form action="<?php echo base_url('update-IAR-Details'); ?>" method="post">
             <div class="row">   
                 <div class="col-lg-6 col-xl-4">
+                    <div class="form-floating mb-2 d-none">
+                        <input type="text" id="txt_iar_id" class="form-control" name="txt_iar_id" value="<?php echo $editiar_details->iar_id ?>"readonly>
+                        <label class="form-label fw-bold text-dark" for="txt_iar_id">IAR AI ID :</label>
+                    </div>
+                    <div class="form-floating mb-2 d-none">
+                        <input type="text" id="txt_ics_id" class="form-control" name="txt_ics_id" value="<?php echo $editiar_details->iar_po_id ?>"readonly>
+                        <label class="form-label fw-bold text-dark" for="txt_ics_id">IAR ICS ID :</label>
+                    </div>
                     <div class="form-floating mb-2">
                         <input type="text" id="edit_entityname" value="<?php echo $editiar_details->entity_name ?>" class="form-control" name="edit_entityname" readonly>
                         <label class="form-label fw-bold text-dark" for="txtSupplier">Entity Name :</label>
                     </div>
                     <div class="form-floating mb-2">
-                            <input type="text" id="edit_supplier" value="" class="form-control" name="edit_supplier" readonly>
+                            <input type="text" id="edit_supplier" value="<?php echo $editiar_details->iar_supplier ?>" class="form-control" name="edit_supplier" readonly>
                             <label class="form-label fw-bold text-dark" for="edit_supplier">Supplier :</label>
                         </div>
                         <div class="form-floating mb-2">
@@ -20,15 +28,15 @@
                             <label class="form-label fw-bold text-dark" for="edit_pono">P.O No. :</label>
                         </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="edit_fundcluster" value="" class="form-control" name="edit_fundcluster" required>
+                        <input type="text" id="edit_fundcluster" value="<?php echo $editiar_details->fund_cluster ?>" class="form-control" name="edit_fundcluster" required>
                         <label class="form-label fw-bold text-dark" for="edit_fundcluster">Fund Cluster :</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="edit_officedept" value="" class="form-control" name="edit_officedept" required>
+                        <input type="text" id="edit_officedept" value="<?php echo $editiar_details->office_dept ?>" class="form-control" name="edit_officedept" required>
                         <label class="form-label fw-bold text-dark" for="edit_officedept">Office/Dept. :</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="edit_rcc" value="" class="form-control" name="edit_rcc" required>
+                        <input type="text" id="edit_rcc" value="<?php echo $editiar_details->rcc ?>" class="form-control" name="edit_rcc" required>
                         <label class="form-label fw-bold text-dark" for="edit_rcc">RCC :</label>
                     </div>
                 </div>
@@ -37,11 +45,11 @@
                     <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="edit_iarno" class="form-control" name="edit_iarno">
+                                    <input type="text" id="edit_iarno" class="form-control" name="edit_iarno" value="<?php echo $editiar_details->iar_number ?>">
                                     <label class="form-label fw-bold text-dark" for="edit_iarno">IAR No. :</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="edit_iardate" class="form-control" name="edit_iardate" type="date" />
+                                    <input id="edit_iardate" class="form-control" name="edit_iardate" type="date" value="<?php echo $editiar_details->iar_date ?>"/>
                                     <label class="form-label fw-bold text-dark" for="edit_iardate">Date :</label>
                                 </div>
                             </div>
@@ -49,11 +57,11 @@
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="edit_invoice" class="form-control" name="edit_invoice">
+                                    <input type="text" id="edit_invoice" class="form-control" name="edit_invoice" value="<?php echo $editiar_details->invoice_number ?>">
                                     <label class="form-label fw-bold text-dark" for="edit_invoice">Invoice No. :</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="edit_invoicedate" class="form-control" name="edit_invoicedate" type="date" />
+                                    <input id="edit_invoicedate" class="form-control" name="edit_invoicedate" type="date" value="<?php echo $editiar_details->invoice_date ?>"/>
                                     <label class="form-label fw-bold text-dark" for="edit_invoicedate">Date :</label>
                                 </div>
                             </div>
@@ -62,11 +70,11 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark">Inspection :</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="edit_inspectionofficer" class="form-control" name="edit_inspectionofficer">
+                                    <input type="text" id="edit_inspectionofficer" class="form-control" name="edit_inspectionofficer" value="<?php echo $editiar_details->inspection_officer ?>">
                                     <label class="form-label fw-bold text-dark" for="edit_inspectionofficer">Officer :</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="edit_dateinspected" class="form-control" name="edit_dateinspected" type="date" />
+                                    <input id="edit_dateinspected" class="form-control" name="edit_dateinspected" type="date" value="<?php echo $editiar_details->inspection_date ?>"/>
                                     <label class="form-label fw-bold text-dark" for="edit_dateinspected">Date Inspected :</label>
                                 </div>
                             </div>
@@ -75,11 +83,11 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark">Acceptance :</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="edit_acceptance" class="form-control" name="edit_acceptance">
+                                    <input type="text" id="edit_acceptance" class="form-control" name="edit_acceptance" value="<?php echo $editiar_details->acceptance_custodian ?>">
                                     <label class="form-label fw-bold text-dark" for="edit_acceptance">Property Custodian :</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="edit_acceptancedate" class="form-control" name="edit_acceptancedate" type="date" />
+                                    <input id="edit_acceptancedate" class="form-control" name="edit_acceptancedate" type="date" value="<?php echo $editiar_details->acceptance_date ?>" />
                                     <label class="form-label fw-bold text-dark" for="edit_acceptancedate">Date Acceptance :</label>
                                 </div>
                             </div>

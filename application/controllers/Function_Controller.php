@@ -126,11 +126,8 @@ class Function_Controller extends CI_Controller
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $iar_po_number = $this->input->post('txtPONo');
-
             $iar_ics_id = $this->input->post('txtIARPOID');
             $iar_ics_supplier = $this->input->post('txtSupplier');
-            
-
             $iar_entityname = $this->input->post('txtEntityName');
             $iar_iarnumber = $this->input->post('txtIARNo');
             $iardate = $this->input->post('txtIARDate');
@@ -143,7 +140,6 @@ class Function_Controller extends CI_Controller
             $iar_inspectionDate = $this->input->post('txtDateInspected');
             $iar_acceptance = $this->input->post('txtAccepted');
             $iar_acceptancedate = $this->input->post('txtAcceptedDate');
-
             $IAR_Data = array(
                 'entity_name' => $iar_entityname,
                 'iar_number' => $iar_iarnumber,
@@ -171,7 +167,7 @@ class Function_Controller extends CI_Controller
                 'par_supplier' => $iar_ics_supplier
             );
 
-            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR) ) {
+            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
                 $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
                 redirect(base_url('inspection'));
             } else {
@@ -181,7 +177,34 @@ class Function_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
-
+    public function updatetIcs()
+    {
+        $selectICSIARNo = strip_tags($this->input->post('selectICSIARNo'));
+        $txtICSFund = strip_tags($this->input->post('txtICSFund'));
+        $txtICSNo = strip_tags($this->input->post('txtICSNo'));
+        $txtUsefullife = strip_tags($this->input->post('txtUsefullife'));
+        $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
+        $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
+        $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
+        $txtDateInspectedFrom = strip_tags($this->input->post('txtDateInspectedFrom'));
+        $data = array(
+            'ics_no' => $txtICSNo,
+            'ics_fund' => $txtICSFund,
+            'ics_useful_life' => $txtUsefullife,
+            'ics_receivedby' => $txtReceivedby,
+            'ics_received_date' => $txtDateRecivedBy,
+            'ics_receivedfrom' => $txtReceivedfrom,
+            'ics_receivedfrom_date' => $txtDateInspectedFrom
+        );
+        $result = $this->Function_Model->SubmitupdatetIcs($data, $selectICSIARNo);
+        if ($result) {
+            $this->session->set_flashdata('success', 'ICS successfully added.');
+            echo '<script>window.history.back();</script>';
+        } else {
+            $this->session->set_flashdata('error', 'ICS update failed.');
+            echo '<script>window.history.back();</script>';
+        }
+    }
     public function updatepoDetails()
     {
         $po_id = $this->input->post('po_id');
@@ -238,6 +261,43 @@ class Function_Controller extends CI_Controller
         }
         echo '<script>window.history.back();</script>';
     }
+    public function updateicsDetails()
+    {
+        $ics_id = $this->input->post('ics_id');
+        $txtIarno = strip_tags($this->input->post('txtIarno'));
+        $txtFund = strip_tags($this->input->post('txtFund'));
+        $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
+        $txtDateby = strip_tags($this->input->post('txtDateby'));
+        $txtICSnumber = strip_tags($this->input->post('txtICSnumber'));
+        $txtUsefullife = strip_tags($this->input->post('txtUsefullife'));
+        $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
+        $txtdatefrom = strip_tags($this->input->post('txtdatefrom'));
+        $currentPoInfo = $this->Function_Model->getICSInfoById($ics_id);
+        if ($txtICSnumber !== $currentPoInfo['ics_no']) {
+            if ($this->Function_Model->isICSIdExists($txtICSnumber)) {
+                $this->session->set_flashdata('trn-error', 'ICS number already exists!');
+                echo '<script>window.history.back();</script>';
+                return;
+            }
+        }
+        $data = array(
+            'ics_fund' => $txtFund,
+            'ics_no' => $txtICSnumber,
+            'ics_receivedby' => $txtReceivedby,
+            'ics_received_date' => $txtDateby,
+            'ics_useful_life' => $txtUsefullife,
+            'ics_receivedfrom' => $txtReceivedfrom,
+            'ics_receivedfrom_date' => $txtdatefrom
+        );
+        $this->db->where('ics_id ', $ics_id);
+        $this->db->update('tblics', $data);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data updated successfully!');
+        } else {
+            $this->session->set_flashdata('error', 'Data update failed!');
+        }
+        echo '<script>window.history.back();</script>';
+    }
     public function editItemDetails()
     {
         $id = $this->input->post('id');
@@ -267,8 +327,8 @@ class Function_Controller extends CI_Controller
     public function editIARDetails()
     {
         if ($this->session->userdata('is_login') == TRUE) {
-            $iar_id= $this->input->post('txt_iar_id');
-            $iar_ics_id= $this->input->post('txt_ics_id');
+            $iar_id = $this->input->post('txt_iar_id');
+            $iar_ics_id = $this->input->post('txt_ics_id');
 
             // $iar_ics_number = $this->input->post('txtIARNo');
             $iar_editiarnumber = $this->input->post('edit_iarno');
@@ -301,7 +361,7 @@ class Function_Controller extends CI_Controller
                 'ics_iar_no' => $iar_editiarnumber,
             );
 
-            if ($this->Function_Model->editIARData($iar_id, $editdataiar) && $this->Function_Model->editIARNOtoICSData($iar_ics_id,$editdataIARtoICS) ) {
+            if ($this->Function_Model->editIARData($iar_id, $editdataiar) && $this->Function_Model->editIARNOtoICSData($iar_ics_id, $editdataIARtoICS)) {
                 $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
                 redirect(base_url('inspection'));
             } else {

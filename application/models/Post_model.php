@@ -80,6 +80,7 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+
     public function get_podetails_by_id($poID)
     {
         $this->db->where('md5(id)', $poID);
@@ -129,6 +130,31 @@ class Post_Model extends CI_Model
         $this->db->from('tblpo_item');
         $this->db->where('md5(po_id)', $iarPoID);
         $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    public function get_icsdetails_by_id($icsID)
+    {
+        $this->db->where('md5(ics_id)', $icsID);
+        $query = $this->db->get('tblics');
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+    public function get_icsitemList($icsPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->where('md5(po_id)', $icsPoID);
+        $this->db->where('total_unit_cost >', 1500);
+        $this->db->where('total_unit_cost <', 50000);
+        $query = $this->db->get();
+
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {

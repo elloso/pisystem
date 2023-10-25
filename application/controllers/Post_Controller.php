@@ -223,4 +223,18 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
+    public function editicsDetails($editicsdetails, $icsPoID)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $editicsdetails = $this->Post_model->get_icsdetails_by_id($editicsdetails);
+            $icsitemList = $this->Post_model->get_icsitemList($icsPoID);
+            $data['editicsdetails'] = $editicsdetails;
+            $data['icsitemList'] = $icsitemList;
+            $this->load->view('template/header', $data);
+            $this->load->view('view-forms/editics-details');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
 } // End Bracket

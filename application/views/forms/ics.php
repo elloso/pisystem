@@ -25,9 +25,9 @@
                                 <td><?php echo $PO_ICSData->ics_iar_no ?></td>
                                 <td><?php echo $PO_ICSData->ics_fund ?></td>
                                 <td><?php echo $PO_ICSData->ics_supplier ?></td>
-                                <td><?php if ($PO_ICSData->ics_iar_no == 0) : ?>
-                                        <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-print"></i></a>
+                                <td><?php if (empty($PO_ICSData->ics_no)) : ?>
+                                        <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
                                     <?php else : ?>
                                         <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
@@ -53,21 +53,23 @@
             <div class="modal-body">
                 <form action="<?php echo base_url(); ?>update-ics" method="post" class="needs-validation" novalidate>
                     <div class="row">
-                        <div class="col-lg-6 col-xl-6">
+                        <div class="col-lg-6 col-xl-4">
                             <div class="form-floating mb-2">
                                 <select class="form-select" aria-label="Default select example" name="selectICSIARNo" required>
                                     <option value="" disabled selected>-- Select IAR No. --</option>
                                     <?php foreach ($PO_ICSDatas as $PO_ICSData) : ?>
-                                        <?php if ($PO_ICSData->ics_no == 0) : ?>
+                                        <?php if (empty($PO_ICSData->ics_no)) : ?>
                                             <option value="<?php echo $PO_ICSData->ics_iar_no; ?>"><?php echo $PO_ICSData->ics_iar_no; ?></option>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
-                                <label class="form-label fw-bold text-dark" for="txtICSIARNo">IAR No. :</label>
+                                <label class="form-label fw-bold text-dark" for="txtPARIARNo">IAR No. :</label>
                                 <div class="invalid-feedback">
                                     Please choose a IAR no.
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4">
                             <div class="form-floating mb-2">
                                 <input type="text" id="txtICSFund" class="form-control" name="txtICSFund" required>
                                 <label class="form-label fw-bold text-dark" for="txtICSFund">Fund:</label>
@@ -76,22 +78,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="form-floating mb-2">
+                                <input id="txtICSDate" class="form-control" name="txtICSDate" type="date" required>
+                                <label class="form-label fw-bold text-dark" for="txtICSDate">Date :</label>
+                                <div class="invalid-feedback">
+                                    Please choose a date.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
                                 <input type="text" id="txtICSNo" class="form-control" name="txtICSNo" required>
                                 <label class="form-label fw-bold text-dark" for="txtICSNo">ICS No. :</label>
                                 <div class="invalid-feedback">
-                                    Please choose a ICS no.
-                                </div>
-                            </div>
-                            <div class="form-floating mb-2">
-                                <input type="text" id="txtUsefullife" class="form-control" name="txtUsefullife">
-                                <label class="form-label fw-bold text-dark" for="txtUsefullife">Useful Life:</label>
-                                <div class="invalid-feedback">
-                                    Please choose a Usual Life.
+                                    Please choose a fund.
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtUsefullife" class="form-control" name="txtUsefullife" required>
+                                <label class="form-label fw-bold text-dark" for="txtUsefullife">Useful Life :</label>
+                                <div class="invalid-feedback">
+                                    Please choose a useful life.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">

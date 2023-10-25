@@ -151,8 +151,8 @@ class Post_Model extends CI_Model
         $this->db->select('*');
         $this->db->from('tblpo_item');
         $this->db->where('md5(po_id)', $icsPoID);
-        $this->db->where('total_unit_cost >', 1500);
-        $this->db->where('total_unit_cost <', 50000);
+        $this->db->where('unit_cost >', 1500);
+        $this->db->where('unit_cost <', 50000);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {

@@ -11,60 +11,64 @@
                     </div>
                 <?php endif; ?>
                 <div class="row">
+                    <input type="hidden" id="icsid" value="<?= $editicsdetails->ics_id ?>" class="form-control" name="icsid" required>
+                    <input type="hidden" id="ics_id" value="<?= $editicsdetails->ics_po_id ?>" class="form-control" name="ics_id" required>
                     <div class="col-lg-6 col-xl-6">
-                        <input type="hidden" id="icsid" value="<?= $editicsdetails->ics_id ?>" class="form-control" name="icsid" required>
-                        <input type="hidden" id="ics_id" value="<?= $editicsdetails->ics_po_id ?>" class="form-control" name="ics_id" required>
                         <div class="form-floating mb-2">
                             <input type="text" id="txtIarno" value="<?= $editicsdetails->ics_iar_no ?>" class="form-control" name="txtIarno" required readonly>
                             <label class="form-label fw-bold text-dark" for="txtIarno">IAR Number:</label>
-                            <div class="invalid-feedback">
-                                Please choose a IAR number.
-                            </div>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input type="text" id="txtFund" value="<?= $editicsdetails->ics_fund ?>" class="form-control" name="txtFund" required>
-                            <label class="form-label fw-bold text-dark" for="txtFund">Fund:</label>
-                            <div class="invalid-feedback">
-                                Please choose a fund.
-                            </div>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input id="txtReceivedby" class="form-control" value="<?= $editicsdetails->ics_receivedby ?>" name="txtReceivedby" type="text">
-                            <label class="form-label fw-bold text-dark" for="txtReceivedby">Received By:</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input type="date" id="txtDateby" class="form-control" value="<?= $editicsdetails->ics_received_date ?>" name="txtDateby">
-                            <label class="form-label fw-bold text-dark" for="txtDateby">Date:</label>
                         </div>
                     </div>
                     <div class="col-lg-6 col-xl-6">
                         <div class="form-floating mb-2">
+                            <input type="date" id="txtICSDate" value="<?= $editicsdetails->ics_date ?>" class="form-control" name="txtICSDate" required>
+                            <label class="form-label fw-bold text-dark" for="txtICSDate">Date:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-xl-6">
+                        <div class="form-floating mb-2">
+                            <input type="text" id="txtFund" value="<?= $editicsdetails->ics_fund ?>" class="form-control" name="txtFund" required>
+                            <label class="form-label fw-bold text-dark" for="txtFund">Fund:</label>
+                        </div>
+                        <div class="border p-2 mb-2">
+                            <div class="form-floating mb-2">
+                                <input id="txtReceivedby" class="form-control" value="<?= $editicsdetails->ics_receivedby ?>" name="txtReceivedby" type="text">
+                                <label class="form-label fw-bold text-dark" for="txtReceivedby">Received By:</label>
+                            </div>
+
+                            <div class="form-floating mb-2">
+                                <input type="date" id="txtDateby" class="form-control" value="<?= $editicsdetails->ics_received_date ?>" name="txtDateby">
+                                <label class="form-label fw-bold text-dark" for="txtDateby">Date:</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-xl-6">
+                        <div class="form-floating mb-2">
                             <input type="text" id="txtICSnumber" class="form-control" value="<?= $editicsdetails->ics_no ?>" name="txtICSnumber">
                             <label class="form-label fw-bold text-dark" for="txtICSnumber">ICS Number:</label>
-                            <div class="invalid-feedback">
-                                Please choose a ICS number.
+                        </div>
+
+
+                        <div class="border p-2 mb-2">
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtReceivedfrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom ?>" name="txtReceivedfrom" required>
+                                <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input type="date" id="txtdatefrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom_date ?>" name="txtdatefrom" required>
+                                <label class="form-label fw-bold text-dark" for="txtdatefrom">Date:</label>
                             </div>
                         </div>
                         <div class="form-floating mb-2">
                             <input type="text" id="txtUsefullife" class="form-control" value="<?= $editicsdetails->ics_useful_life ?>" name="txtUsefullife">
                             <label class="form-label fw-bold text-dark" for="txtUsefullife">Useful Life:</label>
                         </div>
-                        <div class="form-floating mb-2">
-                            <input type="text" id="txtReceivedfrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom ?>" name="txtReceivedfrom" required>
-                            <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
-                            <div class="invalid-feedback">
-                                Please choose a received from.
-                            </div>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input type="date" id="txtdatefrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom_date ?>" name="txtdatefrom" required>
-                            <label class="form-label fw-bold text-dark" for="txtdatefrom">Date:</label>
-                            <div class="invalid-feedback">
-                                Please choose a date.
-                            </div>
-                        </div>
                     </div>
                 </div>
+
                 <div class="col-lg-6 col-xl-12">
                     <div class="card" style="max-width: 1500px;">
                         <div class="card-body">

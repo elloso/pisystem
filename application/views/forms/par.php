@@ -27,21 +27,21 @@
                             <td>Sample 1</td>
                         </tr>
                     </tbody>
-                 </table>
+                </table>
             </div>
         </div>
     </div>
 </div>
 <!-- Modal -->
 <form action="#" method="post" class="needs-validation" novalidate>
-<div class="modal fade" id="Modal_PropertyAcknowledgment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="Modal_PropertyAcknowledgmentLabel">Inventory Custodian Slip Details</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+    <div class="modal fade" id="Modal_PropertyAcknowledgment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="Modal_PropertyAcknowledgmentLabel">Inventory Custodian Slip Details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6 col-xl-4">
                             <div class="form-floating mb-2">
@@ -71,7 +71,7 @@
                                 <div class="invalid-feedback">
                                     Please choose date.
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -131,16 +131,15 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-            </div> <!-- End Modal body -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                </div> <!-- End Modal body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
 <script>
     $(document).ready(function() {

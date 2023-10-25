@@ -235,7 +235,6 @@
                     }
                 });
             } else {
-                // Remove the alert and display the message in the 'msg' element
                 $("#msg").css("color", "red").text("Please enter a P.O. Number");
             }
         });

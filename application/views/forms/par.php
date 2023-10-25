@@ -37,7 +37,7 @@
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
-                 </table>
+                </table>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
                                 <div class="invalid-feedback">
                                     Please choose date.
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -145,16 +145,15 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-            </div> <!-- End Modal body -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                </div> <!-- End Modal body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
 <script>
     $(document).ready(function() {

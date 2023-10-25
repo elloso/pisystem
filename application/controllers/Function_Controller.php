@@ -123,7 +123,6 @@ class Function_Controller extends CI_Controller
         redirect(base_url('purchase'));
     }
     // submit(save) form
-
     public function updateData_IAR()
     {
         if ($this->session->userdata('is_login') == TRUE) {
@@ -157,21 +156,18 @@ class Function_Controller extends CI_Controller
                 'acceptance_custodian' => $iar_acceptance,
                 'acceptance_date' => $iar_acceptancedate
             );
-
             $dataIARtoICS = array(
                 'ics_po_id' => $iar_po_id,
                 'ics_iar_no' => $iar_iarnumber,
                 'ics_supplier' => $iar_supplier
             );
-
             $dataIARtoPAR = array(
                 'par_po_id' => $iar_po_id,
                 'par_iarno' => $iar_iarnumber,
                 'par_supplier' => $iar_supplier
             );
-
             if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
-                $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
+                $this->session->set_flashdata('success', 'Data updated successfully.');
                 redirect(base_url('inspection'));
             } else {
                 echo "Error Updating";
@@ -190,6 +186,7 @@ class Function_Controller extends CI_Controller
         $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
         $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
         $txtDateInspectedFrom = strip_tags($this->input->post('txtDateInspectedFrom'));
+        $txtICSDate = strip_tags($this->input->post('txtICSDate'));
         $data = array(
             'ics_no' => $txtICSNo,
             'ics_fund' => $txtICSFund,
@@ -197,7 +194,8 @@ class Function_Controller extends CI_Controller
             'ics_receivedby' => $txtReceivedby,
             'ics_received_date' => $txtDateRecivedBy,
             'ics_receivedfrom' => $txtReceivedfrom,
-            'ics_receivedfrom_date' => $txtDateInspectedFrom
+            'ics_receivedfrom_date' => $txtDateInspectedFrom,
+            'ics_date' => $txtICSDate
         );
         $result = $this->Function_Model->SubmitupdatetIcs($data, $selectICSIARNo);
         if ($result) {

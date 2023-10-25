@@ -45,6 +45,17 @@ class Function_Model extends CI_Model
             return false;
         }
     }
+    public function getICSInfoById($ics_id)
+    {
+        $this->db->where('ics_id ', $ics_id);
+        $query = $this->db->get('tblics');
+
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
+    }
     public function isPrIdExists($txtPRNumber)
     {
         $this->db->where("(pr_number = '$txtPRNumber')");
@@ -55,6 +66,12 @@ class Function_Model extends CI_Model
     {
         $this->db->where("(po_number = '$txtPONumber')");
         $query = $this->db->get('tblpo');
+        return $query->num_rows() > 0;
+    }
+    public function isICSIdExists($txtICSnumber)
+    {
+        $this->db->where("(ics_no = '$txtICSnumber')");
+        $query = $this->db->get('tblics');
         return $query->num_rows() > 0;
     }
     public function SubmitPoData($dataPO)
@@ -96,6 +113,11 @@ class Function_Model extends CI_Model
     {
         $this->db->where('ics_po_id', $ics_id);
         return $this->db->update('tblics', $editdataiarnumbertoICS);
+    }
+    public function SubmitupdatetIcs($data, $selectICSIARNo)
+    {
+        $this->db->where('ics_iar_no', $selectICSIARNo);
+        return $this->db->update('tblics', $data);
     }
     // AJAX
     public function checkPoNumber($txtPONumber)

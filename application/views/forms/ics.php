@@ -1,7 +1,7 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title">Inventory Custodian Slip</div>
+            <div class="card-title fw-bold">Inventory Custodian Slip</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -13,21 +13,28 @@
                         <tr>
                             <th>ICS No.</th>
                             <th>IAR No.</th>
-                            <th>ENTITY NAME</th>
                             <th>FUND</th>
                             <th>SUPPLIER</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        <?php foreach ($PO_ICSDatas as $PO_ICSData) : ?>
+                            <tr>
+                                <td><?php echo $PO_ICSData->ics_no ?></td>
+                                <td><?php echo $PO_ICSData->ics_iar_no ?></td>
+                                <td><?php echo $PO_ICSData->ics_fund ?></td>
+                                <td><?php echo $PO_ICSData->ics_supplier ?></td>
+                                <td><?php if ($PO_ICSData->ics_iar_no == 0) : ?>
+                                        <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="#" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-print"></i></a>
+                                    <?php else : ?>
+                                        <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -44,14 +51,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="post" class="needs-validation" novalidate>
+                <form action="<?php echo base_url(); ?>update-ics" method="post" class="needs-validation" novalidate>
                     <div class="row">
                         <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
                                 <select class="form-select" aria-label="Default select example" name="selectICSIARNo" required>
                                     <option value="" disabled selected>-- Select IAR No. --</option>
                                     <?php foreach ($PO_ICSDatas as $PO_ICSData) : ?>
-                                        <?php if ($PO_ICSData->iar_number == 0) : ?>
+                                        <?php if ($PO_ICSData->ics_no == 0) : ?>
                                             <option value="<?php echo $PO_ICSData->ics_iar_no; ?>"><?php echo $PO_ICSData->ics_iar_no; ?></option>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
@@ -78,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="form-floating mb-2">
-                                <input type="text" id="txtUsefullife" class="form-control" name="txtUsefullife" required>
+                                <input type="text" id="txtUsefullife" class="form-control" name="txtUsefullife">
                                 <label class="form-label fw-bold text-dark" for="txtUsefullife">Useful Life:</label>
                                 <div class="invalid-feedback">
                                     Please choose a Usual Life.
@@ -88,14 +95,14 @@
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtReceivedby" class="form-control" name="txtReceivedby" required>
+                                    <input type="text" id="txtReceivedby" class="form-control" name="txtReceivedby">
                                     <label class="form-label fw-bold text-dark" for="txtReceivedby">Received By:</label>
                                     <div class="invalid-feedback">
                                         Please choose a received by.
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateRecivedBy" class="form-control" name="txtDateRecivedBy" type="date" required>
+                                    <input id="txtDateRecivedBy" class="form-control" name="txtDateRecivedBy" type="date">
                                     <label class="form-label fw-bold text-dark" for="txtDateRecivedBy">Date:</label>
                                     <div class="invalid-feedback">
                                         Please choose a date.

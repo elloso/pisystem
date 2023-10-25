@@ -34,6 +34,10 @@
                             <div class="invalid-feedback">
                                 Please choose a date.
                             </div>
+                            <div class="p-2 mt-2 ">
+                                <button class="btn btn-primary" type="button" id="addRow">Add</button>
+                                <button class="btn btn-danger" type="button" id="deleteRow" disabled>Delete</button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-xl-6">
@@ -71,7 +75,7 @@
                     <div class="card" style="max-width: 1500px;">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="table-itemno-data" class="table table-hover">
+                                <table id="table-po-data" class="table table-hover">
                                     <tr>
                                         <th style="width: 8%;">Item No.</th>
                                         <th style="width: 12%;">Quantity</th>
@@ -144,7 +148,6 @@
             document.getElementById('editTotalCost').value = total_unit_cost;
         }
     </script>
-
     <div class="modal fade modal-lg" id="editRow">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -192,3 +195,43 @@
 
         </div>
     </div>
+    <script>
+        var table = document.getElementById("table-po-data");
+        var button1 = document.getElementById("addRow");
+        var button2 = document.getElementById("deleteRow");
+        var currentItemNo = <?php echo $poitem->item_no + 1 ?>;
+        button1.addEventListener("click", function() {
+            event.preventDefault();
+            var newRow = table.insertRow(-1);
+            var itemnoCell = newRow.insertCell(0);
+            var itemquantityCell = newRow.insertCell(1);
+            var itemunitCell = newRow.insertCell(2);
+            var itemdescriptionCell = newRow.insertCell(3);
+            var itemunitcostCell = newRow.insertCell(4);
+            var itemtotalunitcostCell = newRow.insertCell(5);
+            itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class=" form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly>';
+            itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" >';
+            itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" >';
+            itemdescriptionCell.innerHTML = ' <textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';
+            itemunitcostCell.innerHTML = '<input required type="text" class="form-control" id="UtxtItemUnitCost" name="UtxtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
+            itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="UtxtTotalUnitCost" name="UtxtTotalUnitCost[]" placeholder="0"><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
+            currentItemNo++;
+            button2.disabled = false;
+        });
+        button2.addEventListener("click", function() {
+            event.preventDefault();
+            var rowCount = table.rows.length;
+            var maxRow = <?php echo $poitem->item_no + 1 ?>;
+
+            if (rowCount > 1) {
+                if (rowCount > maxRow) {
+                    table.deleteRow(rowCount - 1);
+                    currentItemNo--;
+                }
+            }
+
+            if (rowCount === maxRow + 1) {
+                button2.disabled = true;
+            }
+        });
+    </script>

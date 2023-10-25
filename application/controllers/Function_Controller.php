@@ -249,6 +249,36 @@ class Function_Controller extends CI_Controller
             'pr_number' => $txtPRNumber,
             'pgr_number' => $txtPGEFNumber
         );
+        $UtxtItemNo = $this->input->post('UtxtItemNo');
+        $txtItemQuantity = $this->input->post('txtItemQuantity');
+        $UtxtUnit = $this->input->post('txtItemQuantity');
+        $UtxtDescription = $this->input->post('UtxtDescription');
+        $UtxtItemUnitCost = $this->input->post('UtxtItemUnitCost');
+        $UtxtTotalUnitCost = $this->input->post('UtxtTotalUnitCost');
+
+        if (
+            is_array($UtxtItemNo) && is_array($txtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($txtItemQuantity) && count($UtxtUnit) === count($UtxtDescription) && count($UtxtItemUnitCost) === count($UtxtTotalUnitCost)
+        ) {
+            $count = count($UtxtItemNo);
+            for ($i = 0; $i < $count; $i++) {
+                $itemData = array(
+                    'po_id' => $po_id,
+                    'po_number' => $txtPONumber,
+                    'pr_number' => $txtPRNumber,
+                    'pgr_number' => $txtPGEFNumber,
+                    'item_no' => $UtxtItemNo[$i],
+                    'quantity' => $txtItemQuantity[$i],
+                    'unit' => $UtxtUnit[$i],
+                    'item_description' => $UtxtDescription[$i],
+                    'unit_cost' => $UtxtItemUnitCost[$i],
+                    'total_unit_cost' => $UtxtTotalUnitCost[$i],
+                );
+                $this->Function_Model->SubmitPoItemListData($itemData);
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Insert Data Failed!');
+            echo '<script>window.history.back();</script>';
+        }
         $this->db->where('po_id', $po_id);
         $this->db->update('tblpo_item', $dataItem);
         $this->db->where('iar_po_id', $po_id);

@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input type="number" id="txtPONumber" class="form-control" name="txtPONumber" required>
+                                    <input type="text" id="txtPONumber" class="form-control" name="txtPONumber" required>
                                     <label class="form-label fw-bold text-dark" for="txtPONumber">P.O Number :</label>
                                     <div class="invalid-feedback">
                                         Please choose a P.O. number.
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input type="number" id="txtPRNumber" class="form-control" name="txtPRNumber" required>
+                                    <input type="text" id="txtPRNumber" class="form-control" name="txtPRNumber" required>
                                     <label class="form-label fw-bold text-dark" for="txtPRNumber">Purchase Request Number:</label>
                                     <div class="invalid-feedback">
                                         Please choose a purchase request number.
@@ -133,7 +133,7 @@
                                                             Please enter Item No.
                                                         </div>
                                                     </td>
-                                                    <td><input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">
+                                                    <td><input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" oninput="this.value = Math.abs(this.value)" value="1">
                                                         <div class="invalid-feedback">
                                                             Please enter Quantity.
                                                         </div>
@@ -150,7 +150,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <input required type="number" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)">
+                                                        <input required type="number" oninput="this.value = Math.abs(this.value)" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)">
                                                         <div class="invalid-feedback">
                                                             Please enter a unit cost.
                                                         </div>
@@ -203,7 +203,6 @@
                     }
                 });
             } else {
-                // Remove the alert and display the message in the 'msg' element
                 $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
             }
         });

@@ -135,4 +135,9 @@ class Function_Model extends CI_Model
 
         return $query->num_rows() > 0;
     }
+    public function SubmitPoItemListData($itemData)
+    {
+        $this->db->insert('tblpo_item', $itemData);
+        return $this->db->insert_id();
+    }
 }

@@ -53,7 +53,7 @@
             </div>
             <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6 col-xl-4">
+                        <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
                                 <select class="form-select" aria-label="Default select example" name="selectPARIARNo" required>
                                     <option value="" selected>-- Select IAR No. --</option>
@@ -69,16 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="form-floating mb-2">
-                                <input type="text" id="txtPARNo" class="form-control" name="txtPARNo" required>
-                                <label class="form-label fw-bold text-dark" for="txtPARNo">PAR No. :</label>
-                                <div class="invalid-feedback">
-                                    Please enter PAR Number.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-4">
+                        <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
                                 <input id="txtPARDate" class="form-control" name="txtPARDate" type="date" required>
                                 <label class="form-label fw-bold text-dark" for="txtPARDate">Date :</label>
@@ -100,10 +91,10 @@
                         </div>
                         <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
-                                <input type="text" id="txtUsefullife" class="form-control" name="txtUsefullife" required>
-                                <label class="form-label fw-bold text-dark" for="txtUsefullife">Useful Life:</label>
+                                <input type="text" id="txtPARNo" class="form-control" name="txtPARNo" required>
+                                <label class="form-label fw-bold text-dark" for="txtPARNo">PAR No. :</label>
                                 <div class="invalid-feedback">
-                                    Please enter a Useful Life.
+                                    Please enter PAR Number.
                                 </div>
                             </div>
                         </div>
@@ -112,14 +103,14 @@
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtReceivedby" class="form-control" name="txtReceivedby" required>
+                                    <input type="text" id="txtReceivedby" class="form-control" name="txtReceivedby">
                                     <label class="form-label fw-bold text-dark" for="txtReceivedby">Received By:</label>
                                     <div class="invalid-feedback">
                                         Please enter Name of the receiver.
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateRecivedBy" class="form-control" name="txtDateRecivedBy" type="date" required>
+                                    <input id="txtDateRecivedBy" class="form-control" name="txtDateRecivedBy" type="date">
                                     <label class="form-label fw-bold text-dark" for="txtDateRecivedBy">Date:</label>
                                     <div class="invalid-feedback">
                                         Please choose date.
@@ -130,14 +121,14 @@
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom" required>
+                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom">
                                     <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
                                     <div class="invalid-feedback">
                                         Please enter Name acquired from.
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateReceivedfrom" class="form-control" name="txtDateReceivedfrom" type="date" required>
+                                    <input id="txtDateReceivedfrom" class="form-control" name="txtDateReceivedfrom" type="date">
                                     <label class="form-label fw-bold text-dark" for="txtDateReceivedfrom">Date:</label>
                                     <div class="invalid-feedback">
                                         Please choose date.

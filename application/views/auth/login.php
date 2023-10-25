@@ -48,7 +48,7 @@
                   </div>
                 <?php endif; ?>
                 <div class="floating mb-4 rounded">
-                  <input type="email" id="email" name="email" class="form-control bg-secondary" />
+                  <input type="email" id="email" name="email" class="form-control bg-secondary">
                   <label class="form-label" for="email"><i class="fa-solid fa-user" style="font-size: 15px;"></i> Email Address</label>
                 </div>
                 <div class="floating mb-4 rounded">

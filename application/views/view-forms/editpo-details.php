@@ -59,10 +59,7 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <?php
-                            $formatTotalCost = number_format($editpo_details->total_cost, 2);
-                            ?>
-                            <input type="text" id="txtTotaCost" class="form-control" value="<?= $formatTotalCost ?>" name="txtTotalCost" required>
+                            <input type="text" id="txtTotaCost" class="form-control" value="<?= $editpo_details->total_cost ?>" name="txtTotalCost" required>
                             <label class="form-label fw-bold text-dark" for="txtTotaCost">Total Cost:</label>
                             <div class="invalid-feedback">
                                 Please choose a total cost.
@@ -110,17 +107,13 @@
                                                         Please enter item description.
                                                     </div>
                                                 </td>
-                                                <?php
-                                                $formatUnitCost = number_format($poitem->unit_cost, 2);
-                                                $formatTotalUnitCost = number_format($poitem->total_unit_cost, 2);
-                                                ?>
                                                 <td>
-                                                    <input required type="text" value="<?php echo $formatUnitCost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                    <input required type="text" value="<?php echo $poitem->unit_cost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a unit cost.
                                                     </div>
                                                 </td>
-                                                <td><input required type="text" value="<?php echo $formatTotalUnitCost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                <td><input required type="text" value="<?php echo $poitem->total_unit_cost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a total unit cost.
                                                     </div>

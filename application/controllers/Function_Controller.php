@@ -122,14 +122,14 @@ class Function_Controller extends CI_Controller
         $this->session->set_flashdata('success', 'Insert Data Success!');
         redirect(base_url('purchase'));
     }
+    // submit(save) form
+
     public function updateData_IAR()
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $iar_po_number = $this->input->post('txtPONo');
-
-            $iar_ics_id = $this->input->post('txtIARPOID');
-            $iar_ics_supplier = $this->input->post('txtSupplier');
-            
+            $iar_supplier = $this->input->post('txtSupplier');
+            $iar_po_id = $this->input->post('txtIARPOID');
 
             $iar_entityname = $this->input->post('txtEntityName');
             $iar_iarnumber = $this->input->post('txtIARNo');
@@ -137,7 +137,7 @@ class Function_Controller extends CI_Controller
             $iar_invoicenumber = $this->input->post('txtInvoice');
             $iar_invoicedate = $this->input->post('txtInvoiceDate');
             $iar_fundcluster = $this->input->post('txtFundcluster');
-            $iar_officedept = $this->input->post('txtMOPD');
+            $iar_officedept = $this->input->post('txtOfficeDept');
             $iar_rcc = $this->input->post('txtRCC');
             $iar_inspectionOfficer = $this->input->post('txtInspectionOfficer');
             $iar_inspectionDate = $this->input->post('txtDateInspected');

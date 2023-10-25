@@ -28,7 +28,7 @@
                                 <td><?php echo $IARData->fund_cluster; ?></td>
                                 <td><?php echo $IARData->iar_supplier; ?></td>
                                 <td class="text-center">
-                                <?php if($IARData->iar_number == 0): ?>
+                                <?php if (empty($IARData->iar_number)): ?>
                                     <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <a href="#" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-print"></i></a>
                                 <?php else: ?>
@@ -44,7 +44,7 @@
         </div>
     </div>
 </div>
-<form action="<?php echo base_url('submit-iar'); ?>" method="post">
+<form action="<?php echo base_url('submit-iar'); ?>" method="post" class="needs-validation" novalidate>
     <!-- Modal -->
     <div class="modal fade" id="Modal_InspectionAcceptance" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -69,28 +69,31 @@
                                 <label class="form-label fw-bold text-dark" for="txtIARPOID">IAR P.O ID:</label>
                             </div>
                             <div class="form-floating mb-2">
-                                <input type="text" id="txtFundcluster" class="form-control" name="txtFundcluster">
+                                <input type="text" id="txtFundcluster" class="form-control" name="txtFundcluster" required>
                                 <label class="form-label fw-bold text-dark" for="txtFundcluster">Fund Cluster:</label>
+                                <div class="invalid-feedback">Please enter Fund Cluster.</div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-xl-8">
                             <div class="form-floating mb-2">
-                                <select class="form-select" aria-label="Default select example" name="txtPONo" id="txtPONo">
+                                <select class="form-select" aria-label="Default select example" name="txtPONo" id="txtPONo" required>
                                     <option selected>Select Purchase Order</option>
                                     <?php foreach ($PO_IARDatas as $PO_IARData) : ?>
-                                        <?php if ($PO_IARData->iar_number == 0) : ?>
+                                        <?php if (empty($PO_IARData->iar_number)) : ?>
                                             <option value="<?php echo $PO_IARData->iar_po_number; ?>"><?php echo $PO_IARData->iar_po_number; ?></option>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
                                 <label class="form-label fw-bold text-dark" for="txtPONo">P.O No. :</label>
+                                <div class="invalid-feedback">Please Select PO Number first.</div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-4 col-xl-6">
                                     <div class="border p-2 mb-2">
                                         <div class="form-floating mb-2">
-                                            <input type="number" id="txtIARNo" class="form-control" name="txtIARNo">
+                                            <input type="number" id="txtIARNo" class="form-control" name="txtIARNo" required>
                                             <label class="form-label fw-bold text-dark" for="txtIARNo">IAR No. :</label>
+                                            <div class="invalid-feedback">Please enter IAR No.</div>
                                         </div>
                                         <div class="form-floating mb-2">
                                             <input id="txtIARDate" class="form-control" name="txtIARDate" type="date" />
@@ -99,27 +102,28 @@
                                     </div>
                                     <div class="col-lg-4 col-xl-12">
                                         <div class="form-floating mb-2">
-                                            <input type="text" id="txtMOP" class="form-control" name="txtMOPD">
-                                            <label class="form-label fw-bold text-dark" for="txtMOP">Office/Dept.:</label>
+                                            <input type="text" id="txtOfficeDept" class="form-control" name="txtOfficeDept" required>
+                                            <label class="form-label fw-bold text-dark" for="txtOfficeDept">Office/Dept.:</label>
+                                            <div class="invalid-feedback">Please enter Office or Department.</div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-xl-6">
                                     <div class="border p-2 mb-2">
                                         <div class="form-floating mb-2">
-                                            <input type="number" id="txtInvoice" class="form-control" name="txtInvoice">
+                                            <input type="number" id="txtInvoice" class="form-control" name="txtInvoice" required>
                                             <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
+                                            <div class="invalid-feedback">Please enter Invoice number.</div>
                                         </div>
                                         <div class="form-floating mb-2">
-                                            <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date" />
+                                            <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date"/>
                                             <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date :</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-8 col-xl-12">
                                         <div class="form-floating mb-2">
                                             <input type="text" id="txtRCC" class="form-control" name="txtRCC">
-                                            <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
+                                            <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>   
                                         </div>
                                     </div>
                                 </div>
@@ -129,12 +133,14 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
+                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer" required>
                                     <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
+                                    <div class="invalid-feedback">Please input Officer name. </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
+                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" required/>
                                     <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
+                                    <div class="invalid-feedback">Please select Date.</div>
                                 </div>
                             </div>
                         </div>
@@ -142,12 +148,14 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
+                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted" required>
                                     <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
+                                    <div class="invalid-feedback">Please input Property Custodian Name.</div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
+                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" required/>
                                     <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
+                                    <div class="invalid-feedback">Please select Date.</div>
                                 </div>
                             </div>
                         </div>
@@ -189,4 +197,43 @@
             });
         });
     });
+</script>
+<script>
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+<script>
+    (function () {
+        'use strict';
+        var form = document.querySelector('form.needs-validation');
+        var selectField = document.querySelector('select[name="txtPONo"]');
+        function validatePurchaseOrder() {
+            if (selectField.value === 'Select Purchase Order') {
+                selectField.setCustomValidity('Please select a valid Purchase Order.');
+            } else {
+                selectField.setCustomValidity('');
+            }
+        }
+        selectField.addEventListener('input', validatePurchaseOrder);
+        form.addEventListener('submit', function (event) {
+            if (form.checkValidity()) {
+            } else {
+                event.preventDefault();
+                event.stopPropagation();
+                validatePurchaseOrder();
+                form.classList.add('was-validated');
+            }
+        });
+    })();
 </script>

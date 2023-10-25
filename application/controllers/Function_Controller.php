@@ -159,15 +159,15 @@ class Function_Controller extends CI_Controller
             );
 
             $dataIARtoICS = array(
-                'ics_po_id' => $iar_ics_id,
+                'ics_po_id' => $iar_po_id,
                 'ics_iar_no' => $iar_iarnumber,
-                'ics_supplier' => $iar_ics_supplier
+                'ics_supplier' => $iar_supplier
             );
 
             $dataIARtoPAR = array(
-                'par_po_id' => $iar_ics_id,
+                'par_po_id' => $iar_po_id,
                 'par_iarno' => $iar_iarnumber,
-                'par_supplier' => $iar_ics_supplier
+                'par_supplier' => $iar_supplier
             );
 
             if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
@@ -365,8 +365,44 @@ class Function_Controller extends CI_Controller
             );
 
             if ($this->Function_Model->editIARData($iar_id, $editdataiar) && $this->Function_Model->editIARNOtoICSData($iar_ics_id, $editdataIARtoICS)) {
-                $this->session->set_flashdata('UpdatedIARData', 'Data updated successfully.');
-                redirect(base_url('inspection'));
+                $this->session->set_flashdata('success', 'Data updated successfully.');
+                echo '<script>window.history.back();</script>';
+            } else {
+                echo "Error Updating";
+            }
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    public function updateData_PAR()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $par_po_number = $this->input->post('selectPARIARNo');
+
+            $par_number = $this->input->post('txtPARNo');
+            $par_date = $this->input->post('txtPARDate');
+            $par_fund = $this->input->post('txtPARFund');
+            $par_useful_life = $this->input->post('txtUsefullife');
+            $par_receivedby = $this->input->post('txtReceivedby');
+            $par_par_receivedby_date = $this->input->post('txtDateRecivedBy');
+            $par_received_from = $this->input->post('txtReceivedfrom');
+            $par_datereceived_from = $this->input->post('txtDateReceivedfrom');
+           
+            $PAR_Data = array(
+                'par_no' => $par_number,
+                'par_date' => $txtPARDate,
+                'par_fund' => $txtPARFund,
+                'par_useful_life' => $par_useful_life,
+                'par_receivedby' => $txtReceivedby,
+                'par_received_date' => $txtDateRecivedBy,
+                'par_receivedfrom' => $txtReceivedfrom,
+                'par_receivedfrom_date' => $par_datereceived_from
+            );
+
+
+            if ($this->Function_Model->updatePARData($par_iarno, $PAR_Data)) {
+                $this->session->set_flashdata('success', 'Data updated successfully.');
+                redirect(base_url('acknowledgement'));
             } else {
                 echo "Error Updating";
             }

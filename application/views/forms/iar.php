@@ -30,7 +30,7 @@
                                 <td class="text-center">
                                 <?php if (empty($IARData->iar_number)): ?>
                                     <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-print"></i></a>
+                                    <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
                                 <?php else: ?>
                                     <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
@@ -91,7 +91,7 @@
                                 <div class="col-lg-4 col-xl-6">
                                     <div class="border p-2 mb-2">
                                         <div class="form-floating mb-2">
-                                            <input type="number" id="txtIARNo" class="form-control" name="txtIARNo" required>
+                                            <input type="text" id="txtIARNo" class="form-control" name="txtIARNo" required>
                                             <label class="form-label fw-bold text-dark" for="txtIARNo">IAR No. :</label>
                                             <div class="invalid-feedback">Please enter IAR No.</div>
                                         </div>
@@ -133,12 +133,12 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer" required>
+                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
                                     <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
                                     <div class="invalid-feedback">Please input Officer name. </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" required/>
+                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
                                     <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
                                     <div class="invalid-feedback">Please select Date.</div>
                                 </div>
@@ -148,12 +148,12 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted" required>
+                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
                                     <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
                                     <div class="invalid-feedback">Please input Property Custodian Name.</div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" required/>
+                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
                                     <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
                                     <div class="invalid-feedback">Please select Date.</div>
                                 </div>
@@ -237,3 +237,21 @@
         });
     })();
 </script>
+<script>
+    function validateInput(inputElement) {
+        inputElement.addEventListener("input", function () {
+            const value = this.value;
+            const sanitizedValue = value.replace(/[^0-9-]/g, "");
+            if (value !== sanitizedValue) {
+                this.value = sanitizedValue;
+            }
+        });
+    }
+
+    const txtIARNoInput = document.getElementById("txtIARNo");
+    validateInput(txtIARNoInput);
+
+    const txtInvoiceInput = document.getElementById("txtInvoice");
+    validateInput(txtInvoiceInput);
+</script>
+

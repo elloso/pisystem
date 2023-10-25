@@ -66,6 +66,8 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
+            $data['IAR_PARDatas'] = $this->Post_model->viewPARtable();
+            $data['PARDatas'] = $this->Post_model->viewPARtable();
             $this->load->view('template/header', $data);
             $this->load->view('forms/par');
             $this->load->view('template/footer');
@@ -221,6 +223,7 @@ class Post_Controller extends CI_Controller
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
+
         }
     }
     public function editicsDetails($editicsdetails, $icsPoID)

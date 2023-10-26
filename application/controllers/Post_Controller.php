@@ -66,7 +66,7 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
-            $data['IAR_PARDatas'] = $this->Post_model->viewPARtable();
+            $data['IAR_PARDatas'] = $this->Post_model->viewPARNo_only();
             $data['PARDatas'] = $this->Post_model->viewPARtable();
             $this->load->view('template/header', $data);
             $this->load->view('forms/par');
@@ -238,6 +238,21 @@ class Post_Controller extends CI_Controller
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
+        }
+    }
+    public function editparDetails($editpardetails, $parPoID)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $editpardetails = $this->Post_model->get_pardetails_by_id($editpardetails);
+            $paritemList = $this->Post_model->get_paritemList($parPoID);
+            $data['editpar_details'] = $editpardetails;
+            $data['par_details'] = $paritemList;
+            $this->load->view('template/header', $data);
+            $this->load->view('view-forms/editpar-details');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+
         }
     }
 } // End Bracket

@@ -44,14 +44,11 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-6 col-xl-6">
                         <div class="form-floating mb-2">
                             <input type="text" id="txtICSnumber" class="form-control" value="<?= $editicsdetails->ics_no ?>" name="txtICSnumber">
                             <label class="form-label fw-bold text-dark" for="txtICSnumber">ICS Number:</label>
                         </div>
-
-
                         <div class="border p-2 mb-2">
                             <div class="form-floating mb-2">
                                 <input type="text" id="txtReceivedfrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom ?>" name="txtReceivedfrom" required>
@@ -62,26 +59,21 @@
                                 <label class="form-label fw-bold text-dark" for="txtdatefrom">Date:</label>
                             </div>
                         </div>
-                        <div class="form-floating mb-2">
-                            <input type="text" id="txtUsefullife" class="form-control" value="<?= $editicsdetails->ics_useful_life ?>" name="txtUsefullife">
-                            <label class="form-label fw-bold text-dark" for="txtUsefullife">Useful Life:</label>
-                        </div>
                     </div>
                 </div>
-
                 <div class="col-lg-6 col-xl-12">
                     <div class="card" style="max-width: 1500px;">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="table-itemno-data" class="table table-hover">
-
                                     <tr>
-                                        <th style="width: 8%;">Item No.</th>
-                                        <th style="width: 12%;">Quantity</th>
-                                        <th style="width: 15%;">Unit</th>
-                                        <th style="width: 40%;">Items / Description</th>
-                                        <th style="width: 10%;">Unit Cost</th>
-                                        <th style="width: 10%;">Total Unit Cost</th>
+                                        <th class="text-center" style="width: 8%;">Item No.</th>
+                                        <th class="text-center" style="width: 10%;">Quantity</th>
+                                        <th class="text-center" style="width: 15%;">Unit</th>
+                                        <th class="text-center" style="width: 32%;">Items / Description</th>
+                                        <th class="text-center" style="width: 10%;">Unit Cost</th>
+                                        <th class="text-center" style="width: 10%;">Total Unit Cost</th>
+                                        <th class="text-center" style="width: 10%;">Estimated Useful Life</th>
                                     </tr>
                                     <tbody>
                                         <?php
@@ -120,9 +112,15 @@
                                                         Please enter a total unit cost.
                                                     </div>
                                                 </td>
+                                                <td>
+                                                    <input required type="hidden" value="<?php echo $icsitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]" placeholder="">
+                                                    <input required type="text" value="<?php echo $icsitem->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]"  placeholder="">
+                                                    <div class="invalid-feedback">
+                                                        Please enter estimated useful life of the item.
+                                                    </div>
 
+                                                </td>
                                             </tr>
-
                                         <?php
                                         }
                                         ?>

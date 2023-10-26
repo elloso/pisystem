@@ -124,6 +124,26 @@ class Function_Model extends CI_Model
         $this->db->where('par_iarno', $par_iarno);
         return $this->db->update('tblpar', $datapar);
     }
+    public function editPARData($par_id, $editdatapar)
+    {
+        $this->db->where('par_id', $par_id);
+        return $this->db->update('tblpar', $editdatapar);
+    }
+    public function editPARtoPOItemData($par_poitem_id, $par_poitem_useful)
+    {
+        $this->db->where('id', $par_poitem_id);
+        $this->db->update('tblpo_item', array('useful_life' => $par_poitem_useful));
+    }
+    public function editICStoPOItemData($ics_poitem_id, $ics_poitem_useful)
+    {
+        $this->db->where('id', $ics_poitem_id);
+        $this->db->update('tblpo_item', array('useful_life' => $ics_poitem_useful));
+    }
+    public function editICSData($ics_id, $editdataics)
+    {
+        $this->db->where('ics_id', $ics_id);
+        return $this->db->update('tblics', $editdataics);
+    }
     // AJAX
     public function checkPoNumber($txtPONumber)
     {

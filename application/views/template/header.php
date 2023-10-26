@@ -100,7 +100,7 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body text-muted fw-semibold">
-          Select "Logout" below if you are ready to end your current session.
+          Logout will end your current session.
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">

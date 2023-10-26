@@ -69,17 +69,34 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+    // public function viewICStable()
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('tblics');
+    //     $query = $this->db->get();
+    //     if ($query->num_rows() > 0) {
+    //         return $query->result();
+    //     } else {
+    //         return array();
+    //     }
+    // }
     public function viewICStable()
     {
-        $this->db->select('*');
+        $this->db->distinct();
+        $this->db->select('ics_id,ics_po_id,ics_no, ics_iar_no, ics_fund, ics_supplier');
         $this->db->from('tblics');
+        $this->db->join('tblpo_item', 'tblics.ics_po_id = tblpo_item.po_id');
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+    
         $query = $this->db->get();
+    
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
             return array();
         }
     }
+
 
     public function get_podetails_by_id($poID)
     {
@@ -161,10 +178,49 @@ class Post_Model extends CI_Model
             return array();
         }
     }
-    public function viewPARtable()
+    public function viewPARNo_only()
     {
         $this->db->select('*');
         $this->db->from('tblpar');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    public function viewPARtable()
+    {
+        $this->db->distinct();
+        $this->db->select('par_id,par_po_id,par_no, par_iarno, par_fund, par_supplier');
+        $this->db->from('tblpar');
+        $this->db->join('tblpo_item', 'tblpar.par_po_id = tblpo_item.po_id');
+        $this->db->where('tblpo_item.unit_cost >', 50000);
+    
+        $query = $this->db->get();
+    
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    public function get_pardetails_by_id($parID)
+    {
+        $this->db->where('md5(par_id)', $parID);
+        $query = $this->db->get('tblpar');
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+    public function get_paritemList($parPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->where('md5(po_id)', $parPoID);
+        $this->db->where('unit_cost >', 50000);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();

@@ -140,9 +140,10 @@ class Function_Model extends CI_Model
 
         return $query->num_rows() > 0;
     }
-    public function SubmitPoItemListData($itemData)
+    public function remove_poItem($idPoitem)
     {
-        $this->db->insert('tblpo_item', $itemData);
-        return $this->db->insert_id();
+        $this->db->where('md5(id)', $idPoitem);
+        $this->db->delete('tblpo_item');
+        return $this->db->affected_rows() > 0;
     }
 }

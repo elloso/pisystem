@@ -17,21 +17,18 @@ $route['generate-password/(:any)'] = 'Function_Controller/generatePassword/$1';
 
 // submit(save) form
 $route['submit-po'] = 'Function_Controller/submitPo';
+$route['deletepo-item/(:any)'] = 'Function_Controller/deletepoItem/$1';
 $route['submit-iar'] = 'Function_Controller/updateData_IAR';
 $route['update-ics'] = 'Function_Controller/updatetIcs';
 $route['updatepo-details'] = 'Function_Controller/updatepoDetails';
+$route['updatepoTotal-details'] = 'Function_Controller/updatepoTotalDetails';
+
 $route['updateics-details'] = 'Function_Controller/updateicsDetails';
 $route['submit-PAR-Details'] = 'Function_Controller/updateData_PAR';
 $route['editpo-details/(:any)/(:any)'] = 'Post_Controller/editpoDetails/$1/$2';
 $route['editItem-details'] = 'Function_Controller/editItemDetails';
 $route['editiar-details/(:any)/(:any)'] = 'Post_Controller/editiarDetails/$1/$2';
 $route['editics-details/(:any)/(:any)'] = 'Post_Controller/editicsDetails/$1/$2';
-
-
-
-
-
-
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';
 // forms
@@ -43,16 +40,10 @@ $route['propertycard'] = 'Post_Controller/PropertyCard';
 $route['stockcard'] = 'Post_Controller/StockCard';
 $route['suppliesledger'] = 'Post_Controller/SuppliesLedgerCard';
 $route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
-
-
-
 // account/maintenance
 $route['account-list'] = 'Post_Controller/accountList';
-
-
 // ajax
 $route['checkPo-number'] = 'Function_Controller/checkPoNumber';
 $route['checkPr-number'] = 'Function_Controller/checkPrNumber';
-
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

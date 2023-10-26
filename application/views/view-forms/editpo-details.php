@@ -4,7 +4,7 @@
             <div class="card-title fw-bold">Purchase Order Details</div>
         </div>
         <div class="card-body">
-            <form action="<?php echo base_url() ?>updatepo-details" method="post">
+            <form action="<?php echo base_url() ?>updatepo-details" method="post" id="formPo">
                 <?php if (!empty($this->session->flashdata('trn-error'))) : ?>
                     <div class="alert alert-danger alert-dismissible fade show text-center" style="width:100%;" role="alert">
                         <?php echo $this->session->flashdata('trn-error'); ?>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" id="txtTotaCost" class="form-control" value="<?= $editpo_details->total_cost ?>" name="txtTotalCost" required>
+                            <input type="text" id="txtTotalCost" class="form-control" value="<?= number_format($editpo_details->total_cost, 2) ?>" name="txtTotalCost" required readonly>
                             <label class="form-label fw-bold text-dark" for="txtTotaCost">Total Cost:</label>
                             <div class="invalid-feedback">
                                 Please choose a total cost.
@@ -78,24 +78,26 @@
                                 <table id="table-po-data" class="table table-hover">
                                     <tr>
                                         <th style="width: 8%;">Item No.</th>
-                                        <th style="width: 12%;">Quantity</th>
+                                        <th style="width: 10%;">Quantity</th>
                                         <th style="width: 15%;">Unit</th>
                                         <th style="width: 40%;">Items / Description</th>
                                         <th style="width: 10%;">Unit Cost</th>
                                         <th style="width: 10%;">Total Unit Cost</th>
-                                        <th style="width: 5%;">Action</th>
+                                        <th style="width: 7%;">Action</th>
                                     </tr>
                                     <tbody>
                                         <?php
+                                        $remainingRowCount = count($poitemList);
+                                        $itemNoCounter = 1;
                                         foreach ($poitemList as $poitem) {
                                         ?>
                                             <tr>
-                                                <td><input required type="text" value="<?php echo $poitem->item_no ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                                <td><input required type="text" value="<?php echo $itemNoCounter; ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Item No.
                                                     </div>
                                                 </td>
-                                                <td><input required type="number" value="<?php echo $poitem->quantity ?>" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" readonly>
+                                                <td><input required type="number" value="<?php echo $poitem->quantity ?>" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" oninput="calculateRowTotal(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Quantity.
                                                     </div>
@@ -117,14 +119,21 @@
                                                         Please enter a unit cost.
                                                     </div>
                                                 </td>
-                                                <td><input required type="text" value="<?php echo $poitem->total_unit_cost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                <td><input required type="text" value="<?php echo $poitem->total_unit_cost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this); calculateRowTotal(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a total unit cost.
                                                     </div>
                                                 </td>
-                                                <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>', <?php echo $poitem->total_unit_cost ?>)" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                <td class="text-center"><a href="#" class="p-1 text-primary" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>', <?php echo $poitem->total_unit_cost ?>)" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <?php
+                                                    if ($remainingRowCount > 1) {
+                                                        echo '<a href="' . base_url('deletepo-item/' . md5($poitem->id)) . '" class="p-1 text-danger" title="delete" onclick="return confirm(\'Are you sure you want to delete ' . $poitem->item_description . '?\');"><i class="fa-solid fa-trash"></i></a>';
+                                                    }
+                                                    ?>
+                                                </td>
                                             </tr>
                                         <?php
+                                            $itemNoCounter++;
                                         }
                                         ?>
                                     </tbody>
@@ -134,7 +143,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-secondary mt-2" style="width: 10%;" onclick=" history.back()">Back</button>
-                <button type="submit" class="btn btn-primary mt-2" style="width: 10%;">Save</button>
+                <button type="submit" class="btn btn-primary mt-2" style="width: 10%;" id="formButton">Save</button>
             </form>
         </div>
     </div>
@@ -157,11 +166,13 @@
                 </div>
                 <div class="modal-body">
                     <form action="<?php echo base_url(); ?>editItem-details" method="post">
+                        <input type="hidden" id="mtxtTotalCost" class="form-control" name="mtxtTotalCost" required readonly>
+                        <input type="hidden" id="txtPo_id" value="<?= $editpo_details->po_id ?>" class="form-control" name="txtPo_id" required readonly>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Quantity</label>
                                 <input type="hidden" class="form-control" name="id" id="edit_id" required>
-                                <input type="number" class="form-control" name="quantity" oninput="this.value = Math.abs(this.value)" id="editQuantity" required>
+                                <input type="number" class="form-control" name="quantity" oninput="updateTotalUnitCost()" oninput="this.value = Math.abs(this.value)" id="editQuantity" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Unit</label>
@@ -175,20 +186,20 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Unit Cost</label>
-                                <input type="text" class="form-control" maxlength="76" name="unit_cost" id="editCost" required>
+                                <input type="text" class="form-control" oninput="updateTotalUnitCost()" maxlength="76" name="unit_cost" id="editCost" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col" style="width: 100%;">
                                 <label for="" class="fw-bold">Total Unit Cost</label>
-                                <input type="text" class="form-control" maxlength="76" name="total_unit_cost" id="editTotalCost" required>
+                                <input type="text" class="form-control" maxlength="76" name="total_unit_cost" id="editTotalCost" required readonly>
                             </div>
                         </div>
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="submitModalButton">Submit</button>
                 </div>
                 </form>
             </div>
@@ -196,11 +207,25 @@
         </div>
     </div>
     <script>
+        function updateTotalUnitCost() {
+            var quantityInput = document.getElementById('editQuantity');
+            var unitCostInput = document.getElementById('editCost');
+            var totalUnitCostInput = document.getElementById('editTotalCost');
+
+            var quantity = parseFloat(quantityInput.value) || 0;
+            var unitCost = parseFloat(unitCostInput.value) || 0;
+
+            var totalUnitCost = quantity * unitCost;
+            totalUnitCostInput.value = totalUnitCost.toFixed(2);
+        }
+    </script>
+    <script>
         var table = document.getElementById("table-po-data");
         var button1 = document.getElementById("addRow");
         var button2 = document.getElementById("deleteRow");
-        var currentItemNo = <?php echo $poitem->item_no + 1 ?>;
-        button1.addEventListener("click", function() {
+        var currentItemNo = <?php echo isset($itemNoCounter) ? $itemNoCounter : 1 ?>;
+        var maxRow = currentItemNo;
+        button1.addEventListener("click", function(event) {
             event.preventDefault();
             var newRow = table.insertRow(-1);
             var itemnoCell = newRow.insertCell(0);
@@ -209,15 +234,18 @@
             var itemdescriptionCell = newRow.insertCell(3);
             var itemunitcostCell = newRow.insertCell(4);
             var itemtotalunitcostCell = newRow.insertCell(5);
-            itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class=" form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly>';
-            itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" >';
+            itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly>';
+            itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" >';
             itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" >';
-            itemdescriptionCell.innerHTML = ' <textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';
+            itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';
             itemunitcostCell.innerHTML = '<input required type="text" class="form-control" id="UtxtItemUnitCost" name="UtxtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
             itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="UtxtTotalUnitCost" name="UtxtTotalUnitCost[]" placeholder="0"><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
             currentItemNo++;
+            maxRow++;
             button2.disabled = false;
         });
+    </script>
+    <script>
         button2.addEventListener("click", function() {
             event.preventDefault();
             var rowCount = table.rows.length;
@@ -233,5 +261,24 @@
             if (rowCount === maxRow + 1) {
                 button2.disabled = true;
             }
+        });
+    </script>
+    <script>
+        function calculateTotal() {
+            var total = 0;
+            var txtTotalUnitCostElements = document.getElementsByName("txtTotalUnitCost[]");
+            for (var i = 0; i < txtTotalUnitCostElements.length; i++) {
+                var value = parseFloat(txtTotalUnitCostElements[i].value.replace(/[^0-9.-]+/g, ''));
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            }
+            return total;
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            var totalCost = calculateTotal();
+            document.getElementById("txtTotalCost").value = totalCost;
+            var mtotalCost = calculateTotal();
+            document.getElementById("mtxtTotalCost").value = mtotalCost;
         });
     </script>

@@ -122,7 +122,22 @@ class Function_Controller extends CI_Controller
         $this->session->set_flashdata('success', 'Insert Data Success!');
         redirect(base_url('purchase'));
     }
-    // submit(save) form
+    public function deletepoItem($delPoItem)
+    {
+        if (!$delPoItem) {
+            $this->session->set_flashdata('error', 'ID does not exist');
+            echo '<script>window.history.back();</script>';
+            return;
+        }
+        $result = $this->Function_Model->remove_poItem($delPoItem);
+        if ($result) {
+            $this->session->set_flashdata('success', 'Remove item successful!');
+            echo '<script>window.history.back();</script>';
+        } else {
+            $this->session->set_flashdata('error', 'Remove item failed!');
+            echo '<script>window.history.back();</script>';
+        }
+    }
     public function updateData_IAR()
     {
         if ($this->session->userdata('is_login') == TRUE) {
@@ -248,13 +263,13 @@ class Function_Controller extends CI_Controller
             'pgr_number' => $txtPGEFNumber
         );
         $UtxtItemNo = $this->input->post('UtxtItemNo');
-        $txtItemQuantity = $this->input->post('txtItemQuantity');
-        $UtxtUnit = $this->input->post('txtItemQuantity');
+        $UtxtItemQuantity = $this->input->post('UtxtItemQuantity');
+        $UtxtUnit = $this->input->post('UtxtUnit');
         $UtxtDescription = $this->input->post('UtxtDescription');
         $UtxtItemUnitCost = $this->input->post('UtxtItemUnitCost');
         $UtxtTotalUnitCost = $this->input->post('UtxtTotalUnitCost');
         if (
-            is_array($UtxtItemNo) && is_array($txtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($txtItemQuantity) && count($UtxtUnit) === count($UtxtDescription) && count($UtxtItemUnitCost) === count($UtxtTotalUnitCost)
+            is_array($UtxtItemNo) && is_array($UtxtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($UtxtItemQuantity) && count($UtxtUnit) === count($UtxtDescription) && count($UtxtItemUnitCost) === count($UtxtTotalUnitCost)
         ) {
             $count = count($UtxtItemNo);
             for ($i = 0; $i < $count; $i++) {
@@ -264,13 +279,21 @@ class Function_Controller extends CI_Controller
                     'pr_number' => $txtPRNumber,
                     'pgr_number' => $txtPGEFNumber,
                     'item_no' => $UtxtItemNo[$i],
-                    'quantity' => $txtItemQuantity[$i],
+                    'quantity' => $UtxtItemQuantity[$i],
                     'unit' => $UtxtUnit[$i],
                     'item_description' => $UtxtDescription[$i],
                     'unit_cost' => $UtxtItemUnitCost[$i],
                     'total_unit_cost' => $UtxtTotalUnitCost[$i],
                 );
-                $this->Function_Model->SubmitPoItemListData($itemData);
+                $updateTotalPO = array(
+                    'total_cost' => $txtTotalCost
+                );
+                $this->db->where('po_id', $po_id);
+                $this->db->update('tblpo', $updateTotalPO);
+                $this->db->where('po_id', $po_id);
+                $this->db->insert('tblpo_item', $itemData);
+                $this->session->set_flashdata('success', 'Item successfully added!');
+                echo '<script>window.history.back();</script>';
             }
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');
@@ -345,6 +368,8 @@ class Function_Controller extends CI_Controller
     }
     public function editItemDetails()
     {
+        $txtTotalCost = $this->input->post('mtxtTotalCost');
+        $txtPo_id = $this->input->post('txtPo_id');
         $id = $this->input->post('id');
         $quantity = $this->input->post('quantity');
         $unit = $this->input->post('unit');
@@ -358,23 +383,31 @@ class Function_Controller extends CI_Controller
             'unit_cost' => $unit_cost,
             'total_unit_cost' => $total_unit_cost
         );
+        $dataTotalCost = array(
+            'total_cost' => $txtTotalCost
+        );
+        $this->db->trans_start();
+        $this->db->where('po_id', $txtPo_id);
+        $resultTotalCost = $this->db->update('tblpo', $dataTotalCost);
         $this->db->where('id', $id);
-        $result = $this->db->update('tblpo_item', $data);
-        if ($result) {
-            $this->session->set_flashdata('success', 'Update Data Successfully!');
+        $resultItem = $this->db->update('tblpo_item', $data);
+        if ($resultTotalCost && $resultItem) {
+            $this->db->trans_commit();
+            $this->session->set_flashdata('poedit-success', 'Click save to update the data!');
             echo '<script>window.history.back();</script>';
         } else {
+            $this->db->trans_rollback();
             $this->session->set_flashdata('error', 'Update Data Failed!');
             echo '<script>window.history.back();</script>';
         }
     }
-
     public function editIARDetails()
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $iar_id = $this->input->post('txt_iar_id');
             $iar_ics_id = $this->input->post('txt_ics_id');
 
+            // $iar_ics_number = $this->input->post('txtIARNo');
             $iar_editiarnumber = $this->input->post('edit_iarno');
             $iar_editdate = $this->input->post('edit_iardate');
             $iar_editinvoicenumber = $this->input->post('edit_invoice');
@@ -488,6 +521,17 @@ class Function_Controller extends CI_Controller
             }
     }
 }
+    // public function updatepoTotalDetails()
+    // {
+    //     $txtTotalCost = $this->input->post('txtTotalCost');
+    //     $txtPo_id = $this->input->post('txtPo_id');
+    //     $dataTotalCost = array(
+    //         'total_cost' => $txtTotalCost
+    //     );
+    //     $this->db->where('po_id', $txtPo_id);
+    //     $this->db->update('tblpo', $dataTotalCost);
+    //     echo '<script>window.history.back();</script>';
+    // }
     // ajax
     public function checkPoNumber()
     {

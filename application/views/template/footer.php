@@ -29,6 +29,14 @@
         });
     </script>
 <?php endif; ?>
+<?php if (!empty($this->session->flashdata('poedit-success'))) : ?>
+    <script>
+        Swal.fire({
+            title: "<?php echo $this->session->flashdata('poedit-success'); ?>",
+            icon: 'success',
+        });
+    </script>
+<?php endif; ?>
 <!-- Datatables -->
 
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

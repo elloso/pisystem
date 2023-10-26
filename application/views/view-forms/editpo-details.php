@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="number" id="txtPONumber" value="<?= $editpo_details->po_number ?>" class="form-control" name="txtPONumber" required>
+                            <input type="text" id="txtPONumber" value="<?= $editpo_details->po_number ?>" class="form-control" name="txtPONumber" required>
                             <label class="form-label fw-bold text-dark" for="txtPONumber">P.O Number :</label>
                             <div class="invalid-feedback">
                                 Please choose a p.o number.
@@ -49,14 +49,14 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="number" id="txtPRNumber" class="form-control" value="<?= $editpo_details->pr_number ?>" name="txtPRNumber" required>
+                            <input type="text" id="txtPRNumber" class="form-control" value="<?= $editpo_details->pr_number ?>" name="txtPRNumber" required>
                             <label class="form-label fw-bold text-dark" for="txtPRNumber">Purchase Request Number:</label>
                             <div class="invalid-feedback">
                                 Please choose a purchase request number.
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="number" id="txtPGEFNumber" class="form-control" value="<?= $editpo_details->pgr_number  ?>" name="txtPGEFNumber">
+                            <input type="text" id="txtPGEFNumber" class="form-control" value="<?= $editpo_details->pgr_number  ?>" name="txtPGEFNumber">
                             <label class="form-label fw-bold text-dark" for="txtPGEFNumber">PG REF Number:</label>
                             <div class="invalid-feedback">
                                 Please choose a pg ref number.

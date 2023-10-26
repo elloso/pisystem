@@ -255,7 +255,6 @@ class Function_Controller extends CI_Controller
         $UtxtDescription = $this->input->post('UtxtDescription');
         $UtxtItemUnitCost = $this->input->post('UtxtItemUnitCost');
         $UtxtTotalUnitCost = $this->input->post('UtxtTotalUnitCost');
-
         if (
             is_array($UtxtItemNo) && is_array($txtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($txtItemQuantity) && count($UtxtUnit) === count($UtxtDescription) && count($UtxtItemUnitCost) === count($UtxtTotalUnitCost)
         ) {
@@ -415,7 +414,7 @@ class Function_Controller extends CI_Controller
             $par_par_receivedby_date = $this->input->post('txtDateRecivedBy');
             $par_received_from = $this->input->post('txtReceivedfrom');
             $par_datereceived_from = $this->input->post('txtDateReceivedfrom');
-           
+
             $PAR_Data = array(
                 'par_no' => $par_number,
                 'par_date' => $txtPARDate,

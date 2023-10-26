@@ -30,7 +30,7 @@
                                     <a href="" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
                                 <?php else: ?>
-                                    <a href="" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="#" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                                 <?php endif; ?>
                             </td>
@@ -43,7 +43,7 @@
     </div>
 </div>
 <!-- Modal -->
-<form action="#" method="post" class="needs-validation" novalidate>
+<form action="<?php echo base_url('submit-PAR-Details') ?>" method="post" class="needs-validation" novalidate>
 <div class="modal fade" id="Modal_PropertyAcknowledgment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -171,3 +171,19 @@
         })
     })()
 </script>
+<script>
+    function validateInput(inputElement) {
+        inputElement.addEventListener("input", function () {
+            const value = this.value;
+            const sanitizedValue = value.replace(/[^0-9-]/g, "");
+            if (value !== sanitizedValue) {
+                this.value = sanitizedValue;
+            }
+        });
+    }
+
+    const txtPARNoInput = document.getElementById("txtPARNo");
+    validateInput(txtPARNoInput);
+
+</script>
+

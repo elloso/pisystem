@@ -406,28 +406,26 @@ class Function_Controller extends CI_Controller
         if ($this->session->userdata('is_login') == TRUE) {
             $par_po_number = $this->input->post('selectPARIARNo');
 
-            $par_number = $this->input->post('txtPARNo');
-            $par_date = $this->input->post('txtPARDate');
-            $par_fund = $this->input->post('txtPARFund');
-            $par_useful_life = $this->input->post('txtUsefullife');
-            $par_receivedby = $this->input->post('txtReceivedby');
-            $par_par_receivedby_date = $this->input->post('txtDateRecivedBy');
-            $par_received_from = $this->input->post('txtReceivedfrom');
-            $par_datereceived_from = $this->input->post('txtDateReceivedfrom');
+            $par_updatenumber = $this->input->post('txtPARNo');
+            $par_updatedate = $this->input->post('txtPARDate');
+            $par_updatefund = $this->input->post('txtPARFund');
+            $par_updatereceivedby = $this->input->post('txtReceivedby');
+            $par_updatepar_receivedby_date = $this->input->post('txtDateRecivedBy');
+            $par_updatereceived_from = $this->input->post('txtReceivedfrom');
+            $par_updatedatereceived_from = $this->input->post('txtDateReceivedfrom');
 
             $PAR_Data = array(
-                'par_no' => $par_number,
-                'par_date' => $txtPARDate,
-                'par_fund' => $txtPARFund,
-                'par_useful_life' => $par_useful_life,
-                'par_receivedby' => $txtReceivedby,
-                'par_received_date' => $txtDateRecivedBy,
-                'par_receivedfrom' => $txtReceivedfrom,
-                'par_receivedfrom_date' => $par_datereceived_from
+                'par_no' => $par_updatenumber,
+                'par_date' => $par_updatedate,
+                'par_fund' => $par_updatefund,
+                'par_receivedby' => $par_updatereceivedby,
+                'par_received_date' => $par_updatepar_receivedby_date,
+                'par_receivedfrom' => $par_updatereceived_from,
+                'par_receivedfrom_date' => $par_updatedatereceived_from
             );
 
 
-            if ($this->Function_Model->updatePARData($par_iarno, $PAR_Data)) {
+            if ($this->Function_Model->updatePARData($par_po_number, $PAR_Data)) {
                 $this->session->set_flashdata('success', 'Data updated successfully.');
                 redirect(base_url('acknowledgement'));
             } else {

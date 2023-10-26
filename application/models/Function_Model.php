@@ -122,7 +122,7 @@ class Function_Model extends CI_Model
     public function updatePARData($par_iarno, $datapar)
     {
         $this->db->where('par_iarno', $par_iarno);
-        return $this->db->update('tbliar', $datapar);
+        return $this->db->update('tblpar', $datapar);
     }
     // AJAX
     public function checkPoNumber($txtPONumber)

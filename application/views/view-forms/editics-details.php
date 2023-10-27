@@ -59,6 +59,10 @@
                                 <label class="form-label fw-bold text-dark" for="txtdatefrom">Date:</label>
                             </div>
                         </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" id="icsTotalCost" class="form-control" name="icsTotalCost" required readonly>
+                            <label class="form-label fw-bold text-dark" for="icsTotalCost">Total Cost:</label>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-xl-12">
@@ -114,7 +118,7 @@
                                                 </td>
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $icsitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]" placeholder="">
-                                                    <input required type="text" value="<?php echo $icsitem->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]"  placeholder="">
+                                                    <input required type="text" value="<?php echo $icsitem->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]" placeholder="">
                                                     <div class="invalid-feedback">
                                                         Please enter estimated useful life of the item.
                                                     </div>
@@ -183,15 +187,25 @@
 
         </div>
     </div>
-<!-- <script>
-    function formatCurrency(input) {
-        // Remove existing commas and convert the value to a number
-        let value = parseFloat(input.value.replace(/,/g, ''));
-
-        // Check if the value is a valid number
-        if (!isNaN(value)) {
-            // Format the number with commas every thousand
-            input.value = value.toLocaleString('en-US');
+    <script>
+        function calculateTotal() {
+            var total = 0;
+            var txtTotalUnitCostElements = document.getElementsByName("txtTotalUnitCost[]");
+            for (var i = 0; i < txtTotalUnitCostElements.length; i++) {
+                var value = parseFloat(txtTotalUnitCostElements[i].value.replace(/[^0-9.-]+/g, ''));
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            }
+            return total.toLocaleString('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: 2
+            });
         }
-    }
-</script> -->
+        window.addEventListener('DOMContentLoaded', function() {
+            var totalCost = calculateTotal();
+            document.getElementById("txtTotalUnitCost").value = totalCost;
+            var mtotalCost = calculateTotal();
+            document.getElementById("icsTotalCost").value = mtotalCost;
+        });
+    </script>

@@ -297,7 +297,6 @@
 
     function updateTotalUnitCost() {
         var rows = table.rows;
-
         for (var i = 1; i < rows.length; i++) {
             var quantity = parseFloat(rows[i].querySelector('input[name^="txtItemQuantity[]"]').value) || 0;
             var unitCost = parseFloat(rows[i].querySelector('input[name^="txtItemUnitCost[]"]').value) || 0;

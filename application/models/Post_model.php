@@ -195,7 +195,7 @@ class Post_Model extends CI_Model
         $this->db->select('par_id,par_po_id,par_no, par_iarno, par_fund, par_supplier');
         $this->db->from('tblpar');
         $this->db->join('tblpo_item', 'tblpar.par_po_id = tblpo_item.po_id');
-        // $this->db->where('tblpo_item.unit_cost >', 50000);
+        $this->db->where('tblpo_item.unit_cost >', 50000);
     
         $query = $this->db->get();
     
@@ -220,7 +220,7 @@ class Post_Model extends CI_Model
         $this->db->select('*');
         $this->db->from('tblpo_item');
         $this->db->where('md5(po_id)', $parPoID);
-        // $this->db->where('unit_cost >', 50000);
+        $this->db->where('unit_cost >', 50000);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();

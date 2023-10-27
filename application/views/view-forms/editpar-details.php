@@ -100,12 +100,12 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input required type="number" value="<?php echo $par_detail->unit_cost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                    <input required type="text" value="<?= number_format($par_detail->unit_cost, 2, '.', ',') ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a unit cost.
                                                     </div>
                                                 </td>
-                                                <td><input type="number" value="<?php echo $par_detail->total_unit_cost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" required readonly>
+                                                <td><input type="text" value="<?= number_format($par_detail->total_unit_cost, 2, '.', ',') ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" required readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a total unit cost.
                                                     </div>
@@ -129,56 +129,5 @@
                 <button type="button" class="btn btn-secondary mt-2" style="width: 10%;" onclick="history.back()">Back</button>
                 <button type="submit" class="btn btn-primary mt-2" style="width: 10%;">Save</button>
             </form>
-        </div>
-    </div>
-
-
-
-
-    <div class="modal fade modal-lg" id="editRow">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Item Details</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="#" method="post">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="" class="fw-bold">Quantity</label>
-                                <input type="hidden" class="form-control" name="id" id="edit_id" required>
-                                <input type="number" class="form-control" name="quantity" oninput="this.value = Math.abs(this.value)" id="editQuantity" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="" class="fw-bold">Unit</label>
-                                <input type="text" class="form-control" maxlength="25" name="unit" id="editUnit" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="" class="fw-bold">Item Description</label>
-                                <input type="text" class="form-control" maxlength="76" name="description" id="editDescription" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="" class="fw-bold">Unit Cost</label>
-                                <input type="text" class="form-control" maxlength="76" name="unit_cost" id="editCost" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col" style="width: 100%;">
-                                <label for="" class="fw-bold">Total Unit Cost</label>
-                                <input type="text" class="form-control" maxlength="76" name="total_unit_cost" id="editTotalCost" required>
-                            </div>
-                        </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-                </form>
-            </div>
-
         </div>
     </div>

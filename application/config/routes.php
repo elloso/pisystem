@@ -32,6 +32,10 @@ $route['editiar-details/(:any)/(:any)'] = 'Post_Controller/editiarDetails/$1/$2'
 $route['editics-details/(:any)/(:any)'] = 'Post_Controller/editicsDetails/$1/$2';
 $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2';
 
+//Forms
+$route['print-iarform/(:any)'] = 'Fpdf_Controller/IARform/$1';
+
+
 
 
 

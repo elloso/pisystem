@@ -102,12 +102,12 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input required type="text" value="<?= $icsitem->unit_cost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                    <input required type="text" value="<?= number_format($icsitem->unit_cost, 2, '.', ',') ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a unit cost.
                                                     </div>
                                                 </td>
-                                                <td><input required type="text" value="<?= $icsitem->total_unit_cost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                <td><input required type="text" value="<?= number_format($icsitem->total_unit_cost, 2, '.', ',') ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a total unit cost.
                                                     </div>
@@ -183,3 +183,15 @@
 
         </div>
     </div>
+<!-- <script>
+    function formatCurrency(input) {
+        // Remove existing commas and convert the value to a number
+        let value = parseFloat(input.value.replace(/,/g, ''));
+
+        // Check if the value is a valid number
+        if (!isNaN(value)) {
+            // Format the number with commas every thousand
+            input.value = value.toLocaleString('en-US');
+        }
+    }
+</script> -->

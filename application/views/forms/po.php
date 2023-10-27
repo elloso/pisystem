@@ -11,11 +11,11 @@
                     </button>
                     <thead>
                         <tr>
-                            <th>SUPPLIER</th>
-                            <th>P.O No.</th>
-                            <th>DATE</th>
-                            <th>PR No.</th>
-                            <th>Action</th>
+                            <th class="text-center">SUPPLIER</th>
+                            <th class="text-center">P.O No.</th>
+                            <th class="text-center">DATE</th>
+                            <th class="text-center">PR No.</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@
                                 <td><?php echo $POData->po_number; ?></td>
                                 <td><?php echo $POData->po_date; ?></td>
                                 <td><?php echo $POData->pr_number; ?></td>
-                                <td>
+                                <td class="text-center">
                                     <a href="<?= base_url('editpo-details/' . md5($POData->id) . '/' . md5($POData->po_id)) ?>" title='edit details' class='text-primary po-data'><i class="fa-solid fa-pen-to-square"></i></a>
                                     <!-- <a href="#" class="p-2 text-primary" title="print"><i class="fa-solid fa-print"></i></a> -->
                                 </td>
@@ -56,7 +56,7 @@
                                     <input type="text" id="txtSupplier" class="form-control" name="txtSupplier" required>
                                     <label class="form-label fw-bold text-dark" for="txtSupplier">Supplier :</label>
                                     <div class="invalid-feedback">
-                                        Please choose a supplier.
+                                        Please enter supplier.
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
@@ -203,7 +203,7 @@
                     }
                 });
             } else {
-                $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
+                // $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
             }
         });
     });
@@ -234,7 +234,7 @@
                     }
                 });
             } else {
-                $("#msg").css("color", "red").text("Please enter a P.O. Number");
+                // $("#msg").css("color", "red").text("Please enter a P.O. Number");
             }
         });
     });

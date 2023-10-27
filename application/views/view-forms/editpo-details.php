@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" id="txtTotalCost" class="form-control" value="<?= number_format($editpo_details->total_cost, 2) ?>" name="txtTotalCost" required readonly>
+                            <input type="text" id="txtTotalCost" class="form-control" name="txtTotalCost" required readonly>
                             <label class="form-label fw-bold text-dark" for="txtTotaCost">Total Cost:</label>
                             <div class="invalid-feedback">
                                 Please choose a total cost.
@@ -92,7 +92,9 @@
                                         foreach ($poitemList as $poitem) {
                                         ?>
                                             <tr>
-                                                <td><input required type="text" value="<?php echo $itemNoCounter; ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                                <td>
+                                                    <input required type="hidden" value="<?php echo $poitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]">
+                                                    <input required type="text" value="<?php echo $itemNoCounter; ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Item No.
                                                     </div>
@@ -114,12 +116,12 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input required type="text" value="<?php echo $poitem->unit_cost ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
+                                                    <input required type="text" value="<?= number_format($poitem->unit_cost, 2) ?>" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a unit cost.
                                                     </div>
                                                 </td>
-                                                <td><input required type="text" value="<?php echo $poitem->total_unit_cost ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this); calculateRowTotal(this)" readonly>
+                                                <td><input required type="text" value="<?= number_format($poitem->total_unit_cost, 2) ?>" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this); calculateRowTotal(this)" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter a total unit cost.
                                                     </div>
@@ -225,6 +227,7 @@
         var button2 = document.getElementById("deleteRow");
         var currentItemNo = <?php echo isset($itemNoCounter) ? $itemNoCounter : 1 ?>;
         var maxRow = currentItemNo;
+
         button1.addEventListener("click", function(event) {
             event.preventDefault();
             var newRow = table.insertRow(-1);
@@ -234,16 +237,32 @@
             var itemdescriptionCell = newRow.insertCell(3);
             var itemunitcostCell = newRow.insertCell(4);
             var itemtotalunitcostCell = newRow.insertCell(5);
+
             itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly>';
-            itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" >';
-            itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" >';
+            itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" oninput="calculateTotalUnitCost(this)">';
+            itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';
-            itemunitcostCell.innerHTML = '<input required type="text" class="form-control" id="UtxtItemUnitCost" name="UtxtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
-            itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="UtxtTotalUnitCost" name="UtxtTotalUnitCost[]" placeholder="0"><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
+            itemunitcostCell.innerHTML = '<input required type="text" class="form-control" id="UtxtItemUnitCost" name="UtxtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this); calculateTotalUnitCost(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
+            itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="UtxtTotalUnitCost" name="UtxtTotalUnitCost[]" placeholder="0" readonly><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
+
             currentItemNo++;
             maxRow++;
             button2.disabled = false;
         });
+
+        function calculateTotalUnitCost(inputElement) {
+            var row = inputElement.parentNode.parentNode;
+            var quantity = parseFloat(row.querySelector('#UtxtItemQuantity').value) || 0;
+            var unitCost = parseFloat(row.querySelector('#UtxtItemUnitCost').value) || 0;
+            var totalUnitCost = quantity * unitCost;
+            totalUnitCost = totalUnitCost.toFixed(2);
+            row.querySelector('#UtxtTotalUnitCost').value = totalUnitCost;
+        }
+
+        function formatCurrency(inputElement) {
+            // You can implement your currency formatting logic here if needed.
+            // This function can be used to format the input as a currency value.
+        }
     </script>
     <script>
         button2.addEventListener("click", function() {
@@ -273,7 +292,10 @@
                     total += value;
                 }
             }
-            return total;
+            return total.toLocaleString('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: 2
+            });
         }
         window.addEventListener('DOMContentLoaded', function() {
             var totalCost = calculateTotal();

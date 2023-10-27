@@ -131,7 +131,7 @@ class Function_Controller extends CI_Controller
         }
         $result = $this->Function_Model->remove_poItem($delPoItem);
         if ($result) {
-            $this->session->set_flashdata('success', 'Remove item successful!');
+            $this->session->set_flashdata('success', 'Please click save to update the data!');
             echo '<script>window.history.back();</script>';
         } else {
             $this->session->set_flashdata('error', 'Remove item failed!');
@@ -230,6 +230,8 @@ class Function_Controller extends CI_Controller
         $txtPGEFNumber = strip_tags($this->input->post('txtPGEFNumber'));
         $txtTotalCost = strip_tags($this->input->post('txtTotalCost'));
         $currentPoInfo = $this->Function_Model->getPoInfoById($po_id);
+
+
         if ($txtPONumber !== $currentPoInfo['po_number']) {
             if ($this->Function_Model->isPoIdExists($txtPONumber)) {
                 $this->session->set_flashdata('trn-error', 'P.O. number already exists!');
@@ -243,6 +245,12 @@ class Function_Controller extends CI_Controller
                 echo '<script>window.history.back();</script>';
                 return;
             }
+        }
+        $txtPOItem_id = $this->input->post('txtPOItem_id');
+        $txtItemNo = $this->input->post('txtItemNo');
+        foreach ($txtPOItem_id as $key => $item_id) {
+            $itemNo = $txtItemNo[$key];
+            $this->Function_Model->editPOItemData($item_id, $itemNo);
         }
         $data = array(
             'po_number' => $txtPONumber,
@@ -292,7 +300,7 @@ class Function_Controller extends CI_Controller
                 $this->db->update('tblpo', $updateTotalPO);
                 $this->db->where('po_id', $po_id);
                 $this->db->insert('tblpo_item', $itemData);
-                $this->session->set_flashdata('success', 'Item successfully added!');
+                $this->session->set_flashdata('success', 'Item successfully added! Please click save to update the data');
                 echo '<script>window.history.back();</script>';
             }
         } else {
@@ -325,8 +333,8 @@ class Function_Controller extends CI_Controller
         $txtdatefrom = strip_tags($this->input->post('txtdatefrom'));
         $currentPoInfo = $this->Function_Model->getICSInfoById($ics_id);
 
-        $ics_poitem_ids = $this->input->post('txtPOItem_id'); 
-        $ics_poitem_usefuls = $this->input->post('txtPOItem_useful'); 
+        $ics_poitem_ids = $this->input->post('txtPOItem_id');
+        $ics_poitem_usefuls = $this->input->post('txtPOItem_useful');
 
         if ($txtICSnumber !== $currentPoInfo['ics_no']) {
             if ($this->Function_Model->isICSIdExists($txtICSnumber)) {
@@ -485,7 +493,7 @@ class Function_Controller extends CI_Controller
     public function editData_PAR()
     {
         if ($this->session->userdata('is_login') == TRUE) {
-            $par_id= $this->input->post('par_id');
+            $par_id = $this->input->post('par_id');
             $par_editenumber = $this->input->post('txtPARnumber');
             $par_editdate = $this->input->post('txtPARDate');
             $par_editfund = $this->input->post('txtFund');
@@ -494,9 +502,9 @@ class Function_Controller extends CI_Controller
             $par_editreceived_from = $this->input->post('txtReceivedfrom');
             $par_editdatereceived_from = $this->input->post('txtdatefrom');
 
-            $par_poitem_ids = $this->input->post('txtPOItem_id'); 
-            $par_poitem_usefuls = $this->input->post('txtPOItem_useful'); 
-            
+            $par_poitem_ids = $this->input->post('txtPOItem_id');
+            $par_poitem_usefuls = $this->input->post('txtPOItem_useful');
+
 
             $PAR_editData = array(
                 'par_no' => $par_editenumber,
@@ -507,20 +515,20 @@ class Function_Controller extends CI_Controller
                 'par_receivedfrom' => $par_editreceived_from,
                 'par_receivedfrom_date' => $par_editdatereceived_from
             );
-            
+
             foreach ($par_poitem_ids as $key => $par_poitem_id) {
                 $par_poitem_useful = $par_poitem_usefuls[$key];
                 $this->Function_Model->editPARtoPOItemData($par_poitem_id, $par_poitem_useful);
             }
-            
+
             if ($this->Function_Model->editPARData($par_id, $PAR_editData)) {
                 $this->session->set_flashdata('success', 'Data updated successfully.');
                 echo '<script>window.history.back();</script>';
             } else {
                 echo "Error Updating";
             }
+        }
     }
-}
     // public function updatepoTotalDetails()
     // {
     //     $txtTotalCost = $this->input->post('txtTotalCost');

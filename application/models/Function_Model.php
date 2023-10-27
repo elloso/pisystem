@@ -139,6 +139,11 @@ class Function_Model extends CI_Model
         $this->db->where('id', $ics_poitem_id);
         $this->db->update('tblpo_item', array('useful_life' => $ics_poitem_useful));
     }
+    public function editPOItemData($item_id, $itemNo)
+    {
+        $this->db->where('id', $item_id);
+        $this->db->update('tblpo_item', array('item_no' => $itemNo));
+    }
     public function editICSData($ics_id, $editdataics)
     {
         $this->db->where('ics_id', $ics_id);

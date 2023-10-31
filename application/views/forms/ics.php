@@ -30,7 +30,7 @@
                                         <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
                                     <?php else : ?>
                                         <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                                        <a href="<?= base_url('print-icsform'); ?>" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
                                 <input id="txtICSDate" class="form-control" name="txtICSDate" type="date" required>

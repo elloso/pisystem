@@ -60,7 +60,8 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" id="icsTotalCost" class="form-control" name="icsTotalCost" required readonly>
+                            <input type="hidden" id="icsTotalCost" class="form-control" name="icsTotalCost" required readonly>
+                            <input type="text" id="TotalCost" class="form-control" value="<?= $editicsdetails->ics_total_cost ?>" name="TotalCost" required readonly>
                             <label class="form-label fw-bold text-dark" for="icsTotalCost">Total Cost:</label>
                         </div>
                     </div>
@@ -118,7 +119,7 @@
                                                 </td>
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $icsitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]" placeholder="">
-                                                    <input required type="text" value="<?php echo $icsitem->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]" placeholder="">
+                                                    <input type="text" value="<?php echo $icsitem->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]" placeholder="">
                                                     <div class="invalid-feedback">
                                                         Please enter estimated useful life of the item.
                                                     </div>

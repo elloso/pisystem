@@ -63,7 +63,8 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" id="txtTotalCost" class="form-control" name="txtTotalCost" required readonly>
+                            <input type="hidden" id="txtTotalCost" class="form-control" name="txtTotalCost" required readonly>
+                            <input type="text" id="poTotalCost" class="form-control" value="<?= $editpo_details->total_cost  ?>" name="poTotalCost" required readonly>
                             <label class="form-label fw-bold text-dark" for="txtTotaCost">Total Cost:</label>
                             <div class="invalid-feedback">
                                 Please choose a total cost.

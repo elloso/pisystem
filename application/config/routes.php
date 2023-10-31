@@ -34,7 +34,7 @@ $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2'
 
 //Forms
 $route['print-iarform/(:any)'] = 'Fpdf_Controller/IARform/$1';
-
+$route['print-icsform'] = 'ICSfpdf_Controller/ICSform';
 
 
 

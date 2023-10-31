@@ -331,8 +331,8 @@ class Function_Controller extends CI_Controller
         $txtICSnumber = strip_tags($this->input->post('txtICSnumber'));
         $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
         $txtdatefrom = strip_tags($this->input->post('txtdatefrom'));
+        $icsTotalCost = strip_tags($this->input->post('icsTotalCost'));
         $currentPoInfo = $this->Function_Model->getICSInfoById($ics_id);
-
         $ics_poitem_ids = $this->input->post('txtPOItem_id');
         $ics_poitem_usefuls = $this->input->post('txtPOItem_useful');
 
@@ -351,7 +351,8 @@ class Function_Controller extends CI_Controller
             'ics_receivedby' => $txtReceivedby,
             'ics_received_date' => $txtDateby,
             'ics_receivedfrom' => $txtReceivedfrom,
-            'ics_receivedfrom_date' => $txtdatefrom
+            'ics_receivedfrom_date' => $txtdatefrom,
+            'ics_total_cost' => $icsTotalCost
         );
 
         foreach ($ics_poitem_ids as $key => $ics_poitem_id) {
@@ -501,7 +502,7 @@ class Function_Controller extends CI_Controller
             $par_editpar_receivedby_date = $this->input->post('txtDateby');
             $par_editreceived_from = $this->input->post('txtReceivedfrom');
             $par_editdatereceived_from = $this->input->post('txtdatefrom');
-
+            $parTotalCost = $this->input->post('parTotalCost');
             $par_poitem_ids = $this->input->post('txtPOItem_id');
             $par_poitem_usefuls = $this->input->post('txtPOItem_useful');
 
@@ -513,7 +514,8 @@ class Function_Controller extends CI_Controller
                 'par_receivedby' => $par_editreceivedby,
                 'par_received_date' => $par_editpar_receivedby_date,
                 'par_receivedfrom' => $par_editreceived_from,
-                'par_receivedfrom_date' => $par_editdatereceived_from
+                'par_receivedfrom_date' => $par_editdatereceived_from,
+                'par_total_cost' => $parTotalCost
             );
 
             foreach ($par_poitem_ids as $key => $par_poitem_id) {

@@ -58,6 +58,11 @@
                                 <input type="date" id="txtdatefrom" class="form-control" value="<?php echo $editpar_details->par_receivedfrom_date ?>" name="txtdatefrom" required>
                                 <label class="form-label fw-bold text-dark" for="txtdatefrom">Date:</label>
                             </div>
+                            <div class="form-floating mb-2">
+                                <input type="hidden" id="parTotalCost" class="form-control" name="parTotalCost" required readonly>
+                                <input type="text" id="rTotalCost" class="form-control" value="<?php echo $editpar_details->par_total_cost ?>" name="rTotalCost" required readonly>
+                                <label class="form-label fw-bold text-dark" for="parTotalCost">Total Cost:</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +81,7 @@
                                         <th class="text-center" style="width: 10%;">Estimated Useful Life</th>
                                     </tr>
                                     <tbody>
-                                        <?php foreach($par_details as $par_detail): ?>
+                                        <?php foreach ($par_details as $par_detail) : ?>
                                             <tr>
                                                 <td><input required type="text" value="<?php echo $par_detail->item_no ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
                                                     <div class="invalid-feedback">
@@ -112,14 +117,13 @@
                                                 </td>
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $par_detail->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]" placeholder="">
-                                                        
-                                                    <input required type="text" value="<?php echo $par_detail->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]"  placeholder="">
+                                                    <input type="text" value="<?php echo $par_detail->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]" placeholder="">
                                                     <div class="invalid-feedback">
                                                         Please enter estimated useful life of the item.
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php endforeach ?>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -131,3 +135,25 @@
             </form>
         </div>
     </div>
+    <script>
+        function calculateTotal() {
+            var total = 0;
+            var txtTotalUnitCostElements = document.getElementsByName("txtTotalUnitCost[]");
+            for (var i = 0; i < txtTotalUnitCostElements.length; i++) {
+                var value = parseFloat(txtTotalUnitCostElements[i].value.replace(/[^0-9.-]+/g, ''));
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            }
+            return total.toLocaleString('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: 2
+            });
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            var totalCost = calculateTotal();
+            document.getElementById("txtTotalUnitCost").value = totalCost;
+            var mtotalCost = calculateTotal();
+            document.getElementById("parTotalCost").value = mtotalCost;
+        });
+    </script>

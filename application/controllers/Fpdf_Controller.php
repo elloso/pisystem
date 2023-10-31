@@ -117,7 +117,8 @@ class PDF extends FPDF
         $this->SetFont('times', 'I', 12);
         $this->Cell(0, 10, 'Appendix 62', 0, 1, 'R');
     }
-    function CheckBox($x, $y, $checked) {
+    function CheckBox($x, $y, $checked)
+    {
         $this->SetXY($x, $y);
         $this->Rect($x, $y, 5, 5, 'D');
         if ($checked) {

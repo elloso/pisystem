@@ -178,17 +178,17 @@ class Post_Model extends CI_Model
             return array();
         }
     }
-    public function viewPARNo_only()
-    {
-        $this->db->select('*');
-        $this->db->from('tblpar');
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return array();
-        }
-    }
+    // public function viewPARNo_only()
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('tblpar');
+    //     $query = $this->db->get();
+    //     if ($query->num_rows() > 0) {
+    //         return $query->result();
+    //     } else {
+    //         return array();
+    //     }
+    // }
     public function viewPARtable()
     {
         $this->db->distinct();

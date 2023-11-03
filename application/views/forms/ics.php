@@ -65,7 +65,7 @@
                                 </select>
                                 <label class="form-label fw-bold text-dark" for="txtPARIARNo">IAR No. :</label>
                                 <div class="invalid-feedback">
-                                    Please choose a IAR no.
+                                    Please select IAR no.
                                 </div>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                 <input id="txtICSDate" class="form-control" name="txtICSDate" type="date" required>
                                 <label class="form-label fw-bold text-dark" for="txtICSDate">Date :</label>
                                 <div class="invalid-feedback">
-                                    Please choose a date.
+                                    Please choose date.
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                 <input type="text" id="txtICSNo" class="form-control" name="txtICSNo" required>
                                 <label class="form-label fw-bold text-dark" for="txtICSNo">ICS No. :</label>
                                 <div class="invalid-feedback">
-                                    Please choose a fund.
+                                    Please enter ICS Number.
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <input type="text" id="txtICSFund" class="form-control" name="txtICSFund" required>
                                 <label class="form-label fw-bold text-dark" for="txtICSFund">Fund:</label>
                                 <div class="invalid-feedback">
-                                    Please choose a fund.
+                                    Please enter ICS fund.
                                 </div>
                             </div>
                         </div>
@@ -122,14 +122,14 @@
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom" required>
+                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom" >
                                     <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
                                     <div class="invalid-feedback">
                                         Please choose received from.
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateInspectedFrom" class="form-control" name="txtDateInspectedFrom" type="date" required>
+                                    <input id="txtDateInspectedFrom" class="form-control" name="txtDateInspectedFrom" type="date" >
                                     <label class="form-label fw-bold text-dark" for="txtDateInspectedFrom">Date:</label>
                                     <div class="invalid-feedback">
                                         Please choose date.

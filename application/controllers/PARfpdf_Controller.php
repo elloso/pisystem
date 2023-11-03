@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 require('assets/fpdf/fpdf.php');
-class ICSfpdf_Controller extends CI_Controller
+class PARfpdf_Controller extends CI_Controller
 {
-    public function ICSform($icsForm)
+    public function PARform($parForm)
     {
         $pdf = new PDF();
-        $ics_form = $this->Fpdf_Model->ics_form($icsForm);
-        $po_items = $this->Fpdf_Model->ics_item($icsForm);
+        $par_form = $this->Fpdf_Model->par_form($parForm);
+        $po_items = $this->Fpdf_Model->par_item($parForm);
         $pdf->AddPage();
         $pdf->SetFont('times', 'B', 14);
-        $pdf->Cell(0, 10, 'INVENTORY CUSTODIAN SLIP', 0, 1, 'C');
+        $pdf->Cell(0, 10, 'PROPERTY ACKNOWLEDGEMENT RECEIPT', 0, 1, 'C');
         $pdf->Ln(7);
         $pdf->SetFont('times', '', 12);
         $pdf->Cell(25, 6, 'Entity Name:', '', 0, 'L');
@@ -19,76 +19,80 @@ class ICSfpdf_Controller extends CI_Controller
         $pdf->Ln(7);
         $pdf->Cell(25, 6, 'Fund Cluster:', '', 0, 'L');
         $pdf->SetFont('times', '', 12);
-        $pdf->Cell(66, 6, $ics_form->ics_fund, 'B', 0, 'L');
+        $pdf->Cell(66, 6, $par_form->par_fund, 'B', 0, 'L');
         $pdf->Cell(35);
-        $pdf->Cell(16, 6, 'ICS No:', '', 0, 'L');
+        $pdf->Cell(16, 6, 'PAR No:', '', 0, 'L');
         $pdf->SetFont('times', '', 12);
-        $pdf->Cell(46, 6, $ics_form->ics_no, 'B', 0, 'L');
+        $pdf->Cell(46, 6, $par_form->par_no, 'B', 0, 'L');
         $pdf->SetLineWidth(0.4);
         $pdf->Rect(10, 53, 190, 220);
         $pdf->Line(10, 230, 200, 230);
         $middleX = $pdf->GetPageWidth() / 2;
         $pdf->Line($middleX, 230, $middleX, 273);
         $pdf->Line(30, 53, 30, 230);
-        $pdf->Line(40, 53, 40, 230);
-        $pdf->Line(60, 58, 60, 230);
-        $pdf->Line(82, 53, 82, 230);
+        $pdf->Line(50, 53, 50, 230);
+        $pdf->Line(130, 53, 130, 230);
         $pdf->Line(150, 53, 150, 230);
         $pdf->Line(170, 53, 170, 230);
         $pdf->Ln(9);
         $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(20, 14, 'Quantity', 'RB', 0, 'C');
-        $pdf->Cell(10, 14, 'Unit', 'RB', 0, 'C',);
-        $pdf->Cell(42, 5, 'Amount', 'RB', 1, 'C');
-        $pdf->Cell(30);
-        $pdf->Cell(20, 9, 'Unit Cost', 'RB', 0, 'C',);
-        $pdf->Cell(22, 9, 'Total Cost', 'RB', 0, 'C',);
+        $pdf->Cell(20, 14, 'Unit', 'B', 0, 'C');
         $pdf->SetY(53);
-        $pdf->SetX(82);
-        $pdf->Cell(68, 14, 'Description', 'RB', 0, 'C');
-        $pdf->MultiCell(20, 7, 'Inventory Item No.', 'RB', 'C');
+        $pdf->SetX(50);
+        $pdf->Cell(80, 14, 'Description', 'B', 0, 'C');
+        $pdf->SetY(53);
+        $pdf->SetX(130);
+        $pdf->MultiCell(20, 7, 'Property Number', 'RB', 'C');
+        $pdf->SetY(53);
+        $pdf->SetX(150);
+        $pdf->MultiCell(20, 7, 'Date Acquired', 'B', 'C');
         $pdf->SetY(53);
         $pdf->SetX(170);
-        $pdf->MultiCell(30, 7, 'Estimated Useful Life', 'RB', 'C');
+        $pdf->MultiCell(30, 14, 'Amount', 'RB', 'C');
         $pdf->SetY(230);
-        $pdf->SetFont('times', '', 10);
+        $pdf->SetFont('times', 'B', 10);
         $pdf->SetLineWidth(0.3);
-        $pdf->Cell(20, 9, 'Received from:', 0, 0, 'L');
+        $pdf->Cell(20, 9, 'Received by:', 0, 0, 'L');
         $pdf->SetY(239);
         $pdf->SetX(20);
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(75, 6, $ics_form->ics_receivedfrom, 'B', 0, 'C');
+        $pdf->Cell(75, 6, $par_form->par_receivedfrom, 'B', 0, 'C');
         $pdf->SetY(242);
-        $pdf->SetX(30);
+        $pdf->SetX(28);
         $pdf->SetFont('times', '', 10);
-        $pdf->Cell(20, 11, 'Signature Over Printed Name', 0, 0, 'L');
-        $pdf->SetY(252);
-        $pdf->Line(20, 255, 95, 255);
+        $pdf->Cell(20, 11, 'Signature Over Printed Name of End User', 0, 0, 'L');
+        $pdf->SetY(256);
+        $pdf->Line(20, 259, 95, 259);
         $pdf->SetX(40);
         $pdf->Cell(20, 11, 'Position/Office', 0, 0, 'L');
-        $pdf->SetY(262);
-        $pdf->Line(20, 265, 95, 265);
+        $pdf->SetY(265);
+        $pdf->Line(20, 268, 95, 268);
         $pdf->SetX(45);
         $pdf->Cell(20, 11, 'Date', 0, 0, 'L');
         $pdf->SetY(230);
         $pdf->SetX(105);
         $pdf->SetFont('times', '', 10);
         $pdf->SetLineWidth(0.3);
-        $pdf->Cell(20, 9, 'Received by:', 0, 0, 'L');
+        $pdf->SetFont('times', 'B', 10);
+        $pdf->Cell(20, 9, 'Issued by:', 0, 0, 'L');
         $pdf->SetY(239);
         $pdf->SetX(115);
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(73, 6, $ics_form->ics_receivedby, 'B', 0, 'C');
+        $pdf->Cell(73, 6, $par_form->par_receivedby, 'B', 0, 'C');
         $pdf->SetFont('times', '', 10);
         $pdf->SetY(242);
         $pdf->SetX(127);
-        $pdf->Cell(20, 11, 'Signature Over Printed Name', 0, 0, 'L');
-        $pdf->SetY(252);
-        $pdf->Line(115, 255, 188, 255);
+        $pdf->Cell(20, 11, 'Signature Over Printed Name of Supply', 0, 0, 'L');
+        $pdf->SetY(246);
+        $pdf->SetX(135);
+        $pdf->Cell(20, 11, ' and/or Property Custodian', 0, 0, 'L');
+        $pdf->SetY(256);
+        $pdf->Line(115, 259, 188, 259);
         $pdf->SetX(137);
         $pdf->Cell(20, 11, 'Position/Office', 0, 0, 'L');
-        $pdf->SetY(262);
-        $pdf->Line(115, 265, 188, 265);
+        $pdf->SetY(265);
+        $pdf->Line(115, 268, 188, 268);
         $pdf->SetX(145);
         $pdf->Cell(20, 11, 'Date', 0, 0, 'L');
         $x = 1;
@@ -100,19 +104,16 @@ class ICSfpdf_Controller extends CI_Controller
             $descriptionText = $item->item_description;
             $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
             $descriptionHeight = 7 * $descriptionLines;
-            $pdf->Cell(35, $descriptionHeight, $item->quantity, 0, 0, 'C');
+            $totalUnitCost = number_format($item->total_unit_cost, 2);
+            $pdf->SetX(11);
+            $pdf->Cell(35, $descriptionHeight, $item->quantity, 0, 0, 'L');
             $pdf->SetX(31);
             $pdf->Cell(0, $descriptionHeight, $item->unit, 0, 0);
-            $pdf->SetX(40);
-            $pdf->Cell(0, $descriptionHeight, $item->unit_cost, 0, 0);
-            $pdf->SetX(60);
-            $pdf->Cell(0, $descriptionHeight, $item->total_unit_cost, 0, 0);
-            $pdf->SetXY(85, $y);
+            $pdf->SetX(52);
             $pdf->MultiCell($descriptionWidth, 6, '- ' . $descriptionText, 0, 'L');
-            $pdf->SetXY(157, $y);
-            $pdf->Cell(0, $descriptionHeight, $item->item_no, 0, 0);
-            $pdf->SetXY(177, $y);
-            $pdf->Cell(0, $descriptionHeight, $item->useful_life, 0, 0);
+            $pdf->SetXY(171, $y);
+            $cellWidth = 40;
+            $pdf->Cell($cellWidth, $descriptionHeight, $totalUnitCost, 0, 0);
             $y += max(8, $descriptionHeight);
         }
         $pdf->Output();
@@ -123,13 +124,13 @@ class PDF extends FPDF
     function Header()
     {
         $this->SetFont('times', 'I', 12);
-        $this->Cell(0, 10, 'Appendix 59', 0, 1, 'R');
+        $this->Cell(0, 10, 'Appendix 71', 0, 1, 'R');
     }
     function Footer()
     {
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
         $this->SetTextColor(0, 0, 0);
-        $this->Cell(0, 10, '149', 0, 0, 'C');
+        $this->Cell(0, 10, '173', 0, 0, 'C');
     }
 }

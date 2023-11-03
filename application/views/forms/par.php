@@ -19,22 +19,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($PARDatas as $PARData): ?>
-                        <tr>
-                            <td><?php echo $PARData->par_no ?></td>
-                            <td><?php echo $PARData->par_iarno ?></td>
-                            <td><?php echo $PARData->par_fund ?></td>
-                            <td><?php echo $PARData->par_supplier ?></td>
-                            <td class="text-center">
-                            <?php if (empty($PARData->par_no)): ?>
-                                    <a href="" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
-                                <?php else: ?>
-                                    <a href="<?php echo base_url('editpar-details/' . md5($PARData->par_id) . '/' . md5($PARData->par_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
+                        <?php foreach ($PARDatas as $PARData) : ?>
+                            <tr>
+                                <td><?php echo $PARData->par_no ?></td>
+                                <td><?php echo $PARData->par_iarno ?></td>
+                                <td><?php echo $PARData->par_fund ?></td>
+                                <td><?php echo $PARData->par_supplier ?></td>
+                                <td class="text-center">
+                                    <?php if (empty($PARData->par_no)) : ?>
+                                        <a href="" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
+                                    <?php else : ?>
+                                        <a href="<?php echo base_url('editpar-details/' . md5($PARData->par_id) . '/' . md5($PARData->par_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="<?php echo base_url('print-parform/' . md5($PARData->par_po_id)) ?>" target="_blank" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -44,14 +44,14 @@
 </div>
 <!-- Modal -->
 <form action="<?php echo base_url('submit-PAR-Details') ?>" method="post" class="needs-validation" novalidate>
-<div class="modal fade" id="Modal_PropertyAcknowledgment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="Modal_PropertyAcknowledgmentLabel">Property Acknowledgment Receipt</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+    <div class="modal fade" id="Modal_PropertyAcknowledgment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="Modal_PropertyAcknowledgmentLabel">Property Acknowledgment Receipt</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
@@ -173,7 +173,7 @@
 </script>
 <script>
     function validateInput(inputElement) {
-        inputElement.addEventListener("input", function () {
+        inputElement.addEventListener("input", function() {
             const value = this.value;
             const sanitizedValue = value.replace(/[^0-9-]/g, "");
             if (value !== sanitizedValue) {
@@ -184,6 +184,4 @@
 
     const txtPARNoInput = document.getElementById("txtPARNo");
     validateInput(txtPARNoInput);
-
 </script>
-

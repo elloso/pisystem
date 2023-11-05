@@ -171,21 +171,35 @@ class Function_Controller extends CI_Controller
                 'acceptance_custodian' => $iar_acceptance,
                 'acceptance_date' => $iar_acceptancedate
             );
-            $dataIARtoICS = array(
-                'ics_po_id' => $iar_po_id,
-                'ics_iar_no' => $iar_iarnumber,
-                'ics_supplier' => $iar_supplier
-            );
-            $dataIARtoPAR = array(
-                'par_po_id' => $iar_po_id,
-                'par_iarno' => $iar_iarnumber,
-                'par_supplier' => $iar_supplier
-            );
-            if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
-                $this->session->set_flashdata('success', 'Data updated successfully.');
-                redirect(base_url('inspection'));
-            } else {
-                echo "Error Updating";
+
+            $unitCost = $this->Function_Model->getUnitCost($iar_po_id);
+
+            if($unitCost >= 1500 && $unitCost <= 50000){
+                $dataIARtoICS = array(
+                    'ics_po_id' => $iar_po_id,
+                    'ics_iar_no' => $iar_iarnumber,
+                    'ics_supplier' => $iar_supplier
+                );
+                    if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS)) {
+                        $this->session->set_flashdata('success', 'Data updated successfully.');
+                        redirect(base_url('inspection'));
+                    } else {
+                        echo "Error Updating";
+                    }
+            }elseif ($unitCost > 50000){
+                $dataIARtoPAR = array(
+                    'par_po_id' => $iar_po_id,
+                    'par_iarno' => $iar_iarnumber,
+                    'par_supplier' => $iar_supplier
+                );
+                if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
+                    $this->session->set_flashdata('success', 'Data updated successfully.');
+                    redirect(base_url('inspection'));
+                } else {
+                    echo "Error Updating";
+                }
+            }else{
+                echo "Unit cost is not within the specified range (1500 - 50000).";
             }
         } else {
             redirect(base_url('login'));

@@ -33,9 +33,9 @@ $route['editics-details/(:any)/(:any)'] = 'Post_Controller/editicsDetails/$1/$2'
 $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2';
 
 //Forms
-$route['print-iarform/(:any)'] = 'IARfpdf_Controller/IARform/$1';
-$route['print-icsform/(:any)'] = 'ICSfpdf_Controller/ICSform/$1';
-$route['print-parform/(:any)'] = 'PARfpdf_Controller/PARform/$1';
+$route['print-iarform/(:any)'] = 'PrintForms_Controller/IARfpdf_Controller/IARform/$1';
+$route['print-icsform/(:any)'] = 'PrintForms_Controller/ICSfpdf_Controller/ICSform/$1';
+$route['print-parform/(:any)'] = 'PrintForms_Controller/PARfpdf_Controller/PARform/$1';
 
 
 

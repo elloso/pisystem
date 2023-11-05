@@ -56,6 +56,7 @@ class Function_Model extends CI_Model
             return false;
         }
     }
+    
     public function isPrIdExists($txtPRNumber)
     {
         $this->db->where("(pr_number = '$txtPRNumber')");
@@ -99,6 +100,21 @@ class Function_Model extends CI_Model
         $this->db->insert('tblics', $dataIARtoICS);
         return $this->db->insert_id();
     }
+   
+public function getUnitCost($iar_po_id)
+{
+    $this->db->select('unit_cost');
+    $this->db->where('po_id', $iar_po_id); 
+    $query = $this->db->get('tblpo_item');
+    
+    if ($query->num_rows() > 0) {
+        $result = $query->row();
+        return $result->unit_cost;
+    } else {
+        return 0; 
+    }
+}
+
     public function SubmitIARtoPARData($dataIARtoPAR)
     {
         $this->db->insert('tblpar', $dataIARtoPAR);

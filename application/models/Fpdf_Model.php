@@ -50,6 +50,8 @@ class Fpdf_Model extends CI_Model
     public function ics_item($ics_item)
     {
         $this->db->where('md5(po_id)', $ics_item);
+        $this->db->where('unit_cost >=', 1500);
+        $this->db->where('unit_cost <', 50000);
         $query = $this->db->get('tblpo_item');
 
         if ($query->num_rows() > 0) {
@@ -71,6 +73,7 @@ class Fpdf_Model extends CI_Model
     public function par_item($par_item)
     {
         $this->db->where('md5(po_id)', $par_item);
+        $this->db->where('unit_cost >', 50000);
         $query = $this->db->get('tblpo_item');
 
         if ($query->num_rows() > 0) {

@@ -150,7 +150,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <input required type="number" oninput="this.value = Math.abs(this.value)" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)">
+                                                        <input required type="number" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)">
                                                         <div class="invalid-feedback">
                                                             Please enter a unit cost.
                                                         </div>
@@ -259,9 +259,7 @@
     var button1 = document.getElementById("addRow");
     var button2 = document.getElementById("deleteRow");
     var currentItemNo = 2;
-
     table.addEventListener("input", updateTotalUnitCost);
-
     button1.addEventListener("click", function() {
         event.preventDefault();
         var newRow = table.insertRow(-1);
@@ -271,18 +269,15 @@
         var itemdescriptionCell = newRow.insertCell(3);
         var itemunitcostCell = newRow.insertCell(4);
         var itemtotalunitcostCell = newRow.insertCell(5);
-
         itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '" oninput="this.value = Math.abs(this.value)" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>';
         itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">';
         itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">';
         itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;"></textarea> <div class="invalid-feedback">Please enter item description.</div>';
         itemunitcostCell.innerHTML = '<input required type="number" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
         itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" readonly><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
-
         currentItemNo++;
         button2.disabled = false;
     });
-
     button2.addEventListener("click", function() {
         event.preventDefault();
         var rowCount = table.rows.length;
@@ -303,7 +298,6 @@
             var totalUnitCost = quantity * unitCost;
             rows[i].querySelector('input[name^="txtTotalUnitCost[]"]').value = totalUnitCost.toFixed(2);
         }
-
         updateTotalCost();
     }
 

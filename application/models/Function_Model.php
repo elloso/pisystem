@@ -56,7 +56,7 @@ class Function_Model extends CI_Model
             return false;
         }
     }
-    
+
     public function isPrIdExists($txtPRNumber)
     {
         $this->db->where("(pr_number = '$txtPRNumber')");
@@ -185,6 +185,38 @@ class Function_Model extends CI_Model
 
         return $query->num_rows() > 0;
     }
+    // AJAX
+    public function checkIARNumber($txtIARNo)
+    {
+        $this->db->where('iar_number', $txtIARNo);
+        $query = $this->db->get('tbliar');
+
+        return $query->num_rows() > 0;
+    }
+    // AJAX
+    public function checkInvoiceNumber($txtInvoice)
+    {
+        $this->db->where('invoice_number', $txtInvoice);
+        $query = $this->db->get('tbliar');
+
+        return $query->num_rows() > 0;
+    }
+    // AJAX
+    public function checkICSNumber($txtICSNo)
+    {
+        $this->db->where('ics_no', $txtICSNo);
+        $query = $this->db->get('tblics');
+
+        return $query->num_rows() > 0;
+    }
+    // AJAX
+    public function checkPARNumber($txtPARNo)
+    {
+        $this->db->where('par_no', $txtPARNo);
+        $query = $this->db->get('tblpar');
+        return $query->num_rows() > 0;
+    }
+
     public function remove_poItem($idPoitem)
     {
         $this->db->where('md5(id)', $idPoitem);

@@ -8,6 +8,7 @@
   <title>Suppy Inventory System</title>
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="<?php echo base_url(); ?>assets/img/slsu/slsu_logo.png" />
   <link href="<?php echo base_url(); ?>assets/fontawesome/all.css" rel="stylesheet">
   <style>
     #intro_login {
@@ -16,22 +17,26 @@
       background-size: cover;
       background-position: center;
     }
+
     .bg-transparent {
       background-color: rgba(255, 255, 255, 0.5);
       border: 2px solid #000;
       border-radius: 10px;
     }
+
     .login-opacity {
       opacity: 0.7;
     }
-    #email, #password {
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #000000;
-    outline:none;
-    box-shadow:none;
+
+    #email,
+    #password {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #000000;
+      outline: none;
+      box-shadow: none;
     }
-    </style>
+  </style>
 </head>
 
 <body>
@@ -53,7 +58,7 @@
                 </div>
                 <div class="floating mb-4 rounded">
                   <input type="password" id="password" name="password" class="form-control bg-secondary" />
-                  <label class="form-label" for="password"><i class="fa-solid fa-lock" ></i> Password</label>
+                  <label class="form-label" for="password"><i class="fa-solid fa-lock"></i> Password</label>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-dark btn-block">Sign in</button>

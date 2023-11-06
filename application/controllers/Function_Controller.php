@@ -579,4 +579,48 @@ class Function_Controller extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode(array('exists' => $result));
     }
+    // ajax
+    public function checkIARNumber()
+    {
+        $txtIARNo = $this->input->post('txtIARNo');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkIARNumber($txtIARNo);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkInvoiceNumber()
+    {
+        $txtInvoice = $this->input->post('txtInvoice');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkInvoiceNumber($txtInvoice);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkICSNumber()
+    {
+        $txtICSNo = $this->input->post('txtICSNo');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkICSNumber($txtICSNo);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkPARNumber()
+    {
+        $txtPARNo = $this->input->post('txtPARNo');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkPARNumber($txtPARNo);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
 }

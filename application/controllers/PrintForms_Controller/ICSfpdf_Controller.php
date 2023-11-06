@@ -107,11 +107,11 @@ class ICSfpdf_Controller extends CI_Controller
             $pdf->Cell(0, $descriptionHeight, $item->unit_cost, 0, 0);
             $pdf->SetX(60);
             $pdf->Cell(0, $descriptionHeight, $item->total_unit_cost, 0, 0);
-            $pdf->SetXY(85, $y);
-            $pdf->MultiCell($descriptionWidth, 6, '- ' . $descriptionText, 0, 'L');
+            $pdf->SetXY(82, $y);
+            $pdf->MultiCell($descriptionWidth, 6,'* '. $descriptionText, 0, 'L');
             $pdf->SetXY(157, $y);
             $pdf->Cell(0, $descriptionHeight, $item->item_no, 0, 0);
-            $pdf->SetXY(177, $y);
+            $pdf->SetXY(183, $y);
             $pdf->Cell(0, $descriptionHeight, $item->useful_life, 0, 0);
             $y += max(8, $descriptionHeight);
         }

@@ -1,6 +1,6 @@
-<div class="container justify-content-center align-items-center p-5" style="min-height: 40vh;">
+<div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
-        <div class="card-header">
+        <div class="card-header border-success" style="border-top:solid;">
             <div class="card-title">Stock Card</div>
         </div>
         <div class="card-body">

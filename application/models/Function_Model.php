@@ -101,19 +101,23 @@ class Function_Model extends CI_Model
         return $this->db->insert_id();
     }
    
-public function getUnitCost($iar_po_id)
-{
-    $this->db->select('unit_cost');
-    $this->db->where('po_id', $iar_po_id); 
-    $query = $this->db->get('tblpo_item');
+    public function getUnitCosts($iar_po_id)
+    {
+        $this->db->select('unit_cost');
+        $this->db->where('po_id', $iar_po_id); 
+        $query = $this->db->get('tblpo_item');
+        
+        $unitCosts = array(); // Initialize an array to store unit costs.
     
-    if ($query->num_rows() > 0) {
-        $result = $query->row();
-        return $result->unit_cost;
-    } else {
-        return 0; 
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $unitCosts[] = $row->unit_cost; // Add each unit cost to the array.
+            }
+        }
+    
+        return $unitCosts; // Return the array of unit costs.
     }
-}
+    
 
     public function SubmitIARtoPARData($dataIARtoPAR)
     {

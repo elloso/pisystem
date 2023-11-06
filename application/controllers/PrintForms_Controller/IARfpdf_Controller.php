@@ -133,7 +133,7 @@ class IARfpdf_Controller extends CI_Controller
             
                 $pdf->Cell($itemNoWidth, $descriptionHeight, $item->item_no, 0, 0, 'C'); 
                 $pdf->SetXY($xDescription, $y + 44);
-                $pdf->MultiCell($descriptionWidth, 7,'*'. $descriptionText, 0, 'L'); 
+                $pdf->MultiCell($descriptionWidth, 7,'* '. $descriptionText, 0, 'L'); 
                 $pdf->SetXY($xUnit, $y + 44);
                 $pdf->Cell($unitWidth, $descriptionHeight, $item->unit, 0, 0, 'C'); 
                 $pdf->SetXY($xQuantity, $y + 44);

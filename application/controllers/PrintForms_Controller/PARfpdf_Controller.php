@@ -105,13 +105,13 @@ class PARfpdf_Controller extends CI_Controller
             $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
             $descriptionHeight = 7 * $descriptionLines;
             $totalUnitCost = number_format($item->total_unit_cost, 2);
-            $pdf->SetX(11);
+            $pdf->SetX(18);
             $pdf->Cell(35, $descriptionHeight, $item->quantity, 0, 0, 'L');
-            $pdf->SetX(31);
+            $pdf->SetX(37);
             $pdf->Cell(0, $descriptionHeight, $item->unit, 0, 0);
             $pdf->SetX(52);
-            $pdf->MultiCell($descriptionWidth, 6, '- ' . $descriptionText, 0, 'L');
-            $pdf->SetXY(171, $y);
+            $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
+            $pdf->SetXY(176, $y);
             $cellWidth = 40;
             $pdf->Cell($cellWidth, $descriptionHeight, $totalUnitCost, 0, 0);
             $y += max(8, $descriptionHeight);

@@ -30,8 +30,8 @@
                                         <a href="" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
                                     <?php else : ?>
-                                        <a href="<?php echo base_url('editpar-details/' . md5($PARData->par_id) . '/' . md5($PARData->par_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="<?php echo base_url('print-parform/' . md5($PARData->par_po_id)) ?>" target="_blank" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                                        <a href="<?php echo base_url('editpar-details/' . md5($PARData->par_id) . '/' . md5($PARData->par_po_id)) ?>" title="Edit" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="<?php echo base_url('print-parform/' . md5($PARData->par_po_id)) ?>" target="_blank" title="Print" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>

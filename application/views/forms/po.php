@@ -27,7 +27,7 @@
                                 <td><?php echo $POData->pr_number; ?></td>
                                 <td class="text-center">
                                     <a href="<?= base_url('editpo-details/' . md5($POData->id) . '/' . md5($POData->po_id)) ?>" title='edit details' class='text-primary po-data'><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <!-- <a href="#" class="p-2 text-primary" title="print"><i class="fa-solid fa-print"></i></a> -->
+                                    <a href="#" class="p-2 text-danger" title="Delete"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

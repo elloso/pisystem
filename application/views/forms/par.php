@@ -96,6 +96,7 @@
                                 <div class="invalid-feedback">
                                     Please enter PAR Number.
                                 </div>
+                                <div id="parmsg"></div>
                             </div>
                         </div>
                     </div>
@@ -140,7 +141,7 @@
                 </div> <!-- End Modal body -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="proceedButton" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -184,4 +185,35 @@
 
     const txtPARNoInput = document.getElementById("txtPARNo");
     validateInput(txtPARNoInput);
+</script>
+<script>
+    $(document).ready(function() {
+        $("#txtPARNo").blur(function() {
+            var txtPARNo = $('#txtPARNo').val();
+            if (txtPARNo !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('checkPAR-number'); ?>",
+                    dataType: 'json',
+                    data: {
+                        txtPARNo: txtPARNo
+                    },
+                    success: function(data) {
+                        if (data.exists) {
+                            $("#parmsg").css("color", "red").text("PAR Number already exists");
+                            $("#proceedButton").css("pointer-events", "none");
+                        } else {
+                            $("#parmsg").css("color", "green").text("PAR Number available!");
+                            $("#proceedButton").css("pointer-events", "auto");
+                        }
+                    },
+                    error: function() {
+                        $("#parmsg").css("color", "red").text('Some error');
+                    }
+                });
+            } else {
+                // $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
+            }
+        });
+    });
 </script>

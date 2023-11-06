@@ -57,5 +57,11 @@ $route['account-list'] = 'Post_Controller/accountList';
 // ajax
 $route['checkPo-number'] = 'Function_Controller/checkPoNumber';
 $route['checkPr-number'] = 'Function_Controller/checkPrNumber';
+$route['checkIAR-number'] = 'Function_Controller/checkIARNumber';
+$route['checkInvoice-number'] = 'Function_Controller/checkInvoiceNumber';
+$route['checkICS-number'] = 'Function_Controller/checkICSNumber';
+$route['checkPAR-number'] = 'Function_Controller/checkPARNumber';
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

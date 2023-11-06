@@ -1,7 +1,7 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title">Inspection / Acceptance Form</div>
+            <div class="card-title fw-bold">Inspection / Acceptance Form</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -28,13 +28,13 @@
                                 <td><?php echo $IARData->fund_cluster; ?></td>
                                 <td><?php echo $IARData->iar_supplier; ?></td>
                                 <td class="text-center">
-                                <?php if (empty($IARData->iar_number)): ?>
-                                    <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
-                                <?php else: ?>
-                                    <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="<?php echo base_url('print-iarform/'.md5($IARData->iar_po_id)); ?>" target="_blank" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
-                                <?php endif; ?>
+                                    <?php if (empty($IARData->iar_number)) : ?>
+                                        <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="pointer-events: none;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
+                                    <?php else : ?>
+                                        <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="<?php echo base_url('print-iarform/' . md5($IARData->iar_po_id)); ?>" target="_blank" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -94,6 +94,7 @@
                                             <input type="text" id="txtIARNo" class="form-control" name="txtIARNo" required>
                                             <label class="form-label fw-bold text-dark" for="txtIARNo">IAR No. :</label>
                                             <div class="invalid-feedback">Please enter IAR No.</div>
+                                            <div id="prmsg"></div>
                                         </div>
                                         <div class="form-floating mb-2">
                                             <input id="txtIARDate" class="form-control" name="txtIARDate" type="date" />
@@ -114,16 +115,17 @@
                                             <input type="number" id="txtInvoice" class="form-control" name="txtInvoice" required>
                                             <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
                                             <div class="invalid-feedback">Please enter Invoice number.</div>
+                                            <div id="invoicemsg"></div>
                                         </div>
                                         <div class="form-floating mb-2">
-                                            <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date"/>
+                                            <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date" />
                                             <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date :</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-8 col-xl-12">
                                         <div class="form-floating mb-2">
                                             <input type="text" id="txtRCC" class="form-control" name="txtRCC">
-                                            <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>   
+                                            <label class="form-label fw-bold text-dark" for="txtRCC">RCC:</label>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +165,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="proceedButton" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -214,10 +216,11 @@
     })()
 </script>
 <script>
-    (function () {
+    (function() {
         'use strict';
         var form = document.querySelector('form.needs-validation');
         var selectField = document.querySelector('select[name="txtPONo"]');
+
         function validatePurchaseOrder() {
             if (selectField.value === 'Select Purchase Order') {
                 selectField.setCustomValidity('Please select a valid Purchase Order.');
@@ -226,9 +229,8 @@
             }
         }
         selectField.addEventListener('input', validatePurchaseOrder);
-        form.addEventListener('submit', function (event) {
-            if (form.checkValidity()) {
-            } else {
+        form.addEventListener('submit', function(event) {
+            if (form.checkValidity()) {} else {
                 event.preventDefault();
                 event.stopPropagation();
                 validatePurchaseOrder();
@@ -239,7 +241,7 @@
 </script>
 <script>
     function validateInput(inputElement) {
-        inputElement.addEventListener("input", function () {
+        inputElement.addEventListener("input", function() {
             const value = this.value;
             const sanitizedValue = value.replace(/[^0-9-]/g, "");
             if (value !== sanitizedValue) {
@@ -254,4 +256,65 @@
     const txtInvoiceInput = document.getElementById("txtInvoice");
     validateInput(txtInvoiceInput);
 </script>
-
+<script>
+    $(document).ready(function() {
+        $("#txtIARNo").blur(function() {
+            var txtIARNo = $('#txtIARNo').val();
+            if (txtIARNo !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('checkIAR-number'); ?>",
+                    dataType: 'json',
+                    data: {
+                        txtIARNo: txtIARNo
+                    },
+                    success: function(data) {
+                        if (data.exists) {
+                            $("#prmsg").css("color", "red").text("IAR Number already exists");
+                            $("#proceedButton").css("pointer-events", "none");
+                        } else {
+                            $("#prmsg").css("color", "green").text("IAR Number available!");
+                            $("#proceedButton").css("pointer-events", "auto");
+                        }
+                    },
+                    error: function() {
+                        $("#prmsg").css("color", "red").text('Some error');
+                    }
+                });
+            } else {
+                // $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $("#txtInvoice").blur(function() {
+            var txtInvoice = $('#txtInvoice').val();
+            if (txtInvoice !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('checkInvoice-number'); ?>",
+                    dataType: 'json',
+                    data: {
+                        txtInvoice: txtInvoice
+                    },
+                    success: function(data) {
+                        if (data.exists) {
+                            $("#invoicemsg").css("color", "red").text("Invoice Number already exists");
+                            $("#proceedButton").css("pointer-events", "none");
+                        } else {
+                            $("#invoicemsg").css("color", "green").text("Invoice Number available!");
+                            $("#proceedButton").css("pointer-events", "auto");
+                        }
+                    },
+                    error: function() {
+                        $("#invoicemsg").css("color", "red").text('Some error');
+                    }
+                });
+            } else {
+                // $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
+            }
+        });
+    });
+</script>

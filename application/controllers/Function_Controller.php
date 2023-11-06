@@ -174,19 +174,19 @@ class Function_Controller extends CI_Controller
 
             $unitCost = $this->Function_Model->getUnitCost($iar_po_id);
 
-            if($unitCost >= 1500 && $unitCost <= 50000){
+            if ($unitCost >= 1500 && $unitCost <= 50000) {
                 $dataIARtoICS = array(
                     'ics_po_id' => $iar_po_id,
                     'ics_iar_no' => $iar_iarnumber,
                     'ics_supplier' => $iar_supplier
                 );
-                    if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS)) {
-                        $this->session->set_flashdata('success', 'Data updated successfully.');
-                        redirect(base_url('inspection'));
-                    } else {
-                        echo "Error Updating";
-                    }
-            }elseif ($unitCost > 50000){
+                if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS)) {
+                    $this->session->set_flashdata('success', 'Data updated successfully.');
+                    redirect(base_url('inspection'));
+                } else {
+                    echo "Error Updating";
+                }
+            } elseif ($unitCost > 50000) {
                 $dataIARtoPAR = array(
                     'par_po_id' => $iar_po_id,
                     'par_iarno' => $iar_iarnumber,
@@ -198,7 +198,7 @@ class Function_Controller extends CI_Controller
                 } else {
                     echo "Error Updating";
                 }
-            }else{
+            } else {
                 echo "Unit cost is not within the specified range (1500 - 50000).";
             }
         } else {
@@ -574,6 +574,50 @@ class Function_Controller extends CI_Controller
 
         $this->load->model('Function_Model');
         $result = $this->Function_Model->checkPrNumber($txtPRNumber);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkIARNumber()
+    {
+        $txtIARNo = $this->input->post('txtIARNo');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkIARNumber($txtIARNo);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkInvoiceNumber()
+    {
+        $txtInvoice = $this->input->post('txtInvoice');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkInvoiceNumber($txtInvoice);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkICSNumber()
+    {
+        $txtICSNo = $this->input->post('txtICSNo');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkICSNumber($txtICSNo);
+
+        header('Content-Type: application/json');
+        echo json_encode(array('exists' => $result));
+    }
+    // ajax
+    public function checkPARNumber()
+    {
+        $txtPARNo = $this->input->post('txtPARNo');
+
+        $this->load->model('Function_Model');
+        $result = $this->Function_Model->checkPARNumber($txtPARNo);
 
         header('Content-Type: application/json');
         echo json_encode(array('exists' => $result));

@@ -189,7 +189,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Unit Cost</label>
-                                <input type="text" class="form-control" oninput="updateTotalUnitCost()" maxlength="76" name="unit_cost" id="editCost" required>
+                                <input type="number" class="form-control" oninput="updateTotalUnitCost()" maxlength="76" name="unit_cost" id="editCost" required>
                             </div>
                         </div>
                         <div class="row mb-3">

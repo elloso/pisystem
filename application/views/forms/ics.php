@@ -88,6 +88,7 @@
                                 <div class="invalid-feedback">
                                     Please enter ICS Number.
                                 </div>
+                                <div id="icsmsg"></div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-6">
@@ -122,14 +123,14 @@
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom" >
+                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom">
                                     <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
                                     <div class="invalid-feedback">
                                         Please choose received from.
                                     </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateInspectedFrom" class="form-control" name="txtDateInspectedFrom" type="date" >
+                                    <input id="txtDateInspectedFrom" class="form-control" name="txtDateInspectedFrom" type="date">
                                     <label class="form-label fw-bold text-dark" for="txtDateInspectedFrom">Date:</label>
                                     <div class="invalid-feedback">
                                         Please choose date.
@@ -141,7 +142,7 @@
             </div> <!-- End Modal body -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="proceedButton" class="btn btn-primary">Submit</button>
             </div>
             </form>
         </div>
@@ -171,4 +172,35 @@
             }, false)
         })
     })()
+</script>
+<script>
+    $(document).ready(function() {
+        $("#txtICSNo").blur(function() {
+            var txtICSNo = $('#txtICSNo').val();
+            if (txtICSNo !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('checkICS-number'); ?>",
+                    dataType: 'json',
+                    data: {
+                        txtICSNo: txtICSNo
+                    },
+                    success: function(data) {
+                        if (data.exists) {
+                            $("#icsmsg").css("color", "red").text("ICS Number already exists");
+                            $("#proceedButton").css("pointer-events", "none");
+                        } else {
+                            $("#icsmsg").css("color", "green").text("ICS Number available!");
+                            $("#proceedButton").css("pointer-events", "auto");
+                        }
+                    },
+                    error: function() {
+                        $("#icsmsg").css("color", "red").text('Some error');
+                    }
+                });
+            } else {
+                // $("#prmsg").css("color", "red").text("Please enter a Purchase Request Number");
+            }
+        });
+    });
 </script>

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Suppy Inventory System</title>
+  <title>Supply Inventory System</title>
   <!-- bootstrap 5.3.1 -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css" />

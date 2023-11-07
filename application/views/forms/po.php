@@ -27,7 +27,7 @@
                                 <td><?php echo $POData->pr_number; ?></td>
                                 <td class="text-center">
                                     <a href="<?= base_url('editpo-details/' . md5($POData->id) . '/' . md5($POData->po_id)) ?>" title='edit details' class='text-primary po-data'><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <!-- <a href="#" class="p-2 text-primary" title="print"><i class="fa-solid fa-print"></i></a> -->
+                                    <a class="p-2 text-danger" title="Delete"><i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#deletePOModal"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -176,6 +176,28 @@
             </form>
         </div>
     </div>
+</div>
+<!-- Modal for Deletion -->
+<div class="modal fade" id="deletePOModal" tabindex="-1" aria-labelledby="deletePOModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deletePOModalLabel"><i class="text-warning fa-solid fa-triangle-exclamation mt-2"></i> Deletion confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <i>Deletion of Purchase Order number data will be also delete other datas such as
+        (IAR, ICS, PAR and etc.)
+        </i>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <a href="<?php echo base_url('deletepo-data/' . md5($POData->po_id)) ?>">
+         <button type="button" class="btn btn-primary">Yes</button>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
     $(document).ready(function() {

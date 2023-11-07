@@ -29,8 +29,8 @@
                                         <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
                                     <?php else : ?>
-                                        <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="<?= base_url('print-icsform/' . md5($PO_ICSData->ics_po_id)); ?>" class="text-primary mx-2" target="_blank"><i class="fa-solid fa-print"></i></a>
+                                        <a href="<?= base_url('editics-details/' . md5($PO_ICSData->ics_id) . '/' . md5($PO_ICSData->ics_po_id)) ?>" title="Edit" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="<?= base_url('print-icsform/' . md5($PO_ICSData->ics_po_id)); ?>" class="text-primary mx-2" title="Print" target="_blank"><i class="fa-solid fa-print"></i></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>

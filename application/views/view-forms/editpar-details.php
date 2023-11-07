@@ -79,6 +79,8 @@
                                         <th class="text-center" style="width: 10%;">Unit Cost</th>
                                         <th class="text-center" style="width: 10%;">Total Unit Cost</th>
                                         <th class="text-center" style="width: 10%;">Estimated Useful Life</th>
+                                        <!-- <th class="text-center" style="width: 10%;">Date Acquired</th>
+                                        <th class="text-center" style="width: 10%;">Property Number</th> -->
                                     </tr>
                                     <tbody>
                                         <?php foreach ($par_details as $par_detail) : ?>
@@ -122,6 +124,12 @@
                                                         Please enter estimated useful life of the item.
                                                     </div>
                                                 </td>
+                                                <!-- <td>
+                                                    <input type="date" id="txtDateby" class="form-control" value="" name="txtDateby">
+                                                </td>
+                                                <td>
+                                                    <input required type="text" value="" class="form-control" maxlength="28" id="" name="" size="1" readonly>
+                                                </td> -->
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>

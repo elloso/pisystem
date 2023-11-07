@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylecustom.css" />
   <!-- Template Main CSS File -->
   <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
-  <link href="<?php echo base_url(); ?>assets\css\customstyle.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/css/customstyle.css" rel="stylesheet">
   <!-- Datatables -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables/buttons.dataTables.min.css">
+  <script src="<?php echo base_url(); ?>assets/js/jquery-3.7.0.js"></script>
 </head>
 <body>
   <header id="header" class="header d-flex align-items-center">

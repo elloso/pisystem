@@ -40,6 +40,9 @@ $route['deletepo-data/(:any)'] = 'Function_Controller/deleteData_po_id/$1';
 $route['print-iarform/(:any)'] = 'PrintForms_Controller/IARfpdf_Controller/IARform/$1';
 $route['print-icsform/(:any)'] = 'PrintForms_Controller/ICSfpdf_Controller/ICSform/$1';
 $route['print-parform/(:any)'] = 'PrintForms_Controller/PARfpdf_Controller/PARform/$1';
+$route['print-scform'] = 'PrintForms_Controller/SCpdf_Controller/SCform';
+$route['print-pcform'] = 'PrintForms_Controller/PCpdf_Controller/PCform';
+
 
 
 

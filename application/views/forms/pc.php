@@ -26,7 +26,10 @@
                             <td>Sample 1</td>
                             <td>Sample 1</td>
                             <td>Sample 1</td>
-                            <td>Sample 1</td>
+                            <td>
+                                <a href="#" title="Edit" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="<?php echo base_url('print-pcform'); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                            </td>
                         </tr>
                     </tbody>
                  </table>

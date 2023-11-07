@@ -169,6 +169,25 @@ class Function_Model extends CI_Model
         $this->db->where('ics_id', $ics_id);
         return $this->db->update('tblics', $editdataics);
     }
+    public function deletePOData($delete_po_id) {
+        $id = $delete_po_id; 
+        $this->db->where('md5(po_id)', $id);
+        $this->db->delete('tblpo');
+
+        $this->db->where('md5(iar_po_id)', $id);
+        $this->db->delete('tbliar');
+
+        $this->db->where('md5(ics_po_id)', $id);
+        $this->db->delete('tblics');
+
+        $this->db->where('md5(par_po_id)', $id);
+        $this->db->delete('tblpar');
+
+        $this->db->where('md5(po_id)', $id);
+        $this->db->delete('tblpo_item');
+
+        return $this->db->affected_rows(); 
+    }
     // AJAX
     public function checkPoNumber($txtPONumber)
     {

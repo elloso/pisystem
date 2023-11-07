@@ -11,7 +11,7 @@
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
 <!-- Sweet Alert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?php echo base_url(); ?>assets/js/sweetalert211.js"></script>
 <?php if (!empty($this->session->flashdata('success'))) : ?>
     <script>
         Swal.fire({
@@ -46,16 +46,25 @@
         });
     </script>
 <?php endif; ?>
+<?php if (!empty($this->session->flashdata('delete'))) : ?>
+    <script>
+        Swal.fire({
+            title: "<?php echo $this->session->flashdata('delete'); ?>",
+            icon: 'success',
+            showCloseButton: true
+        });
+    </script>
+<?php endif; ?>
 
 <!-- Datatables -->
 
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/jszip.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/pdfmake.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/vfs_fonts.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/buttons.print.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/fontawesome.all.js" crossorigin="anonymous"></script>
 
 <!-- <script>

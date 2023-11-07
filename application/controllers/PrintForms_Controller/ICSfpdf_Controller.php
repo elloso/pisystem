@@ -128,7 +128,7 @@ class PDF extends FPDF
     function Footer()
     {
         $this->SetY(-15);
-        $this->SetFont('Arial', 'I', 8);
+        $this->SetFont('Arial', '', 8);
         $this->SetTextColor(0, 0, 0);
         $this->Cell(0, 10, '149', 0, 0, 'C');
     }

@@ -19,6 +19,7 @@ $route['generate-password/(:any)'] = 'Function_Controller/generatePassword/$1';
 $route['submit-po'] = 'Function_Controller/submitPo';
 $route['deletepo-item/(:any)'] = 'Function_Controller/deletepoItem/$1';
 $route['submit-iar'] = 'Function_Controller/updateData_IAR';
+$route['update-IAR-Details'] = 'Function_Controller/edit_IARDetails';
 $route['update-ics'] = 'Function_Controller/updatetIcs';
 $route['updatepo-details'] = 'Function_Controller/updatepoDetails';
 $route['updatepoTotal-details'] = 'Function_Controller/updatepoTotalDetails';
@@ -31,6 +32,9 @@ $route['editItem-details'] = 'Function_Controller/editItemDetails';
 $route['editiar-details/(:any)/(:any)'] = 'Post_Controller/editiarDetails/$1/$2';
 $route['editics-details/(:any)/(:any)'] = 'Post_Controller/editicsDetails/$1/$2';
 $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2';
+
+$route['deletepo-data/(:any)'] = 'Function_Controller/deleteData_po_id/$1';
+
 
 //Forms
 $route['print-iarform/(:any)'] = 'PrintForms_Controller/IARfpdf_Controller/IARform/$1';

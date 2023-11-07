@@ -171,37 +171,58 @@ class Function_Controller extends CI_Controller
                 'acceptance_custodian' => $iar_acceptance,
                 'acceptance_date' => $iar_acceptancedate
             );
-            $unitCosts = $this->Function_Model->getUnitCosts($iar_po_id); 
+            
+            $unitCosts = $this->Function_Model->getUnitCosts($iar_po_id); // Assuming you have a method to fetch an array of unit costs.
+
+            $icsCreated = false; // Initialize a flag to track whether an ICS entry has been created.
+            $parCreated = false; // Initialize a flag to track whether a PAR entry has been created.
 
             foreach ($unitCosts as $unitCost) {
                 if ($unitCost >= 1500 && $unitCost <= 50000) {
-                    $dataIARtoICS = array(
-                        'ics_po_id' => $iar_po_id,
-                        'ics_iar_no' => $iar_iarnumber,
-                        'ics_supplier' => $iar_supplier
-                    );
-                    if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS)) {
-                    } else {
-                        echo "Error Updating ICS";
+                    if (!$icsCreated) {
+                        $dataIARtoICS = array(
+                            'ics_po_id' => $iar_po_id,
+                            'ics_iar_no' => $iar_iarnumber,
+                            'ics_supplier' => $iar_supplier
+                        );
+
+                        if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS)) {
+                            // Set the flag to true to indicate that an ICS entry has been created.
+                            $icsCreated = true;
+                        } else {
+                            echo "Error Updating ICS";
+                        }
                     }
                 } elseif ($unitCost > 50000) {
-                    $dataIARtoPAR = array(
-                        'par_po_id' => $iar_po_id,
-                        'par_iarno' => $iar_iarnumber,
-                        'par_supplier' => $iar_supplier
-                    );
-                    if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
-                    } else {
-                        echo "Error Updating PAR";
+                    if (!$parCreated) {
+                        $dataIARtoPAR = array(
+                            'par_po_id' => $iar_po_id,
+                            'par_iarno' => $iar_iarnumber,
+                            'par_supplier' => $iar_supplier
+                        );
+                        if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
+                            // Set the flag to true to indicate that a PAR entry has been created.
+                            $parCreated = true;
+                        } else {
+                            echo "Error Updating PAR";
+                        }
                     }
                 } else {
                     echo "Unit cost is not within the specified range (1500 - 50000).";
                 }
             }
-            
+
+            if (!$icsCreated) {
+                echo "No data within the ICS range (1500 - 50000).";
+            }
+
+            if (!$parCreated) {
+                echo "No data above 50,000 for PAR.";
+            }
+
             $this->session->set_flashdata('success', 'Data updated successfully.');
             redirect(base_url('inspection'));
-            
+
         } else {
             redirect(base_url('login'));
         }
@@ -425,7 +446,7 @@ class Function_Controller extends CI_Controller
             echo '<script>window.history.back();</script>';
         }
     }
-    public function editIARDetails()
+    public function edit_IARDetails()
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $iar_id = $this->input->post('txt_iar_id');
@@ -463,7 +484,11 @@ class Function_Controller extends CI_Controller
             );
 
             if ($this->Function_Model->editIARData($iar_id, $editdataiar) && $this->Function_Model->editIARNOtoICSData($iar_ics_id, $editdataIARtoICS)) {
-                $this->session->set_flashdata('success', 'Data updated successfully.');
+                if ($this->db->affected_rows() > 0) {
+                    $this->session->set_flashdata('success', 'Data updated successfully.');
+                } else {
+                    $this->session->set_flashdata('info', 'No Changes occure.');
+                }
                 echo '<script>window.history.back();</script>';
             } else {
                 echo "Error Updating";
@@ -544,6 +569,19 @@ class Function_Controller extends CI_Controller
             } else {
                 echo "Error Updating";
             }
+        }
+    }
+    public function deleteData_po_id($delete_po_id) {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $affected_rows = $this->Function_Model->deletePOData($delete_po_id);
+            if ($affected_rows > 0) {
+                $this->session->set_flashdata('delete', 'Data deleted successfully.');
+                redirect(base_url('purchase'));
+            } else {
+                // $this->session->set_flashdata('error', 'Data deleted successfully.');
+            }
+        } else {
+            redirect(base_url('login'));
         }
     }
     // public function updatepoTotalDetails()

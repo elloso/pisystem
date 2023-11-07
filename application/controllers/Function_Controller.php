@@ -144,7 +144,6 @@ class Function_Controller extends CI_Controller
             $iar_po_number = $this->input->post('txtPONo');
             $iar_supplier = $this->input->post('txtSupplier');
             $iar_po_id = $this->input->post('txtIARPOID');
-
             $iar_entityname = $this->input->post('txtEntityName');
             $iar_iarnumber = $this->input->post('txtIARNo');
             $iardate = $this->input->post('txtIARDate');
@@ -171,8 +170,7 @@ class Function_Controller extends CI_Controller
                 'acceptance_custodian' => $iar_acceptance,
                 'acceptance_date' => $iar_acceptancedate
             );
-            $unitCosts = $this->Function_Model->getUnitCosts($iar_po_id); 
-
+            $unitCosts = $this->Function_Model->getUnitCosts($iar_po_id);
             foreach ($unitCosts as $unitCost) {
                 if ($unitCost >= 1500 && $unitCost <= 50000) {
                     $dataIARtoICS = array(
@@ -198,10 +196,8 @@ class Function_Controller extends CI_Controller
                     echo "Unit cost is not within the specified range (1500 - 50000).";
                 }
             }
-            
             $this->session->set_flashdata('success', 'Data updated successfully.');
             redirect(base_url('inspection'));
-            
         } else {
             redirect(base_url('login'));
         }
@@ -245,8 +241,6 @@ class Function_Controller extends CI_Controller
         $txtPGEFNumber = strip_tags($this->input->post('txtPGEFNumber'));
         $txtTotalCost = strip_tags($this->input->post('txtTotalCost'));
         $currentPoInfo = $this->Function_Model->getPoInfoById($po_id);
-
-
         if ($txtPONumber !== $currentPoInfo['po_number']) {
             if ($this->Function_Model->isPoIdExists($txtPONumber)) {
                 $this->session->set_flashdata('trn-error', 'P.O. number already exists!');
@@ -331,7 +325,7 @@ class Function_Controller extends CI_Controller
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data updated successfully!');
         } else {
-            $this->session->set_flashdata('error', 'Data update failed!');
+            $this->session->set_flashdata('info', 'No changes has occurred!');
         }
         echo '<script>window.history.back();</script>';
     }
@@ -410,18 +404,15 @@ class Function_Controller extends CI_Controller
         $dataTotalCost = array(
             'total_cost' => $txtTotalCost
         );
-        $this->db->trans_start();
         $this->db->where('po_id', $txtPo_id);
         $resultTotalCost = $this->db->update('tblpo', $dataTotalCost);
         $this->db->where('id', $id);
         $resultItem = $this->db->update('tblpo_item', $data);
-        if ($resultTotalCost && $resultItem) {
-            $this->db->trans_commit();
-            $this->session->set_flashdata('poedit-success', 'Click save to update the data!');
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('poedit-success', 'Click save if unit or unit cost are updated');
             echo '<script>window.history.back();</script>';
         } else {
-            $this->db->trans_rollback();
-            $this->session->set_flashdata('error', 'Update Data Failed!');
+            $this->session->set_flashdata('info', 'No changes have occurred!');
             echo '<script>window.history.back();</script>';
         }
     }

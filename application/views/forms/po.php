@@ -150,8 +150,8 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <input required type="number" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)">
-                                                        <div class="invalid-feedback">
+                                                        <input required type="text" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0">
+                                                        <div class=" invalid-feedback">
                                                             Please enter a unit cost.
                                                         </div>
                                                     </td>
@@ -273,7 +273,7 @@
         itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">';
         itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">';
         itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;"></textarea> <div class="invalid-feedback">Please enter item description.</div>';
-        itemunitcostCell.innerHTML = '<input required type="number" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
+        itemunitcostCell.innerHTML = '<input required type="text" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
         itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" readonly><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
         currentItemNo++;
         button2.disabled = false;
@@ -310,4 +310,13 @@
         });
         document.getElementById('txtTotalCost').value = totalCost.toFixed(2);
     }
+</script>
+<script>
+    document.getElementById("txtItemUnitCost").addEventListener("input", function(e) {
+        this.value = this.value.replace(/[^0-9.]/g, "");
+        var parts = this.value.split('.');
+        if (parts.length > 2) {
+            this.value = parts[0] + '.' + parts.slice(1).join('');
+        }
+    });
 </script>

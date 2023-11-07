@@ -189,7 +189,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Unit Cost</label>
-                                <input type="number" class="form-control" oninput="updateTotalUnitCost()" maxlength="76" name="unit_cost" id="editCost" required>
+                                <input type="text" class="form-control" oninput="updateTotalUnitCost()" maxlength="76" name="unit_cost" id="editCost" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -303,5 +303,14 @@
             document.getElementById("txtTotalCost").value = totalCost;
             var mtotalCost = calculateTotal();
             document.getElementById("mtxtTotalCost").value = mtotalCost;
+        });
+    </script>
+    <script>
+        document.getElementById("editCost").addEventListener("input", function(e) {
+            this.value = this.value.replace(/[^0-9.]/g, "");
+            var parts = this.value.split('.');
+            if (parts.length > 2) {
+                this.value = parts[0] + '.' + parts.slice(1).join('');
+            }
         });
     </script>

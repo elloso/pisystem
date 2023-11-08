@@ -13,7 +13,7 @@
   <style>
     #intro_login {
       background-image: url(Images/slsuloginpage.jpg);
-      height: 108.5vh;
+      height: 109vh;
       background-size: cover;
       background-position: center;
     }
@@ -70,7 +70,7 @@
       </div>
     </div>
   </form>
-  <script type="text/javascript" src="assets/js/bootstrap.bundle.min.jss"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap.bundle.min.jss"></script>
   <script src="<?php echo base_url(); ?>assets/js/fontawesome.all.js" crossorigin="anonymous"></script>
 </body>
 

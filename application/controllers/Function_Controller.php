@@ -348,7 +348,7 @@ class Function_Controller extends CI_Controller
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data updated successfully!');
         } else {
-            $this->session->set_flashdata('info', 'No changes has occurred!');
+            $this->session->set_flashdata('info', 'No changes have occurred.');
         }
         echo '<script>window.history.back();</script>';
     }
@@ -435,7 +435,7 @@ class Function_Controller extends CI_Controller
             $this->session->set_flashdata('poedit-success', 'Click save if unit or unit cost are updated');
             echo '<script>window.history.back();</script>';
         } else {
-            $this->session->set_flashdata('info', 'No changes has occurred!');
+            $this->session->set_flashdata('info', 'No changes have occurred!');
             echo '<script>window.history.back();</script>';
         }
     }
@@ -480,7 +480,7 @@ class Function_Controller extends CI_Controller
                 if ($this->db->affected_rows() > 0) {
                     $this->session->set_flashdata('success', 'Data updated successfully.');
                 } else {
-                    $this->session->set_flashdata('info', 'No Changes has occurred.');
+                    $this->session->set_flashdata('info', 'No changes have occurred.');
                 }
                 echo '<script>window.history.back();</script>';
             } else {

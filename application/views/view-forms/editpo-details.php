@@ -78,10 +78,10 @@
                             <div class="table-responsive">
                                 <table id="table-po-data" class="table table-hover">
                                     <tr>
-                                        <th style="width: 8%;">Item No.</th>
+                                        <th style="width: 18%;">Stock / Property No.</th>
                                         <th style="width: 10%;">Quantity</th>
                                         <th style="width: 15%;">Unit</th>
-                                        <th style="width: 40%;">Items / Description</th>
+                                        <th style="width: 30%;">Items / Description</th>
                                         <th style="width: 10%;">Unit Cost</th>
                                         <th style="width: 10%;">Total Unit Cost</th>
                                         <th style="width: 7%;">Action</th>
@@ -95,7 +95,8 @@
                                             <tr>
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $poitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]">
-                                                    <input required type="text" value="<?php echo $itemNoCounter; ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                                    <input required type="hidden" value="<?php echo $itemNoCounter; ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                                    <input required type="text" value="<?php echo $poitem->property_no ?>" class=" form-control" id="txtStockProperty" name="txtStockProperty[]">
                                                     <div class="invalid-feedback">
                                                         Please enter Item No.
                                                     </div>
@@ -239,7 +240,7 @@
             var itemunitcostCell = newRow.insertCell(4);
             var itemtotalunitcostCell = newRow.insertCell(5);
 
-            itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly>';
+            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input required type="text" value="" class=" form-control" id="txtStockProperty" name="txtStockProperty[]">';
             itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';

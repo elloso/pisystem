@@ -53,7 +53,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6 col-xl-6">
+                        <div class="col-lg-6 col-xl-12">
                             <div class="form-floating mb-2">
                                 <select class="form-select" aria-label="Default select example" name="selectPARIARNo" required>
                                     <option value="" selected>-- Select IAR No. --</option>
@@ -66,15 +66,6 @@
                                 <label class="form-label fw-bold text-dark" for="txtPARIARNo">IAR No. :</label>
                                 <div class="invalid-feedback">
                                     Please select IAR no.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-6">
-                            <div class="form-floating mb-2">
-                                <input id="txtPARDate" class="form-control" name="txtPARDate" type="date" required>
-                                <label class="form-label fw-bold text-dark" for="txtPARDate">Date :</label>
-                                <div class="invalid-feedback">
-                                    Please choose date.
                                 </div>
                             </div>
                         </div>

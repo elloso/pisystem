@@ -114,7 +114,7 @@ class PARfpdf_Controller extends CI_Controller
             $pdf->SetXY(120,$y);
             $pdf->MultiCell($descriptionWidth, 6, $item->property_no, 0, 'L');
             $pdf->SetXY(150,$y);
-            $pdf->MultiCell($descriptionWidth, 6, $item->property_no, 0, 'L');
+            $pdf->MultiCell($descriptionWidth, 6, $item->date_acquired, 0, 'L');
             $pdf->SetXY(176, $y);
             $cellWidth = 40;
             $pdf->Cell($cellWidth, $descriptionHeight, $totalUnitCost, 0, 0);

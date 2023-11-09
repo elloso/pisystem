@@ -118,7 +118,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="date" id="txtDateAcquired" class="form-control" value="<?php echo $editpar_details->par_date ?>" name="txtDateAcquired[]" >
+                                                    <input type="date" id="txtDateAcquired" class="form-control" value="<?php echo $par_detail->date_acquired ?>" name="txtDateAcquired[]" >
                                                     <div class="invalid-feedback">
                                                         Please select Date of Acquired.
                                                     </div>

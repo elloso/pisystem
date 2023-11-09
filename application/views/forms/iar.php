@@ -33,7 +33,7 @@
                                         <a href="#" class="text-danger mx-2" onclick="return false;" style="cursor: not-allowed;"><i class="fa-solid fa-print"></i></a>
                                     <?php else : ?>
                                         <a href="<?= base_url('editiar-details/' . md5($IARData->iar_id) . '/' . md5($IARData->iar_po_id)) ?>" title="Edit" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="<?php echo base_url('print-iarform/' . md5($IARData->iar_po_id)); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                                        <a href="<?php echo base_url('print-iarform/' . md5($IARData->iar_po_id)); ?>" target="_blank" title="Print" class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -93,7 +93,7 @@
                                         <div class="form-floating mb-2">
                                             <input type="text" id="txtIARNo" class="form-control" name="txtIARNo" required>
                                             <label class="form-label fw-bold text-dark" for="txtIARNo">IAR No. :</label>
-                                            <div class="invalid-feedback">Please enter IAR No.</div>
+                                            <!-- <div class="invalid-feedback">Please enter IAR No.</div> -->
                                             <div id="prmsg"></div>
                                         </div>
                                         <div class="form-floating mb-2">
@@ -114,7 +114,7 @@
                                         <div class="form-floating mb-2">
                                             <input type="number" id="txtInvoice" class="form-control" name="txtInvoice" required>
                                             <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
-                                            <div class="invalid-feedback">Please enter Invoice number.</div>
+                                            <!-- <div class="invalid-feedback">Please enter Invoice number.</div> -->
                                             <div id="invoicemsg"></div>
                                         </div>
                                         <div class="form-floating mb-2">

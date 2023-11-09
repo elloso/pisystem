@@ -34,7 +34,7 @@ class ICSfpdf_Controller extends CI_Controller
         $pdf->Line(60, 58, 60, 230);
         $pdf->Line(82, 53, 82, 230);
         $pdf->Line(150, 53, 150, 230);
-        $pdf->Line(170, 53, 170, 230);
+        $pdf->Line(171, 53, 171, 230);
         $pdf->Ln(9);
         $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(20, 14, 'Quantity', 'RB', 0, 'C');
@@ -46,7 +46,7 @@ class ICSfpdf_Controller extends CI_Controller
         $pdf->SetY(53);
         $pdf->SetX(82);
         $pdf->Cell(68, 14, 'Description', 'RB', 0, 'C');
-        $pdf->MultiCell(20, 7, 'Inventory Item No.', 'RB', 'C');
+        $pdf->MultiCell(21, 7, 'Inventory Item No.', 'RB', 'C');
         $pdf->SetY(53);
         $pdf->SetX(170);
         $pdf->MultiCell(30, 7, 'Estimated Useful Life', 'RB', 'C');
@@ -100,19 +100,21 @@ class ICSfpdf_Controller extends CI_Controller
             $descriptionText = $item->item_description;
             $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
             $descriptionHeight = 7 * $descriptionLines;
-            $pdf->Cell(35, $descriptionHeight, $item->quantity, 0, 0, 'C');
+            $pdf->Cell(35, 5, $item->quantity, 0, 0, 'C');
             $pdf->SetX(31);
-            $pdf->Cell(0, $descriptionHeight, $item->unit, 0, 0);
+            $pdf->Cell(0, 5, $item->unit, 0, 0);
             $pdf->SetX(40);
-            $pdf->Cell(0, $descriptionHeight, $item->unit_cost, 0, 0);
+            $pdf->Cell(0, 5, $item->unit_cost, 0, 0);
             $pdf->SetX(60);
-            $pdf->Cell(0, $descriptionHeight, $item->total_unit_cost, 0, 0);
+            $pdf->Cell(0, 5, $item->total_unit_cost, 0, 0);
             $pdf->SetXY(82, $y);
-            $pdf->MultiCell($descriptionWidth, 6,'* '. $descriptionText, 0, 'L');
-            $pdf->SetXY(157, $y);
-            $pdf->Cell(0, $descriptionHeight, $item->item_no, 0, 0);
-            $pdf->SetXY(183, $y);
-            $pdf->Cell(0, $descriptionHeight, $item->useful_life, 0, 0);
+            $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
+            $pdf->SetXY(150, $y);
+            $pdf->SetFont('times', '', 8);
+            $pdf->MultiCell(20, 5, $item->property_no, 0, 'L');
+            $pdf->SetFont('times', '', 9);
+            $pdf->SetXY(173, $y);
+            $pdf->Cell(0, 5, $item->useful_life, 0, 0);
             $y += max(8, $descriptionHeight);
         }
         $pdf->Output();

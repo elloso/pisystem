@@ -25,11 +25,12 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables/buttons.dataTables.min.css">
   <script src="<?php echo base_url(); ?>assets/js/jquery-3.7.0.js"></script>
 </head>
+
 <body>
   <header id="header" class="header d-flex align-items-center">
 
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="<?php echo base_url('dashboard'); ?>" class="logo d-flex align-items-center">
         <h1>Property Inventory System</h1>
       </a>
       <nav id="navbar" class="navbar">

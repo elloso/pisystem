@@ -37,10 +37,18 @@
         });
     </script>
 <?php endif; ?>
-<?php if (!empty($this->session->flashdata('info'))) : ?>
+<?php if (!empty($this->session->flashdata('info-success'))) : ?>
     <script>
         Swal.fire({
-            title: "<?php echo $this->session->flashdata('info'); ?>",
+            title: "<?php echo $this->session->flashdata('info-success'); ?>",
+            icon: 'success',
+            showCloseButton: true
+        });
+    </script>
+<?php elseif (!empty($this->session->flashdata('info-error'))) : ?>
+    <script>
+        Swal.fire({
+            title: "<?php echo $this->session->flashdata('info-error'); ?>",
             icon: 'info',
             showCloseButton: true
         });

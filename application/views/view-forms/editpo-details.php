@@ -95,8 +95,8 @@
                                             <tr>
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $poitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]">
-                                                    <input required type="hidden" value="<?php echo $itemNoCounter; ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
-                                                    <input required type="text" value="<?php echo $poitem->property_no ?>" class=" form-control" id="txtStockProperty" name="txtStockProperty[]">
+                                                    <input required type="hidden" value="<?php echo $itemNoCounter; ?>" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                                    <input required type="text" value="<?php echo $poitem->property_no ?>" class=" form-control" id="txtStockProperty" name="txtStockProperty[]" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Item No.
                                                     </div>
@@ -128,7 +128,7 @@
                                                         Please enter a total unit cost.
                                                     </div>
                                                 </td>
-                                                <td class="text-center"><a href="#" class="p-1 text-primary" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>', <?php echo $poitem->total_unit_cost ?>)" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <td class="text-center"><a href="#" class="p-1 text-primary" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>','<?php echo $poitem->property_no ?>', <?php echo $poitem->total_unit_cost ?>)" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a>
                                                     <?php
                                                     if ($remainingRowCount > 1) {
                                                         echo '<a href="' . base_url('deletepo-item/' . md5($poitem->id)) . '" class="p-1 text-danger" title="delete" onclick="return confirm(\'Are you sure you want to delete ' . $poitem->item_description . '?\');"><i class="fa-solid fa-trash"></i></a>';
@@ -152,12 +152,13 @@
         </div>
     </div>
     <script>
-        function displayEditModal(id, quantity, unit, item_description, unit_cost, total_unit_cost) {
+        function displayEditModal(id, quantity, unit, item_description, unit_cost, property_no, total_unit_cost) {
             document.getElementById('edit_id').value = id;
             document.getElementById('editQuantity').value = quantity;
             document.getElementById('editUnit').value = unit;
             document.getElementById('editDescription').value = item_description;
             document.getElementById('editCost').value = unit_cost;
+            document.getElementById('editPropertyno').value = property_no;
             document.getElementById('editTotalCost').value = total_unit_cost;
         }
     </script>
@@ -170,8 +171,9 @@
                 </div>
                 <div class="modal-body">
                     <form action="<?php echo base_url(); ?>editItem-details" method="post">
-                        <input type="hidden" id="mtxtTotalCost" class="form-control" name="mtxtTotalCost" required readonly>
+                        <input type="text" id="mtxtTotalCost" class="form-control" name="mtxtTotalCost" required readonly>
                         <input type="hidden" id="txtPo_id" value="<?= $editpo_details->po_id ?>" class="form-control" name="txtPo_id" required readonly>
+
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Quantity</label>
@@ -194,7 +196,11 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col" style="width: 100%;">
+                            <div class="col-md-6">
+                                <label for="" class="fw-bold">Stoct/Property No</label>
+                                <input type="text" class="form-control" maxlength="76" name="property_no" id="editPropertyno">
+                            </div>
+                            <div class="col-md-6">
                                 <label for="" class="fw-bold">Total Unit Cost</label>
                                 <input type="text" class="form-control" maxlength="76" name="total_unit_cost" id="editTotalCost" required readonly>
                             </div>
@@ -207,7 +213,6 @@
                 </div>
                 </form>
             </div>
-
         </div>
     </div>
     <script>
@@ -240,7 +245,7 @@
             var itemunitcostCell = newRow.insertCell(4);
             var itemtotalunitcostCell = newRow.insertCell(5);
 
-            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input required type="text" value="" class=" form-control" id="txtStockProperty" name="txtStockProperty[]">';
+            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input required type="text" value="" class=" form-control" id="UtxtStockProperty" name="UtxtStockProperty[]">';
             itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';

@@ -133,7 +133,7 @@ class Function_Controller extends CI_Controller
         }
         $result = $this->Function_Model->remove_poItem($delPoItem);
         if ($result) {
-            $this->session->set_flashdata('success', 'Please click save to update the data!');
+            $this->session->set_flashdata('success', 'Remove item success! click save to update the data!');
             echo '<script>window.history.back();</script>';
         } else {
             $this->session->set_flashdata('error', 'Remove item failed!');
@@ -309,9 +309,11 @@ class Function_Controller extends CI_Controller
         $UtxtUnit = $this->input->post('UtxtUnit');
         $UtxtDescription = $this->input->post('UtxtDescription');
         $UtxtItemUnitCost = $this->input->post('UtxtItemUnitCost');
+        $UtxtStockProperty = $this->input->post('UtxtStockProperty');
         $UtxtTotalUnitCost = $this->input->post('UtxtTotalUnitCost');
+
         if (
-            is_array($UtxtItemNo) && is_array($UtxtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($UtxtItemQuantity) && count($UtxtUnit) === count($UtxtDescription) && count($UtxtItemUnitCost) === count($UtxtTotalUnitCost)
+            is_array($UtxtItemNo) && is_array($UtxtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtStockProperty) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($UtxtStockProperty) && count($UtxtItemQuantity) === count($UtxtUnit) && count($UtxtDescription) === count($UtxtItemUnitCost) && count($UtxtTotalUnitCost)
         ) {
             $count = count($UtxtItemNo);
             for ($i = 0; $i < $count; $i++) {
@@ -321,20 +323,17 @@ class Function_Controller extends CI_Controller
                     'pr_number' => $txtPRNumber,
                     'pgr_number' => $txtPGEFNumber,
                     'item_no' => $UtxtItemNo[$i],
+                    'property_no' => $UtxtStockProperty[$i],
                     'quantity' => $UtxtItemQuantity[$i],
                     'unit' => $UtxtUnit[$i],
                     'item_description' => $UtxtDescription[$i],
                     'unit_cost' => $UtxtItemUnitCost[$i],
                     'total_unit_cost' => $UtxtTotalUnitCost[$i],
                 );
-                $updateTotalPO = array(
-                    'total_cost' => $txtTotalCost
-                );
-                $this->db->where('po_id', $po_id);
-                $this->db->update('tblpo', $updateTotalPO);
+
                 $this->db->where('po_id', $po_id);
                 $this->db->insert('tblpo_item', $itemData);
-                $this->session->set_flashdata('success', 'Item successfully added! Please click save to update the data');
+                $this->session->set_flashdata('info-success', 'Item successfully added! Please click save to update the data');
                 echo '<script>window.history.back();</script>';
             }
         } else {
@@ -350,7 +349,7 @@ class Function_Controller extends CI_Controller
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data updated successfully!');
         } else {
-            $this->session->set_flashdata('info', 'No changes have occurred.');
+            $this->session->set_flashdata('info-error', 'No changes have occurred.');
         }
         echo '<script>window.history.back();</script>';
     }
@@ -377,7 +376,6 @@ class Function_Controller extends CI_Controller
                 return;
             }
         }
-
         $ICS_editData = array(
             'ics_fund' => $txtFund,
             'ics_no' => $txtICSnumber,
@@ -388,12 +386,10 @@ class Function_Controller extends CI_Controller
             'ics_receivedfrom_date' => $txtdatefrom,
             'ics_total_cost' => $icsTotalCost
         );
-
         foreach ($ics_poitem_ids as $key => $ics_poitem_id) {
             $ics_poitem_useful = $ics_poitem_usefuls[$key];
             $this->Function_Model->editICStoPOItemData($ics_poitem_id, $ics_poitem_useful);
         }
-
         if ($this->Function_Model->editICSData($ics_id, $ICS_editData)) {
             $this->session->set_flashdata('success', 'Data updated successfully.');
             echo '<script>window.history.back();</script>';
@@ -418,21 +414,24 @@ class Function_Controller extends CI_Controller
         $unit = $this->input->post('unit');
         $description = $this->input->post('description');
         $unit_cost = $this->input->post('unit_cost');
+        $property_no = $this->input->post('property_no');
         $total_unit_cost = $this->input->post('total_unit_cost');
+
         $data = array(
             'quantity' => $quantity,
             'unit' => $unit,
             'item_description' => $description,
             'unit_cost' => $unit_cost,
+            'property_no' => $property_no,
             'total_unit_cost' => $total_unit_cost
         );
         $dataTotalCost = array(
             'total_cost' => $txtTotalCost
         );
         $this->db->where('po_id', $txtPo_id);
-        $resultTotalCost = $this->db->update('tblpo', $dataTotalCost);
+        $this->db->update('tblpo', $dataTotalCost);
         $this->db->where('id', $id);
-        $resultItem = $this->db->update('tblpo_item', $data);
+        $this->db->update('tblpo_item', $data);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('poedit-success', 'Click save if unit or unit cost are updated');
             echo '<script>window.history.back();</script>';

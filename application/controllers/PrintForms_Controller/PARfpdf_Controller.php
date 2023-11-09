@@ -31,7 +31,7 @@ class PARfpdf_Controller extends CI_Controller
         $pdf->Line($middleX, 230, $middleX, 273);
         $pdf->Line(30, 53, 30, 230);
         $pdf->Line(50, 53, 50, 230);
-        $pdf->Line(130, 53, 130, 230);
+        $pdf->Line(120, 53, 120, 230);
         $pdf->Line(150, 53, 150, 230);
         $pdf->Line(170, 53, 170, 230);
         $pdf->Ln(9);
@@ -40,10 +40,10 @@ class PARfpdf_Controller extends CI_Controller
         $pdf->Cell(20, 14, 'Unit', 'B', 0, 'C');
         $pdf->SetY(53);
         $pdf->SetX(50);
-        $pdf->Cell(80, 14, 'Description', 'B', 0, 'C');
+        $pdf->Cell(70, 14, 'Description', 'B', 0, 'C');
         $pdf->SetY(53);
-        $pdf->SetX(130);
-        $pdf->MultiCell(20, 7, 'Property Number', 'RB', 'C');
+        $pdf->SetX(120);
+        $pdf->MultiCell(30, 14, 'Property Number', 'RB', 'C');
         $pdf->SetY(53);
         $pdf->SetX(150);
         $pdf->MultiCell(20, 7, 'Date Acquired', 'B', 'C');
@@ -111,6 +111,10 @@ class PARfpdf_Controller extends CI_Controller
             $pdf->Cell(0, $descriptionHeight, $item->unit, 0, 0);
             $pdf->SetX(52);
             $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
+            $pdf->SetXY(120,$y);
+            $pdf->MultiCell($descriptionWidth, 6, $item->property_no, 0, 'L');
+            $pdf->SetXY(150,$y);
+            $pdf->MultiCell($descriptionWidth, 6, $item->property_no, 0, 'L');
             $pdf->SetXY(176, $y);
             $cellWidth = 40;
             $pdf->Cell($cellWidth, $descriptionHeight, $totalUnitCost, 0, 0);

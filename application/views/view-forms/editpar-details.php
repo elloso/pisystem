@@ -21,8 +21,8 @@
                     </div>
                     <div class="col-lg-6 col-xl-6">
                         <div class="form-floating mb-2">
-                            <input type="date" id="txtPARDate" value="<?php echo $editpar_details->par_date ?>" class="form-control" name="txtPARDate" required>
-                            <label class="form-label fw-bold text-dark" for="txtPARDate">Date:</label>
+                            <input type="text" id="txtPARnumber" class="form-control" value="<?php echo $editpar_details->par_no ?>" name="txtPARnumber">
+                            <label class="form-label fw-bold text-dark" for="txtPARnumber">PAR Number:</label>
                         </div>
                     </div>
                 </div>
@@ -46,8 +46,9 @@
                     </div>
                     <div class="col-lg-6 col-xl-6">
                         <div class="form-floating mb-2">
-                            <input type="text" id="txtPARnumber" class="form-control" value="<?php echo $editpar_details->par_no ?>" name="txtPARnumber">
-                            <label class="form-label fw-bold text-dark" for="txtPARnumber">PAR Number:</label>
+                            <input type="hidden" id="parTotalCost" class="form-control" name="parTotalCost" required readonly>
+                            <input type="text" id="rTotalCost" class="form-control" value="<?php echo $editpar_details->par_total_cost ?>" name="rTotalCost" required readonly>
+                            <label class="form-label fw-bold text-dark" for="parTotalCost">Total Cost:</label>
                         </div>
                         <div class="border p-2 mb-2">
                             <div class="form-floating mb-2">
@@ -58,11 +59,6 @@
                                 <input type="date" id="txtdatefrom" class="form-control" value="<?php echo $editpar_details->par_receivedfrom_date ?>" name="txtdatefrom" required>
                                 <label class="form-label fw-bold text-dark" for="txtdatefrom">Date:</label>
                             </div>
-                            <div class="form-floating mb-2">
-                                <input type="hidden" id="parTotalCost" class="form-control" name="parTotalCost" required readonly>
-                                <input type="text" id="rTotalCost" class="form-control" value="<?php echo $editpar_details->par_total_cost ?>" name="rTotalCost" required readonly>
-                                <label class="form-label fw-bold text-dark" for="parTotalCost">Total Cost:</label>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,20 +68,24 @@
                             <div class="table-responsive">
                                 <table id="table-itemno-data" class="table table-hover">
                                     <tr>
-                                        <th class="text-center" style="width: 8%;">Item No.</th>
-                                        <th class="text-center" style="width: 10%;">Quantity</th>
-                                        <th class="text-center" style="width: 15%;">Unit</th>
-                                        <th class="text-center" style="width: 32%;">Items / Description</th>
+                                        <th class="text-center" style="width: 18%;">Stock / Propert No.</th>
+                                        <th class="text-center" style="width: 5%;">Quantity</th>
+                                        <th class="text-center" style="width: 10%;">Unit</th>
+                                        <th class="text-center" style="width: 22%;">Items / Description</th>
                                         <th class="text-center" style="width: 10%;">Unit Cost</th>
                                         <th class="text-center" style="width: 10%;">Total Unit Cost</th>
+                                        <th class="text-center" style="width: 10%;">Date Acquired</th>
                                         <th class="text-center" style="width: 10%;">Estimated Useful Life</th>
+                                        
                                         <!-- <th class="text-center" style="width: 10%;">Date Acquired</th>
                                         <th class="text-center" style="width: 10%;">Property Number</th> -->
                                     </tr>
                                     <tbody>
                                         <?php foreach ($par_details as $par_detail) : ?>
                                             <tr>
-                                                <td><input required type="text" value="<?php echo $par_detail->item_no ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                                <td>
+                                                <input required type="hidden" value="<?php echo $par_detail->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]" placeholder="">
+                                                    <input required type="text" value="<?php echo $par_detail->property_no ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Item No.
                                                     </div>
@@ -118,7 +118,12 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input required type="hidden" value="<?php echo $par_detail->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]" placeholder="">
+                                                    <input type="date" id="txtDateAcquired" class="form-control" value="<?php echo $editpar_details->par_date ?>" name="txtDateAcquired[]" >
+                                                    <div class="invalid-feedback">
+                                                        Please select Date of Acquired.
+                                                    </div>
+                                                </td>
+                                                <td>
                                                     <input type="text" value="<?php echo $par_detail->useful_life ?>" class="form-control" id="txtPOItem_useful" name="txtPOItem_useful[]" placeholder="">
                                                     <div class="invalid-feedback">
                                                         Please enter estimated useful life of the item.

@@ -530,7 +530,7 @@ class Function_Controller extends CI_Controller
         if ($this->session->userdata('is_login') == TRUE) {
             $par_id = $this->input->post('par_id');
             $par_editenumber = $this->input->post('txtPARnumber');
-            $par_editdate = $this->input->post('txtPARDate');
+            // $par_editdate = $this->input->post('txtDateAcquired');
             $par_editfund = $this->input->post('txtFund');
             $par_editreceivedby = $this->input->post('txtReceivedby');
             $par_editpar_receivedby_date = $this->input->post('txtDateby');
@@ -539,11 +539,11 @@ class Function_Controller extends CI_Controller
             $parTotalCost = $this->input->post('parTotalCost');
             $par_poitem_ids = $this->input->post('txtPOItem_id');
             $par_poitem_usefuls = $this->input->post('txtPOItem_useful');
-
+            $par_poitem_dacquireds = $this->input->post('txtDateAcquired');
 
             $PAR_editData = array(
                 'par_no' => $par_editenumber,
-                'par_date' => $par_editdate,
+                // 'par_date' => $par_editdate,
                 'par_fund' => $par_editfund,
                 'par_receivedby' => $par_editreceivedby,
                 'par_received_date' => $par_editpar_receivedby_date,
@@ -554,7 +554,8 @@ class Function_Controller extends CI_Controller
 
             foreach ($par_poitem_ids as $key => $par_poitem_id) {
                 $par_poitem_useful = $par_poitem_usefuls[$key];
-                $this->Function_Model->editPARtoPOItemData($par_poitem_id, $par_poitem_useful);
+                $par_poitem_dacquired = $par_poitem_dacquireds[$key];
+                $this->Function_Model->editPARtoPOItemData($par_poitem_id, $par_poitem_useful,$par_poitem_dacquired);
             }
 
             if ($this->Function_Model->editPARData($par_id, $PAR_editData)) {

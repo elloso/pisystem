@@ -15,16 +15,22 @@
                         <input type="text" id="txt_ics_id" class="form-control" name="txt_ics_id" value="<?php echo $editiar_details->iar_po_id ?>"readonly>
                         <label class="form-label fw-bold text-dark" for="txt_ics_id">IAR ICS ID :</label>
                     </div>
-                    <div class="form-floating mb-2">
+                    <div class="form-floating mb-2 d-none">
                         <input type="text" id="edit_entityname" value="<?php echo $editiar_details->entity_name ?>" class="form-control" name="edit_entityname" readonly>
                         <label class="form-label fw-bold text-dark" for="txtSupplier">Entity Name :</label>
                     </div>
+                    <?php foreach ($iar_details as $iar_detail): ?>
+                    <div class="form-floating mb-2">
+                        <input type="text" id="edit_propertyno" value="<?php echo $iar_detail->property_no ?>" class="form-control" name="edit_propertyno" readonly>
+                        <label class="form-label fw-bold text-dark" for="txtSupplier">Stock / Property No. :</label>
+                    </div>
+                    <?php endforeach ?>
                     <div class="form-floating mb-2">
                             <input type="text" id="edit_supplier" value="<?php echo $editiar_details->iar_supplier ?>" class="form-control" name="edit_supplier" readonly>
                             <label class="form-label fw-bold text-dark" for="edit_supplier">Supplier :</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="number" id="edit_pono" value="<?php echo $editiar_details->iar_po_number ?>" class="form-control" name="edit_pono" readonly>
+                            <input type="text" id="edit_pono" value="<?php echo $editiar_details->iar_po_number ?>" class="form-control" name="edit_pono" readonly>
                             <label class="form-label fw-bold text-dark" for="edit_pono">P.O No. :</label>
                         </div>
                     <div class="form-floating mb-2">
@@ -53,7 +59,7 @@
                                     <label class="form-label fw-bold text-dark" for="edit_iardate">Date :</label>
                                 </div>
                             </div>
-                        </div> 
+                     </div> 
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">

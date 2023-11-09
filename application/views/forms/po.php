@@ -120,17 +120,18 @@
                                             </button>
                                             <table id="table-itemno-data" class="table table-bordered table-hover">
                                                 <tr>
-                                                    <th style="width: 8%;">Item No.</th>
+                                                    <th style="width: 18%;">Stock/Property No.</th>
                                                     <th style="width: 12%;">Quantity</th>
-                                                    <th style="width: 9%;">Unit</th>
-                                                    <th style="width: 40%;">Items / Description</th>
+                                                    <th style="width: 14%;">Unit</th>
+                                                    <th style="width: 25%;">Items / Description</th>
                                                     <th style="width: 15%;">Unit Cost</th>
                                                     <th style="width: 16%;">Total Unit Cost</th>
                                                 </tr>
                                                 <tr>
-                                                    <td><input required type="text" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>
+                                                    <td><input required type="hidden" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>
+                                                        <input required type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" required>
                                                         <div class="invalid-feedback">
-                                                            Please enter Item No.
+                                                            Stock/Property No.
                                                         </div>
                                                     </td>
                                                     <td><input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" oninput="this.value = Math.abs(this.value)" value="1">
@@ -179,25 +180,25 @@
 </div>
 <!-- Modal for Deletion -->
 <div class="modal fade" id="deletePOModal" tabindex="-1" aria-labelledby="deletePOModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="deletePOModalLabel"><i class="text-warning fa-solid fa-triangle-exclamation mt-2"></i> Deletion confirmation</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <i>Deletion of Purchase Order number data will be also delete other datas such as
-        (IAR, ICS, PAR and etc.)
-        </i>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <a href="<?php echo base_url('deletepo-data/' . md5($POData->po_id)) ?>">
-         <button type="button" class="btn btn-primary">Yes</button>
-        </a>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deletePOModalLabel"><i class="text-warning fa-solid fa-triangle-exclamation mt-2"></i> Deletion confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <i>Deletion of Purchase Order number data will be also delete other datas such as
+                    (IAR, ICS, PAR and etc.)
+                </i>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a href="<?php echo base_url('deletepo-data/' . md5($POData->po_id)) ?>">
+                    <button type="button" class="btn btn-primary">Yes</button>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <script>
     $(document).ready(function() {
@@ -291,7 +292,7 @@
         var itemdescriptionCell = newRow.insertCell(3);
         var itemunitcostCell = newRow.insertCell(4);
         var itemtotalunitcostCell = newRow.insertCell(5);
-        itemnoCell.innerHTML = '<input required type="text" value="' + currentItemNo + '" oninput="this.value = Math.abs(this.value)" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>';
+        itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly><input required type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" required><div class="invalid-feedback">Stock/Property No.</div>';
         itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">';
         itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">';
         itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;"></textarea> <div class="invalid-feedback">Please enter item description.</div>';

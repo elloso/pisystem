@@ -96,8 +96,9 @@ class Function_Controller extends CI_Controller
         $txtItemUnitCost = $this->input->post('txtItemUnitCost');
         $txtUnit = $this->input->post('txtUnit');
         $txtTotalUnitCost = $this->input->post('txtTotalUnitCost');
+        $txtPropNo = $this->input->post('txtPropNo');
         if (
-            is_array($txtItemNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && is_array($txtTotalUnitCost) && count($txtItemNo) === count($txtItemQuantity) && count($txtDescription) === count($txtItemUnitCost) && count($txtUnit) === count($txtTotalUnitCost)
+            is_array($txtItemNo) && is_array($txtPropNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && is_array($txtTotalUnitCost) && count($txtItemNo) === count($txtPropNo) && count($txtItemQuantity) === count($txtDescription) && count($txtItemUnitCost) === count($txtUnit) && count($txtTotalUnitCost)
         ) {
             $count = count($txtItemNo);
             for ($i = 0; $i < $count; $i++) {
@@ -107,6 +108,7 @@ class Function_Controller extends CI_Controller
                     'pr_number' => $txtPRNumber,
                     'pgr_number' => $txtPGEFNumber,
                     'item_no' => $txtItemNo[$i],
+                    'property_no' => $txtPropNo[$i],
                     'quantity' => $txtItemQuantity[$i],
                     'unit' => $txtUnit[$i],
                     'item_description' => $txtDescription[$i],

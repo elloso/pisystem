@@ -151,6 +151,18 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+    public function get_iarproperty_no($iarPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->where('md5(po_id)', $iarPoID);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->row(); 
+        } else {
+            return null;  
+        }
+    }
     public function get_icsdetails_by_id($icsID)
     {
         $this->db->where('md5(ics_id)', $icsID);
@@ -226,4 +238,17 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+    public function getRSEPI($poid)
+    {
+        $this->db->where('id', $poid);
+        $query = $this->db->get('tblpo_item'); 
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false; 
+        }
+    }
+  
+
 }

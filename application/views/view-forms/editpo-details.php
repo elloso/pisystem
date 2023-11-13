@@ -84,8 +84,8 @@
                                     <tr>
                                         <th style="width: 18%;">Stock / Property No.</th>
                                         <th style="width: 10%;">Quantity</th>
-                                        <th style="width: 15%;">Unit</th>
-                                        <th style="width: 30%;">Items / Description</th>
+                                        <th style="width: 12%;">Unit</th>
+                                        <th style="width: 33%;">Items / Description</th>
                                         <th style="width: 10%;">Unit Cost</th>
                                         <th style="width: 10%;">Total Unit Cost</th>
                                         <th style="width: 7%;">Action</th>
@@ -192,7 +192,6 @@
                     <form action="<?php echo base_url(); ?>editItem-details" method="post">
                         <input type="hidden" id="mtxtTotalCost" class="form-control" name="mtxtTotalCost" required readonly>
                         <input type="hidden" id="txtPo_id" value="<?= $editpo_details->po_id ?>" class="form-control" name="txtPo_id" required readonly>
-
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Quantity</label>
@@ -207,7 +206,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Item Description</label>
-                                <input type="text" class="form-control" maxlength="76" name="description" id="editDescription" required>
+                                <textarea type="text" class="form-control" name="description" id="editDescription"></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="fw-bold">Unit Cost</label>

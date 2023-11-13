@@ -72,12 +72,12 @@
                             <div class="table-responsive">
                                 <table id="table-itemno-data" class="table table-hover">
                                     <tr>
-                                        <th class="text-center" style="width: 8%;">Item No.</th>
                                         <th class="text-center" style="width: 10%;">Quantity</th>
                                         <th class="text-center" style="width: 15%;">Unit</th>
                                         <th class="text-center" style="width: 32%;">Items / Description</th>
                                         <th class="text-center" style="width: 10%;">Unit Cost</th>
                                         <th class="text-center" style="width: 10%;">Total Unit Cost</th>
+                                        <th class="text-center" style="width: 8%;">Date Acquired</th>
                                         <th class="text-center" style="width: 10%;">Estimated Useful Life</th>
                                     </tr>
                                     <tbody>
@@ -85,11 +85,7 @@
                                         foreach ($icsitemList as $icsitem) {
                                         ?>
                                             <tr>
-                                                <td><input required type="text" value="<?= $icsitem->item_no ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
-                                                    <div class="invalid-feedback">
-                                                        Please enter Item No.
-                                                    </div>
-                                                </td>
+
                                                 <td><input required type="number" value="<?= $icsitem->quantity ?>" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Quantity.
@@ -116,6 +112,9 @@
                                                     <div class="invalid-feedback">
                                                         Please enter a total unit cost.
                                                     </div>
+                                                </td>
+                                                <td><input required type="hidden" value="<?= $icsitem->item_no ?>" oninput="this.value = Math.abs(this.value)" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
+                                                    <input type="date" value="<?= $icsitem->date_acquired ?>" class=" form-control" id="txtDateacq" name="txtDateacq[]">
                                                 </td>
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $icsitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]" placeholder="">

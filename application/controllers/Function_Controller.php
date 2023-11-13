@@ -368,7 +368,7 @@ class Function_Controller extends CI_Controller
         $currentPoInfo = $this->Function_Model->getICSInfoById($ics_id);
         $ics_poitem_ids = $this->input->post('txtPOItem_id');
         $ics_poitem_usefuls = $this->input->post('txtPOItem_useful');
-
+        $txtDateacquired = $this->input->post('txtDateacq');
         if ($txtICSnumber !== $currentPoInfo['ics_no']) {
             if ($this->Function_Model->isICSIdExists($txtICSnumber)) {
                 $this->session->set_flashdata('trn-error', 'ICS number already exists!');
@@ -386,9 +386,11 @@ class Function_Controller extends CI_Controller
             'ics_receivedfrom_date' => $txtdatefrom,
             'ics_total_cost' => $icsTotalCost
         );
+
         foreach ($ics_poitem_ids as $key => $ics_poitem_id) {
             $ics_poitem_useful = $ics_poitem_usefuls[$key];
-            $this->Function_Model->editICStoPOItemData($ics_poitem_id, $ics_poitem_useful);
+            $txtDateacq = $txtDateacquired[$key];
+            $this->Function_Model->editICStoPOItemData($ics_poitem_id, $ics_poitem_useful, $txtDateacq);
         }
         if ($this->Function_Model->editICSData($ics_id, $ICS_editData)) {
             $this->session->set_flashdata('success', 'Data updated successfully.');
@@ -407,7 +409,7 @@ class Function_Controller extends CI_Controller
     }
     public function editItemDetails()
     {
-        $txtTotalCost = $this->input->post('mtxtTotalCost');
+        $mtxtTotalCost = $this->input->post('mtxtTotalCost');
         $txtPo_id = $this->input->post('txtPo_id');
         $id = $this->input->post('id');
         $quantity = $this->input->post('quantity');
@@ -416,7 +418,6 @@ class Function_Controller extends CI_Controller
         $unit_cost = $this->input->post('unit_cost');
         $property_no = $this->input->post('property_no');
         $total_unit_cost = $this->input->post('total_unit_cost');
-
         $data = array(
             'quantity' => $quantity,
             'unit' => $unit,
@@ -426,17 +427,17 @@ class Function_Controller extends CI_Controller
             'total_unit_cost' => $total_unit_cost
         );
         $dataTotalCost = array(
-            'total_cost' => $txtTotalCost
+            'total_cost' => $mtxtTotalCost
         );
         $this->db->where('po_id', $txtPo_id);
         $this->db->update('tblpo', $dataTotalCost);
         $this->db->where('id', $id);
         $this->db->update('tblpo_item', $data);
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('poedit-success', 'Click save if unit or unit cost are updated');
+            $this->session->set_flashdata('info-success', 'Click save if unit or unit cost are updated');
             echo '<script>window.history.back();</script>';
         } else {
-            $this->session->set_flashdata('info', 'No changes have occurred!');
+            $this->session->set_flashdata('info-error', 'No changes have occurred!');
             echo '<script>window.history.back();</script>';
         }
     }
@@ -555,7 +556,7 @@ class Function_Controller extends CI_Controller
             foreach ($par_poitem_ids as $key => $par_poitem_id) {
                 $par_poitem_useful = $par_poitem_usefuls[$key];
                 $par_poitem_dacquired = $par_poitem_dacquireds[$key];
-                $this->Function_Model->editPARtoPOItemData($par_poitem_id, $par_poitem_useful,$par_poitem_dacquired);
+                $this->Function_Model->editPARtoPOItemData($par_poitem_id, $par_poitem_useful, $par_poitem_dacquired);
             }
 
             if ($this->Function_Model->editPARData($par_id, $PAR_editData)) {

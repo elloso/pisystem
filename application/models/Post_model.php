@@ -189,9 +189,9 @@ class Post_Model extends CI_Model
         $this->db->where('md5(po_id)', $iarPoID);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
-            return $query->row(); 
+            return $query->row();
         } else {
-            return null;  
+            return null;
         }
     }
     public function get_icsdetails_by_id($icsID)
@@ -277,8 +277,7 @@ class Post_Model extends CI_Model
         $this->db->where('tblpo_item.unit_cost <', 50000);
         // $this->db->where('tblpo_item.unit_cost >', 50000);
         $rsepidata = $this->db->get('tblpo_item');
-    
+
         return $rsepidata->result();
     }
-    
 }

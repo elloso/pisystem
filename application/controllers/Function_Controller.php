@@ -368,7 +368,7 @@ class Function_Controller extends CI_Controller
         $currentPoInfo = $this->Function_Model->getICSInfoById($ics_id);
         $ics_poitem_ids = $this->input->post('txtPOItem_id');
         $ics_poitem_usefuls = $this->input->post('txtPOItem_useful');
-
+        $txtDateacquired = $this->input->post('txtDateacq');
         if ($txtICSnumber !== $currentPoInfo['ics_no']) {
             if ($this->Function_Model->isICSIdExists($txtICSnumber)) {
                 $this->session->set_flashdata('trn-error', 'ICS number already exists!');
@@ -386,9 +386,11 @@ class Function_Controller extends CI_Controller
             'ics_receivedfrom_date' => $txtdatefrom,
             'ics_total_cost' => $icsTotalCost
         );
+
         foreach ($ics_poitem_ids as $key => $ics_poitem_id) {
             $ics_poitem_useful = $ics_poitem_usefuls[$key];
-            $this->Function_Model->editICStoPOItemData($ics_poitem_id, $ics_poitem_useful);
+            $txtDateacq = $txtDateacquired[$key];
+            $this->Function_Model->editICStoPOItemData($ics_poitem_id, $ics_poitem_useful, $txtDateacq);
         }
         if ($this->Function_Model->editICSData($ics_id, $ICS_editData)) {
             $this->session->set_flashdata('success', 'Data updated successfully.');

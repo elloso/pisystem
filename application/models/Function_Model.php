@@ -100,24 +100,24 @@ class Function_Model extends CI_Model
         $this->db->insert('tblics', $dataIARtoICS);
         return $this->db->insert_id();
     }
-   
+
     public function getUnitCosts($iar_po_id)
     {
         $this->db->select('unit_cost');
-        $this->db->where('po_id', $iar_po_id); 
+        $this->db->where('po_id', $iar_po_id);
         $query = $this->db->get('tblpo_item');
-        
+
         $unitCosts = array(); // Initialize an array to store unit costs.
-    
+
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $unitCosts[] = $row->unit_cost; // Add each unit cost to the array.
             }
         }
-    
+
         return $unitCosts; // Return the array of unit costs.
     }
-    
+
 
     public function SubmitIARtoPARData($dataIARtoPAR)
     {
@@ -149,15 +149,15 @@ class Function_Model extends CI_Model
         $this->db->where('par_id', $par_id);
         return $this->db->update('tblpar', $editdatapar);
     }
-    public function editPARtoPOItemData($par_poitem_id, $par_poitem_useful, $par_poitem_dacquired )
+    public function editPARtoPOItemData($par_poitem_id, $par_poitem_useful, $par_poitem_dacquired)
     {
         $this->db->where('id', $par_poitem_id);
-        $this->db->update('tblpo_item', array('useful_life' => $par_poitem_useful,'date_acquired' => $par_poitem_dacquired ));
+        $this->db->update('tblpo_item', array('useful_life' => $par_poitem_useful, 'date_acquired' => $par_poitem_dacquired));
     }
-    public function editICStoPOItemData($ics_poitem_id, $ics_poitem_useful)
+    public function editICStoPOItemData($ics_poitem_id, $ics_poitem_useful, $txtDateacq)
     {
         $this->db->where('id', $ics_poitem_id);
-        $this->db->update('tblpo_item', array('useful_life' => $ics_poitem_useful));
+        $this->db->update('tblpo_item', array('useful_life' => $ics_poitem_useful, 'date_acquired' => $txtDateacq));
     }
     public function editPOItemData($item_id, $itemNo)
     {
@@ -169,8 +169,9 @@ class Function_Model extends CI_Model
         $this->db->where('ics_id', $ics_id);
         return $this->db->update('tblics', $editdataics);
     }
-    public function deletePOData($delete_po_id) {
-        $id = $delete_po_id; 
+    public function deletePOData($delete_po_id)
+    {
+        $id = $delete_po_id;
         $this->db->where('md5(po_id)', $id);
         $this->db->delete('tblpo');
 
@@ -186,7 +187,7 @@ class Function_Model extends CI_Model
         $this->db->where('md5(po_id)', $id);
         $this->db->delete('tblpo_item');
 
-        return $this->db->affected_rows(); 
+        return $this->db->affected_rows();
     }
     // AJAX
     public function checkPoNumber($txtPONumber)

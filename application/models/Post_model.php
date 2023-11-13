@@ -111,6 +111,8 @@ class Post_Model extends CI_Model
         $this->db->select('*');
         $this->db->from('tblpo_item');
         $this->db->where('md5(po_id)', $po_id);
+        $this->db->join('tblics', 'tblics.ics_po_id = tblpo_item.po_id', 'left');
+        $this->db->join('tblpar', 'tblpar.par_po_id = tblpo_item.po_id', 'left');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -158,9 +160,9 @@ class Post_Model extends CI_Model
         $this->db->where('md5(po_id)', $iarPoID);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
-            return $query->row(); 
+            return $query->row();
         } else {
-            return null;  
+            return null;
         }
     }
     public function get_icsdetails_by_id($icsID)
@@ -242,19 +244,18 @@ class Post_Model extends CI_Model
     {
         // Select the columns you need from both tables
         $this->db->select('tblpo_item.*, tblics.*');
-        
+
         // Use an inner join based on the po_id
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
-    
+
         // Add your existing conditions or any additional conditions if needed
         $this->db->where('tblpo_item.unit_cost >=', 1500);
         $this->db->where('tblpo_item.unit_cost <', 50000);
         // $this->db->where('tblpo_item.unit_cost >', 50000);
-    
+
         // Get the data
         $rsepidata = $this->db->get('tblpo_item');
-    
+
         return $rsepidata->result();
     }
-    
 }

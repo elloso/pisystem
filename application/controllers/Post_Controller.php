@@ -201,8 +201,11 @@ class Post_Controller extends CI_Controller
             $userEmail = $this->Post_model->get_userDetails($email);
             $editpo_details = $this->Post_model->get_podetails_by_id($editPodetails);
             $poitemList = $this->Post_model->get_poitemList($itemDetails);
+            $poitemListrow = $this->Post_model->get_poitemListrow($itemDetails);
+            
             $data['poitemList'] = $poitemList;
             $data['editpo_details'] = $editpo_details;
+            $data['add_details'] = $poitemListrow;
             $data['userDetails'] = $userEmail;
             $this->load->view('template/header', $data);
             $this->load->view('view-forms/editpo-details');

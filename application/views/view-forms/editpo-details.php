@@ -35,7 +35,11 @@
                                 Please choose a date.
                             </div>
                             <div class="p-2 mt-2 ">
-                                <button class="btn btn-primary" type="button" id="addRow">Add</button>
+                                <?php if (empty($add_details->ics_no) && empty($add_details->par_no)): ?>
+                                    <button class="btn btn-primary" type="button" id="addRow" >Add</button>
+                                <?php else: ?>
+                                    <button class="btn btn-primary" type="button" id="addRow" disabled>Add</button>
+                                <?php endif; ?>
                                 <button class="btn btn-danger" type="button" id="deleteRow" disabled>Delete</button>
                             </div>
                         </div>
@@ -128,7 +132,22 @@
                                                         Please enter a total unit cost.
                                                     </div>
                                                 </td>
-                                                <td class="text-center"><a href="#" class="p-1 text-primary" data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal('<?php echo $poitem->id ?>','<?php echo $poitem->quantity ?>', '<?php echo $poitem->unit ?>', '<?php echo $poitem->item_description ?>', '<?php echo $poitem->unit_cost ?>','<?php echo $poitem->property_no ?>', <?php echo $poitem->total_unit_cost ?>)" class="text-primary" title="edit item details"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $editButtonClass = 'p-1 text-primary';
+                                                    $editButtonOnclick = 'data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal(\'' . $poitem->id . '\', \'' . $poitem->quantity . '\', \'' . $poitem->unit . '\', \'' . $poitem->item_description . '\', \'' . $poitem->unit_cost . '\', \'' . $poitem->property_no . '\', ' . $poitem->total_unit_cost . ')"';
+                                                    ?>
+
+                                                    <?php if (empty($poitem->ics_no) && empty($poitem->par_no)): ?>
+                                                        <a href="#" class="<?php echo $editButtonClass; ?>" <?php echo $editButtonOnclick; ?> title="edit item details">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </a>
+                                                    <?php else: ?>
+                                                        <a href="#" class="p-1 text-danger" title="edit not allowed" style="cursor: not-allowed; color: red;" onclick="return false;">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+
                                                     <?php
                                                     if ($remainingRowCount > 1) {
                                                         echo '<a href="' . base_url('deletepo-item/' . md5($poitem->id)) . '" class="p-1 text-danger" title="delete" onclick="return confirm(\'Are you sure you want to delete ' . $poitem->item_description . '?\');"><i class="fa-solid fa-trash"></i></a>';

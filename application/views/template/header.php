@@ -48,6 +48,11 @@
               <li><a href="<?php echo base_url('countinventories'); ?>">Report on the physical count of Inventories</a></li>
             </ul>
           </li>
+          <li class="dropdown"><a href="#"><span>Summary Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="<?php echo base_url('respi'); ?>">Registry of Semi-expandle <br/>Property Issued</a></li>
+            </ul>
+          </li>
           <li class="dropdown"><a href="#"><span>RPCPPE</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="#">Report 1</a></li>

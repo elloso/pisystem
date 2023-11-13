@@ -19,12 +19,10 @@
                         <input type="text" id="edit_entityname" value="<?php echo $editiar_details->entity_name ?>" class="form-control" name="edit_entityname" readonly>
                         <label class="form-label fw-bold text-dark" for="txtSupplier">Entity Name :</label>
                     </div>
-                    <?php foreach ($iar_details as $iar_detail): ?>
                     <div class="form-floating mb-2">
-                        <input type="text" id="edit_propertyno" value="<?php echo $iar_detail->property_no ?>" class="form-control" name="edit_propertyno" readonly>
+                        <input type="text" id="edit_propertyno" value="<?php echo $iar_propertyno->property_no ?>" class="form-control" name="edit_propertyno" readonly>
                         <label class="form-label fw-bold text-dark" for="txtSupplier">Stock / Property No. :</label>
                     </div>
-                    <?php endforeach ?>
                     <div class="form-floating mb-2">
                             <input type="text" id="edit_supplier" value="<?php echo $editiar_details->iar_supplier ?>" class="form-control" name="edit_supplier" readonly>
                             <label class="form-label fw-bold text-dark" for="edit_supplier">Supplier :</label>

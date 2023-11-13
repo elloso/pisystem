@@ -216,8 +216,10 @@ class Post_Controller extends CI_Controller
         if ($this->session->userdata('is_login') == TRUE) {
             $editiardetails = $this->Post_model->get_iardetails_by_id($editiardetails);
             $iaritemList = $this->Post_model->get_iaritemList($iarPoID);
+            $iarpropertyno = $this->Post_model->get_iarproperty_no($iarPoID);
             $data['editiar_details'] = $editiardetails;
             $data['iar_details'] = $iaritemList;
+            $data['iar_propertyno'] = $iarpropertyno;
             $this->load->view('template/header', $data);
             $this->load->view('view-forms/editiar-details');
             $this->load->view('template/footer');
@@ -253,6 +255,21 @@ class Post_Controller extends CI_Controller
         } else {
             redirect(base_url('login'));
 
+        }
+    }
+    public function viewRSEPI()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
+            $data['RSEPIlists'] = $this->Post_model->getRSEPI();
+            $this->load->view('template/header', $data);
+            $this->load->view('forms2/rsepi');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
         }
     }
 } // End Bracket

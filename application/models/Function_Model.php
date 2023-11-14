@@ -189,6 +189,11 @@ class Function_Model extends CI_Model
 
         return $this->db->affected_rows();
     }
+    public function updateItemReturn($id, $data)
+    {
+        $this->db->where('md5(id)', $id);
+        return $this->db->update('tblpo_item', $data);
+    }
     // AJAX
     public function checkPoNumber($txtPONumber)
     {

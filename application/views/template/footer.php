@@ -63,6 +63,16 @@
         });
     </script>
 <?php endif; ?>
+<?php if (!empty($this->session->flashdata('returned'))) : ?>
+    <script>
+        Swal.fire({
+            title: "<?php echo $this->session->flashdata('returned'); ?>",
+            icon: 'success',
+            showCloseButton: true
+        });
+    </script>
+<?php endif; ?>
+
 
 <!-- Datatables -->
 

@@ -581,6 +581,38 @@ class Function_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
+    public function updateItem_return()
+    {
+        $txtreturn = $this->input->post('returnedconfirmButton');
+        $itemId = $this->input->post('recordId'); 
+    
+        $Item_return = array(
+            'remarks' => $txtreturn
+        );
+    
+        $this->Function_Model->updateItemReturn($itemId, $Item_return);
+        $this->session->set_flashdata('returned', 'Item already already returned.');
+        redirect(base_url('respi'));
+        
+    }
+    public function updateItem_reissued()
+    {
+        $txtreissued = $this->input->post('reissuedconfirmButton');
+        $newname = $this->input->post('txtOfficeOfficerReissue');
+        $newquantity = $this->input->post('txtQuantityReissue');
+        $itemId = $this->input->post('recordIdReissue'); 
+    
+        $Item_reissued = array(
+            'remarks' => $txtreissued,
+            'reissued' => $newname,
+            'newquantity' => $newquantity
+        );
+    
+        $this->Function_Model->updateItemReturn($itemId, $Item_reissued);
+        // $this->session->set_flashdata('returned', 'Item already already returned.');
+        redirect(base_url('respi'));
+    }
+    
     // public function updatepoTotalDetails()
     // {
     //     $txtTotalCost = $this->input->post('txtTotalCost');

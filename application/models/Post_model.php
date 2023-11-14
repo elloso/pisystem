@@ -280,4 +280,15 @@ class Post_Model extends CI_Model
 
         return $rsepidata->result();
     }
+    public function getRSEPIspecific()
+    {
+        $this->db->select('tblpo_item.*, tblics.*');
+        $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
+        $this->db->where('tblpo_item.unit_cost >=', 1500);
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+        // $this->db->where('tblpo_item.unit_cost >', 50000);
+        $rsepidata = $this->db->get('tblpo_item');
+
+        return $rsepidata->row();
+    }
 }

@@ -63,6 +63,8 @@ $route['suppliesledger'] = 'Post_Controller/SuppliesLedgerCard';
 $route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
 //Forms2
 $route['respi'] = 'Post_Controller/viewRSEPI';
+$route['respi-returned'] = 'Function_Controller/updateItem_return';
+$route['respi-reissue'] = 'Function_Controller/updateItem_reissued';
 
 // account/maintenance
 $route['account-list'] = 'Post_Controller/accountList';

@@ -61,7 +61,6 @@ class Function_Controller extends CI_Controller
             redirect(base_url('my-account'));
         }
     }
-    // submit(save) form
     public function submitPo()
     {
         $po_id = $this->input->post('po_id');
@@ -97,24 +96,37 @@ class Function_Controller extends CI_Controller
         $txtUnit = $this->input->post('txtUnit');
         $txtTotalUnitCost = $this->input->post('txtTotalUnitCost');
         $txtPropNo = $this->input->post('txtPropNo');
+        
         if (
-            is_array($txtItemNo) && is_array($txtPropNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && is_array($txtTotalUnitCost) && count($txtItemNo) === count($txtPropNo) && count($txtItemQuantity) === count($txtDescription) && count($txtItemUnitCost) === count($txtUnit) && count($txtTotalUnitCost)
+            is_array($txtItemNo) && is_array($txtPropNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && is_array($txtTotalUnitCost) &&
+            count($txtItemNo) === count($txtPropNo) && count($txtItemQuantity) === count($txtDescription) && count($txtItemUnitCost) === count($txtUnit) && count($txtTotalUnitCost)
         ) {
             $count = count($txtItemNo);
+            $currentYear = date('Y');
+            $lastPropertyNumber = $this->Function_Model->getLastPropertyNumber(); //
+        
             for ($i = 0; $i < $count; $i++) {
+                $formattedItemNumber = sprintf('%05d', $txtItemNo[$i]);
+                $formattedQuantity = sprintf('%05d', $txtItemQuantity[$i]);
+        
+                $propertyNumber = 'SLSU' . $currentYear . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + 1) . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
+        
+                $lastPropertyNumber = $propertyNumber;
+        
                 $itemData = array(
                     'po_id' => $po_id,
                     'po_number' => $txtPONumber,
                     'pr_number' => $txtPRNumber,
                     'pgr_number' => $txtPGEFNumber,
                     'item_no' => $txtItemNo[$i],
-                    'property_no' => $txtPropNo[$i],
+                    'property_no' => $propertyNumber,
                     'quantity' => $txtItemQuantity[$i],
                     'unit' => $txtUnit[$i],
                     'item_description' => $txtDescription[$i],
                     'unit_cost' => $txtItemUnitCost[$i],
                     'total_unit_cost' => $txtTotalUnitCost[$i],
                 );
+        
                 $this->Function_Model->SubmitPoItemData($itemData);
             }
         } else {
@@ -311,31 +323,41 @@ class Function_Controller extends CI_Controller
         $UtxtItemUnitCost = $this->input->post('UtxtItemUnitCost');
         $UtxtStockProperty = $this->input->post('UtxtStockProperty');
         $UtxtTotalUnitCost = $this->input->post('UtxtTotalUnitCost');
-
+        
         if (
             is_array($UtxtItemNo) && is_array($UtxtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtStockProperty) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($UtxtStockProperty) && count($UtxtItemQuantity) === count($UtxtUnit) && count($UtxtDescription) === count($UtxtItemUnitCost) && count($UtxtTotalUnitCost)
         ) {
             $count = count($UtxtItemNo);
+            $currentYear = date('Y');
+            $lastPropertyNumber = $this->Function_Model->getLastPropertyNumber(); 
+        
             for ($i = 0; $i < $count; $i++) {
+                $formattedItemNumber = sprintf('%05d', $UtxtItemNo[$i]);
+                $formattedQuantity = sprintf('%05d', $UtxtItemQuantity[$i]);
+                $propertyNumber = 'SLSU' . $currentYear . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + 1) . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $UtxtItemQuantity[$i]);
+        
+                $lastPropertyNumber = $propertyNumber;
+        
                 $itemData = array(
                     'po_id' => $po_id,
                     'po_number' => $txtPONumber,
                     'pr_number' => $txtPRNumber,
                     'pgr_number' => $txtPGEFNumber,
                     'item_no' => $UtxtItemNo[$i],
-                    'property_no' => $UtxtStockProperty[$i],
+                    'property_no' => $propertyNumber,
                     'quantity' => $UtxtItemQuantity[$i],
                     'unit' => $UtxtUnit[$i],
                     'item_description' => $UtxtDescription[$i],
                     'unit_cost' => $UtxtItemUnitCost[$i],
                     'total_unit_cost' => $UtxtTotalUnitCost[$i],
                 );
-
+        
                 $this->db->where('po_id', $po_id);
                 $this->db->insert('tblpo_item', $itemData);
                 $this->session->set_flashdata('info-success', 'Item successfully added! Please click save to update the data');
                 echo '<script>window.history.back();</script>';
             }
+        
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');
             echo '<script>window.history.back();</script>';

@@ -248,4 +248,23 @@ class Function_Model extends CI_Model
         $this->db->delete('tblpo_item');
         return $this->db->affected_rows() > 0;
     }
+    
+ // Inside your Function_Model
+
+public function getLastPropertyNumber() {
+    $this->db->select('property_no');
+    $this->db->from('tblpo_item');
+    $this->db->order_by('id', 'DESC'); 
+    $this->db->limit(1);
+
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+        $row = $query->row();
+        return $row->property_no;
+    } else {
+        return 'SLSU2023-00000-00000';
+    }
+}
+
 }

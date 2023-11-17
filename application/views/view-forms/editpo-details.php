@@ -263,7 +263,7 @@
             var itemunitcostCell = newRow.insertCell(4);
             var itemtotalunitcostCell = newRow.insertCell(5);
 
-            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input required type="text" value="" class=" form-control" id="UtxtStockProperty" name="UtxtStockProperty[]">';
+            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input  type="text" value="" class=" form-control" id="UtxtStockProperty" name="UtxtStockProperty[]" readonly>';
             itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';

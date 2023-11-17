@@ -131,7 +131,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input required type="hidden" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>
-                                                        <input required type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" required>
+                                                        <input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" >
                                                         <div class="invalid-feedback">
                                                             Stock/Property No.
                                                         </div>
@@ -294,7 +294,7 @@
         var itemdescriptionCell = newRow.insertCell(3);
         var itemunitcostCell = newRow.insertCell(4);
         var itemtotalunitcostCell = newRow.insertCell(5);
-        itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly><input required type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" required><div class="invalid-feedback">Stock/Property No.</div>';
+        itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly><input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]"><div class="invalid-feedback">Stock/Property No.</div>';
         itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">';
         itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">';
         itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;"></textarea> <div class="invalid-feedback">Please enter item description.</div>';

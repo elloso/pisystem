@@ -72,6 +72,25 @@
         });
     </script>
 <?php endif; ?>
+<?php if (!empty($this->session->flashdata('reissued'))) : ?>
+    <script>
+        Swal.fire({
+            title: "<?php echo $this->session->flashdata('reissued'); ?>",
+            icon: 'success',
+            showCloseButton: true
+        });
+    </script>
+<?php endif; ?>
+<?php if (!empty($this->session->flashdata('dispose'))) : ?>
+    <script>
+        Swal.fire({
+            title: "<?php echo $this->session->flashdata('dispose'); ?>",
+            icon: 'success',
+            showCloseButton: true
+        });
+    </script>
+<?php endif; ?>
+
 
 
 <!-- Datatables -->

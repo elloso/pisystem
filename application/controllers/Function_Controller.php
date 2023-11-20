@@ -132,18 +132,28 @@ class Function_Controller extends CI_Controller
                 $this->Function_Model->SubmitPoItemData($itemData);
             }
 
-            // Second property number explode
-            $quantities = isset($_POST['txtItemQuantity']) ? $_POST['txtItemQuantity'] : array();
-            foreach ($quantities as $quantity) {
-                $quantity = abs(intval($quantity));
-                for ($i = 0; $i < $quantity; $i++) {
-                    $dataPOtoRSEPI = array(
-                        'icsrsepi_po_id' => $po_id,
-                        
-                    );
-                    $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
-                }
-            }
+    // Second property number explode
+    $quantities = isset($_POST['txtItemQuantity']) ? $_POST['txtItemQuantity'] : array();
+    foreach ($quantities as $quantity) {
+    $quantity = abs(intval($quantity));
+    $propertynoParts = explode('-', $propertyNumber);
+    if (count($propertynoParts) >= 3) {
+        $start_number = (int) $propertynoParts[1];
+        $end_number = (int) $propertynoParts[2];
+
+        for ($j = $start_number; $j <= $end_number; $j++) {
+            $individual_property_no = 'SLSU2023-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
+
+            // Save the individual property number to the database using the model
+            $dataPOtoRSEPI = array(
+                'icsrsepi_po_id' => $po_id,
+                'rsepi_property_no' => $individual_property_no
+            );
+            $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+        }
+    }
+}
+
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');
             redirect(base_url('purchase'));
@@ -263,7 +273,7 @@ class Function_Controller extends CI_Controller
         $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
         $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
         $txtDateInspectedFrom = strip_tags($this->input->post('txtDateInspectedFrom'));
-        $txtICSDate = strip_tags($this->input->post('txtICSDate'));
+        $txtICSDate = $this->input->post('txtICSDate');
         $data = array(
             'ics_no' => $txtICSNo,
             'ics_fund' => $txtICSFund,
@@ -622,14 +632,16 @@ class Function_Controller extends CI_Controller
     public function updateItem_return()
     {
         $txtreturn = $this->input->post('returnedconfirmButton');
+        $txtreturnname = $this->input->post('txtReturnedName');
         $itemId = $this->input->post('recordId'); 
     
         $Item_return = array(
-            'remarks' => $txtreturn
+            'remarks' => $txtreturn,
+            'returned' => $txtreturnname
         );
     
         $this->Function_Model->updateItemReturn($itemId, $Item_return);
-        $this->session->set_flashdata('returned', 'Item already already returned.');
+        $this->session->set_flashdata('returned', 'Item was already returned.');
         redirect(base_url('respi'));
         
     }
@@ -637,19 +649,34 @@ class Function_Controller extends CI_Controller
     {
         $txtreissued = $this->input->post('reissuedconfirmButton');
         $newname = $this->input->post('txtOfficeOfficerReissue');
-        $newquantity = $this->input->post('txtQuantityReissue');
         $itemId = $this->input->post('recordIdReissue'); 
     
         $Item_reissued = array(
             'remarks' => $txtreissued,
             'reissued' => $newname,
-            'newquantity' => $newquantity
         );
     
         $this->Function_Model->updateItemReturn($itemId, $Item_reissued);
-        // $this->session->set_flashdata('returned', 'Item already already returned.');
+        $this->session->set_flashdata('reissued', 'Item already re-issued.');
         redirect(base_url('respi'));
     }
+    public function updateItem_disposed()
+    {
+        $txtdisposed = $this->input->post('txtDisposed');
+        $reason = $this->input->post('txtReasonDisposal');
+        $datedisposed = $this->input->post('txtDateDisposal');
+        $itemId = $this->input->post('recordIdDisposed'); 
+    
+        $Item_redisposed = array(
+            'remarks' => $txtdisposed,
+            'disposal_reason' => $reason,
+            'date_disposed' => $datedisposed
+        );
+        $this->Function_Model->updateItemReturn($itemId, $Item_redisposed);
+        $this->session->set_flashdata('dispose', 'Item already disposed.');
+        redirect(base_url('respi'));
+    }
+    
     
     // public function updatepoTotalDetails()
     // {

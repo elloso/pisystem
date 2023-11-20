@@ -16,7 +16,7 @@
   <link href="<?php echo base_url(); ?>assets/fontawesome/all.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="icon" href="<?php echo base_url(); ?>assets/img/slsu/slsu_logo.png" />
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/stylecustom.css" />
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/customstyle.css" />
   <!-- Template Main CSS File -->
   <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
   <link href="<?php echo base_url(); ?>assets/css/customstyle.css" rel="stylesheet">
@@ -24,6 +24,51 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables/jquery.dataTables.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables/buttons.dataTables.min.css">
   <script src="<?php echo base_url(); ?>assets/js/jquery-3.7.0.js"></script>
+
+
+  <style>
+    .bn632-hover {
+  width: 160px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 30px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover:focus {
+  outline: none;
+}
+
+.bn632-hover.bn23 {
+  background-image: linear-gradient(
+    to right,
+    #009245,
+    #fcee21,
+    #00a8c5,
+    #d9e021
+  );
+  box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+}
+
+  </style>
 </head>
 
 <body>

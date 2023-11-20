@@ -42,6 +42,8 @@ $route['print-icsform/(:any)'] = 'PrintForms_Controller/ICSfpdf_Controller/ICSfo
 $route['print-parform/(:any)'] = 'PrintForms_Controller/PARfpdf_Controller/PARform/$1';
 $route['print-scform'] = 'PrintForms_Controller/SCpdf_Controller/SCform';
 $route['print-pcform'] = 'PrintForms_Controller/PCpdf_Controller/PCform';
+$route['print-rsepiform'] = 'PrintForms_Controller/RSEPIpdf_Controller/RSEPIform';
+
 
 
 
@@ -65,6 +67,7 @@ $route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
 $route['respi'] = 'Post_Controller/viewRSEPI';
 $route['respi-returned'] = 'Function_Controller/updateItem_return';
 $route['respi-reissue'] = 'Function_Controller/updateItem_reissued';
+$route['respi-dispose'] = 'Function_Controller/updateItem_disposed';
 
 // account/maintenance
 $route['account-list'] = 'Post_Controller/accountList';

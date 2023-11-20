@@ -82,4 +82,10 @@ class Fpdf_Model extends CI_Model
             return [];
         }
     }
+
+    public function DataRSEPI() {
+        $query = $this->db->get('tblics_rsepi');
+        return $query->result();
+    }
+   
 }

@@ -83,12 +83,14 @@ class Function_Controller extends CI_Controller
             'total_cost ' => $txtTotalCost
         );
         $this->Function_Model->SubmitPoData($dataPO);
+        
         $dataPotoIar = array(
             'iar_po_id' => $po_id,
             'iar_po_number' => $txtPONumber,
             'iar_supplier' => $txtSupplier
         );
         $this->Function_Model->SubmitPotoIarData($dataPotoIar);
+
         $txtItemNo = $this->input->post('txtItemNo');
         $txtItemQuantity = $this->input->post('txtItemQuantity');
         $txtDescription = $this->input->post('txtDescription');
@@ -106,8 +108,8 @@ class Function_Controller extends CI_Controller
             $lastPropertyNumber = $this->Function_Model->getLastPropertyNumber(); //
         
             for ($i = 0; $i < $count; $i++) {
-                $formattedItemNumber = sprintf('%05d', $txtItemNo[$i]);
-                $formattedQuantity = sprintf('%05d', $txtItemQuantity[$i]);
+                // $formattedItemNumber = sprintf('%05d', $txtItemNo[$i]);
+                // $formattedQuantity = sprintf('%05d', $txtItemQuantity[$i]);
         
                 $propertyNumber = 'SLSU' . $currentYear . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + 1) . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
         
@@ -128,6 +130,19 @@ class Function_Controller extends CI_Controller
                 );
         
                 $this->Function_Model->SubmitPoItemData($itemData);
+            }
+
+            // Second property number explode
+            $quantities = isset($_POST['txtItemQuantity']) ? $_POST['txtItemQuantity'] : array();
+            foreach ($quantities as $quantity) {
+                $quantity = abs(intval($quantity));
+                for ($i = 0; $i < $quantity; $i++) {
+                    $dataPOtoRSEPI = array(
+                        'icsrsepi_po_id' => $po_id,
+                        
+                    );
+                    $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+                }
             }
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');
@@ -258,6 +273,7 @@ class Function_Controller extends CI_Controller
             'ics_receivedfrom_date' => $txtDateInspectedFrom,
             'ics_date' => $txtICSDate
         );
+
         $result = $this->Function_Model->SubmitupdatetIcs($data, $selectICSIARNo);
         if ($result) {
             $this->session->set_flashdata('success', 'ICS successfully added.');

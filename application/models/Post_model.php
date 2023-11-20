@@ -269,26 +269,42 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+    // public function getRSEPI()
+    // {
+    //     $this->db->select('tblpo_item.*, tblics.*');
+    //     $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
+    //     $this->db->where('tblpo_item.unit_cost >=', 1500);
+    //     $this->db->where('tblpo_item.unit_cost <', 50000);
+    //     // $this->db->where('tblpo_item.unit_cost >', 50000);
+    //     $rsepidata = $this->db->get('tblpo_item');
+
+    //     return $rsepidata->result();
+    // }
     public function getRSEPI()
     {
         $this->db->select('tblpo_item.*, tblics.*');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
         $this->db->where('tblpo_item.unit_cost >=', 1500);
         $this->db->where('tblpo_item.unit_cost <', 50000);
-        // $this->db->where('tblpo_item.unit_cost >', 50000);
-        $rsepidata = $this->db->get('tblpo_item');
+        $rsepidata = $this->db->get('tblpo_item')->result();
 
-        return $rsepidata->result();
+        // Loop through the result and modify the desired column
+        foreach ($rsepidata as &$row) {
+            $explodedValues = explode('-', $row->property_no); // Assuming 'original_column' is the column you want to explode
+            $row->new_column = 'SLSU2023-' . $explodedValues[1]; // Modify this based on your specific logic
+        }
+        return $rsepidata;
     }
-    public function getRSEPIspecific()
-    {
-        $this->db->select('tblpo_item.*, tblics.*');
-        $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
-        $this->db->where('tblpo_item.unit_cost >=', 1500);
-        $this->db->where('tblpo_item.unit_cost <', 50000);
-        // $this->db->where('tblpo_item.unit_cost >', 50000);
-        $rsepidata = $this->db->get('tblpo_item');
 
-        return $rsepidata->row();
-    }
+    // public function getRSEPIspecific()
+    // {
+    //     $this->db->select('tblpo_item.*, tblics.*');
+    //     $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
+    //     $this->db->where('tblpo_item.unit_cost >=', 1500);
+    //     $this->db->where('tblpo_item.unit_cost <', 50000);
+    //     // $this->db->where('tblpo_item.unit_cost >', 50000);
+    //     $rsepidata = $this->db->get('tblpo_item');
+
+    //     return $rsepidata->row();
+    // }
 }

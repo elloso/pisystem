@@ -16,21 +16,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($RSEPIlists as $RSEPIlist): ?>
-                            <?php if (!empty($RSEPIlist->ics_no)): ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $RSEPIlist->date_acquired?>
-                                        <span style="display: none;"> <?php echo $RSEPIlist->po_id ?></span> 
-                                        <span style="display: none;"><?php echo $RSEPIlist->id ?></span>
-                                    </td>
-                                    <td>
-                                        <?php echo $RSEPIlist->ics_no?>
-                                    </td>
-                                    <td><?php echo $RSEPIlist->property_no ?></td>
-                                    <td><?php echo $RSEPIlist->remarks ?></td>
-                                    <td class="text-center">
-                                        <?php
+        <?php foreach ($RSEPIlists as $RSEPIlist): ?>
+            <?php if (!empty($RSEPIlist->ics_no)): ?>
+                <?php
+                    $propertynoParts = explode('-', $RSEPIlist->property_no);
+                    if (count($propertynoParts) >= 3) {
+                        $start_number = (int) $propertynoParts[1];
+                        $end_number = (int) $propertynoParts[2];
+
+                        for ($i = $start_number; $i <= $end_number; $i++) {
+                            $individual_property_no = 'SLSU2023-' . str_pad($i, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
+                ?>
+                        <tr>
+                            <td><?php echo $RSEPIlist->date_acquired ?></td>
+                            <td><?php echo $RSEPIlist->ics_no ?></td>
+                            <td><?php echo $individual_property_no ?></td>
+                            <td><?php echo $RSEPIlist->remarks ?></td>
+                            <td class="text-center">
+                            <?php
                                         $formattedAmount = number_format($RSEPIlist->total_unit_cost, 2); 
                                         ?>
                                         <?php if ($RSEPIlist->remarks == "Returned"): ?>
@@ -55,16 +58,52 @@
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         <?php endif; ?>
-                                     
-                                      
-                                     
-                                       
-
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
-                         <?php endforeach; ?>
-                    </tbody>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <tr>
+                        <td><?php echo $RSEPIlist->date_acquired ?></td>
+                        <td><?php echo $RSEPIlist->ics_no ?></td>
+                        <td><?php echo $RSEPIlist->property_no ?></td>
+                        <td><?php echo $RSEPIlist->remarks ?></td>
+                        <td class="text-center">
+                        <?php
+                                        $formattedAmount = number_format($RSEPIlist->total_unit_cost, 2); 
+                                        ?>
+                                        <?php if ($RSEPIlist->remarks == "Returned"): ?>
+                                            <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" style="cursor: not-allowed; color: red;"> 
+                                                <i class="fa-solid fa-share-from-square"></i>
+                                            </a>
+                                            <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Reissued" data-bs-target="#Modal_ReissuedRSEPI" onclick="displayEditModalReissued('<?php echo md5($RSEPIlist->id); ?>')"> 
+                                                <i class="fa-solid fa-user-pen"></i>
+                                            </a>
+                                            <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#Modal_DisposeRSEPI"> 
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
+                                           
+                                        <?php else: ?>
+                                            <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" onclick="displayEditModal('<?php echo md5($RSEPIlist->id); ?>','<?php echo $RSEPIlist->ics_receivedby; ?>','<?php echo $RSEPIlist->quantity; ?>','<?php echo $formattedAmount; ?>')"> 
+                                                <i class="fa-solid fa-share-from-square"></i>
+                                            </a>
+                                            <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Re-issue" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
+                                                <i class="fa-solid fa-user-pen"></i>
+                                            </a>
+                                            <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
+                                        <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </tbody>
+                   
                  </table>
             </div>
         </div>

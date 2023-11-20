@@ -194,6 +194,11 @@ class Function_Model extends CI_Model
         $this->db->where('md5(id)', $id);
         return $this->db->update('tblpo_item', $data);
     }
+    public function SubmitPotoRSEPIData($dataPOtoRSEPI)
+    {
+        $this->db->insert('tblics_rsepi', $dataPOtoRSEPI);
+        return $this->db->insert_id();
+    }
     // AJAX
     public function checkPoNumber($txtPONumber)
     {

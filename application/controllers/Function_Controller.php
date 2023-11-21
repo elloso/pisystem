@@ -107,13 +107,14 @@ class Function_Controller extends CI_Controller
             $lastPropertyNumber = $this->Function_Model->getLastPropertyNumber();
         
             $propertyNumbers = array(); // New array to store property numbers
+            $poIds = array(); // New array to store ID
         
             for ($i = 0; $i < $count; $i++) {
                 $propertyNumber = 'SLSU' . $currentYear . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + 1) . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
         
                 $lastPropertyNumber = $propertyNumber;
         
-                $propertyNumbers[] = $propertyNumber; // Store the property number in the array
+                $propertyNumbers[] = $propertyNumber;
         
                 $itemData = array(
                     'po_id' => $po_id,
@@ -129,7 +130,8 @@ class Function_Controller extends CI_Controller
                     'total_unit_cost' => $txtTotalUnitCost[$i],
                 );
         
-                $this->Function_Model->SubmitPoItemData($itemData);
+                $poId = $this->Function_Model->SubmitPoItemData($itemData);
+                $poIds[] = $poId; // Store the new $poId in the array
             }
         
             // Second property number explode
@@ -142,12 +144,15 @@ class Function_Controller extends CI_Controller
                     for ($j = $start_number; $j <= $end_number; $j++) {
                         $individual_property_no = 'SLSU2023-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
         
-                       
-                        $dataPOtoRSEPI = array(
-                            'icsrsepi_po_id' => $po_id,
-                            'rsepi_property_no' => $individual_property_no
-                        );
-                        $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+                        $key = array_search($propertyNumber, $propertyNumbers); // Find the key corresponding to the current propertyNumber
+                        if ($key !== false) {
+                            $dataPOtoRSEPI = array(
+                                'icsrsepi_po_id' => $po_id,
+                                'id_tblpo_item' => $poIds[$key], // Use the correct $poId from the array
+                                'rsepi_property_no' => $individual_property_no
+                            );
+                            $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+                        }
                     }
                 }
             }

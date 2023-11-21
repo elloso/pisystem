@@ -84,8 +84,13 @@ class Fpdf_Model extends CI_Model
     }
 
     public function DataRSEPI() {
-        $query = $this->db->get('tblics_rsepi');
-        return $query->result();
+        // $query = $this->db->get('tblics_rsepi');
+        // return $query->result();
+        $this->db->select('tblpo_item.*, tblics.*, tblics_rsepi.*');
+        $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
+        $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item', 'inner');
+        $rsepidata = $this->db->get('tblpo_item')->result();
+        return $rsepidata;
     }
    
 }

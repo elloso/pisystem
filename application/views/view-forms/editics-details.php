@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-lg-6 col-xl-6">
                         <div class="form-floating mb-2">
-                            <input type="date" id="txtICSDate" value="<?= $editicsdetails->ics_date ?>" class="form-control" name="txtICSDate" required>
+                            <input type="date" id="txtICSDate" value="<?= $editicsdetails->ics_date ?>" class="form-control" name="txtICSDate" >
                             <label class="form-label fw-bold text-dark" for="txtICSDate">Date:</label>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                                 <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
                             </div>
                             <div class="form-floating mb-2">
-                                <input type="date" id="txtdatefrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom_date ?>" name="txtdatefrom" required>
+                                <input type="date" id="txtdatefrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom_date ?>" name="txtdatefrom" >
                                 <label class="form-label fw-bold text-dark" for="txtdatefrom">Date:</label>
                             </div>
                         </div>

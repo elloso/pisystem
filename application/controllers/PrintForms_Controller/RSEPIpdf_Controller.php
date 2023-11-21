@@ -48,37 +48,37 @@ class RSEPIpdf_Controller extends CI_Controller
             $pdf->SetXY($x, $y); 
             $pdf->Cell(15, 14, 'Date', 'R', 0, 'C');
             $pdf->SetXY($x + 15, $y); 
-            $pdf->Cell(35, 4, 'Reference', 'BR', 0, 'C');
+            $pdf->Cell(45, 4, 'Reference', 'B', 0, 'C');
             $pdf->SetXY($x + 15, $y+4); 
-            $pdf->MultiCell(13, 5, 'ICS/RSSP No.', 'R', 'C');
-            $pdf->SetXY($x + 28, $y+4); 
-            $pdf->MultiCell(22, 5, 'Semi-expendable Property No.', 'R', 'C');
-            $pdf->SetXY($x + 50, $y); 
-            $pdf->Cell(25, 14, 'Item Description', 'R', 0, 'C');
-            $pdf->SetXY($x + 75, $y); 
-            $pdf->MultiCell(20, 7, 'Estimated Useful Life', 'R', 'C');
+            $pdf->MultiCell(18, 5, 'ICS/RSSP No.', 'R', 'C');
+            $pdf->SetXY($x + 33, $y+4); 
+            $pdf->MultiCell(27, 5, 'Semi-expendable Property No.', '', 'C');
+            $pdf->SetXY($x + 60, $y); 
+            $pdf->Cell(50, 14, 'Item Description', 'L', 0, 'C');
+            $pdf->SetXY($x + 110, $y); 
+            $pdf->MultiCell(15, 7, 'Estimated Useful Life', 'L', 'C');
 
-            $pdf->SetXY($x + 95, $y); 
-            $pdf->Cell(40, 4, 'Issued', 'R', 0, 'C');
-            $pdf->SetXY($x + 95, $y+4); 
-            $pdf->MultiCell(18, 10, 'Qty.', 'TR', 'C');
-            $pdf->SetXY($x + 113, $y+4); 
-            $pdf->MultiCell(22, 10, 'Office/Officer', 'RT', 'C');
+            $pdf->SetXY($x + 125, $y); 
+            $pdf->Cell(30, 4, 'Issued', 'L', 0, 'C');
+            $pdf->SetXY($x + 125, $y+4); 
+            $pdf->MultiCell(8, 10, 'Qty.', 'LT', 'C');
+            $pdf->SetXY($x + 133, $y+4); 
+            $pdf->MultiCell(22, 10, 'Office/Officer', 'TL', 'C');
             $pdf->SetXY($x + 50, $y); 
 
-            $pdf->SetXY($x + 135, $y); 
-            $pdf->Cell(40, 4, 'Returned', 'BR', 0, 'C');
-            $pdf->SetXY($x + 135, $y+4); 
-            $pdf->MultiCell(18, 10, 'Qty.', 'R', 'C');
-            $pdf->SetXY($x + 153, $y+4); 
-            $pdf->MultiCell(22, 10, 'Office/Officer', 'R', 'C');
+            $pdf->SetXY($x + 155, $y); 
+            $pdf->Cell(30, 4, 'Returned', 'RL', 0, 'C');
+            $pdf->SetXY($x + 155, $y+4); 
+            $pdf->MultiCell(8, 10, 'Qty.', 'LT', 'C');
+            $pdf->SetXY($x + 163, $y+4); 
+            $pdf->MultiCell(22, 10, 'Office/Officer', 'LT', 'C');
             $pdf->SetXY($x + 50, $y); 
 
             
-            $pdf->SetXY($x + 175, $y); 
-            $pdf->Cell(40, 4, 'Re-Issued', 'BR', 0, 'C');
-            $pdf->SetXY($x + 175, $y+4); 
-            $pdf->MultiCell(18, 10, 'Qty.', 'R', 'C');
+            $pdf->SetXY($x + 185, $y); 
+            $pdf->Cell(30, 4, 'Re-Issued', 'BR', 0, 'C');
+            $pdf->SetXY($x + 185, $y+4); 
+            $pdf->MultiCell(10, 10, 'Qty.', 'LR', 'C');
             $pdf->SetXY($x + 193, $y+4); 
             $pdf->MultiCell(22, 10, 'Office/Officer', 'R', 'C');
             $pdf->SetXY($x + 50, $y); 
@@ -99,12 +99,56 @@ class RSEPIpdf_Controller extends CI_Controller
             $pdf->Cell(17, 14, 'Remarks', '', 0, 'C');
 
             foreach ($Datas as $Data) {
-                $pdf->SetFont('times', '', 8);
-                $pdf->SetXY($x, $y+14); 
-                $pdf->MultiCell(15, 5, $Data->rsepi_property_no, 'LTRB', 'C');
+                $pdf->SetFont('times', '', 6);
+                $pdf->SetXY($x, $y + 14); 
+                $pdf->Cell(15, 5, $Data->date_acquired, 'LBR', 0, 'C'); // Use Cell instead of MultiCell
+                $y += 5; // Increment Y coordinate for the next iteration
+
+                $pdf->SetXY($x + 15, $y + 9); 
+                $pdf->Cell(18, 5, $Data->ics_no, 'RB', 0, 'C'); // Use Cell instead of MultiCell
                 
+                $pdf->SetXY($x + 33, $y + 9); 
+                $pdf->Cell(27, 5, $Data->rsepi_property_no, 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 60, $y + 9); 
+                $pdf->Cell(50, 5, $Data->item_description, 'BR', 0, 'L'); // Use Cell instead of MultiCell
+                
+                $pdf->SetXY($x + 110, $y + 9); 
+                $pdf->Cell(15, 5, $Data->useful_life, 'RB', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 125, $y + 9); 
+                $pdf->Cell(8, 5, '', 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 133, $y + 9); 
+                $pdf->Cell(22, 5, $Data->ics_receivedby, 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 155, $y + 9); 
+                $pdf->Cell(8, 5, '', 'RB', 0, 'C'); // Use Cell instead of MultiCell
+                
+                $pdf->SetXY($x + 163, $y + 9); 
+                $pdf->Cell(22, 5, $Data->returned, 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 185, $y + 9); 
+                $pdf->Cell(10, 5, '', 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 195, $y + 9); 
+                $pdf->Cell(20, 5, $Data->reissued, 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 215, $y + 9); 
+                $pdf->Cell(14, 5, '', 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 229, $y + 9); 
+                $pdf->Cell(14, 5, '', 'BR', 0, 'C'); // Use Cell instead of MultiCell
+                
+                $pdf->SetXY($x + 243, $y + 9); 
+                $pdf->Cell(17, 5, $Data->unit_cost, 'BR', 0, 'C'); // Use Cell instead of MultiCell
+
+                $pdf->SetXY($x + 260, $y + 9); 
+                $pdf->Cell(17, 5, $Data->remarks, 'BR', 0, 'C'); // Use Cell instead of MultiCell
+                
+
             }
-          
+            
             
             
             

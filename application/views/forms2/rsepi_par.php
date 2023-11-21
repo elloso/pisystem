@@ -1,10 +1,10 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title">Registry of Semi-expandable Property Issued (ICS)</div>
+            <div class="card-title">Registry of Semi-expandable Property Issued (PAR)</div>
         </div> 
         <div class="col-lg-2 col-xl-2">
-            <a href="<?php echo base_url('print-rsepiform'); ?> " target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
+            <a href="#" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
         </div>
 
         <div class="card-body">
@@ -13,66 +13,27 @@
                     <thead>
                         <tr>
                             <th style="width: 20%;" class="text-center">DATE</th>
-                            <th style="width: 20%;" class="text-center">ICS / RRSP No.</th>
+                            <th style="width: 20%;" class="text-center">PAR / RRSP No.</th>
                             <th style="width: 20%;" class="text-center">SEMI-EXPANDABLE PROPERTY NO.</th>
                             <th style="width: 20%;" class="text-center">REMARKS</th>
                             <th style="width: 20%;" class="text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                <?php foreach ($RSEPIlists as $RSEPIlist):  ?>
-                    <?php if (!empty($RSEPIlist->ics_no)) : ?>
                     <tr>
-                        <td><?php echo $RSEPIlist->date_acquired ?></td>
-                        <td><?php echo $RSEPIlist->ics_no ?></td>
-                        <td><?php echo $RSEPIlist->rsepi_property_no ?></td>
-                        <td class="text-center"><?php echo $RSEPIlist->remarks ?></td>
-                        <td class="text-center">
-                            <?php
-                                $formattedAmount = number_format($RSEPIlist->unit_cost, 2); 
-                            ?>
-                            <?php if ($RSEPIlist->remarks == "Returned"): ?>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-share-from-square"></i>
-                                </a>
-                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Reissued" data-bs-target="#Modal_ReissuedRSEPI" onclick="displayEditModalReissued('<?php echo md5($RSEPIlist->id); ?>')"> 
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </a>
-                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#Modal_DisposeRSEPI" onclick="displayEditModalDisposed('<?php echo md5($RSEPIlist->id); ?>')"> 
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            <?php elseif ($RSEPIlist->remarks == "Disposed"): ?>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-share-from-square"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Re-issue" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            <?php else: ?>
-                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" onclick="displayEditModal('<?php echo md5($RSEPIlist->id); ?>','<?php echo $RSEPIlist->ics_receivedby; ?>','<?php echo $RSEPIlist->item_description; ?>','<?php echo $formattedAmount; ?>')"> 
-                                    <i class="fa-solid fa-share-from-square"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Re-issue" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            <?php endif; ?>
-                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"> </td>
                     </tr>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
                     </tbody>
                  </table>
             </div>
         </div>
     </div>
 </div>  
-<form action="<?php echo base_url('respi-returned'); ?>" method="post" class="needs-validation" novalidate>
+<form action="#" method="post" class="needs-validation" novalidate>
     <!-- Modal -->
     <div class="modal fade" id="Modal_ReturnedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -139,7 +100,7 @@
     </div>
 </form>
 
-<form action="<?php echo base_url('respi-dispose'); ?>" method="post" class="needs-validation" novalidate>
+<form action="#" method="post" class="needs-validation" novalidate>
 <!-- Modal for Deletion -->
 <div class="modal fade" id="Modal_DisposeRSEPI" tabindex="-1" aria-labelledby="Modal_DisposeRSEPILabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -175,7 +136,7 @@
 </div>
 </form>
 
-<form action="<?php echo base_url('respi-reissue'); ?>" method="post" class="needs-validation" novalidate>
+<form action="#" method="post" class="needs-validation" novalidate>
     <!-- Modal -->
     <div class="modal fade" id="Modal_ReissuedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

@@ -45,13 +45,6 @@ $route['print-pcform'] = 'PrintForms_Controller/PCpdf_Controller/PCform';
 $route['print-rsepiform'] = 'PrintForms_Controller/RSEPIpdf_Controller/RSEPIform';
 
 
-
-
-
-
-
-
-
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';
 // forms
@@ -68,6 +61,8 @@ $route['respi'] = 'Post_Controller/viewRSEPI';
 $route['respi-returned'] = 'Function_Controller/updateItem_return';
 $route['respi-reissue'] = 'Function_Controller/updateItem_reissued';
 $route['respi-dispose'] = 'Function_Controller/updateItem_disposed';
+$route['respi-par'] = 'Post_Controller/viewRSEPI_PAR';
+
 
 // account/maintenance
 $route['account-list'] = 'Post_Controller/accountList';

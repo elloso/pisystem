@@ -268,7 +268,6 @@ class Post_Controller extends CI_Controller
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
             $data['RSEPIlists'] = $this->Post_model->getRSEPI();
-            // $data['RSEPIData'] = $this->Post_model->getRSEPIspecific();
             $this->load->view('template/header', $data);
             $this->load->view('forms2/rsepi', $data);
             $this->load->view('template/footer');
@@ -276,5 +275,18 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
-    
+    public function viewRSEPI_PAR()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
+            $this->load->view('template/header', $data);
+            $this->load->view('forms2/rsepi_par', $data);
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
 } // End Bracket

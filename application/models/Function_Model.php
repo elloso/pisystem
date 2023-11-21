@@ -274,5 +274,13 @@ public function getLastPropertyNumber() {
         return 'SLSU2023-00000-00000';
     }
 }
+public function getOriginalPropertyNumber() {
+    $this->db->select('property_no');
+    $this->db->from('tblpo_item');
+    $query = $this->db->get();
+    $result = $query->result(); // Add this line to get the result
+    return $result;
+}
+
 
 }

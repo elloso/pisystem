@@ -90,7 +90,6 @@ class Function_Controller extends CI_Controller
             'iar_supplier' => $txtSupplier
         );
         $this->Function_Model->SubmitPotoIarData($dataPotoIar);
-
         $txtItemNo = $this->input->post('txtItemNo');
         $txtItemQuantity = $this->input->post('txtItemQuantity');
         $txtDescription = $this->input->post('txtDescription');
@@ -105,15 +104,16 @@ class Function_Controller extends CI_Controller
         ) {
             $count = count($txtItemNo);
             $currentYear = date('Y');
-            $lastPropertyNumber = $this->Function_Model->getLastPropertyNumber(); //
+            $lastPropertyNumber = $this->Function_Model->getLastPropertyNumber();
+        
+            $propertyNumbers = array(); // New array to store property numbers
         
             for ($i = 0; $i < $count; $i++) {
-                // $formattedItemNumber = sprintf('%05d', $txtItemNo[$i]);
-                // $formattedQuantity = sprintf('%05d', $txtItemQuantity[$i]);
-        
                 $propertyNumber = 'SLSU' . $currentYear . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + 1) . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
         
                 $lastPropertyNumber = $propertyNumber;
+        
+                $propertyNumbers[] = $propertyNumber; // Store the property number in the array
         
                 $itemData = array(
                     'po_id' => $po_id,
@@ -131,28 +131,27 @@ class Function_Controller extends CI_Controller
         
                 $this->Function_Model->SubmitPoItemData($itemData);
             }
-
-    // Second property number explode
-    $quantities = isset($_POST['txtItemQuantity']) ? $_POST['txtItemQuantity'] : array();
-    foreach ($quantities as $quantity) {
-    $quantity = abs(intval($quantity));
-    $propertynoParts = explode('-', $propertyNumber);
-    if (count($propertynoParts) >= 3) {
-        $start_number = (int) $propertynoParts[1];
-        $end_number = (int) $propertynoParts[2];
-
-        for ($j = $start_number; $j <= $end_number; $j++) {
-            $individual_property_no = 'SLSU2023-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
-
-            // Save the individual property number to the database using the model
-            $dataPOtoRSEPI = array(
-                'icsrsepi_po_id' => $po_id,
-                'rsepi_property_no' => $individual_property_no
-            );
-            $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
-        }
-    }
-}
+        
+            // Second property number explode
+            foreach ($propertyNumbers as $propertyNumber) {
+                $propertynoParts = explode('-', $propertyNumber);
+                if (count($propertynoParts) >= 3) {
+                    $start_number = (int) $propertynoParts[1];
+                    $end_number = (int) $propertynoParts[2];
+        
+                    for ($j = $start_number; $j <= $end_number; $j++) {
+                        $individual_property_no = 'SLSU2023-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
+        
+                       
+                        $dataPOtoRSEPI = array(
+                            'icsrsepi_po_id' => $po_id,
+                            'rsepi_property_no' => $individual_property_no
+                        );
+                        $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+                    }
+                }
+            }
+        
 
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');

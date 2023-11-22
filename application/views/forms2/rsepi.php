@@ -61,6 +61,9 @@
                                 <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
+                                <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id));?>" target="_blank" title="Print" class="text-primary mx-2">
+                                    <i class="fa-solid fa-print"></i>
+                                </a>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -188,18 +191,73 @@
                     <div class="border p-2 mb-2 rounded">
                     <input type="hidden" id="recordIdReissue" name="recordIdReissue" value="">
                         <div class="row">
-                            <div class="col-lg-6 col-xl-12">
+                            <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
                                     <input type="text" id="txtOfficeOfficerReissue" class="form-control" name="txtOfficeOfficerReissue" style="text-align: center;" value="" required>
                                     <label class="form-label fw-bold text-dark" for="txtOfficeOfficerReissue">Re-issued:</label>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-6 col-xl-6">
+                            <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtQuantityReissue" class="form-control" name="txtQuantityReissue" style="text-align: center;" value="" required>
-                                    <label class="form-label fw-bold text-dark" for="txtQuantityReissue">Quantity</label>
+                                    <input id="txtReissueDate" class="form-control" name="txtReissueDate" type="date" />
+                                    <label class="form-label fw-bold text-dark" for="txtReissueDate">Date of Transfer :</label>
                                 </div>
-                            </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-6">
+                                <div>
+                                    <select class="form-select " aria-label="Default select example" name="OptionTT" id="OptionTT">
+                                        <option disabled selected style="text-align:center">Select Transfer Type</option>
+                                        <option value="Donation">Donation</option>
+                                        <option value="Reassignment">Reassignment</option>
+                                        <option value="Relocate">Relocate</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <div class="form-floating mb-2">
+                                    <input type="number" id="txtITRNo" class="form-control" name="txtITRNo" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtITRNo">ITR No.</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtSpecify" class="form-control" name="txtSpecify" style="text-align: center;" value="" required>
+                                    <label class="form-label text-dark" for="txtSpecify"><i>Please Specify</i></label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <select class="form-select " aria-label="Default select example" name="OptionCondiditon" id="OptionCondiditon">
+                                    <option disabled selected style="text-align:center">Condition of Inventory</option>
+                                    <option value="Good">Good</option>
+                                    <option value="Serviceable">Serviceable</option>
+                                    <option value="Unserviceable">Unserviceable</option>
+                                    <option value="Obsolete">Obsolete</option>
+                                    <option value="Not needed">Not needed</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <label class="form-label text-dark" for="txtReasontransfer"><i>Reason/s for Transfer:</i></label>
+                                <div class="form-floating mb-2">
+                                    <textarea name="txtReason" id="" cols="46" rows="6.5"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtApproved" class="form-control" name="txtApproved" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtApproved">Approved by:</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtReleased" class="form-control" name="txtReleased" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtReleased">Released/Issued by:</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtReceived" class="form-control" name="txtReceived" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtReceived">Received by:</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

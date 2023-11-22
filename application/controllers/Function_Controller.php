@@ -583,7 +583,6 @@ class Function_Controller extends CI_Controller
         if ($this->session->userdata('is_login') == TRUE) {
             $par_id = $this->input->post('par_id');
             $par_editenumber = $this->input->post('txtPARnumber');
-            // $par_editdate = $this->input->post('txtDateAcquired');
             $par_editfund = $this->input->post('txtFund');
             $par_editreceivedby = $this->input->post('txtReceivedby');
             $par_editpar_receivedby_date = $this->input->post('txtDateby');
@@ -596,7 +595,6 @@ class Function_Controller extends CI_Controller
 
             $PAR_editData = array(
                 'par_no' => $par_editenumber,
-                // 'par_date' => $par_editdate,
                 'par_fund' => $par_editfund,
                 'par_receivedby' => $par_editreceivedby,
                 'par_received_date' => $par_editpar_receivedby_date,
@@ -654,10 +652,31 @@ class Function_Controller extends CI_Controller
         $txtreissued = $this->input->post('reissuedconfirmButton');
         $newname = $this->input->post('txtOfficeOfficerReissue');
         $itemId = $this->input->post('recordIdReissue'); 
+
+        $ReissueDate = $this->input->post('txtReissueDate'); 
+        $TransferType = $this->input->post('OptionTT'); 
+        $Specify = $this->input->post('txtSpecify'); 
+        $ITRno = $this->input->post('txtITRNo');    
+        $Condition = $this->input->post('OptionCondiditon'); 
+        $Reasontransfer = $this->input->post('txtReason'); 
+        $Approved = $this->input->post('txtApproved'); 
+        $ReleasedReissue = $this->input->post('txtReleased'); 
+        $ReceivedReissue = $this->input->post('txtReceived'); 
+        
     
         $Item_reissued = array(
             'remarks' => $txtreissued,
             'reissued' => $newname,
+            'date_transfer' => $ReissueDate,
+            'transfer_type' => $TransferType,
+            'others_specifiy' => $Specify,
+            'itr_no' => $ITRno,
+            'condition_inventory' => $Condition,
+            'approved' => $Approved,
+            'released' => $ReleasedReissue,
+            'received' => $ReceivedReissue,
+            'reason_transfer' => $Reasontransfer
+            
         );
     
         $this->Function_Model->updateItemReturn($itemId, $Item_reissued);

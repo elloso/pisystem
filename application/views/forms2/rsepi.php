@@ -41,6 +41,15 @@
                                 <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#Modal_DisposeRSEPI" onclick="displayEditModalDisposed('<?php echo md5($RSEPIlist->id); ?>')"> 
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
+                                <?php if ($RSEPIlist->itr_no == 0): ?>
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                 <?php endif; ?>
                             <?php elseif ($RSEPIlist->remarks == "Disposed"): ?>
                                 <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" style="cursor: not-allowed; color: red;"> 
                                     <i class="fa-solid fa-share-from-square"></i>
@@ -51,6 +60,15 @@
                                 <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
+                                <?php if ($RSEPIlist->itr_no == 0): ?>
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                 <?php endif; ?>
                             <?php else: ?>
                                 <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" onclick="displayEditModal('<?php echo md5($RSEPIlist->id); ?>','<?php echo $RSEPIlist->ics_receivedby; ?>','<?php echo $RSEPIlist->item_description; ?>','<?php echo $formattedAmount; ?>')"> 
                                     <i class="fa-solid fa-share-from-square"></i>
@@ -61,9 +79,15 @@
                                 <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
-                                <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id));?>" target="_blank" title="Print" class="text-primary mx-2">
-                                    <i class="fa-solid fa-print"></i>
-                                </a>
+                                <?php if ($RSEPIlist->itr_no == 0): ?>
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                 <?php endif; ?>
                             <?php endif; ?>
                         </td>
                     </tr>

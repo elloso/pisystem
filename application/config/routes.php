@@ -43,7 +43,7 @@ $route['print-parform/(:any)'] = 'PrintForms_Controller/PARfpdf_Controller/PARfo
 $route['print-scform'] = 'PrintForms_Controller/SCpdf_Controller/SCform';
 $route['print-pcform'] = 'PrintForms_Controller/PCpdf_Controller/PCform';
 $route['print-rsepiform'] = 'PrintForms_Controller/RSEPIpdf_Controller/RSEPIform';
-$route['print-ptrform/(:any)'] = 'PrintForms_Controller/PTRpdf_Controller/PTRform/$1';
+$route['print-ptrform/(:any)/(:any)'] = 'PrintForms_Controller/PTRpdf_Controller/PTRform/$1/$2';
 
 
 

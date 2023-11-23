@@ -4,10 +4,11 @@ require('assets/fpdf/fpdf.php');
 
 class RSEPIpdf_Controller extends CI_Controller
 {
-    public function RSEPIform()
+    public function RSEPIform($po_id,$id_tblpo_item)
     {
-
-        $Datas = $this->Fpdf_Model->DataRSEPI();
+        $actual_po_id = $po_id;
+        $actual_id_tblpo_item = $id_tblpo_item;
+        $Datas = $this->Fpdf_Model->DataRSEPI($actual_po_id,$actual_id_tblpo_item);
         $pdf = new PDF();
             $pdf->AddPage();
             $pdf->SetFont('times', 'B', 12);

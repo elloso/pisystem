@@ -4,11 +4,10 @@ require('assets/fpdf/fpdf.php');
 
 class RSEPIpdf_Controller extends CI_Controller
 {
-    public function RSEPIform($po_id,$id_tblpo_item)
+    public function RSEPIform()
     {
-        $actual_po_id = $po_id;
-        $actual_id_tblpo_item = $id_tblpo_item;
-        $Datas = $this->Fpdf_Model->DataRSEPI($actual_po_id,$actual_id_tblpo_item);
+
+        $Datas = $this->Fpdf_Model->DataRSEPI();
         $pdf = new PDF();
             $pdf->AddPage();
             $pdf->SetFont('times', 'B', 12);
@@ -101,9 +100,10 @@ class RSEPIpdf_Controller extends CI_Controller
 
             foreach ($Datas as $Data) {
                 $pdf->SetFont('times', '', 6);
-                $pdf->SetXY($x, $y + 14); 
-                $pdf->Cell(15, 5, $Data->date_acquired, 'LBR', 0, 'C'); // Use Cell instead of MultiCell
                 $y += 5; // Increment Y coordinate for the next iteration
+             
+                $pdf->SetXY($x, $y + 9); 
+                $pdf->Cell(15, 5, $Data->date_acquired, 'LBR', 0, 'C'); // Use Cell instead of MultiCell
 
                 $pdf->SetXY($x + 15, $y + 9); 
                 $pdf->Cell(18, 5, $Data->ics_no, 'RB', 0, 'C'); // Use Cell instead of MultiCell
@@ -112,7 +112,7 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->Cell(27, 5, $Data->rsepi_property_no, 'BR', 0, 'C'); // Use Cell instead of MultiCell
 
                 $pdf->SetXY($x + 60, $y + 9); 
-                $pdf->Cell(50, 5, $Data->item_description, 'BR', 0, 'L'); // Use Cell instead of MultiCell
+                $pdf->Cell(50, 5, $Data->item_description, 'LBR', 'L'); // Use Cell instead of MultiCell
                 
                 $pdf->SetXY($x + 110, $y + 9); 
                 $pdf->Cell(15, 5, $Data->useful_life, 'RB', 0, 'C'); // Use Cell instead of MultiCell
@@ -146,25 +146,10 @@ class RSEPIpdf_Controller extends CI_Controller
 
                 $pdf->SetXY($x + 260, $y + 9); 
                 $pdf->Cell(17, 5, $Data->remarks, 'BR', 0, 'C'); // Use Cell instead of MultiCell
-                
-
             }
-            
-            
-            
-            
-           
-            
 
-            
-
-        
-
-            
             $pdf->SetFont('times', '', 9);
             $pdf->Output(); 
-
-        
     }
 }
 

@@ -3,11 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 require('assets/fpdf/fpdf.php');
 class PTRpdf_Controller extends CI_Controller
 {
-    public function PTRform($po_id)
+    public function PTRform($po_id,$id_tblpo_item)
     {
 
         $actual_po_id = $po_id;
-        $rsepi_data = $this->Fpdf_Model->DataRSEPI_PTR($po_id);
+        $actual_icsrsepi_po_id = $id_tblpo_item;
+        $rsepi_data = $this->Fpdf_Model->DataRSEPI_PTR($po_id,$actual_icsrsepi_po_id);
+        $dataFromDatabase = $this->Fpdf_Model->getCheckboxData($actual_icsrsepi_po_id);
        
        
         $pdf = new PDF();
@@ -71,24 +73,30 @@ class PTRpdf_Controller extends CI_Controller
         $pdf->Cell(190, 14, '', 'B', 1, 'L');
         $pdf->SetXY($x, $y+14);
         $pdf->Cell(40, 6, 'Transfer Type: (check only one)', '', 1, 'L');
-        
-        $pdf->CheckBox($x + 50, $y +15, false);
+
+        $donationChecked = ($rsepi_data->transfer_type == "Donation") ? true : false;
+        $reassignmentChecked = ($rsepi_data->transfer_type == "Reassignment") ? true : false;
+        $relocateChecked = ($rsepi_data->transfer_type == "Relocate") ? true : false;
+        $othersChecked = ($rsepi_data->transfer_type == "Others (Specify)") ? true : false;
+       
+        $pdf->CheckBox($x + 50, $y +15, $donationChecked);
         $pdf->SetXY($x+56, $y+15.5);
         $pdf->Cell(30, 5, 'Donation', '', 1, 'L');
         
-        $pdf->CheckBox($x + 50, $y +22, false);
+        $pdf->CheckBox($x + 50, $y +22, $reassignmentChecked);
         $pdf->SetXY($x+56, $y+22);
         $pdf->Cell(30, 5, 'Reassignment', '', 1, 'L');
-
-        $pdf->CheckBox($x + 100, $y +15, false);
+        
+        $pdf->CheckBox($x + 100, $y +15, $relocateChecked);
         $pdf->SetXY($x+107, $y+22);
         $pdf->Cell(30, 5, 'Others (Specify)', '', 1, 'L');
-        $pdf->SetXY($x+128, $y+22);
-        $pdf->Cell(30, 5, '', 'B', 1, 'L');
-
-        $pdf->CheckBox($x + 100, $y +22, false);
+       
+        $pdf->CheckBox($x + 100, $y +22, $othersChecked);
         $pdf->SetXY($x+107, $y+15);
         $pdf->Cell(30, 5, 'Relocate', '', 1, 'L');
+
+        $pdf->SetXY($x+128, $y+22);
+        $pdf->Cell(30, 5, $rsepi_data->others_specifiy, 'B', 1, 'L');
 
         $pdf->SetXY($x, $y+29);
         $pdf->SetFont('times', '', 10);
@@ -178,7 +186,6 @@ class PTRpdf_Controller extends CI_Controller
         $pdf->SetXY($x+145, $y+210);
         $pdf->Cell(45, 5, '', 'B', 0, 'L');
 
-     
         $pdf->SetXY($x, $y+215);
         $pdf->Cell(20, 5, 'Date :', '', 0, 'L');
         $pdf->SetXY($x+20, $y+215);

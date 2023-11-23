@@ -79,12 +79,12 @@
                                 <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
-                                <?php if ($RSEPIlist->itr_no == 0): ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
+                                <?php if ($RSEPIlist->remarks == "Re-issued"): ?>
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
                                         <i class="fa-solid fa-print"></i>
                                     </a>
                                 <?php else: ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
+                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
                                         <i class="fa-solid fa-print"></i>
                                     </a>
                                  <?php endif; ?>
@@ -236,7 +236,7 @@
                                         <option value="Donation">Donation</option>
                                         <option value="Reassignment">Reassignment</option>
                                         <option value="Relocate">Relocate</option>
-                                        <option value="Others">Others</option>
+                                        <option value="Others (Specify)">Others (Specify)</option>
                                     </select>
                                 </div>
                             </div>
@@ -295,34 +295,33 @@
 </form>
 
 <script>
-    var firstModal = $('#Modal_ReturnedRSEPI');
-    var secondModal = $('#Modal_ReturnedSecondConfirmation');
+var firstModal = $('#Modal_ReturnedRSEPI');
+var secondModal = $('#Modal_ReturnedSecondConfirmation');
 
-    document.getElementById('proceedButton').addEventListener('click', function (event) {
-        // Prevent the default form submission
-        event.preventDefault();
+document.getElementById('proceedButton').addEventListener('click', function (event) {
+    event.preventDefault();
 
-        // Show the second confirmation modal when the first modal's button is clicked
+    var nameInput = document.getElementById('txtReturnedName').value; 
+    if (nameInput.trim() === "") {
+        alert("Please enter a name before proceeding.");
+    } else {
         secondModal.modal('show');
-    });
+    }
+});
 
-    // Optional: If you want to submit the form after confirming in the second modal
-    document.getElementById('returnedconfirmButton').addEventListener('click', function () {
-        // Submit the form
-        document.querySelector('form').submit();
-    });
+document.getElementById('returnedconfirmButton').addEventListener('click', function () {
+    document.querySelector('form').submit();
+});
 
-    // Hide the first modal when the second modal is shown
-    $('#Modal_ReturnedSecondConfirmation').on('show.bs.modal', function () {
-        firstModal.modal('hide');
-    });
+$('#Modal_ReturnedSecondConfirmation').on('show.bs.modal', function () {
+    firstModal.modal('hide');
+});
 
-    // Show the first modal when the "Cancel" button is clicked in the second modal
-    document.getElementById('cancelButton').addEventListener('click', function () {
-        // Hide the second modal and show the first modal
-        secondModal.modal('hide');
-        firstModal.modal('show');
-    });
+document.getElementById('cancelButton').addEventListener('click', function () {
+    secondModal.modal('hide');
+    firstModal.modal('show');
+});
+
 </script>
 
 <script>

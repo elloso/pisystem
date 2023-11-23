@@ -110,10 +110,17 @@ class Function_Controller extends CI_Controller
             $poIds = array(); // New array to store ID
         
             for ($i = 0; $i < $count; $i++) {
-                $propertyNumber = 'SLSU' . $currentYear . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + 1) . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
-        
+                $sequenceNumber = sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + 1);
+            
+                // Check if quantity is 1, then don't append quantity
+                if ($txtItemQuantity[$i] == 1) {
+                    $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber;
+                } else {
+                    $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
+                }
+            
                 $lastPropertyNumber = $propertyNumber;
-        
+            
                 $propertyNumbers[] = $propertyNumber;
         
                 $itemData = array(
@@ -134,29 +141,45 @@ class Function_Controller extends CI_Controller
                 $poIds[] = $poId; // Store the new $poId in the array
             }
         
-            // Second property number explode
-            foreach ($propertyNumbers as $propertyNumber) {
-                $propertynoParts = explode('-', $propertyNumber);
-                if (count($propertynoParts) >= 3) {
-                    $start_number = (int) $propertynoParts[1];
-                    $end_number = (int) $propertynoParts[2];
-        
-                    for ($j = $start_number; $j <= $end_number; $j++) {
-                        $individual_property_no = 'SLSU2023-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
-        
-                        $key = array_search($propertyNumber, $propertyNumbers); // Find the key corresponding to the current propertyNumber
-                        if ($key !== false) {
-                            $dataPOtoRSEPI = array(
-                                'icsrsepi_po_id' => $po_id,
-                                'id_tblpo_item' => $poIds[$key], // Use the correct $poId from the array
-                                'rsepi_property_no' => $individual_property_no
-                            );
-                            $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
-                        }
-                    }
-                }
+           // Second property number explode
+foreach ($propertyNumbers as $propertyNumber) {
+    $propertynoParts = explode('-', $propertyNumber);
+    $prefix = 'SLSU' . $currentYear;
+
+    if (count($propertynoParts) == 2) {
+        // Handle property numbers with two parts differently
+        $individual_property_no = $prefix . '-' . $propertynoParts[1];
+
+        $key = array_search($propertyNumber, $propertyNumbers); 
+        if ($key !== false) {
+            $dataPOtoRSEPI = array(
+                'icsrsepi_po_id' => $po_id,
+                'id_tblpo_item' => $poIds[$key], 
+                'rsepi_property_no' => $individual_property_no
+            );
+            $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+        }
+    } elseif (count($propertynoParts) >= 3) {
+        // Handle property numbers with three or more parts
+        $start_number = (int) $propertynoParts[1];
+        $end_number = (int) $propertynoParts[2];
+
+        for ($j = $start_number; $j <= $end_number; $j++) {
+            $individual_property_no = $prefix . '-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
+
+            $key = array_search($propertyNumber, $propertyNumbers); 
+            if ($key !== false) {
+                $dataPOtoRSEPI = array(
+                    'icsrsepi_po_id' => $po_id,
+                    'id_tblpo_item' => $poIds[$key], 
+                    'rsepi_property_no' => $individual_property_no
+                );
+                $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
             }
-        
+        }
+    }
+}
+
 
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');

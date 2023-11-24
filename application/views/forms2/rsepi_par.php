@@ -4,7 +4,7 @@
             <div class="card-title">Registry of Semi-expandable Property Issued (PAR)</div>
         </div> 
         <div class="col-lg-2 col-xl-2">
-            <a href="#" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
+            <a href="<?php echo base_url('print-rsepiparform'); ?> " target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
         </div>
 
         <div class="card-body">
@@ -20,20 +20,86 @@
                         </tr>
                     </thead>
                     <tbody>
+                <?php foreach ($RSEPIlists as $RSEPIlist):  ?>
+                    <?php if (!empty($RSEPIlist->par_no)) : ?>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"> </td>
+                        <td><?php echo $RSEPIlist->date_acquired ?></td>
+                        <td><?php echo $RSEPIlist->par_no ?></td>
+                        <td><?php echo $RSEPIlist->rsepi_property_no ?></td>
+                        <td class="text-center"><?php echo $RSEPIlist->remarks ?></td>
+                        <td class="text-center">
+                            <?php
+                                $formattedAmount = number_format($RSEPIlist->unit_cost, 2); 
+                            ?>
+                            <?php if ($RSEPIlist->remarks == "Returned"): ?>
+                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" style="cursor: not-allowed; color: red;"> 
+                                    <i class="fa-solid fa-share-from-square"></i>
+                                </a>
+                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Reissued" data-bs-target="#Modal_ReissuedRSEPI" onclick="displayEditModalReissued('<?php echo md5($RSEPIlist->id); ?>')"> 
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </a>
+                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#Modal_DisposeRSEPI" onclick="displayEditModalDisposed('<?php echo md5($RSEPIlist->id); ?>')"> 
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                                <?php if ($RSEPIlist->itr_no == 0): ?>
+                                    <a href="<?php echo base_url('print-ptrparform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo base_url('print-ptrparform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                 <?php endif; ?>
+                            <?php elseif ($RSEPIlist->remarks == "Disposed"): ?>
+                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" style="cursor: not-allowed; color: red;"> 
+                                    <i class="fa-solid fa-share-from-square"></i>
+                                </a>
+                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Re-issue" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </a>
+                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                                <?php if ($RSEPIlist->itr_no == 0): ?>
+                                    <a href="<?php echo base_url('print-ptrparform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo base_url('print-ptrparform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                 <?php endif; ?>
+                            <?php else: ?>
+                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" onclick="displayEditModal('<?php echo md5($RSEPIlist->id); ?>','<?php echo $RSEPIlist->par_receivedby; ?>','<?php echo $RSEPIlist->item_description; ?>','<?php echo $formattedAmount; ?>')"> 
+                                    <i class="fa-solid fa-share-from-square"></i>
+                                </a>
+                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Re-issue" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </a>
+                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                                <?php if ($RSEPIlist->remarks == "Re-issued"): ?>
+                                    <a href="<?php echo base_url('print-ptrparform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo base_url('print-ptrparform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                 <?php endif; ?>
+                            <?php endif; ?>
+                        </td>
                     </tr>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                     </tbody>
                  </table>
             </div>
         </div>
     </div>
 </div>  
-<form action="#" method="post" class="needs-validation" novalidate>
+<form action="<?php echo base_url('respi-returnedPAR'); ?>" method="post" class="needs-validation" novalidate>
     <!-- Modal -->
     <div class="modal fade" id="Modal_ReturnedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -100,7 +166,7 @@
     </div>
 </form>
 
-<form action="#" method="post" class="needs-validation" novalidate>
+<form action="<?php echo base_url('respi-disposePAR'); ?>" method="post" class="needs-validation" novalidate>
 <!-- Modal for Deletion -->
 <div class="modal fade" id="Modal_DisposeRSEPI" tabindex="-1" aria-labelledby="Modal_DisposeRSEPILabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -136,7 +202,7 @@
 </div>
 </form>
 
-<form action="#" method="post" class="needs-validation" novalidate>
+<form action="<?php echo base_url('respi-reissuePAR'); ?>" method="post" class="needs-validation" novalidate>
     <!-- Modal -->
     <div class="modal fade" id="Modal_ReissuedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -149,18 +215,73 @@
                     <div class="border p-2 mb-2 rounded">
                     <input type="hidden" id="recordIdReissue" name="recordIdReissue" value="">
                         <div class="row">
-                            <div class="col-lg-6 col-xl-12">
+                            <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
                                     <input type="text" id="txtOfficeOfficerReissue" class="form-control" name="txtOfficeOfficerReissue" style="text-align: center;" value="" required>
                                     <label class="form-label fw-bold text-dark" for="txtOfficeOfficerReissue">Re-issued:</label>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-6 col-xl-6">
+                            <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtQuantityReissue" class="form-control" name="txtQuantityReissue" style="text-align: center;" value="" required>
-                                    <label class="form-label fw-bold text-dark" for="txtQuantityReissue">Quantity</label>
+                                    <input id="txtReissueDate" class="form-control" name="txtReissueDate" type="date" />
+                                    <label class="form-label fw-bold text-dark" for="txtReissueDate">Date of Transfer :</label>
                                 </div>
-                            </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-6">
+                                <div>
+                                    <select class="form-select " aria-label="Default select example" name="OptionTT" id="OptionTT">
+                                        <option disabled selected style="text-align:center">Select Transfer Type</option>
+                                        <option value="Donation">Donation</option>
+                                        <option value="Reassignment">Reassignment</option>
+                                        <option value="Relocate">Relocate</option>
+                                        <option value="Others (Specify)">Others (Specify)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <div class="form-floating mb-2">
+                                    <input type="number" id="txtITRNo" class="form-control" name="txtITRNo" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtITRNo">ITR No.</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtSpecify" class="form-control" name="txtSpecify" style="text-align: center;" value="" required>
+                                    <label class="form-label text-dark" for="txtSpecify"><i>Please Specify</i></label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <select class="form-select " aria-label="Default select example" name="OptionCondiditon" id="OptionCondiditon">
+                                    <option disabled selected style="text-align:center">Condition of Inventory</option>
+                                    <option value="Good">Good</option>
+                                    <option value="Serviceable">Serviceable</option>
+                                    <option value="Unserviceable">Unserviceable</option>
+                                    <option value="Obsolete">Obsolete</option>
+                                    <option value="Not needed">Not needed</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <label class="form-label text-dark" for="txtReasontransfer"><i>Reason/s for Transfer:</i></label>
+                                <div class="form-floating mb-2">
+                                    <textarea name="txtReason" id="" cols="46" rows="6.5"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6">
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtApproved" class="form-control" name="txtApproved" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtApproved">Approved by:</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtReleased" class="form-control" name="txtReleased" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtReleased">Released/Issued by:</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtReceived" class="form-control" name="txtReceived" style="text-align: center;" value="" required>
+                                    <label class="form-label fw-bold text-dark" for="txtReceived">Received by:</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,34 +295,33 @@
 </form>
 
 <script>
-    var firstModal = $('#Modal_ReturnedRSEPI');
-    var secondModal = $('#Modal_ReturnedSecondConfirmation');
+var firstModal = $('#Modal_ReturnedRSEPI');
+var secondModal = $('#Modal_ReturnedSecondConfirmation');
 
-    document.getElementById('proceedButton').addEventListener('click', function (event) {
-        // Prevent the default form submission
-        event.preventDefault();
+document.getElementById('proceedButton').addEventListener('click', function (event) {
+    event.preventDefault();
 
-        // Show the second confirmation modal when the first modal's button is clicked
+    var nameInput = document.getElementById('txtReturnedName').value; 
+    if (nameInput.trim() === "") {
+        alert("Please enter a name before proceeding.");
+    } else {
         secondModal.modal('show');
-    });
+    }
+});
 
-    // Optional: If you want to submit the form after confirming in the second modal
-    document.getElementById('returnedconfirmButton').addEventListener('click', function () {
-        // Submit the form
-        document.querySelector('form').submit();
-    });
+document.getElementById('returnedconfirmButton').addEventListener('click', function () {
+    document.querySelector('form').submit();
+});
 
-    // Hide the first modal when the second modal is shown
-    $('#Modal_ReturnedSecondConfirmation').on('show.bs.modal', function () {
-        firstModal.modal('hide');
-    });
+$('#Modal_ReturnedSecondConfirmation').on('show.bs.modal', function () {
+    firstModal.modal('hide');
+});
 
-    // Show the first modal when the "Cancel" button is clicked in the second modal
-    document.getElementById('cancelButton').addEventListener('click', function () {
-        // Hide the second modal and show the first modal
-        secondModal.modal('hide');
-        firstModal.modal('show');
-    });
+document.getElementById('cancelButton').addEventListener('click', function () {
+    secondModal.modal('hide');
+    firstModal.modal('show');
+});
+
 </script>
 
 <script>

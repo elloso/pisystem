@@ -89,13 +89,6 @@ class Fpdf_Model extends CI_Model
         $rsepidata = $this->db->get('tblpo_item')->result();
         return $rsepidata;
     }
-    // public function DataRSEPI_PTR() {
-    //     $this->db->select('tblpo_item.*, tblics.*, tblics_rsepi.*');
-    //     $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
-    //     $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item', 'inner');
-    //     $rsepidata = $this->db->get('tblpo_item')->result();
-    //     return $rsepidata;
-    // }
     public function DataRSEPI_PTR($po_id,$id_tblpo_item) {
         $this->db->select('tblpo_item.*, tblics.*, tblics_rsepi.*'); // Select specific columns from 'tbliar', 'tblpo', and 'tblpo_item'
         $this->db->from('tblpo_item');
@@ -110,6 +103,28 @@ class Fpdf_Model extends CI_Model
         } else {
             return null;
         }
+    }
+    public function DataRSEPIPAR_PTR($po_id,$id_tblpo_item) {
+        $this->db->select('tblpo_item.*, tblpar.*, tblics_rsepi.*'); // Select specific columns from 'tbliar', 'tblpo', and 'tblpo_item'
+        $this->db->from('tblpo_item');
+        $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id');
+        $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item');
+        $this->db->where('md5(tblpo_item.po_id)', $po_id);
+        $this->db->where('md5(tblics_rsepi.id_tblpo_item)', $id_tblpo_item);
+        $query = $this->db->get();
+    
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return null;
+        }
+    }
+    public function DataRSEPIPAR() {
+        $this->db->select('tblpo_item.*, tblpar.*, tblics_rsepi.*');
+        $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id', 'inner');
+        $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item', 'inner');
+        $rsepidata = $this->db->get('tblpo_item')->result();
+        return $rsepidata;
     }
     public function getCheckboxData($id_tblpo_item) {
         $query = $this->db->select('transfer_type')

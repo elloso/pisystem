@@ -44,6 +44,10 @@ $route['print-scform'] = 'PrintForms_Controller/SCpdf_Controller/SCform';
 $route['print-pcform'] = 'PrintForms_Controller/PCpdf_Controller/PCform';
 $route['print-rsepiform'] = 'PrintForms_Controller/RSEPIpdf_Controller/RSEPIform';
 $route['print-ptrform/(:any)/(:any)'] = 'PrintForms_Controller/PTRpdf_Controller/PTRform/$1/$2';
+$route['print-rsepiparform'] = 'PrintForms_Controller/RSEPIPARpdf_Controller/RSEPIPARform';
+$route['print-ptrparform/(:any)/(:any)'] = 'PrintForms_Controller/PTRPARpdf_Controller/PTRPARform/$1/$2';
+
+
 
 
 
@@ -64,6 +68,11 @@ $route['respi-returned'] = 'Function_Controller/updateItem_return';
 $route['respi-reissue'] = 'Function_Controller/updateItem_reissued';
 $route['respi-dispose'] = 'Function_Controller/updateItem_disposed';
 $route['respi-par'] = 'Post_Controller/viewRSEPI_PAR';
+$route['respi-returnedPAR'] = 'Function_Controller/updateItem_returnPAR';
+$route['respi-reissuePAR'] = 'Function_Controller/updateItem_reissuedPAR';
+$route['respi-disposePAR'] = 'Function_Controller/updateItem_disposedPAR';
+
+
 
 
 // account/maintenance

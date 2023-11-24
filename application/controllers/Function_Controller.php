@@ -557,7 +557,7 @@ foreach ($propertyNumbers as $propertyNumber) {
                 if ($this->db->affected_rows() > 0) {
                     $this->session->set_flashdata('success', 'Data updated successfully.');
                 } else {
-                    $this->session->set_flashdata('info', 'No changes have occurred.');
+                    $this->session->set_flashdata('info-error', 'No changes have occurred.');
                 }
                 echo '<script>window.history.back();</script>';
             } else {
@@ -670,6 +670,22 @@ foreach ($propertyNumbers as $propertyNumber) {
         redirect(base_url('respi'));
         
     }
+    public function updateItem_returnPAR()
+    {
+        $txtreturn = $this->input->post('returnedconfirmButton');
+        $txtreturnname = $this->input->post('txtReturnedName');
+        $itemId = $this->input->post('recordId'); 
+    
+        $Item_return = array(
+            'remarks' => $txtreturn,
+            'returned' => $txtreturnname
+        );
+    
+        $this->Function_Model->updateItemReturn($itemId, $Item_return);
+        $this->session->set_flashdata('returned', 'Item was already returned.');
+        redirect(base_url('respi_par'));
+        
+    }
     public function updateItem_reissued()
     {
         $txtreissued = $this->input->post('reissuedconfirmButton');
@@ -706,6 +722,42 @@ foreach ($propertyNumbers as $propertyNumber) {
         $this->session->set_flashdata('reissued', 'Item already re-issued.');
         redirect(base_url('respi'));
     }
+    public function updateItem_reissuedPAR()
+    {
+        $txtreissued = $this->input->post('reissuedconfirmButton');
+        $newname = $this->input->post('txtOfficeOfficerReissue');
+        $itemId = $this->input->post('recordIdReissue'); 
+
+        $ReissueDate = $this->input->post('txtReissueDate'); 
+        $TransferType = $this->input->post('OptionTT'); 
+        $Specify = $this->input->post('txtSpecify'); 
+        $ITRno = $this->input->post('txtITRNo');    
+        $Condition = $this->input->post('OptionCondiditon'); 
+        $Reasontransfer = $this->input->post('txtReason'); 
+        $Approved = $this->input->post('txtApproved'); 
+        $ReleasedReissue = $this->input->post('txtReleased'); 
+        $ReceivedReissue = $this->input->post('txtReceived'); 
+        
+    
+        $Item_reissued = array(
+            'remarks' => $txtreissued,
+            'reissued' => $newname,
+            'date_transfer' => $ReissueDate,
+            'transfer_type' => $TransferType,
+            'others_specifiy' => $Specify,
+            'itr_no' => $ITRno,
+            'condition_inventory' => $Condition,
+            'approved' => $Approved,
+            'released' => $ReleasedReissue,
+            'received' => $ReceivedReissue,
+            'reason_transfer' => $Reasontransfer
+            
+        );
+    
+        $this->Function_Model->updateItemReturn($itemId, $Item_reissued);
+        $this->session->set_flashdata('reissued', 'Item already re-issued.');
+        redirect(base_url('respi_par'));
+    }
     public function updateItem_disposed()
     {
         $txtdisposed = $this->input->post('txtDisposed');
@@ -721,6 +773,22 @@ foreach ($propertyNumbers as $propertyNumber) {
         $this->Function_Model->updateItemReturn($itemId, $Item_redisposed);
         $this->session->set_flashdata('dispose', 'Item already disposed.');
         redirect(base_url('respi'));
+    }
+    public function updateItem_disposedPAR()
+    {
+        $txtdisposed = $this->input->post('txtDisposed');
+        $reason = $this->input->post('txtReasonDisposal');
+        $datedisposed = $this->input->post('txtDateDisposal');
+        $itemId = $this->input->post('recordIdDisposed'); 
+    
+        $Item_redisposed = array(
+            'remarks' => $txtdisposed,
+            'disposal_reason' => $reason,
+            'date_disposed' => $datedisposed
+        );
+        $this->Function_Model->updateItemReturn($itemId, $Item_redisposed);
+        $this->session->set_flashdata('dispose', 'Item already disposed.');
+        redirect(base_url('respi_par'));
     }
     
     

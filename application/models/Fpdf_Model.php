@@ -90,7 +90,7 @@ class Fpdf_Model extends CI_Model
         return $rsepidata;
     }
     public function DataRSEPI_PTR($po_id,$id_tblpo_item) {
-        $this->db->select('tblpo_item.*, tblics.*, tblics_rsepi.*'); // Select specific columns from 'tbliar', 'tblpo', and 'tblpo_item'
+        $this->db->select('tblpo_item.*, tblics.*, tblics_rsepi.*'); 
         $this->db->from('tblpo_item');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
         $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item');
@@ -105,7 +105,7 @@ class Fpdf_Model extends CI_Model
         }
     }
     public function DataRSEPIPAR_PTR($po_id,$id_tblpo_item) {
-        $this->db->select('tblpo_item.*, tblpar.*, tblics_rsepi.*'); // Select specific columns from 'tbliar', 'tblpo', and 'tblpo_item'
+        $this->db->select('tblpo_item.*, tblpar.*, tblics_rsepi.*'); 
         $this->db->from('tblpo_item');
         $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id');
         $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item');

@@ -683,7 +683,7 @@ foreach ($propertyNumbers as $propertyNumber) {
     
         $this->Function_Model->updateItemReturn($itemId, $Item_return);
         $this->session->set_flashdata('returned', 'Item was already returned.');
-        redirect(base_url('respi_par'));
+        redirect(base_url('respi-par'));
         
     }
     public function updateItem_reissued()

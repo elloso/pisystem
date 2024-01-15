@@ -130,8 +130,8 @@ class IARfpdf_Controller extends CI_Controller
                 $xDescription = $xItemNo + $itemNoWidth;
                 $xUnit = $xDescription + $descriptionWidth;
                 $xQuantity = $xUnit + $unitWidth;
-            
-                $pdf->MultiCell($itemNoWidth, $descriptionHeight, $item->property_no,0, 'L'); 
+                
+                $pdf->MultiCell($itemNoWidth, 6, $item->property_no,0, 'L'); 
                 $pdf->SetXY($xDescription, $y + 44);
                 $pdf->MultiCell($descriptionWidth, 7,'* '. $descriptionText, 0, 'L'); 
                 $pdf->SetXY($xUnit, $y + 44);

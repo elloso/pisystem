@@ -237,22 +237,22 @@ foreach ($propertyNumbers as $propertyNumber) {
                 'acceptance_date' => $iar_acceptancedate
             );
 
-            $unitCosts = $this->Function_Model->getUnitCosts($iar_po_id); // Assuming you have a method to fetch an array of unit costs.
+            $unitCosts = $this->Function_Model->getUnitCosts($iar_po_id); 
 
-            $icsCreated = false; // Initialize a flag to track whether an ICS entry has been created.
-            $parCreated = false; // Initialize a flag to track whether a PAR entry has been created.
+            $icsCreated = false; 
+            $parCreated = false; 
 
             foreach ($unitCosts as $unitCost) {
-                if ($unitCost >= 1500 && $unitCost <= 50000) {
+                if ($unitCost <= 50000) {
                     if (!$icsCreated) {
                         $dataIARtoICS = array(
                             'ics_po_id' => $iar_po_id,
                             'ics_iar_no' => $iar_iarnumber,
+                            'ics_fund' => $iar_fundcluster,
                             'ics_supplier' => $iar_supplier
                         );
 
                         if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoICSData($dataIARtoICS)) {
-                            // Set the flag to true to indicate that an ICS entry has been created.
                             $icsCreated = true;
                         } else {
                             echo "Error Updating ICS";
@@ -263,10 +263,10 @@ foreach ($propertyNumbers as $propertyNumber) {
                         $dataIARtoPAR = array(
                             'par_po_id' => $iar_po_id,
                             'par_iarno' => $iar_iarnumber,
+                            'par_fund' => $iar_fundcluster,
                             'par_supplier' => $iar_supplier
                         );
                         if ($this->Function_Model->updateIARData($iar_po_number, $IAR_Data) && $this->Function_Model->SubmitIARtoPARData($dataIARtoPAR)) {
-                            // Set the flag to true to indicate that a PAR entry has been created.
                             $parCreated = true;
                         } else {
                             echo "Error Updating PAR";
@@ -294,7 +294,6 @@ foreach ($propertyNumbers as $propertyNumber) {
     public function updatetIcs()
     {
         $selectICSIARNo = strip_tags($this->input->post('selectICSIARNo'));
-        $txtICSFund = strip_tags($this->input->post('txtICSFund'));
         $txtICSNo = strip_tags($this->input->post('txtICSNo'));
         $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
         $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
@@ -303,7 +302,6 @@ foreach ($propertyNumbers as $propertyNumber) {
         $txtICSDate = $this->input->post('txtICSDate');
         $data = array(
             'ics_no' => $txtICSNo,
-            'ics_fund' => $txtICSFund,
             'ics_receivedby' => $txtReceivedby,
             'ics_received_date' => $txtDateRecivedBy,
             'ics_receivedfrom' => $txtReceivedfrom,
@@ -574,7 +572,6 @@ foreach ($propertyNumbers as $propertyNumber) {
 
             $par_updatenumber = $this->input->post('txtPARNo');
             $par_updatedate = $this->input->post('txtPARDate');
-            $par_updatefund = $this->input->post('txtPARFund');
             $par_updatereceivedby = $this->input->post('txtReceivedby');
             $par_updatepar_receivedby_date = $this->input->post('txtDateRecivedBy');
             $par_updatereceived_from = $this->input->post('txtReceivedfrom');
@@ -583,7 +580,6 @@ foreach ($propertyNumbers as $propertyNumber) {
             $PAR_Data = array(
                 'par_no' => $par_updatenumber,
                 'par_date' => $par_updatedate,
-                'par_fund' => $par_updatefund,
                 'par_receivedby' => $par_updatereceivedby,
                 'par_received_date' => $par_updatepar_receivedby_date,
                 'par_receivedfrom' => $par_updatereceived_from,

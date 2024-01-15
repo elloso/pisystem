@@ -53,7 +53,7 @@
             <div class="modal-body">
                 <form action="<?php echo base_url(); ?>update-ics" method="post" class="needs-validation" novalidate>
                     <div class="row">
-                        <div class="col-lg-6 col-xl-12">
+                        <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
                                 <select class="form-select" aria-label="Default select example" name="selectICSIARNo" required>
                                     <option value="" disabled selected>-- Select IAR No. --</option>
@@ -69,8 +69,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-lg-6 col-xl-6">
                             <div class="form-floating mb-2">
                                 <input type="text" id="txtICSNo" class="form-control" name="txtICSNo" required>
@@ -79,15 +77,6 @@
                                     Please enter ICS Number.
                                 </div>
                                 <div id="icsmsg"></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-6">
-                            <div class="form-floating mb-2">
-                                <input type="text" id="txtICSFund" class="form-control" name="txtICSFund" required>
-                                <label class="form-label fw-bold text-dark" for="txtICSFund">Fund:</label>
-                                <div class="invalid-feedback">
-                                    Please enter ICS fund.
-                                </div>
                             </div>
                         </div>
                     </div>

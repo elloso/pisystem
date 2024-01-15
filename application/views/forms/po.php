@@ -102,10 +102,8 @@
                                 </div>
                                 <div class="form-floating mb-2">
                                     <input type="text" id="txtTotalCost" class="form-control" name="txtTotalCost" readonly>
-                                    <label class="form-label fw-bold text-dark" for="txtTotalCost" readonly>Total Cost:</label>
-                                    <div class="invalid-feedback">
-                                        Please choose a total cost.
-                                    </div>
+                                    <label class="form-label fw-bold text-dark" for="txtTotalCost" readonly>Total Cost: <small><i>(Auto Calculate)</small></i></label>
+                                    <div class="invalid-feedback"> </div>
                                 </div>
                             </div>
                         </div>
@@ -122,16 +120,16 @@
                                             </button>
                                             <table id="table-itemno-data" class="table table-bordered table-hover">
                                                 <tr>
-                                                    <th style="width: 18%;">Stock/Property No.</th>
+                                                    <th style="width: 20%;">Stock/Property No.</th>
                                                     <th style="width: 12%;">Quantity</th>
                                                     <th style="width: 14%;">Unit</th>
-                                                    <th style="width: 25%;">Items / Description</th>
+                                                    <th style="width: 23%;">Items / Description</th>
                                                     <th style="width: 15%;">Unit Cost</th>
                                                     <th style="width: 16%;">Total Unit Cost</th>
                                                 </tr>
                                                 <tr>
                                                     <td><input required type="hidden" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>
-                                                        <input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" readonly>
+                                                        <input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" placeholder="Auto Generated"readonly>
                                                         <div class="invalid-feedback">
                                                             Stock/Property No.
                                                         </div>
@@ -294,7 +292,7 @@
         var itemdescriptionCell = newRow.insertCell(3);
         var itemunitcostCell = newRow.insertCell(4);
         var itemtotalunitcostCell = newRow.insertCell(5);
-        itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly><input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" readonly><div class="invalid-feedback">Stock/Property No.</div>';
+        itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly><input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" placeholder="Auto Generated"readonly><div class="invalid-feedback">Stock/Property No.</div>';
         itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">';
         itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">';
         itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;"></textarea> <div class="invalid-feedback">Please enter item description.</div>';

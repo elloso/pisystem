@@ -94,11 +94,11 @@
                                             <input type="text" id="txtIARNo" class="form-control" name="txtIARNo" required>
                                             <label class="form-label fw-bold text-dark" for="txtIARNo">IAR No. :</label>
                                             <!-- <div class="invalid-feedback">Please enter IAR No.</div> -->
-                                            <div id="prmsg"></div>
+                                            <small><div id="prmsg"></div></small>
                                         </div>
                                         <div class="form-floating mb-2">
                                             <input id="txtIARDate" class="form-control" name="txtIARDate" type="date" />
-                                            <label class="form-label fw-bold text-dark" for="txtIARDate">Date :</label>
+                                            <label class="form-label fw-bold text-dark" for="txtIARDate">Date : <small><i>(IAR Date)</i></small></label>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-xl-12">
@@ -115,11 +115,11 @@
                                             <input type="number" id="txtInvoice" class="form-control" name="txtInvoice" required>
                                             <label class="form-label fw-bold text-dark" for="txtInvoice">Invoice No. :</label>
                                             <!-- <div class="invalid-feedback">Please enter Invoice number.</div> -->
-                                            <div id="invoicemsg"></div>
+                                            <small><div id="invoicemsg"></div></small>
                                         </div>
                                         <div class="form-floating mb-2">
                                             <input id="txtInvoiceDate" class="form-control" name="txtInvoiceDate" type="date" />
-                                            <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date :</label>
+                                            <label class="form-label fw-bold text-dark" for="txtInvoiceDate">Date : <small><i>(Invoice Date)</i></small></label>
                                         </div>
                                     </div>
                                     <div class="col-lg-8 col-xl-12">

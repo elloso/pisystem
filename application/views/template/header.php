@@ -85,7 +85,11 @@
             <ul>
               <li><a href="<?php echo base_url('purchase'); ?>">Purchase Order</a></li>
               <li><a href="<?php echo base_url('inspection'); ?>">Inspection / Acceptance Report</a></li>
-              <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a></li>
+              <li class="dropdown-submenu"><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a>
+                <ul class="dropdown-menu">
+                    <li>Test 1</li>
+                </ul>
+              </li>
               <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment Receipt</a></li>
               <li><a href="<?php echo base_url('propertycard'); ?>">Property Card</a></li>
               <li><a href="<?php echo base_url('stockcard'); ?>">Stock Card</a></li>

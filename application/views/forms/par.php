@@ -76,7 +76,7 @@
                                 <div class="invalid-feedback">
                                     Please enter PAR Number.
                                 </div>
-                                <div id="parmsg"></div>
+                                <small><div id="parmsg"></div></small>
                             </div>
                         </div>
                     </div>

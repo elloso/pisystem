@@ -51,7 +51,7 @@
                         </div>
                         <div class="border p-2 mb-2">
                             <div class="form-floating mb-2">
-                                <input type="text" id="txtReceivedfrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom ?>" name="txtReceivedfrom" required>
+                                <input type="text" id="txtReceivedfrom" class="form-control" value="<?= $editicsdetails->ics_receivedfrom ?>" name="txtReceivedfrom">
                                 <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
                             </div>
                             <div class="form-floating mb-2">

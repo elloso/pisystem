@@ -35,9 +35,9 @@
                                 Please choose a date.
                             </div>
                             <div class="p-2 mt-2 ">
-                                <?php if (empty($add_details->ics_no) && empty($add_details->par_no)) : ?>
-                                    <button class="btn btn-primary" type="button" id="addRow">Add</button>
-                                <?php else : ?>
+                                <?php if (empty($add_details->ics_no) && empty($add_details->par_no)): ?>
+                                    <button class="btn btn-primary" type="button" id="addRow" >Add</button>
+                                <?php else: ?>
                                     <button class="btn btn-primary" type="button" id="addRow" disabled>Add</button>
                                 <?php endif; ?>
                                 <button class="btn btn-danger" type="button" id="deleteRow" disabled>Delete</button>
@@ -100,7 +100,7 @@
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $poitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]">
                                                     <input required type="hidden" value="<?php echo $itemNoCounter; ?>" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
-                                                    <input required type="text" value="<?php echo $poitem->property_no ?>" class=" form-control" id="txtStockProperty" name="txtStockProperty[]" placeholder="Auto Generated" readonly>
+                                                    <input required type="text" value="<?php echo $poitem->property_no ?>" class=" form-control" id="txtStockProperty" name="txtStockProperty[]" readonly>
                                                     <div class="invalid-feedback">
                                                         Please enter Item No.
                                                     </div>
@@ -138,11 +138,11 @@
                                                     $editButtonOnclick = 'data-bs-toggle="modal" data-bs-target="#editRow" onclick="displayEditModal(\'' . $poitem->id . '\', \'' . $poitem->quantity . '\', \'' . $poitem->unit . '\', \'' . $poitem->item_description . '\', \'' . $poitem->unit_cost . '\', \'' . $poitem->property_no . '\', ' . $poitem->total_unit_cost . ')"';
                                                     ?>
 
-                                                    <?php if (empty($poitem->ics_no) && empty($poitem->par_no)) : ?>
+                                                    <?php if (empty($poitem->ics_no) && empty($poitem->par_no)): ?>
                                                         <a href="#" class="<?php echo $editButtonClass; ?>" <?php echo $editButtonOnclick; ?> title="edit item details">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>
-                                                    <?php else : ?>
+                                                    <?php else: ?>
                                                         <a href="#" class="p-1 text-danger" title="edit not allowed" style="cursor: not-allowed; color: red;" onclick="return false;">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>
@@ -263,7 +263,7 @@
             var itemunitcostCell = newRow.insertCell(4);
             var itemtotalunitcostCell = newRow.insertCell(5);
 
-            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input  type="text" value="" class=" form-control" id="UtxtStockProperty"name="UtxtStockProperty[]" placeholder="Auto Generated" readonly>';
+            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input  type="text" value="" class=" form-control" id="UtxtStockProperty" name="UtxtStockProperty[]" readonly>';
             itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';

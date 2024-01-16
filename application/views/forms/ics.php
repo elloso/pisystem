@@ -76,7 +76,7 @@
                                 <div class="invalid-feedback">
                                     Please enter ICS Number.
                                 </div>
-                                <div id="icsmsg"></div>
+                                <small><div id="icsmsg"></div></small>
                             </div>
                         </div>
                     </div>
@@ -166,10 +166,10 @@
                     },
                     success: function(data) {
                         if (data.exists) {
-                            $("#icsmsg").css("color", "red").text("ICS Number already exists");
+                            $("#icsmsg").css("color", "red").text("ICS Number already exists.");
                             $("#proceedButton").css("pointer-events", "none");
                         } else {
-                            $("#icsmsg").css("color", "green").text("ICS Number available!");
+                            $("#icsmsg").css("color", "green").text("ICS Number available.");
                             $("#proceedButton").css("pointer-events", "auto");
                         }
                     },

@@ -67,7 +67,7 @@
                                     <div class="invalid-feedback">
                                         Please choose a P.O. number.
                                     </div>
-                                    <div id="msg"></div>
+                                    <small><div id="msg"></div></small>
                                 </div>
                                 <div class="form-floating mb-2">
                                     <input id="txtDate" class="form-control" name="txtDate" type="date" required>
@@ -91,7 +91,7 @@
                                     <div class="invalid-feedback">
                                         Please choose a purchase request number.
                                     </div>
-                                    <div id="prmsg"></div>
+                                    <small><div id="prmsg"></div></small>
                                 </div>
                                 <div class="form-floating mb-2">
                                     <input type="number" id="txtPGEFNumber" class="form-control" name="txtPGEFNumber">
@@ -214,10 +214,10 @@
                     },
                     success: function(data) {
                         if (data.exists) {
-                            $("#prmsg").css("color", "red").text("This Purchase Request Number already exists");
+                            $("#prmsg").css("color", "red").text("This Purchase Request Number already exists.");
                             $("#proceedButton").css("pointer-events", "none");
                         } else {
-                            $("#prmsg").css("color", "green").text("Purchase Request Number available!");
+                            $("#prmsg").css("color", "green").text("Purchase Request Number available.");
                             $("#proceedButton").css("pointer-events", "auto");
                         }
                     },
@@ -245,10 +245,10 @@
                     },
                     success: function(data) {
                         if (data.exists) {
-                            $("#msg").css("color", "red").text("This P.O. Number already exists");
+                            $("#msg").css("color", "red").text("This P.O. Number already exists.");
                             $("#proceedButton").css("pointer-events", "none");
                         } else {
-                            $("#msg").css("color", "green").text("P.O. Number available!");
+                            $("#msg").css("color", "green").text("P.O. Number available.");
                             $("#proceedButton").css("pointer-events", "auto");
                         }
                     },

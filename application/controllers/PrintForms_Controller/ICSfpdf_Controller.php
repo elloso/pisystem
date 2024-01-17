@@ -10,113 +10,87 @@ class ICSfpdf_Controller extends CI_Controller
         $po_items = $this->Fpdf_Model->ics_item($icsForm);
         $pdf->AddPage();
         $pdf->SetFont('times', 'B', 14);
-        $pdf->Cell(0, 10, 'INVENTORY CUSTODIAN SLIP', 0, 1, 'C');
-        $pdf->Ln(7);
-        $pdf->SetFont('times', '', 12);
-        $pdf->Cell(25, 6, 'Entity Name:', '', 0, 'L');
-        $pdf->SetFont('times', '', 12);
-        $pdf->Cell(66, 6, 'Southern Luzon State University', 'B', 0, 'L');
-        $pdf->Ln(7);
-        $pdf->Cell(25, 6, 'Fund Cluster:', '', 0, 'L');
-        $pdf->SetFont('times', '', 12);
-        $pdf->Cell(66, 6, $ics_form->ics_fund, 'B', 0, 'L');
-        $pdf->Cell(35);
-        $pdf->Cell(16, 6, 'ICS No:', '', 0, 'L');
-        $pdf->SetFont('times', '', 12);
-        $pdf->Cell(46, 6, $ics_form->ics_no, 'B', 0, 'L');
-        $pdf->SetLineWidth(0.4);
-        $pdf->Rect(10, 53, 190, 220);
-        $pdf->Line(10, 230, 200, 230);
-        $middleX = $pdf->GetPageWidth() / 2;
-        $pdf->Line($middleX, 230, $middleX, 273);
-        $pdf->Line(30, 53, 30, 230);
-        $pdf->Line(40, 53, 40, 230);
-        $pdf->Line(60, 58, 60, 230);
-        $pdf->Line(82, 53, 82, 230);
-        $pdf->Line(150, 53, 150, 230);
-        $pdf->Line(171, 53, 171, 230);
-        $pdf->Ln(9);
+        $pdf->Cell(0, 10, '', 0, 1, 'C');
+        $pdf->Cell(0, 6, 'INVENTORY CUSTODIAN SLIP', 0, 1, 'C');
+        $pdf->Cell(0, 10, '', 0, 1, 'C');
+
+        $x = $pdf->GetX();
+        $y = $pdf->GetY(); 
+        $contentWidth = 190;
+        $contentHeight = 220;
+        $pdf->Rect($x, $y, $contentWidth, $contentHeight);
+
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(20, 14, 'Quantity', 'RB', 0, 'C');
-        $pdf->Cell(10, 14, 'Unit', 'RB', 0, 'C',);
-        $pdf->Cell(42, 5, 'Amount', 'RB', 1, 'C');
-        $pdf->Cell(30);
-        $pdf->Cell(20, 9, 'Unit Cost', 'RB', 0, 'C',);
-        $pdf->Cell(22, 9, 'Total Cost', 'RB', 0, 'C',);
-        $pdf->SetY(53);
-        $pdf->SetX(82);
-        $pdf->Cell(68, 14, 'Description', 'RB', 0, 'C');
-        $pdf->MultiCell(21, 7, 'Inventory Item No.', 'RB', 'C');
-        $pdf->SetY(53);
-        $pdf->SetX(170);
-        $pdf->MultiCell(30, 7, 'Estimated Useful Life', 'RB', 'C');
-        $pdf->SetY(230);
-        $pdf->SetFont('times', '', 10);
-        $pdf->SetLineWidth(0.3);
-        $pdf->Cell(20, 9, 'Received from:', 0, 0, 'L');
-        $pdf->SetY(239);
-        $pdf->SetX(20);
-        $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(75, 6, $ics_form->ics_receivedfrom, 'B', 0, 'C');
-        $pdf->SetY(242);
-        $pdf->SetX(30);
-        $pdf->SetFont('times', '', 10);
-        $pdf->Cell(20, 11, 'Signature Over Printed Name', 0, 0, 'L');
-        $pdf->SetY(252);
-        $pdf->Line(20, 255, 95, 255);
-        $pdf->SetX(40);
-        $pdf->Cell(20, 11, 'Position/Office', 0, 0, 'L');
-        $pdf->SetY(262);
-        $pdf->Line(20, 265, 95, 265);
-        $pdf->SetX(45);
-        $pdf->Cell(20, 11, 'Date', 0, 0, 'L');
-        $pdf->SetY(230);
-        $pdf->SetX(105);
-        $pdf->SetFont('times', '', 10);
-        $pdf->SetLineWidth(0.3);
-        $pdf->Cell(20, 9, 'Received by:', 0, 0, 'L');
-        $pdf->SetY(239);
-        $pdf->SetX(115);
-        $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(73, 6, $ics_form->ics_receivedby, 'B', 0, 'C');
-        $pdf->SetFont('times', '', 10);
-        $pdf->SetY(242);
-        $pdf->SetX(127);
-        $pdf->Cell(20, 11, 'Signature Over Printed Name', 0, 0, 'L');
-        $pdf->SetY(252);
-        $pdf->Line(115, 255, 188, 255);
-        $pdf->SetX(137);
-        $pdf->Cell(20, 11, 'Position/Office', 0, 0, 'L');
-        $pdf->SetY(262);
-        $pdf->Line(115, 265, 188, 265);
-        $pdf->SetX(145);
-        $pdf->Cell(20, 11, 'Date', 0, 0, 'L');
-        $x = 1;
-        $y = 67;
-        $pdf->SetFont('times', '', 9);
-        foreach ($po_items as $item) {
-            $pdf->SetXY($x, $y);
-            $descriptionWidth = 65;
-            $descriptionText = $item->item_description;
-            $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
-            $descriptionHeight = 7 * $descriptionLines;
-            $pdf->Cell(35, 5, $item->quantity, 0, 0, 'C');
-            $pdf->SetX(31);
-            $pdf->Cell(0, 5, $item->unit, 0, 0);
-            $pdf->SetX(40);
-            $pdf->Cell(0, 5, $item->unit_cost, 0, 0);
-            $pdf->SetX(60);
-            $pdf->Cell(0, 5, $item->total_unit_cost, 0, 0);
-            $pdf->SetXY(82, $y);
-            $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
-            $pdf->SetXY(150, $y);
-            $pdf->SetFont('times', '', 8);
-            $pdf->MultiCell(20, 5, $item->property_no, 0, 'L');
-            $pdf->SetFont('times', '', 9);
-            $pdf->SetXY(173, $y);
-            $pdf->Cell(0, 5, $item->useful_life, 0, 0);
-            $y += max(8, $descriptionHeight);
-        }
+        $pdf->Cell(30, 10, 'Supplier :', 'BR', 0, 'L');
+        $pdf->Cell(100, 10, $ics_form->supplier, 'BR', 0, 'L');
+        $pdf->Cell(30, 10, 'ICS No. :', 'BR', 0, 'C');
+        $pdf->Cell(30, 10, $ics_form->ics_no, 'B', 1, 'C');
+
+        $pdf->Cell(30, 10, 'Fund Cluster :', 'BR', 0, 'L');
+        $pdf->Cell(100, 10, $ics_form->ics_fund, 'BR', 0, 'L');
+        $pdf->Cell(30, 10, 'IAR No. :', 'BR', 0, 'C');
+        $pdf->Cell(30, 10, $ics_form->ics_iar_no, 'B', 1, 'C');
+
+        $pdf->Cell(30, 10, '', 'BR', 0, 'L');
+        $pdf->Cell(100, 10, '', 'BR', 0, 'L');
+        $pdf->Cell(30, 10, 'PO No. :', 'BR', 0, 'C');
+        $pdf->Cell(30, 10, $ics_form->po_number, 'B', 1, 'C');
+
+        $pdf->Cell(15, 10, 'Qty', 'BR', 0, 'C');    
+        $pdf->Cell(15, 10, 'Unit', 'BR', 0, 'C');   
+        $pdf->Cell(65, 10, 'Description', 'BR', 0, 'C');  
+
+        $pdf->Cell(35, 5, 'Amount', 'BR', 0, 'C'); 
+        $pdf->SetXY($x + 95 , $y + 35); 
+        $pdf->Cell(17, 5, 'Unit', 'BR', 0, 'C'); 
+        $pdf->SetXY($x + 112 , $y + 35);
+        $pdf->Cell(18, 5, 'Price', 'BR', 0, 'C'); 
+        $pdf->SetXY($x + 130 , $y + 30);
+        $pdf->Multicell(30, 5, 'Inventory Item No.', 'BR',  'C');
+        $pdf->SetXY($x + 160 , $y + 30);
+        $pdf->Multicell(30, 5, 'Estimated Useful Life', 'BR',  'C');
+
+        $pdf->SetXY($x, $y + 170); 
+        $pdf->Cell(95, 10, '', 'T', 0, 'L');
+        $pdf->Cell(95, 10, '', 'T', 0, 'L');
+
+        $pdf->SetXY($x, $y + 170); 
+        $pdf->Cell(30, 7, 'Received from :', '', 0, 'L');
+        $pdf->Cell(55, 7, '', 'B', 0, 'C');
+        $pdf->Cell(10, 7, '', '', 0, 'L');
+
+        $pdf->Cell(30, 7, 'Received by :', '', 0, 'L');
+        $pdf->Cell(55, 7, '', 'B', 0, 'C');
+        $pdf->Cell(10, 7, '', '', 0, 'L');
+
+        $pdf->SetXY($x + 22, $y + 182); 
+        $pdf->Cell(60, 5, '', 'B',0, 'C');
+        $pdf->SetXY($x + 22, $y + 188); 
+        $pdf->Cell(60, 5, 'Supply and/or Property Custodian', '',0, 'C');
+        $pdf->SetXY($x + 22, $y + 193); 
+        $pdf->Cell(60, 5, 'HEAD,  Supply and Property  Custodian ', '',0, 'C');
+        $pdf->SetXY($x + 22, $y + 198); 
+        $pdf->Cell(60, 5, 'Position/Office', '',0, 'C');
+        $pdf->SetXY($x + 32, $y + 202); 
+        $pdf->Cell(40, 5, '', 'B',0, 'C');
+        $pdf->SetXY($x + 22, $y + 207); 
+        $pdf->Cell(60, 5, 'Date', '',0, 'C');
+
+        $pdf->SetXY($x + 120, $y + 182); 
+        $pdf->Cell(60, 5, '', 'B',0, 'C');
+        $pdf->SetXY($x + 120, $y + 188); 
+        $pdf->Cell(60, 5, 'Signature Over Printed Name of End-User', '',0, 'C');
+        $pdf->SetXY($x + 120, $y + 193); 
+        $pdf->Cell(60, 5, 'Budget  officeer', '',0, 'C');
+        $pdf->SetXY($x + 120, $y + 198); 
+        $pdf->Cell(60, 5, 'Position/Office', '',0, 'C');
+        $pdf->SetXY($x + 130, $y + 202); 
+        $pdf->Cell(40, 5, '', 'B',0, 'C');
+        $pdf->SetXY($x + 120, $y + 207); 
+        $pdf->Cell(60, 5, 'Date', '',0, 'C');
+       
+
+
         $pdf->Output();
     }
 }
@@ -124,14 +98,20 @@ class PDF extends FPDF
 {
     function Header()
     {
+        $imagePath = 'assets/img/slsu/slsu_logo.png'; 
+        $this->Image($imagePath, $this->GetX() + 4, $this->GetY(), 25);
         $this->SetFont('times', 'I', 12);
         $this->Cell(0, 10, 'Appendix 59', 0, 1, 'R');
+        $this->SetFont('times', 'B', 12);
+        $this->Cell(0, 6, 'Republic of the Philippines', 0, 1, 'C');
+        $this->Cell(0, 6, 'SOUTHERN  LUZON STATE  UNIVERSITY', 0, 1, 'C');
+        $this->Cell(0, 6, 'Lucban, Quezon', 0, 1, 'C');
     }
     function Footer()
     {
         $this->SetY(-15);
         $this->SetFont('Arial', '', 8);
         $this->SetTextColor(0, 0, 0);
-        $this->Cell(0, 10, '149', 0, 0, 'C');
+        $this->Cell(0, 10, 'AFA-SAP-1.01F2 Inventory Custodian Slip', 0, 0, 'L');
     }
 }

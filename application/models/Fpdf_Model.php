@@ -39,14 +39,20 @@ class Fpdf_Model extends CI_Model
   
     public function ics_form($icsForm)
     {
-        $this->db->where('md5(ics_po_id)', $icsForm);
-        $query = $this->db->get('tblics');
+        $this->db->select('*');
+        $this->db->from('tblics');
+        $this->db->join('tblpo', 'tblics.ics_po_id = tblpo.po_id', 'inner');
+        $this->db->where('md5(tblics.ics_po_id)', $icsForm);
+    
+        $query = $this->db->get();
+    
         if ($query->num_rows() > 0) {
             return $query->row();
         } else {
             return false;
         }
     }
+    
     public function ics_item($ics_item)
     {
         $this->db->where('md5(po_id)', $ics_item);

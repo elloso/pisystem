@@ -112,7 +112,6 @@ class IARfpdf_Controller extends CI_Controller
             $pdf->SetXY($x + 110, $y + 205   ); 
             $pdf->Cell(60, 7, $iar_data->acceptance_custodian, 'B', 0, 'C');
 
-        
             $pdf->SetFont('times', '', 9);
             foreach ($iar_data_array as $item) {
                 $pdf->SetXY($x, $y + 44);

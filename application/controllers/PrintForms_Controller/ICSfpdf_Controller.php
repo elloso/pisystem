@@ -20,20 +20,29 @@ class ICSfpdf_Controller extends CI_Controller
         $contentHeight = 220;
         $pdf->Rect($x, $y, $contentWidth, $contentHeight);
 
-        $pdf->SetFont('times', 'B', 10);
+        $pdf->SetFont('times', '', 10);
         $pdf->Cell(30, 10, 'Supplier :', 'BR', 0, 'L');
+        $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(100, 10, $ics_form->supplier, 'BR', 0, 'L');
+        $pdf->SetFont('times', '', 10);
         $pdf->Cell(30, 10, 'ICS No. :', 'BR', 0, 'C');
+        $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(30, 10, $ics_form->ics_no, 'B', 1, 'C');
 
+        $pdf->SetFont('times', '', 10);
         $pdf->Cell(30, 10, 'Fund Cluster :', 'BR', 0, 'L');
+        $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(100, 10, $ics_form->ics_fund, 'BR', 0, 'L');
+        $pdf->SetFont('times', '', 10);
         $pdf->Cell(30, 10, 'IAR No. :', 'BR', 0, 'C');
+        $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(30, 10, $ics_form->ics_iar_no, 'B', 1, 'C');
 
         $pdf->Cell(30, 10, '', 'BR', 0, 'L');
         $pdf->Cell(100, 10, '', 'BR', 0, 'L');
+        $pdf->SetFont('times', '', 10);
         $pdf->Cell(30, 10, 'PO No. :', 'BR', 0, 'C');
+        $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(30, 10, $ics_form->po_number, 'B', 1, 'C');
 
         $pdf->Cell(15, 10, 'Qty', 'BR', 0, 'C');    
@@ -54,41 +63,131 @@ class ICSfpdf_Controller extends CI_Controller
         $pdf->Cell(95, 10, '', 'T', 0, 'L');
         $pdf->Cell(95, 10, '', 'T', 0, 'L');
 
+        $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x, $y + 170); 
         $pdf->Cell(30, 7, 'Received from :', '', 0, 'L');
-        $pdf->Cell(55, 7, '', 'B', 0, 'C');
+        $pdf->Cell(55, 7, '', '', 0, 'C');
         $pdf->Cell(10, 7, '', '', 0, 'L');
 
         $pdf->Cell(30, 7, 'Received by :', '', 0, 'L');
-        $pdf->Cell(55, 7, '', 'B', 0, 'C');
+        $pdf->Cell(55, 7, '', '', 0, 'C');
         $pdf->Cell(10, 7, '', '', 0, 'L');
 
         $pdf->SetXY($x + 22, $y + 182); 
-        $pdf->Cell(60, 5, '', 'B',0, 'C');
+        $pdf->SetFont('times', 'B', 10);
+        $pdf->Cell(60, 5, $ics_form->ics_receivedfrom, 'B',0, 'C');
+        $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 22, $y + 188); 
         $pdf->Cell(60, 5, 'Supply and/or Property Custodian', '',0, 'C');
+        $pdf->SetFont('times', 'I', 10);
         $pdf->SetXY($x + 22, $y + 193); 
         $pdf->Cell(60, 5, 'HEAD,  Supply and Property  Custodian ', '',0, 'C');
+        $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 22, $y + 198); 
         $pdf->Cell(60, 5, 'Position/Office', '',0, 'C');
         $pdf->SetXY($x + 32, $y + 202); 
-        $pdf->Cell(40, 5, '', 'B',0, 'C');
+        $pdf->Cell(40, 5, $ics_form->ics_receivedfrom_date, 'B',0, 'C');
         $pdf->SetXY($x + 22, $y + 207); 
         $pdf->Cell(60, 5, 'Date', '',0, 'C');
 
         $pdf->SetXY($x + 120, $y + 182); 
-        $pdf->Cell(60, 5, '', 'B',0, 'C');
+        $pdf->SetFont('times', 'B', 10);
+        $pdf->Cell(60, 5,  $ics_form->ics_receivedby, 'B',0, 'C');
+        $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 120, $y + 188); 
         $pdf->Cell(60, 5, 'Signature Over Printed Name of End-User', '',0, 'C');
         $pdf->SetXY($x + 120, $y + 193); 
-        $pdf->Cell(60, 5, 'Budget  officeer', '',0, 'C');
+        $pdf->SetFont('times', 'I', 10);
+        $pdf->Cell(60, 5, 'Budget  officer', '',0, 'C');
+        $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 120, $y + 198); 
         $pdf->Cell(60, 5, 'Position/Office', '',0, 'C');
         $pdf->SetXY($x + 130, $y + 202); 
-        $pdf->Cell(40, 5, '', 'B',0, 'C');
+        $pdf->Cell(40, 5, $ics_form->ics_received_date, 'B',0, 'C');
         $pdf->SetXY($x + 120, $y + 207); 
         $pdf->Cell(60, 5, 'Date', '',0, 'C');
-       
+
+        $pdf->SetFont('times', '', 10);
+        $pdf->SetXY($x + 95 , $y + 165); 
+        $pdf->Cell(17, 5, 'Total', 'T', 0, 'C');
+        $pdf->SetXY($x + 112 , $y + 165);
+        $pdf->Cell(18, 5, $ics_form->total_cost, 'T', 0, 'C');  
+
+        // foreach ($po_items as $item) {
+        //     $pdf->SetXY($x, $y);
+        //     $descriptionWidth = 65;
+        //     $descriptionText = $item->item_description;
+        //     $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
+        //     $descriptionHeight = 7 * $descriptionLines;
+
+        //     $pdf->SetX(9);
+        //     $pdf->Cell(19, 90, $item->quantity, 0, 0, 'C');
+
+        //     $pdf->SetX(23);
+        //     $pdf->Cell(19, 90, $item->unit, 0, 0, 'C');
+
+        //     $pdf->SetX(103);
+        //     $pdf->Cell(19, 90, $item->unit_cost, 0, 0, 'C');
+
+        //     $pdf->SetX(121);
+        //     $pdf->Cell(19, 90, $item->total_unit_cost, 0, 0, 'C');
+
+        //     $pdf->SetX(149);
+        //     $pdf->MultiCell(27, 20, $item->property_no, 0, 'C');
+
+        //     $pdf->SetX(176);
+        //     $pdf->Cell(19, 90, $item->useful_life, 0, 0, 'C');
+
+        //     $pdf->SetXY(40, $y + 40);
+        //     $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
+
+        //     $y += max(8, $descriptionHeight);
+        // }
+
+        foreach ($po_items as $item) {
+            $pdf->SetXY($x, $y);
+        
+            $descriptionWidth = 65;
+            $descriptionText = '* ' . $item->item_description;
+            $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
+            $descriptionHeight = 7 * $descriptionLines;
+        
+            $propertyNoWidth = 30 * ($descriptionWidth / 80); 
+            $pdf->SetFont('times', '', 10);
+            $pdf->SetXY(5, $y + 40); 
+            $pdf->MultiCell($propertyNoWidth, 6, $item->quantity, 0, 'C');
+
+            $pdf->SetXY(20, $y + 40); 
+            $pdf->MultiCell($propertyNoWidth, 6, $item->unit, 0, 'C');
+
+            $pdf->SetXY(101, $y + 40); 
+            $pdf->MultiCell($propertyNoWidth, 6, $item->unit_cost, 0, 'C');
+
+            $pdf->SetXY(119, $y + 40); 
+            $pdf->MultiCell($propertyNoWidth, 6, $item->total_unit_cost, 0, 'C');
+        
+            $pdf->SetXY(143, $y + 40); 
+            $pdf->MultiCell($propertyNoWidth, 6, $item->property_no, 0, 'C');
+
+            $pdf->SetXY(174, $y + 40); 
+            $pdf->MultiCell($propertyNoWidth, 6, $item->useful_life, 0, 'C');
+        
+            $pdf->SetXY(40, $y + 40);
+            $pdf->MultiCell($descriptionWidth, 6, $descriptionText, 0, 'L');
+        
+            $y += max(8, $descriptionHeight);
+        }
+        
+
+        //Line
+        $pdf->Line(25, 104, 25, 234);
+        $pdf->Line(40, 104, 40, 234);
+        $pdf->Line(105, 104, 105, 284);
+        $pdf->Line(122, 104, 122, 234);
+        $pdf->Line(140, 104, 140, 234);
+        $pdf->Line(170, 104, 170, 234);
+
+    
 
 
         $pdf->Output();

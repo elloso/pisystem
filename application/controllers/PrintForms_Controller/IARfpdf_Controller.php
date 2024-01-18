@@ -169,7 +169,6 @@ class IARfpdf_Controller extends CI_Controller
             $pdf->Line(63, 119, 63, 219);
             $pdf->Line(145, 119, 145, 219);
             $pdf->Line(166, 119, 166, 219);
-
             $pdf->Line(105, 228, 105, 284);
 
             $pdf->Output(); 

@@ -66,16 +66,23 @@ class Fpdf_Model extends CI_Model
             return [];
         }
     }
+   
     public function par_form($parForm)
     {
+        $this->db->select('*');
+        $this->db->from('tblpar');
+        $this->db->join('tblpo', 'tblpar.par_po_id = tblpo.po_id', 'inner');
         $this->db->where('md5(par_po_id)', $parForm);
-        $query = $this->db->get('tblpar');
+    
+        $query = $this->db->get();
+    
         if ($query->num_rows() > 0) {
             return $query->row();
         } else {
             return false;
         }
     }
+    
     public function par_item($par_item)
     {
         $this->db->where('md5(po_id)', $par_item);

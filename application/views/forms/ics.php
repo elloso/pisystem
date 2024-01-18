@@ -81,6 +81,24 @@
                         </div>
                     </div>
                     <div class="row">
+                    <div class="col-lg-4 col-xl-6">
+                            <div class="border p-2 mb-2">
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom">
+                                    <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
+                                    <div class="invalid-feedback">
+                                        Please choose received from.
+                                    </div>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input id="txtDateInspectedFrom" class="form-control" name="txtDateInspectedFrom" type="date">
+                                    <label class="form-label fw-bold text-dark" for="txtDateInspectedFrom">Date:</label>
+                                    <div class="invalid-feedback">
+                                        Please choose date.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
@@ -99,24 +117,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-xl-6">
-                            <div class="border p-2 mb-2">
-                                <div class="form-floating mb-2">
-                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom">
-                                    <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
-                                    <div class="invalid-feedback">
-                                        Please choose received from.
-                                    </div>
-                                </div>
-                                <div class="form-floating mb-2">
-                                    <input id="txtDateInspectedFrom" class="form-control" name="txtDateInspectedFrom" type="date">
-                                    <label class="form-label fw-bold text-dark" for="txtDateInspectedFrom">Date:</label>
-                                    <div class="invalid-feedback">
-                                        Please choose date.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
             </div> <!-- End Modal body -->
             <div class="modal-footer">

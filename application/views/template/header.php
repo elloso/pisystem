@@ -81,29 +81,36 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="<?php echo base_url('dashboard'); ?>">Home</a></li>
-          <li class="dropdown"><a href="#"><span>Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li class="dropdown"><a href="#"><span>PO & IAR</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url('purchase'); ?>">Purchase Order</a></li>
               <li><a href="<?php echo base_url('inspection'); ?>">Inspection / Acceptance Report</a></li>
-              <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a></li>
-              <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment Receipt</a></li>
-              <li><a href="<?php echo base_url('propertycard'); ?>">Property Card</a></li>
+             
+             
+              <!-- <li><a href="<?php echo base_url('propertycard'); ?>">Property Card</a></li>
               <li><a href="<?php echo base_url('stockcard'); ?>">Stock Card</a></li>
               <li><a href="<?php echo base_url('suppliesledger'); ?>">Supplies Ledger Card</a></li>
-              <li><a href="<?php echo base_url('countinventories'); ?>">Report on the physical count of Inventories</a></li>
+              <li><a href="<?php echo base_url('countinventories'); ?>">Report on the physical count of Inventories</a></li> -->
             </ul>
           </li>
+          <li class="dropdown"><a href="#"><span>ICS</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a></li>
+              <li><a href="<?php echo base_url('propertycard'); ?>">Semi-Expendable Property Card</a></li>
+              <li><a href="#">RPCSEP</a></li>
+            </ul>
+          </li> 
+          <li class="dropdown"><a href="#"><span>PAR</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+             <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment Receipt</a></li>
+             <li><a href="#">PPE Property Card</a></li>
+             <li><a href="#">RPCPPE</a></li>
+            </ul>
+          </li> 
           <li class="dropdown"><a href="#"><span>Summary Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url('respi'); ?>">Registry SPI (ICS)</a></li>
               <li><a href="<?php echo base_url('respi-par'); ?>">Registry SPI (PAR)</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a href="#"><span>RPCPPE</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">Report 1</a></li>
-              <li><a href="#">Report 2</a></li>
-              <li><a href="#">Report 3</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="#"><span>Settings</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>

@@ -59,19 +59,6 @@ class PARfpdf_Controller extends CI_Controller
         $pdf->SetXY($x + 173, $y + 24); 
         $pdf->Multicell(17, 8, 'Amount', 'B', 'C');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         $pdf->SetXY($x, $y + 170); 
         $pdf->Cell(95, 10, '', 'T', 0, 'L');
         $pdf->Cell(95, 10, '', 'T', 0, 'L');
@@ -91,15 +78,15 @@ class PARfpdf_Controller extends CI_Controller
         $pdf->Cell(60, 5, $par_form->par_receivedby, 'B',0, 'C');
         $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 22, $y + 188); 
-        $pdf->Cell(60, 5, 'Supply and/or Property Custodian', '',0, 'C');
+        $pdf->Cell(60, 5, 'Signature Over Printed Name of End-User', '',0, 'C');
         $pdf->SetFont('times', 'I', 10);
         $pdf->SetXY($x + 22, $y + 193); 
-        $pdf->Cell(60, 5, '', '',0, 'C');
+        $pdf->Cell(60, 5, $par_form->par_position, '',0, 'C');
         $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 22, $y + 198); 
         $pdf->Cell(60, 5, 'Position/Office', '',0, 'C');
         $pdf->SetXY($x + 32, $y + 202); 
-        $pdf->Cell(40, 5, '', 'B',0, 'C');
+        $pdf->Cell(40, 5, $par_form->par_received_date, 'B',0, 'C');
         $pdf->SetXY($x + 22, $y + 207); 
         $pdf->Cell(60, 5, 'Date', '',0, 'C');
 
@@ -108,7 +95,7 @@ class PARfpdf_Controller extends CI_Controller
         $pdf->Cell(60, 5,  $par_form->par_receivedfrom, 'B',0, 'C');
         $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 120, $y + 188); 
-        $pdf->Cell(60, 5, 'Signature Over Printed Name of End-User', '',0, 'C');
+        $pdf->Cell(60, 5, 'Supply and/or Property Custodian', '',0, 'C');
         $pdf->SetXY($x + 120, $y + 193); 
         $pdf->SetFont('times', 'I', 10);
         $pdf->Cell(60, 5, 'Head, Supply and Property', '',0, 'C');
@@ -116,17 +103,68 @@ class PARfpdf_Controller extends CI_Controller
         $pdf->SetXY($x + 120, $y + 198); 
         $pdf->Cell(60, 5, 'Position/Office', '',0, 'C');
         $pdf->SetXY($x + 130, $y + 202); 
-        $pdf->Cell(40, 5, '', 'B',0, 'C');
+        $pdf->Cell(40, 5, $par_form->par_receivedfrom_date, 'B',0, 'C');
         $pdf->SetXY($x + 120, $y + 207); 
         $pdf->Cell(60, 5, 'Date', '',0, 'C');
+
+        $pdf->SetXY($x + 110, $y + 165); 
+        $pdf->SetFont('times', 'B', 10);
+        $pdf->Cell(45, 5, 'Total Amount', 'TR',0, 'C');
+
+        $pdf->SetXY($x + 155, $y + 165); 
+        $pdf->SetFont('times', '', 10);
+        $formattedtotal_cost = number_format($par_form->total_cost, 2);
+        $pdf->Cell(35, 5, $formattedtotal_cost, 'T',0, 'C');
+
+        foreach ($po_items as $item) {
+            $pdf->SetXY($x, $y);
+            $descriptionWidth = 65;
+            $descriptionText = $item->item_description;
+            $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
+            $descriptionHeight = 7 * $descriptionLines;
+
+            $UnitCost = number_format($item->unit_cost, 2);
+            $TotalUnitCost = number_format($item->total_unit_cost, 2);
+            
+            $pdf->SetX(16);
+            $pdf->Cell(35, 70, $item->quantity, 0, 0, 'L');
+            $pdf->SetX(29);
+            $pdf->Cell(35, 70, $item->unit, 0, 0, 'L');
+            
+
+            $pdf->SetXY(120,$y + 32);
+            $pdf->MultiCell(25, 6, $item->property_no, 0, 'L');
+            $pdf->SetXY(142,$y + 32);
+            $pdf->MultiCell(25, 6, $item->date_acquired, 0, 'C');
+            $pdf->SetXY(161,$y + 32);
+            $pdf->MultiCell(25, 6, $UnitCost, 0, 'C');
+            $pdf->SetXY(179,$y + 32);
+            $pdf->MultiCell(25, 6, $TotalUnitCost, 0, 'C');
+            $pdf->SetXY(41,$y + 32);
+            $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
+           
+           
+            // $pdf->SetX(37);
+            // $pdf->Cell(0, $descriptionHeight, $item->unit, 0, 0);
+            // $pdf->SetX(52);
+            // $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
+            // $pdf->SetXY(120,$y);
+            // $pdf->MultiCell($descriptionWidth, 6, $item->property_no, 0, 'L');
+            // $pdf->SetXY(150,$y);
+            // $pdf->MultiCell($descriptionWidth, 6, $item->date_acquired, 0, 'L');
+            // $pdf->SetXY(176, $y);
+            // $cellWidth = 40;
+            // $pdf->Cell($cellWidth, $descriptionHeight, $totalUnitCost, 0, 0);
+            $y += max(8, $descriptionHeight);
+        }
 
         //Line
         $pdf->Line(25, 96, 25, 234);
         $pdf->Line(40, 96, 40, 234);
         $pdf->Line(120, 96, 120, 234);
-        $pdf->Line(145, 96, 145, 234);
-        $pdf->Line(165, 96, 165, 234);
-        $pdf->Line(183, 96, 183, 234);
+        $pdf->Line(145, 96, 145, 229);
+        $pdf->Line(165, 96, 165, 229);
+        $pdf->Line(183, 96, 183, 229);
        
 
         $pdf->Output();

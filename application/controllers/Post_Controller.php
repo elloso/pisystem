@@ -100,7 +100,7 @@ class Post_Controller extends CI_Controller
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
             $this->load->view('template/header', $data);
-            $this->load->view('forms/pc');
+            $this->load->view('forms/sepc');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));

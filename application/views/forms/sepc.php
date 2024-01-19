@@ -1,7 +1,7 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title">Property Card</div>
+            <div class="card-title">Semi-Expendable Property Card</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">

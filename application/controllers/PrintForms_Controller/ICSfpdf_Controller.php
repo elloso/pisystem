@@ -110,8 +110,10 @@ class ICSfpdf_Controller extends CI_Controller
         $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 95 , $y + 165); 
         $pdf->Cell(17, 5, 'Total', 'T', 0, 'C');
+        
         $pdf->SetXY($x + 112 , $y + 165);
-        $pdf->Cell(18, 5, $ics_form->total_cost, 'T', 0, 'C');  
+        $formattedtotal_cost = number_format($ics_form->total_cost, 2);
+        $pdf->Cell(18, 5, $formattedtotal_cost , 'T', 0, 'C');  
 
         // foreach ($po_items as $item) {
         //     $pdf->SetXY($x, $y);
@@ -151,6 +153,9 @@ class ICSfpdf_Controller extends CI_Controller
             $descriptionText = '* ' . $item->item_description;
             $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
             $descriptionHeight = 7 * $descriptionLines;
+
+            $UnitCost = number_format($item->unit_cost, 2);
+            $totalUnitCost = number_format($item->total_unit_cost, 2);
         
             $propertyNoWidth = 30 * ($descriptionWidth / 80); 
             $pdf->SetFont('times', '', 10);
@@ -161,10 +166,10 @@ class ICSfpdf_Controller extends CI_Controller
             $pdf->MultiCell($propertyNoWidth, 6, $item->unit, 0, 'C');
 
             $pdf->SetXY(101, $y + 40); 
-            $pdf->MultiCell($propertyNoWidth, 6, $item->unit_cost, 0, 'C');
+            $pdf->MultiCell($propertyNoWidth, 6, $UnitCost, 0, 'C');
 
             $pdf->SetXY(119, $y + 40); 
-            $pdf->MultiCell($propertyNoWidth, 6, $item->total_unit_cost, 0, 'C');
+            $pdf->MultiCell($propertyNoWidth, 6, $totalUnitCost, 0, 'C');
         
             $pdf->SetXY(143, $y + 40); 
             $pdf->MultiCell($propertyNoWidth, 6, $item->property_no, 0, 'C');

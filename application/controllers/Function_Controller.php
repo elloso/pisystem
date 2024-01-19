@@ -574,6 +574,7 @@ class Function_Controller extends CI_Controller
             $par_updatepar_receivedby_date = $this->input->post('txtDateRecivedBy');
             $par_updatereceived_from = $this->input->post('txtReceivedfrom');
             $par_updatedatereceived_from = $this->input->post('txtDateReceivedfrom');
+            $par_position = $this->input->post('txtRole');
 
             $PAR_Data = array(
                 'par_no' => $par_updatenumber,
@@ -581,7 +582,8 @@ class Function_Controller extends CI_Controller
                 'par_receivedby' => $par_updatereceivedby,
                 'par_received_date' => $par_updatepar_receivedby_date,
                 'par_receivedfrom' => $par_updatereceived_from,
-                'par_receivedfrom_date' => $par_updatedatereceived_from
+                'par_receivedfrom_date' => $par_updatedatereceived_from,
+                'par_position' => $par_position
             );
 
 

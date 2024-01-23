@@ -69,17 +69,6 @@ class Post_Model extends CI_Model
             return array();
         }
     }
-    // public function viewICStable()
-    // {
-    //     $this->db->select('*');
-    //     $this->db->from('tblics');
-    //     $query = $this->db->get();
-    //     if ($query->num_rows() > 0) {
-    //         return $query->result();
-    //     } else {
-    //         return array();
-    //     }
-    // }
     public function viewICStable()
     {
         $this->db->distinct();
@@ -287,5 +276,23 @@ class Post_Model extends CI_Model
         $this->db->where('tblpo_item.unit_cost >', 50000);
         $rsepidata = $this->db->get('tblpo_item')->result();
         return $rsepidata;
+    }
+
+    public function viewSEPCtable()
+    {
+        $this->db->distinct();
+        $this->db->select('*');
+        $this->db->from('tblpo');
+        $this->db->join('tblpo_item', 'tblpo.po_id = tblpo_item.po_id');
+        $this->db->join('tblics', 'tblpo.po_id = tblics.ics_po_id');
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
     }
 }

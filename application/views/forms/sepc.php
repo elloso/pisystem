@@ -11,26 +11,26 @@
                     </button>
                     <thead>
                         <tr>
-                            <th>DATE</th>
-                            <th>ENTITY NAME</th>
-                            <th>IAR#</th>
-                            <th>FUND CLUSTER</th>
-                            <th>SUPPLIER</th>
-                            <th>ACTION</th>
+                            <th class="text-center">DATE</th>
+                            <th class="text-center">PROPERTY NUMBER</th>
+                            <th class="text-center">REFERENCE No.</th>
+                            <th class="text-center">DESCRIPTION</th>
+                            <th class="text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($PO_SEPCDatas as $PO_SEPCData ): ?>
                         <tr>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>Sample 1</td>
-                            <td>
+                            <td class="text-center"><?php echo $PO_SEPCData->ics_date ?></td>
+                            <td class="text-center"><?php echo $PO_SEPCData->property_no ?></td>
+                            <td class="text-center"></td>
+                            <td></td>
+                            <td class="text-center">
                                 <a href="#" title="Edit" class="text-primary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="<?php echo base_url('print-pcform'); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                  </table>
             </div>

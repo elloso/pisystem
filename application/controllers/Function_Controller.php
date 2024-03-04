@@ -178,7 +178,42 @@ class Function_Controller extends CI_Controller
                 }
             }
 
+            // Third property number explode to ICS SEPC
+            foreach ($propertyNumbers as $propertyNumber) {
+                $propertynoParts = explode('-', $propertyNumber);
+                $prefix = 'SLSU' . $currentYear;
 
+                if (count($propertynoParts) == 2) {
+                    $individual_property_no = $prefix . '-' . $propertynoParts[1];
+
+                    $key = array_search($propertyNumber, $propertyNumbers); 
+                    if ($key !== false) {
+                        $dataPOtoSEPC = array(
+                            'ics_sepc_id' => $po_id,
+                            'id_tblpo_item' => $poIds[$key], 
+                            'sepi_property_no' => $individual_property_no
+                        );
+                        $this->Function_Model->SubmitPotoSEPCData($dataPOtoSEPC);
+                    }
+                } elseif (count($propertynoParts) >= 3) {
+                    $start_number = (int) $propertynoParts[1];
+                    $end_number = (int) $propertynoParts[2];
+
+                    for ($j = $start_number; $j <= $end_number; $j++) {
+                        $individual_property_no = $prefix . '-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
+
+                        $key = array_search($propertyNumber, $propertyNumbers); 
+                        if ($key !== false) {
+                            $dataPOtoSEPC = array(
+                                'ics_sepc_id' => $po_id,
+                                'id_tblpo_item' => $poIds[$key], 
+                                'sepi_property_no' => $individual_property_no
+                            );
+                            $this->Function_Model->SubmitPotoSEPCData($dataPOtoSEPC);
+                        }
+                    }
+                }
+            }
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');
             redirect(base_url('purchase'));

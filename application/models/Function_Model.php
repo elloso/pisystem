@@ -190,6 +190,9 @@ class Function_Model extends CI_Model
         $this->db->where('md5(icsrsepi_po_id)', $id);
         $this->db->delete('tblics_rsepi');
 
+        $this->db->where('md5(ics_sepc_id)', $id);
+        $this->db->delete('tbl_icssepc');
+
         return $this->db->affected_rows();
     }
     public function updateItemReturn($id, $data)
@@ -200,6 +203,11 @@ class Function_Model extends CI_Model
     public function SubmitPotoRSEPIData($dataPOtoRSEPI)
     {
         $this->db->insert('tblics_rsepi', $dataPOtoRSEPI);
+        return $this->db->insert_id();
+    }
+    public function SubmitPotoSEPCData($dataPOtoSEPC)
+    {
+        $this->db->insert('tbl_icssepc', $dataPOtoSEPC);
         return $this->db->insert_id();
     }
     // AJAX

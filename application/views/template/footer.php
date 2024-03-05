@@ -138,6 +138,44 @@
         });
     });
 </script>
+<!-- editsepc-details -->
+<script>
+    $(document).ready(function() {
+        $('#tablesepcdata').DataTable({
+        });
+    });
+</script>
+<script>
+    var today = new Date().toISOString().substr(0, 10);
+    document.getElementById("txtDateSEPC").value = today;
+</script>
+<script>
+    $(document).ready(function() {
+        $('#sepc-data-table').DataTable({
+         
+        });
+    });
+</script>
+<script>
+    var originalQuantity = parseInt(document.querySelector('input[name="hidden_quantity"]').value);
+    var remainingQuantity = parseInt(document.querySelector('input[name="hidden_rquantity"]').value);
+    var quantityInput = document.getElementById("txtQuantitySEPC");
+    if (originalQuantity === remainingQuantity) {
+        quantityInput.setAttribute("max", originalQuantity);
+    } else {
+        quantityInput.setAttribute("max", remainingQuantity);
+    }
+    quantityInput.addEventListener('input', function() {
+        if (parseInt(this.value) > parseInt(this.getAttribute("max"))) {
+            this.value = this.getAttribute("max");
+        }
+        if (parseInt(this.value) <= 0) {
+            this.value = 1;
+        }
+    });
+</script>
+
+<!-- End    editsepc-details -->
 </body>
 
 </html>

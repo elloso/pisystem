@@ -295,4 +295,36 @@ class Post_Model extends CI_Model
             return array();
         }
     }
+
+    public function get_sepcitemList($sepcPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
+        $this->db->where('md5(tblpo_item.po_id)', $sepcPoID); 
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    
+    public function get_sepcdata($sepcPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+        $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
+        $this->db->where('md5(id_tblpo_item)', $sepcPoID); 
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+
 }

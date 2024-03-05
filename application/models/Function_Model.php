@@ -189,10 +189,6 @@ class Function_Model extends CI_Model
 
         $this->db->where('md5(icsrsepi_po_id)', $id);
         $this->db->delete('tblics_rsepi');
-
-        $this->db->where('md5(ics_sepc_id)', $id);
-        $this->db->delete('tbl_icssepc');
-
         return $this->db->affected_rows();
     }
     public function updateItemReturn($id, $data)
@@ -209,6 +205,28 @@ class Function_Model extends CI_Model
     {
         $this->db->insert('tbl_icssepc', $dataPOtoSEPC);
         return $this->db->insert_id();
+    }
+    public function getLastSEPCRemaining($po_id) {
+        $this->db->select('balance_quantity');
+        $this->db->from('tbl_icssepc');
+        $this->db->where('id_tblpo_item', $po_id);
+        $this->db->order_by('id', 'desc');
+        $this->db->limit(1); // Limit to 1 row
+        $query = $this->db->get();
+    
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            return $result['balance_quantity'];
+        } else {
+            return null;
+        }
+    }
+    
+
+    public function SubmitSEPCtoICSData($ics_id, $dataSEPCtoICS)
+    {
+        $this->db->where('po_id', $ics_id);
+        return $this->db->update('tblpo_item', $dataSEPCtoICS);
     }
     // AJAX
     public function checkPoNumber($txtPONumber)

@@ -147,5 +147,21 @@ class Fpdf_Model extends CI_Model
     
         return $query->row_array();
     }
+    public function fetchSEPCDataByPOID($po_id) {
+        $this->db->select('tbl_icssepc.*, tblics.*, tblpo.*, tblpo_item.*'); // Select specific columns from 'tbliar', 'tblpo', and 'tblpo_item'
+        $this->db->from('tbl_icssepc');
+        $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
+        $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
+        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+        
+        $query = $this->db->get();
+    
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return null;
+        }
+    }
   
 }

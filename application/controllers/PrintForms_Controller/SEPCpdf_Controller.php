@@ -4,9 +4,12 @@ require('assets/fpdf/fpdf.php');
 
 class SEPCpdf_Controller extends CI_Controller
 {
-    public function PCform()
+    public function PCform($po_id)
     {
-        $pdf = new PDF();
+       
+    $sepc_data = $this->Fpdf_Model->fetchSEPCDataByPOID($po_id);
+
+            $pdf = new PDF();
            
             $pdf->AddPage();
             $pdf->SetFont('times', 'B', 14);
@@ -22,7 +25,7 @@ class SEPCpdf_Controller extends CI_Controller
             $pdf->SetFont('times', 'B', 12);
             $pdf->Cell(28, 8, 'Fund Cluster:', '', 0, 'C');
             $pdf->SetFont('times', '', 12);
-            $pdf->Cell(62, 8, '', 'B', 1, 'L');
+            $pdf->Cell(62, 8, $sepc_data->ics_fund, 'B', 1, 'L');
 
             $pdf->SetFont('times', '', 10);
 
@@ -45,10 +48,10 @@ class SEPCpdf_Controller extends CI_Controller
             $pdf->SetXY($x, $y+30);
             $pdf->Cell(20, 10, '', '', 0, 'L');
             $pdf->SetXY($x+20, $y+10);
-            $pdf->multicell(197, 30, '', 'TR', 'L');
+            $pdf->multicell(197, 30, $sepc_data->item_description, 'TR', 'L');
             //For Property Number
             $pdf->SetXY($x+217, $y+10);
-            $pdf->Cell(60, 30, '', '', 0, 'C');
+            $pdf->Cell(60, 30, $sepc_data->property_no, '', 0, 'C');
             $pdf->SetXY($x, $y+40);
             $pdf->Cell(20, 10, 'Date', 'TRB', 0, 'C');
             $pdf->SetXY($x+20, $y+40);

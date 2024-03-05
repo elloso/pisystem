@@ -131,6 +131,7 @@ class Function_Controller extends CI_Controller
                     'item_no' => $txtItemNo[$i],
                     'property_no' => $propertyNumber,
                     'quantity' => $txtItemQuantity[$i],
+                    'remaining_quantity' => $txtItemQuantity[$i],
                     'unit' => $txtUnit[$i],
                     'item_description' => $txtDescription[$i],
                     'unit_cost' => $txtItemUnitCost[$i],
@@ -177,43 +178,7 @@ class Function_Controller extends CI_Controller
                     }
                 }
             }
-
-            // Third property number explode to ICS SEPC
-            foreach ($propertyNumbers as $propertyNumber) {
-                $propertynoParts = explode('-', $propertyNumber);
-                $prefix = 'SLSU' . $currentYear;
-
-                if (count($propertynoParts) == 2) {
-                    $individual_property_no = $prefix . '-' . $propertynoParts[1];
-
-                    $key = array_search($propertyNumber, $propertyNumbers); 
-                    if ($key !== false) {
-                        $dataPOtoSEPC = array(
-                            'ics_sepc_id' => $po_id,
-                            'id_tblpo_item' => $poIds[$key], 
-                            'sepi_property_no' => $individual_property_no
-                        );
-                        $this->Function_Model->SubmitPotoSEPCData($dataPOtoSEPC);
-                    }
-                } elseif (count($propertynoParts) >= 3) {
-                    $start_number = (int) $propertynoParts[1];
-                    $end_number = (int) $propertynoParts[2];
-
-                    for ($j = $start_number; $j <= $end_number; $j++) {
-                        $individual_property_no = $prefix . '-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
-
-                        $key = array_search($propertyNumber, $propertyNumbers); 
-                        if ($key !== false) {
-                            $dataPOtoSEPC = array(
-                                'ics_sepc_id' => $po_id,
-                                'id_tblpo_item' => $poIds[$key], 
-                                'sepi_property_no' => $individual_property_no
-                            );
-                            $this->Function_Model->SubmitPotoSEPCData($dataPOtoSEPC);
-                        }
-                    }
-                }
-            }
+           
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');
             redirect(base_url('purchase'));
@@ -821,19 +786,51 @@ class Function_Controller extends CI_Controller
         $this->session->set_flashdata('dispose', 'Item already disposed.');
         redirect(base_url('respi_par'));
     }
+    public function insertSEPCData()
+    {
+        $encryptpoid = $this->input->post('hidden_po_id');
+        $date = $this->input->post('txtDate');
+        $po_id = $this->input->post('hidden_poid');
+        $id = $this->input->post('hidden_id');
+        $assignee = $this->input->post('txtAssignee');
+        $quantity = $this->input->post('txtQuantity');
     
+        $O_Quantity = $this->input->post('hidden_quantity');
+        $R_Quantity = $this->input->post('hidden_rquantity');
     
-    // public function updatepoTotalDetails()
-    // {
-    //     $txtTotalCost = $this->input->post('txtTotalCost');
-    //     $txtPo_id = $this->input->post('txtPo_id');
-    //     $dataTotalCost = array(
-    //         'total_cost' => $txtTotalCost
-    //     );
-    //     $this->db->where('po_id', $txtPo_id);
-    //     $this->db->update('tblpo', $dataTotalCost);
-    //     echo '<script>window.history.back();</script>';
-    // }
+        $lastSEPCRemaining = $this->Function_Model->getLastSEPCRemaining($po_id); 
+    
+        if ($lastSEPCRemaining === null) {
+            $SEPCRemaining = $O_Quantity - $quantity;
+        } else {
+            $SEPCRemaining = $lastSEPCRemaining - $quantity;
+        }
+    
+        $dataSEPC = array(
+            'date' => $date,
+            'id_tblpo_item' => $po_id,
+            'ics_sepc_id' => $id,
+            'assignee ' => $assignee,
+            'issued_quantity ' => $quantity,
+            'balance_quantity ' => $SEPCRemaining,
+        );
+    
+        $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+
+        if($O_Quantity == $R_Quantity){
+            $DeductQuantity = ($O_Quantity - $quantity);
+        }else{
+            $DeductQuantity = ($R_Quantity - $quantity);
+        }
+       
+
+        $dataICS = array(
+            'remaining_quantity' => $DeductQuantity,
+            
+        );
+        $this->Function_Model->SubmitSEPCtoICSData($po_id,$dataICS);
+        redirect(base_url('sepc-assignee/'.$encryptpoid));
+    }
     // ajax
     public function checkPoNumber()
     {

@@ -291,4 +291,19 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
+    public function editsepcDetails($sepcPoID)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $editsepcdetails = $this->Post_model->get_sepcitemList($sepcPoID);
+            $sepcdata = $this->Post_model->get_sepcdata($sepcPoID);
+            $data['spec_details'] = $editsepcdetails;
+            $data['spec_datas'] = $sepcdata;
+            $this->load->view('template/header', $data);
+            $this->load->view('view-forms/editsepc-details');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+
+        }
+    }
 } // End Bracket

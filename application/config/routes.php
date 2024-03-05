@@ -23,7 +23,6 @@ $route['update-IAR-Details'] = 'Function_Controller/edit_IARDetails';
 $route['update-ics'] = 'Function_Controller/updatetIcs';
 $route['updatepo-details'] = 'Function_Controller/updatepoDetails';
 $route['updatepoTotal-details'] = 'Function_Controller/updatepoTotalDetails';
-
 $route['updateics-details'] = 'Function_Controller/updateicsDetails';
 $route['submit-PAR-Details'] = 'Function_Controller/updateData_PAR';
 $route['edit-PAR-Details'] = 'Function_Controller/editData_PAR';
@@ -32,6 +31,9 @@ $route['editItem-details'] = 'Function_Controller/editItemDetails';
 $route['editiar-details/(:any)/(:any)'] = 'Post_Controller/editiarDetails/$1/$2';
 $route['editics-details/(:any)/(:any)'] = 'Post_Controller/editicsDetails/$1/$2';
 $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2';
+$route['sepc-assignee/(:any)'] = 'Post_Controller/editsepcDetails/$1';
+$route['submit-SPECAssignee'] = 'Function_Controller/insertSEPCData';
+
 
 $route['deletepo-data/(:any)'] = 'Function_Controller/deleteData_po_id/$1';
 
@@ -41,7 +43,7 @@ $route['print-iarform/(:any)'] = 'PrintForms_Controller/IARfpdf_Controller/IARfo
 $route['print-icsform/(:any)'] = 'PrintForms_Controller/ICSfpdf_Controller/ICSform/$1';
 $route['print-parform/(:any)'] = 'PrintForms_Controller/PARfpdf_Controller/PARform/$1';
 $route['print-scform'] = 'PrintForms_Controller/SCpdf_Controller/SCform';
-$route['print-pcform'] = 'PrintForms_Controller/SEPCpdf_Controller/PCform';
+$route['print-pcform/(:any)'] = 'PrintForms_Controller/SEPCpdf_Controller/PCform/$1';
 $route['print-rsepiform'] = 'PrintForms_Controller/RSEPIpdf_Controller/RSEPIform';
 $route['print-ptrform/(:any)/(:any)'] = 'PrintForms_Controller/PTRpdf_Controller/PTRform/$1/$2';
 $route['print-rsepiparform'] = 'PrintForms_Controller/RSEPIPARpdf_Controller/RSEPIPARform';

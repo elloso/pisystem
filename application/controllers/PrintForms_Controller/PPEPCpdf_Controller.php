@@ -2,13 +2,13 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 require('assets/fpdf/fpdf.php');
 
-class SEPCpdf_Controller extends CI_Controller
+class PPEPCpdf_Controller extends CI_Controller
 {
-    public function PCform($po_id)
+    public function PPEPCform($po_id)
     {
        
-    $sepc_data = $this->Fpdf_Model->fetchSEPCDataByPOID($po_id);
-    $Datas = $this->Fpdf_Model->fetchSEPCDataResult($po_id);
+    $ppepc_data = $this->Fpdf_Model->fetchPPEPCDataByPOID($po_id);
+    $Datas = $this->Fpdf_Model->fetchPPEPCDataResult($po_id);
     
             $pdf = new PDF();
            
@@ -26,7 +26,7 @@ class SEPCpdf_Controller extends CI_Controller
             $pdf->SetFont('times', 'B', 12);
             $pdf->Cell(28, 8, 'Fund Cluster:', '', 0, 'C');
             $pdf->SetFont('times', '', 12);
-            $pdf->Cell(62, 8, $sepc_data->ics_fund, 'B', 1, 'L');
+            $pdf->Cell(62, 8, $ppepc_data->par_fund, 'B', 1, 'L');
 
             $pdf->SetFont('times', '', 10);
 
@@ -50,11 +50,11 @@ class SEPCpdf_Controller extends CI_Controller
             $pdf->Cell(20, 10, '', '', 0, 'L');
             $pdf->SetFont('times', '', 10); 
             $pdf->SetXY($x+20, $y+10);
-            $pdf->multicell(197, 7.5, $sepc_data->item_description, 'T', 'L');
+            $pdf->multicell(197, 7.5, $ppepc_data->item_description, 'T', 'L');
             $pdf->SetFont('times', 'B', 10); 
             //For Property Number
             $pdf->SetXY($x+217, $y+10);
-            $pdf->Cell(60, 30, $sepc_data->property_no, '', 0, 'C');
+            $pdf->Cell(60, 30, $ppepc_data->property_no, '', 0, 'C');
             $pdf->SetXY($x, $y+40);
             $pdf->Cell(20, 10, 'Date', 'TRB', 0, 'C');
             $pdf->SetXY($x+20, $y+40);
@@ -93,7 +93,7 @@ class SEPCpdf_Controller extends CI_Controller
                 $pdf->multicell(20, 10, $Data->date, 'B','C');
             
                 $pdf->SetXY($x+20, $y+50);
-                $pdf->multicell(30, 10, $Data->ics_no, 'B','C');
+                $pdf->multicell(30, 10, $Data->par_no, 'B','C');
             
                 $pdf->SetXY($x+50, $y+50);
                 $pdf->multicell(15, 10, $Data->quantity, 'B','C');

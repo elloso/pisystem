@@ -1,13 +1,13 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 10vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title fw-bold">SEPC Assignee Tracking</div>
+            <div class="card-title fw-bold">PPEPC Assignee Tracking</div>
         </div>
         <div class="card-body">   
             <div class=""> 
                 <!-- <button type="button" class="btn btn-secondary" style="width: 6%;" onclick="history.back()">Back</button> -->
                 <?php if($remaining->remaining_quantity == 0){ ?>
-                    <button type="button" class="btn btn-danger"style="cursor:not-allowed"  >Assign Item</button>
+                    <button type="button" class="btn btn-danger"style="cursor:not-allowed">Assign Item</button>
                 <?php }else{ ?>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Assign Item</button>
                 <?php } ?>
@@ -28,15 +28,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($spec_details as $Data): ?>
-                                            <?php foreach ($spec_datas as $spec_data): ?>
+                                        <?php foreach ($ppepc_details as $Data): ?>
+                                            <?php foreach ($ppepc_datas as $ppepc_data): ?>
                                             <tr>
-                                                <td class="text-center"><?php echo $spec_data->date ?></td>
-                                                <td class="text-center"><?php echo $spec_data->ics_no ?></td>
-                                                <td class="text-center"><?php echo $spec_data->quantity ?></td>
-                                                <td class="text-center"><?php echo $spec_data->issued_quantity ?></td>
-                                                <td class="text-center"><?php echo $spec_data->balance_quantity ?></td>
-                                                <td class="text-center"><?php echo $spec_data->assignee ?></td>
+                                                <td class="text-center"><?php echo $ppepc_data->date ?></td>
+                                                <td class="text-center"><?php echo $ppepc_data->ics_no ?></td>
+                                                <td class="text-center"><?php echo $ppepc_data->quantity ?></td>
+                                                <td class="text-center"><?php echo $ppepc_data->issued_quantity ?></td>
+                                                <td class="text-center"><?php echo $ppepc_data->balance_quantity ?></td>
+                                                <td class="text-center"><?php echo $ppepc_data->assignee ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         <?php endforeach; ?>
@@ -58,14 +58,14 @@
       </div>
       <form action="<?php echo base_url('submit-SPECAssignee'); ?>" method="post">
             <div class="modal-body">
-                <input type="hidden" name="hidden_po_id" value="<?php echo $this->uri->segment(2); ?>">
+                <input type="text" name="hidden_po_id" value="<?php echo $this->uri->segment(2); ?>">
                 <input type="text" name="hidden_tblepoitem_id" value="<?php echo $this->uri->segment(3); ?>">
                 <?php
                     $quantity = $this->Post_model->getQuantityById($this->uri->segment(3));
                     $rquantity = $this->Post_model->getQuantityById($this->uri->segment(3));
                 ?>
-                <input type="hidden" name="hidden_quantity" value="<?php echo $quantity; ?>">
-                <input type="hidden" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
+                <input type="text" name="hidden_quantity" value="<?php echo $quantity; ?>">
+                <input type="text" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
                 <input type="hidden" name="hidden_poid" value="<?php echo $Data->po_id; ?>">
                 <input type="hidden" name="hidden_id" value="<?php echo $Data->id; ?>">
                 <div class="row">
@@ -76,7 +76,7 @@
                     <?php if($Data->quantity == $Data->remaining_quantity){ ?>
                         <div class="col-lg-2 col-xl-2">
                             <label class="form-label fw-bold text-dark">Quantity :</label>
-                            <input type="number" id="txtQuantitySEPC" min="1" max="<?php echo $Data->quantity; ?>" class="form-control" name="txtQuantity" required>
+                            <input type="number" id="txtQuantitySEPC" min="1" max="<?php echo $quantity; ?>" class="form-control" name="txtQuantity" required>
                         </div>
                     <?php }else{ ?>
                         <div class="col-lg-2 col-xl-2">
@@ -98,3 +98,4 @@
     </div>
   </div>
 </div>
+

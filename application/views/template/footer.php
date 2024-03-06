@@ -156,7 +156,7 @@
         });
     });
 </script>
-<script>
+<!-- <script>
     var originalQuantity = parseInt(document.querySelector('input[name="hidden_quantity"]').value);
     var remainingQuantity = parseInt(document.querySelector('input[name="hidden_rquantity"]').value);
     var quantityInput = document.getElementById("txtQuantitySEPC");
@@ -173,9 +173,30 @@
             this.value = 1;
         }
     });
+</script> -->
+<script>
+    var originalQuantity = parseInt(document.querySelector('input[name="hidden_quantity"]').value);
+    var remainingQuantity = parseInt(document.querySelector('input[name="hidden_rquantity"]').value);
+    var quantityInput = document.getElementById("txtQuantitySEPC");
+    if (originalQuantity === remainingQuantity) {
+        quantityInput.setAttribute("max", originalQuantity);
+    } else {
+        quantityInput.setAttribute("max", remainingQuantity);
+    }
+
+    quantityInput.addEventListener('input', function() {
+        if (parseInt(this.value) > parseInt(this.getAttribute("max"))) {
+            this.value = this.getAttribute("max");
+        }
+        if (parseInt(this.value) <= 0) {
+            this.value = 1;
+        }
+    });
 </script>
 
+
 <!-- End    editsepc-details -->
+
 </body>
 
 </html>

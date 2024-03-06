@@ -29,12 +29,8 @@
                             <td><?php echo $PO_SEPCData->item_description ?></td>
                             <td class="text-center">
                                 <!-- <a href="#" title="Assignee" class="text-primary mx-2"><i class="fa-solid fa-user-plus"></i></a> -->
-                                <a href="<?php echo base_url('sepc-assignee/' . md5($PO_SEPCData->ics_po_id)) ?>" title="Assign Item" class="text-primary mx-2"><i class="fa-solid fa-user-plus"></i></a>
-                                <?php if($PO_SEPCData->remaining_quantity == 0){ ?>
-                                    <a href="<?php echo base_url('print-pcform/'.md5($PO_SEPCData->ics_po_id)); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
-                                <?php }else{ ?>
-                                    <a target="_blank" title="Print" class="text-danger mx-2" style="cursor:not-allowed"><i class="fa-solid fa-print"></i></a>
-                                <?php } ?>
+                                <a href="<?php echo base_url('sepc-assignee/' . md5($PO_SEPCData->ics_po_id) .'/'. md5($PO_SEPCData->id)) ?>" title="Assign Item" class="text-primary mx-2"><i class="fa-solid fa-user-plus"></i></a>
+                                <a href="<?php echo base_url('print-pcform/'.md5($PO_SEPCData->ics_po_id)); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

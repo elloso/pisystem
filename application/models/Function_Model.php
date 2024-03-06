@@ -189,6 +189,9 @@ class Function_Model extends CI_Model
 
         $this->db->where('md5(icsrsepi_po_id)', $id);
         $this->db->delete('tblics_rsepi');
+
+        $this->db->where('md5(id_tblpo_item)', $id);
+        $this->db->delete('tbl_icssepc');
         return $this->db->affected_rows();
     }
     public function updateItemReturn($id, $data)

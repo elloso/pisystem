@@ -97,13 +97,14 @@
             <ul>
               <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a></li>
               <li><a href="<?php echo base_url('propertycard'); ?>">Semi-Expendable Property Card</a></li>
+              <li><a href="#">RPSI</a></li>
               <li><a href="#">RPCSEP</a></li>
             </ul>
           </li> 
           <li class="dropdown"><a href="#"><span>PAR</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
              <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment Receipt</a></li>
-             <li><a href="#">PPE Property Card</a></li>
+             <li><a href="<?php echo base_url('propertycardpar'); ?>">PPE Property Card</a></li>
              <li><a href="#">RPCPPE</a></li>
             </ul>
           </li> 

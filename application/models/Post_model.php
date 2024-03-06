@@ -327,4 +327,91 @@ class Post_Model extends CI_Model
         }
     }
 
+    public function get_specificdata($sepcPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->where('md5(tblpo_item.po_id)', $sepcPoID); 
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return row();
+        }
+    }
+
+    public function viewPPEPCtable()
+    {
+        $this->db->distinct();
+        $this->db->select('*');
+        $this->db->from('tblpo');
+        $this->db->join('tblpo_item', 'tblpo.po_id = tblpo_item.po_id');
+        $this->db->join('tblpar', 'tblpo.po_id = tblpar.par_po_id');
+        $this->db->where('tblpo_item.unit_cost >', 50000);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+
+    public function get_ppepcitemList($ppepcPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id');
+        $this->db->where('md5(tblpo_item.po_id)', $ppepcPoID); 
+        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    
+    public function get_ppepcdata($ppepcPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+        $this->db->join('tblpar', 'tbl_icssepc.id_tblpo_item = tblpar.par_po_id');
+        $this->db->where('md5(id_tblpo_item)', $ppepcPoID); 
+        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+
+    public function get_specificppepcdata($ppepcPoID)
+    {
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->where('md5(tblpo_item.po_id)', $ppepcPoID); 
+        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return row();
+        }
+    }
+
+    public function getQuantityById($id) {
+        $query = $this->db->get_where('tblpo_item', array('md5(id)' => $id));
+        $row = $query->row();
+        if ($row) {
+            return $row->quantity;
+        }
+        return false; // or any default value if quantity is not found
+    }
+
+
 }

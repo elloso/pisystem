@@ -31,12 +31,13 @@ $route['editItem-details'] = 'Function_Controller/editItemDetails';
 $route['editiar-details/(:any)/(:any)'] = 'Post_Controller/editiarDetails/$1/$2';
 $route['editics-details/(:any)/(:any)'] = 'Post_Controller/editicsDetails/$1/$2';
 $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2';
-$route['sepc-assignee/(:any)'] = 'Post_Controller/editsepcDetails/$1';
+$route['sepc-assignee/(:any)/(:any)'] = 'Post_Controller/editsepcDetails/$1/$2';
+$route['ppepc-assignee/(:any)/(:any)'] = 'Post_Controller/editppepcDetails/$1/$2';
+
 $route['submit-SPECAssignee'] = 'Function_Controller/insertSEPCData';
 
 
 $route['deletepo-data/(:any)'] = 'Function_Controller/deleteData_po_id/$1';
-
 
 //Print Forms
 $route['print-iarform/(:any)'] = 'PrintForms_Controller/IARfpdf_Controller/IARform/$1';
@@ -44,14 +45,11 @@ $route['print-icsform/(:any)'] = 'PrintForms_Controller/ICSfpdf_Controller/ICSfo
 $route['print-parform/(:any)'] = 'PrintForms_Controller/PARfpdf_Controller/PARform/$1';
 $route['print-scform'] = 'PrintForms_Controller/SCpdf_Controller/SCform';
 $route['print-pcform/(:any)'] = 'PrintForms_Controller/SEPCpdf_Controller/PCform/$1';
+$route['print-ppepcform/(:any)'] = 'PrintForms_Controller/PPEPCpdf_Controller/PPEPCform/$1';
 $route['print-rsepiform'] = 'PrintForms_Controller/RSEPIpdf_Controller/RSEPIform';
 $route['print-ptrform/(:any)/(:any)'] = 'PrintForms_Controller/PTRpdf_Controller/PTRform/$1/$2';
 $route['print-rsepiparform'] = 'PrintForms_Controller/RSEPIPARpdf_Controller/RSEPIPARform';
 $route['print-ptrparform/(:any)/(:any)'] = 'PrintForms_Controller/PTRPARpdf_Controller/PTRPARform/$1/$2';
-
-
-
-
 
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';
@@ -61,6 +59,7 @@ $route['inspection'] = 'Post_Controller/InspectionAcceptance';
 $route['acknowledgement'] = 'Post_Controller/PropertyAcknowledgement';
 $route['custodian'] = 'Post_Controller/InventoryCustodian';
 $route['propertycard'] = 'Post_Controller/PropertyCard';
+$route['propertycardpar'] = 'Post_Controller/PropertyCardPar';
 $route['stockcard'] = 'Post_Controller/StockCard';
 $route['suppliesledger'] = 'Post_Controller/SuppliesLedgerCard';
 $route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';

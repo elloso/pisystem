@@ -21,6 +21,7 @@
                     </thead>
                     <tbody>
                         <?php foreach($PO_SEPCDatas as $PO_SEPCData ): ?>
+                            <?php if (!empty($PO_SEPCData->ics_no)): ?>
                         <tr>
                             <td class="text-center"><?php echo $PO_SEPCData->property_no ?></td>
                             <td class="text-center"><?php echo $PO_SEPCData->ics_no ?></td>
@@ -33,6 +34,7 @@
                                 <a href="<?php echo base_url('print-pcform/'.md5($PO_SEPCData->ics_po_id)); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
                             </td>
                         </tr>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </tbody>
                  </table>

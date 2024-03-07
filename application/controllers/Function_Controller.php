@@ -298,13 +298,15 @@ class Function_Controller extends CI_Controller
         $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
         $txtDateInspectedFrom = strip_tags($this->input->post('txtDateInspectedFrom'));
         $txtICSDate = $this->input->post('txtICSDate');
+        $txtrole = $this->input->post('txtRole');
         $data = array(
             'ics_no' => $txtICSNo,
             'ics_receivedby' => $txtReceivedby,
             'ics_received_date' => $txtDateRecivedBy,
             'ics_receivedfrom' => $txtReceivedfrom,
             'ics_receivedfrom_date' => $txtDateInspectedFrom,
-            'ics_date' => $txtICSDate
+            'ics_date' => $txtICSDate,
+            'ics_position' => $txtrole,
         );
 
         $result = $this->Function_Model->SubmitupdatetIcs($data, $selectICSIARNo);
@@ -789,6 +791,7 @@ class Function_Controller extends CI_Controller
     public function insertSEPCData()
     {
         $encryptpoid = $this->input->post('hidden_po_id');
+        $encrypttblpoid = $this->input->post('hidden_tblepoitem_id');
         $date = $this->input->post('txtDate');
         $po_id = $this->input->post('hidden_poid');
         $id = $this->input->post('hidden_id');
@@ -798,7 +801,7 @@ class Function_Controller extends CI_Controller
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
     
-        $lastSEPCRemaining = $this->Function_Model->getLastSEPCRemaining($po_id); 
+        $lastSEPCRemaining = $this->Function_Model->getLastSEPCRemaining($id); 
     
         if ($lastSEPCRemaining === null) {
             $SEPCRemaining = $O_Quantity - $quantity;
@@ -828,8 +831,8 @@ class Function_Controller extends CI_Controller
             'remaining_quantity' => $DeductQuantity,
             
         );
-        $this->Function_Model->SubmitSEPCtoICSData($po_id,$dataICS);
-        redirect(base_url('sepc-assignee/'.$encryptpoid));
+        $this->Function_Model->SubmitSEPCtoICSData($encrypttblpoid,$dataICS);
+        redirect(base_url('sepc-assignee/'.$encryptpoid.'/'.$encrypttblpoid));
     }
     // ajax
     public function checkPoNumber()

@@ -28,17 +28,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($spec_details as $Data): ?>
-                                            <?php foreach ($spec_datas as $spec_data): ?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $spec_data->date ?></td>
-                                                <td class="text-center"><?php echo $spec_data->ics_no ?></td>
-                                                <td class="text-center"><?php echo $spec_data->quantity ?></td>
-                                                <td class="text-center"><?php echo $spec_data->issued_quantity ?></td>
-                                                <td class="text-center"><?php echo $spec_data->balance_quantity ?></td>
-                                                <td class="text-center"><?php echo $spec_data->assignee ?></td>
-                                            </tr>
-                                            <?php endforeach; ?>
+                                        <?php foreach ($spec_datas as $spec_data): ?>
+                                            <?php if(md5($spec_data->id) == $this->uri->segment(3)): ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $spec_data->date ?></td>
+                                                    <td class="text-center"><?php echo $spec_data->ics_no ?></td>
+                                                    <td class="text-center"><?php echo $spec_data->quantity ?></td>
+                                                    <td class="text-center"><?php echo $spec_data->issued_quantity ?></td>
+                                                    <td class="text-center"><?php echo $spec_data->balance_quantity ?></td>
+                                                    <td class="text-center"><?php echo $spec_data->assignee ?></td>
+                                                </tr>
+                                            <?php endif; ?>    
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
@@ -48,6 +48,8 @@
                 </div>
         </div>
     </div>
+<?php foreach ($spec_details as $Data): ?>
+<?php endforeach; ?>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -58,16 +60,16 @@
       </div>
       <form action="<?php echo base_url('submit-SPECAssignee'); ?>" method="post">
             <div class="modal-body">
-                <input type="hidden" name="hidden_po_id" value="<?php echo $this->uri->segment(2); ?>">
+                <input type="text" name="hidden_po_id" value="<?php echo $this->uri->segment(2); ?>">
                 <input type="text" name="hidden_tblepoitem_id" value="<?php echo $this->uri->segment(3); ?>">
                 <?php
                     $quantity = $this->Post_model->getQuantityById($this->uri->segment(3));
                     $rquantity = $this->Post_model->getQuantityById($this->uri->segment(3));
                 ?>
-                <input type="hidden" name="hidden_quantity" value="<?php echo $quantity; ?>">
-                <input type="hidden" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
-                <input type="hidden" name="hidden_poid" value="<?php echo $Data->po_id; ?>">
-                <input type="hidden" name="hidden_id" value="<?php echo $Data->id; ?>">
+                <input type="text" name="hidden_quantity" value="<?php echo $quantity; ?>">
+                <input type="text" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
+                <input type="text" name="hidden_poid" value="<?php echo $Data->po_id; ?>">
+                <input type="text" name="hidden_id" value="<?php echo $Data->id; ?>">
                 <div class="row">
                     <div class="col-lg-3 col-xl-3">
                         <label class="form-label fw-bold text-dark" for="txtDate">Date :</label>
@@ -76,7 +78,7 @@
                     <?php if($Data->quantity == $Data->remaining_quantity){ ?>
                         <div class="col-lg-2 col-xl-2">
                             <label class="form-label fw-bold text-dark">Quantity :</label>
-                            <input type="number" id="txtQuantitySEPC" min="1" max="<?php echo $Data->quantity; ?>" class="form-control" name="txtQuantity" required>
+                            <input type="number" id="txtQuantitySEPC" min="1" max="<?php echo $quantity; ?>" class="form-control" name="txtQuantity" required>
                         </div>
                     <?php }else{ ?>
                         <div class="col-lg-2 col-xl-2">

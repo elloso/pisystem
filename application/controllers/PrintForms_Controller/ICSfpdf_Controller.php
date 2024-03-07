@@ -98,7 +98,7 @@ class ICSfpdf_Controller extends CI_Controller
         $pdf->Cell(60, 5, 'Signature Over Printed Name of End-User', '',0, 'C');
         $pdf->SetXY($x + 120, $y + 193); 
         $pdf->SetFont('times', 'I', 10);
-        $pdf->Cell(60, 5, 'Budget  officer', '',0, 'C');
+        $pdf->Cell(60, 5, $ics_form->ics_position, '',0, 'C');
         $pdf->SetFont('times', '', 10);
         $pdf->SetXY($x + 120, $y + 198); 
         $pdf->Cell(60, 5, 'Position/Office', '',0, 'C');

@@ -115,6 +115,13 @@
                                         Please choose a date.
                                     </div>
                                 </div>
+                                <div class="form-floating mb-2">
+                                    <input type="text" id="txtRole" class="form-control" name="txtRole">
+                                    <label class="form-label fw-bold text-dark" for="txtRole">Specified role:</label>
+                                    <div class="invalid-feedback">
+                                        Please enter role/position.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                        

@@ -209,24 +209,14 @@ class Function_Model extends CI_Model
         $this->db->insert('tbl_icssepc', $dataPOtoSEPC);
         return $this->db->insert_id();
     }
-    public function getLastSEPCRemaining($id) {
-        $this->db->select('balance_quantity');
-        $this->db->from('tbl_icssepc');
-        $this->db->where('id_tblpo_item', $id);
-        $this->db->order_by('pcid', 'desc');
-        $this->db->limit(1); // Limit to 1 row
-        $query = $this->db->get();
-    
-        if ($query->num_rows() > 0) {
-            $result = $query->row_array();
-            return $result['balance_quantity'];
-        } else {
-            return null;
-        }
-    }
-    
-
+ 
     public function SubmitSEPCtoICSData($encrypttblpoid, $dataSEPCtoICS)
+    {
+        $this->db->where('md5(id)', $encrypttblpoid);
+        return $this->db->update('tblpo_item', $dataSEPCtoICS);
+    }
+
+    public function SubmitPPEPCtoICSData($encrypttblpoid, $dataSEPCtoICS)
     {
         $this->db->where('md5(id)', $encrypttblpoid);
         return $this->db->update('tblpo_item', $dataSEPCtoICS);

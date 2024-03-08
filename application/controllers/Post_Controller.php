@@ -307,15 +307,12 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
-    public function editsepcDetails($sepcPoID)
+    public function editsepcDetails($sepcPoID,$id)
     {
         if ($this->session->userdata('is_login') == TRUE) {
-            $editsepcdetails = $this->Post_model->get_sepcitemList($sepcPoID);
-            $sepcdata = $this->Post_model->get_sepcdata($sepcPoID);
-            $Remainingdata = $this->Post_model->get_specificdata($sepcPoID);
-            $data['spec_details'] = $editsepcdetails;
-            $data['spec_datas'] = $sepcdata;
-            $data['remaining'] = $Remainingdata;
+            $data['spec_details'] =  $this->Post_model->get_sepcitemList($sepcPoID, $id);
+            $data['spec_datas'] = $this->Post_model->get_sepcdata($sepcPoID, $id);
+            $data['remaining'] = $this->Post_model->get_specificdata($id);
             $this->load->view('template/header', $data);
             $this->load->view('view-forms/editsepc-details');
             $this->load->view('template/footer');
@@ -324,15 +321,12 @@ class Post_Controller extends CI_Controller
 
         }
     }
-    public function editppepcDetails($ppepcPoID)
+    public function editppepcDetails($ppepcPoID,$id)
     {
         if ($this->session->userdata('is_login') == TRUE) {
-            $editppepcdetails = $this->Post_model->get_ppepcitemList($ppepcPoID);
-            $ppepcdata = $this->Post_model->get_ppepcdata($ppepcPoID);
-            $Remainingdata = $this->Post_model->get_specificppepcdata($ppepcPoID);
-            $data['ppepc_details'] = $editppepcdetails;
-            $data['ppepc_datas'] = $ppepcdata;
-            $data['remaining'] = $Remainingdata;
+            $data['ppepc_details'] = $this->Post_model->get_ppepcitemList($ppepcPoID,$id);
+            $data['ppepc_datas'] = $this->Post_model->get_ppepcdata($ppepcPoID,$id);
+            $data['remaining'] = $this->Post_model->get_specificppepcdata($id);
             $this->load->view('template/header', $data);
             $this->load->view('view-forms/editppepc-details');
             $this->load->view('template/footer');
@@ -340,6 +334,7 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
 
         }
+        
     }
     
     

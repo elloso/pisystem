@@ -296,13 +296,13 @@ class Post_Model extends CI_Model
         }
     }
 
-    public function get_sepcitemList($sepcPoID)
+    public function get_sepcitemList($sepcPoID,$id)
     {
         $this->db->select('*');
         $this->db->from('tblpo_item');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
         $this->db->where('md5(tblpo_item.po_id)', $sepcPoID); 
-        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('md5(tblpo_item.id)', $id); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -311,14 +311,14 @@ class Post_Model extends CI_Model
         }
     }
     
-    public function get_sepcdata($sepcPoID)
+    public function get_sepcdata($sepcPoID, $id)
     {
         $this->db->select('*');
         $this->db->from('tbl_icssepc');
         $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
         $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
-        $this->db->where('md5(id_tblpo_item)', $sepcPoID); 
-        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $sepcPoID); 
+        $this->db->where('md5(tblpo_item.id)', $id); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -327,12 +327,11 @@ class Post_Model extends CI_Model
         }
     }
 
-    public function get_specificdata($sepcPoID)
+    public function get_specificdata($id)
     {
         $this->db->select('*');
         $this->db->from('tblpo_item');
-        $this->db->where('md5(tblpo_item.po_id)', $sepcPoID); 
-        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('md5(id)', $id); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->row();
@@ -359,13 +358,13 @@ class Post_Model extends CI_Model
         }
     }
 
-    public function get_ppepcitemList($ppepcPoID)
+    public function get_ppepcitemList($ppepcPoID,$id)
     {
         $this->db->select('*');
         $this->db->from('tblpo_item');
         $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id');
         $this->db->where('md5(tblpo_item.po_id)', $ppepcPoID); 
-        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $this->db->where('md5(tblpo_item.id)', $id); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -374,14 +373,14 @@ class Post_Model extends CI_Model
         }
     }
     
-    public function get_ppepcdata($ppepcPoID)
+    public function get_ppepcdata($ppepcPoID, $id)
     {
         $this->db->select('*');
         $this->db->from('tbl_icssepc');
         $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
         $this->db->join('tblpar', 'tbl_icssepc.id_tblpo_item = tblpar.par_po_id');
-        $this->db->where('md5(id_tblpo_item)', $ppepcPoID); 
-        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $ppepcPoID); 
+        $this->db->where('md5(tblpo_item.id)', $id); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -390,12 +389,11 @@ class Post_Model extends CI_Model
         }
     }
 
-    public function get_specificppepcdata($ppepcPoID)
+    public function get_specificppepcdata($id)
     {
         $this->db->select('*');
         $this->db->from('tblpo_item');
-        $this->db->where('md5(tblpo_item.po_id)', $ppepcPoID); 
-        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $this->db->where('md5(id)', $id); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->row();
@@ -404,13 +402,22 @@ class Post_Model extends CI_Model
         }
     }
 
+
     public function getQuantityById($id) {
         $query = $this->db->get_where('tblpo_item', array('md5(id)' => $id));
         $row = $query->row();
         if ($row) {
             return $row->quantity;
         }
-        return false; // or any default value if quantity is not found
+        return false; 
+    }
+    public function RgetQuantityById($id) {
+        $query = $this->db->get_where('tblpo_item', array('md5(id)' => $id));
+        $row = $query->row();
+        if ($row) {
+            return $row->remaining_quantity;
+        }
+        return false; 
     }
 
 

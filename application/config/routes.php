@@ -35,6 +35,7 @@ $route['sepc-assignee/(:any)/(:any)'] = 'Post_Controller/editsepcDetails/$1/$2';
 $route['ppepc-assignee/(:any)/(:any)'] = 'Post_Controller/editppepcDetails/$1/$2';
 
 $route['submit-SPECAssignee'] = 'Function_Controller/insertSEPCData';
+$route['submit-PPEPCAssignee'] = 'Function_Controller/insertPPEPCData';
 
 
 $route['deletepo-data/(:any)'] = 'Function_Controller/deleteData_po_id/$1';

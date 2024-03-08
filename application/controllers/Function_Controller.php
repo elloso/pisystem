@@ -801,12 +801,10 @@ class Function_Controller extends CI_Controller
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
     
-        $lastSEPCRemaining = $this->Function_Model->getLastSEPCRemaining($id); 
-    
-        if ($lastSEPCRemaining === null) {
-            $SEPCRemaining = $O_Quantity - $quantity;
-        } else {
-            $SEPCRemaining = $lastSEPCRemaining - $quantity;
+        if($O_Quantity == $R_Quantity){
+            $DeductQuantity1 = ($O_Quantity - $quantity);
+        }else{
+            $DeductQuantity1 = ($R_Quantity - $quantity);
         }
     
         $dataSEPC = array(
@@ -815,7 +813,7 @@ class Function_Controller extends CI_Controller
             'ics_sepc_id' => $id,
             'assignee ' => $assignee,
             'issued_quantity ' => $quantity,
-            'balance_quantity ' => $SEPCRemaining,
+            'balance_quantity ' => $DeductQuantity1,
         );
     
         $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
@@ -825,14 +823,55 @@ class Function_Controller extends CI_Controller
         }else{
             $DeductQuantity = ($R_Quantity - $quantity);
         }
-       
-
         $dataICS = array(
             'remaining_quantity' => $DeductQuantity,
             
         );
         $this->Function_Model->SubmitSEPCtoICSData($encrypttblpoid,$dataICS);
         redirect(base_url('sepc-assignee/'.$encryptpoid.'/'.$encrypttblpoid));
+    }
+
+    public function insertPPEPCData()
+    {
+        $encryptpoid = $this->input->post('hidden_po_id');
+        $encrypttblpoid = $this->input->post('hidden_tblepoitem_id');
+        $date = $this->input->post('txtDate');
+        $po_id = $this->input->post('hidden_poid');
+        $id = $this->input->post('hidden_id');
+        $assignee = $this->input->post('txtAssignee');
+        $quantity = $this->input->post('txtQuantity');
+    
+        $O_Quantity = $this->input->post('hidden_quantity');
+        $R_Quantity = $this->input->post('hidden_rquantity');
+    
+        if($O_Quantity == $R_Quantity){
+            $DeductQuantity1 = ($O_Quantity - $quantity);
+        }else{
+            $DeductQuantity1 = ($R_Quantity - $quantity);
+        }
+    
+        $dataSEPC = array(
+            'date' => $date,
+            'id_tblpo_item' => $po_id,
+            'ics_sepc_id' => $id,
+            'assignee ' => $assignee,
+            'issued_quantity ' => $quantity,
+            'balance_quantity ' => $DeductQuantity1,
+        );
+    
+        $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+
+        if($O_Quantity == $R_Quantity){
+            $DeductQuantity = ($O_Quantity - $quantity);
+        }else{
+            $DeductQuantity = ($R_Quantity - $quantity);
+        }
+        $dataICS = array(
+            'remaining_quantity' => $DeductQuantity,
+            
+        );
+        $this->Function_Model->SubmitPPEPCtoICSData($encrypttblpoid,$dataICS);
+        redirect(base_url('ppepc-assignee/'.$encryptpoid.'/'.$encrypttblpoid));
     }
     // ajax
     public function checkPoNumber()

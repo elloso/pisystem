@@ -209,7 +209,30 @@ class Function_Model extends CI_Model
         $this->db->insert('tbl_icssepc', $dataPOtoSEPC);
         return $this->db->insert_id();
     }
- 
+
+    public function getSemiExpendableData($po_id) {
+        $this->db->select('semi_expendable');
+        $this->db->where('id_tblpo_item', $po_id);
+        $query = $this->db->get('tbl_icssepc');
+    
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row;
+        } else {
+            return null;
+        }
+    }
+
+    public function checkExistingRecord($po_id) {
+        $this->db->where('id_tblpo_item', $po_id);
+        $query = $this->db->get('tbl_icssepc');
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function SubmitSEPCtoICSData($encrypttblpoid, $dataSEPCtoICS)
     {
         $this->db->where('md5(id)', $encrypttblpoid);
@@ -297,9 +320,28 @@ public function getOriginalPropertyNumber() {
     $this->db->select('property_no');
     $this->db->from('tblpo_item');
     $query = $this->db->get();
-    $result = $query->result(); // Add this line to get the result
+    $result = $query->result(); 
     return $result;
 }
+
+public function getLastPropertyNumberICS($id) {
+    $this->db->select('quantity_property_no');
+    $this->db->from('tbl_icssepc');
+    $this->db->where('ics_sepc_id', $id); 
+    $this->db->order_by('quantity_property_no', 'DESC'); 
+    $this->db->limit(1);
+
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+        $row = $query->row();
+        return $row->quantity_property_no;
+    } else {
+        return null;
+    }
+}
+
+
 
 
 }

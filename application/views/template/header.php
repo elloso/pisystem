@@ -97,7 +97,7 @@
             <ul>
               <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a></li>
               <li><a href="<?php echo base_url('propertycard'); ?>">Semi-Expendable Property Card</a></li>
-              <li><a href="#">RPSI</a></li>
+              <li><a href="<?php echo base_url('ReportRSPI');?>">RSPI</a></li>
               <li><a href="#">RPCSEP</a></li>
             </ul>
           </li> 

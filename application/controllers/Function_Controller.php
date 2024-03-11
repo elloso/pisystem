@@ -798,6 +798,7 @@ class Function_Controller extends CI_Controller
         $assignee = $this->input->post('txtAssignee');
         $quantity = $this->input->post('txtQuantity');
         $semiExpendable = $this->input->post('txtSemiExpendable');
+        $O_propertyno = $this->input->post('hidden_property_no');
     
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
@@ -806,6 +807,37 @@ class Function_Controller extends CI_Controller
             $DeductQuantity1 = ($O_Quantity - $quantity);
         }else{
             $DeductQuantity1 = ($R_Quantity - $quantity);
+        }
+
+        $O_propertyno = $this->input->post('hidden_property_no');
+        $range = explode('-', $O_propertyno);
+        $start = intval($range[1]);
+        $end = intval($range[2]);
+
+        $last_property_number = $this->Function_Model->getLastPropertyNumberICS($id);
+
+        if (!$last_property_number) {
+            $next_start = $start;
+            $next_end = $start + $quantity - 1;
+        } else {
+            $last_range = explode('-', $last_property_number);
+            $last_end = intval($last_range[2]);
+            
+            $next_start = $last_end + 1;
+            $next_end = $next_start + $quantity - 1;
+        }
+
+        // Construct the next property number
+        // if ($quantity == 1) {
+        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
+        // } else {
+        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+        // }
+        $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+        
+        if ($this->Function_Model->checkExistingRecord($po_id)) {
+            $existingData = $this->Function_Model->getSemiExpendableData($po_id);
+            $semiExpendable = $existingData['semi_expendable'];
         }
     
         $dataSEPC = array(
@@ -816,9 +848,11 @@ class Function_Controller extends CI_Controller
             'issued_quantity ' => $quantity,
             'balance_quantity ' => $DeductQuantity1,
             'semi_expendable' => $semiExpendable,
+            'quantity_property_no' => $Modified_propertyno,
         );
     
         $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+
 
         if($O_Quantity == $R_Quantity){
             $DeductQuantity = ($O_Quantity - $quantity);
@@ -842,6 +876,7 @@ class Function_Controller extends CI_Controller
         $id = $this->input->post('hidden_id');
         $assignee = $this->input->post('txtAssignee');
         $quantity = $this->input->post('txtQuantity');
+        $semiExpendable = $this->input->post('txtSemiExpendable');
     
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
@@ -851,6 +886,11 @@ class Function_Controller extends CI_Controller
         }else{
             $DeductQuantity1 = ($R_Quantity - $quantity);
         }
+
+        if ($this->Function_Model->checkExistingRecord($po_id)) {
+            $existingData = $this->Function_Model->getSemiExpendableData($po_id);
+            $semiExpendable = $existingData['semi_expendable'];
+        }
     
         $dataSEPC = array(
             'date' => $date,
@@ -859,6 +899,7 @@ class Function_Controller extends CI_Controller
             'assignee ' => $assignee,
             'issued_quantity ' => $quantity,
             'balance_quantity ' => $DeductQuantity1,
+            'semi_expendable' => $semiExpendable,
         );
     
         $this->Function_Model->SubmitPotoSEPCData($dataSEPC);

@@ -147,13 +147,29 @@ class Fpdf_Model extends CI_Model
     
         return $query->row_array();
     }
-    public function fetchSEPCDataByPOID($po_id) {
-        $this->db->select('tbl_icssepc.*, tblics.*, tblpo.*, tblpo_item.*'); 
-        $this->db->from('tbl_icssepc');
-        $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
-        $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
-        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
-        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+    // public function fetchSEPCDataByPOID($po_id) {
+    //     $this->db->select('tbl_icssepc.*, tblics.*, tblpo.*, tblpo_item.*'); 
+    //     $this->db->from('tbl_icssepc');
+    //     $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
+    //     $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
+    //     $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+    //     $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+        
+    //     $query = $this->db->get();
+    
+    //     if ($query->num_rows() > 0) {
+    //         return $query->row();
+    //     } else {
+    //         return null;
+    //     }
+    // }
+    public function fetchSEPCDataByPOID($po_id,$id) {
+        $this->db->select('tblics.*, tblpo_item.*,tbl_icssepc.*'); 
+        $this->db->from('tblics');
+        $this->db->join('tblpo_item', 'tblics.ics_po_id = tblpo_item.po_id');
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->where('md5(tblics.ics_po_id)', $po_id);
+        $this->db->where('md5(tblpo_item.id)', $id);
         
         $query = $this->db->get();
     
@@ -163,13 +179,29 @@ class Fpdf_Model extends CI_Model
             return null;
         }
     }
-    public function fetchSEPCDataResult($po_id) {
-        $this->db->select('tbl_icssepc.*, tblics.*, tblpo.*, tblpo_item.*'); 
-        $this->db->from('tbl_icssepc');
-        $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
-        $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
-        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
-        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+    // public function fetchSEPCDataResult($po_id) {
+    //     $this->db->select('tbl_icssepc.*, tblics.*, tblpo.*, tblpo_item.*'); 
+    //     $this->db->from('tbl_icssepc');
+    //     $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
+    //     $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
+    //     $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+    //     $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+        
+    //     $query = $this->db->get();
+    
+    //     if ($query->num_rows() > 0) {
+    //         return $query->result();
+    //     } else {
+    //         return null;
+    //     }
+    // }
+    public function fetchSEPCDataResult($po_id,$id) {
+        $this->db->select('tblics.*, tblpo_item.*,tbl_icssepc.*'); 
+        $this->db->from('tblics');
+        $this->db->join('tblpo_item', 'tblics.ics_po_id = tblpo_item.po_id');
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->where('md5(tblics.ics_po_id)', $po_id);
+        $this->db->where('md5(tblpo_item.id)', $id);
         
         $query = $this->db->get();
     
@@ -179,13 +211,29 @@ class Fpdf_Model extends CI_Model
             return null;
         }
     }
-    public function fetchPPEPCDataByPOID($po_id) {
-        $this->db->select('tbl_icssepc.*, tblpar.*, tblpo.*, tblpo_item.*'); 
-        $this->db->from('tbl_icssepc');
-        $this->db->join('tblpar', 'tbl_icssepc.id_tblpo_item = tblpar.par_po_id');
-        $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
-        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
-        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+    // public function fetchPPEPCDataByPOID($po_id) {
+    //     $this->db->select('tbl_icssepc.*, tblpar.*, tblpo.*, tblpo_item.*'); 
+    //     $this->db->from('tbl_icssepc');
+    //     $this->db->join('tblpar', 'tbl_icssepc.id_tblpo_item = tblpar.par_po_id');
+    //     $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
+    //     $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+    //     $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+        
+    //     $query = $this->db->get();
+    
+    //     if ($query->num_rows() > 0) {
+    //         return $query->row();
+    //     } else {
+    //         return null;
+    //     }
+    // }
+    public function fetchPPEPCDataByPOID($po_id,$id) {
+        $this->db->select('tblpar.*, tblpo_item.*,tbl_icssepc.*'); 
+        $this->db->from('tblpar');
+        $this->db->join('tblpo_item', 'tblpar.par_po_id = tblpo_item.po_id');
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->where('md5(tblpar.par_po_id)', $po_id);
+        $this->db->where('md5(tblpo_item.id)', $id);
         
         $query = $this->db->get();
     
@@ -195,13 +243,29 @@ class Fpdf_Model extends CI_Model
             return null;
         }
     }
-    public function fetchPPEPCDataResult($po_id) {
-        $this->db->select('tbl_icssepc.*, tblpar.*, tblpo.*, tblpo_item.*'); 
-        $this->db->from('tbl_icssepc');
-        $this->db->join('tblpar', 'tbl_icssepc.id_tblpo_item = tblpar.par_po_id');
-        $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
-        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
-        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+    // public function fetchPPEPCDataResult($po_id) {
+    //     $this->db->select('tbl_icssepc.*, tblpar.*, tblpo.*, tblpo_item.*'); 
+    //     $this->db->from('tbl_icssepc');
+    //     $this->db->join('tblpar', 'tbl_icssepc.id_tblpo_item = tblpar.par_po_id');
+    //     $this->db->join('tblpo', 'tbl_icssepc.id_tblpo_item = tblpo.po_id');
+    //     $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+    //     $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $po_id);
+        
+    //     $query = $this->db->get();
+    
+    //     if ($query->num_rows() > 0) {
+    //         return $query->result();
+    //     } else {
+    //         return null;
+    //     }
+    // }
+    public function fetchPPEPCDataResult($po_id,$id) {
+        $this->db->select('tblpar.*, tblpo_item.*,tbl_icssepc.*'); 
+        $this->db->from('tblpar');
+        $this->db->join('tblpo_item', 'tblpar.par_po_id = tblpo_item.po_id');
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->where('md5(tblpar.par_po_id)', $po_id);
+        $this->db->where('md5(tblpo_item.id)', $id);
         
         $query = $this->db->get();
     

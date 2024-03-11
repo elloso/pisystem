@@ -29,9 +29,11 @@
                             <td><?php echo $PO_SEPCData->ics_supplier ?></td>
                             <td><?php echo $PO_SEPCData->item_description ?></td>
                             <td class="text-center">
-                                <!-- <a href="#" title="Assignee" class="text-primary mx-2"><i class="fa-solid fa-user-plus"></i></a> -->
-                                <a href="<?php echo base_url('sepc-assignee/' . md5($PO_SEPCData->ics_po_id) .'/'. md5($PO_SEPCData->id)) ?>" title="Assign Item" class="text-primary mx-2"><i class="fa-solid fa-user-plus"></i></a>
-                                <a href="<?php echo base_url('print-pcform/'.md5($PO_SEPCData->ics_po_id)); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                            <!-- <a href="#" title="Assignee" class="text-primary mx-2"><i class="fa-solid fa-user-plus"></i></a> -->
+                                <a href="<?php echo base_url('sepc-assignee/' . md5($PO_SEPCData->ics_po_id) .'/'. md5($PO_SEPCData->id)) ?>" title="Assign Item" class="text-primary mx-2" onclick="return confirm('Please confirm to proceed Assignee allocation.')"><i class="fa-solid fa-user-plus"></i></a>
+                            <?php if($PO_SEPCData->quantity != $PO_SEPCData->remaining_quantity): ?>
+                                <a href="<?php echo base_url('print-pcform/'.md5($PO_SEPCData->ics_po_id) .'/'. md5($PO_SEPCData->id)); ?>" target="_blank" title="Print"class="text-primary mx-2"><i class="fa-solid fa-print"></i></a>
+                            <?php endif; ?>
                             </td>
                         </tr>
                             <?php endif; ?>

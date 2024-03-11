@@ -4,11 +4,11 @@ require('assets/fpdf/fpdf.php');
 
 class PPEPCpdf_Controller extends CI_Controller
 {
-    public function PPEPCform($po_id)
+    public function PPEPCform($po_id,$id)
     {
        
-    $ppepc_data = $this->Fpdf_Model->fetchPPEPCDataByPOID($po_id);
-    $Datas = $this->Fpdf_Model->fetchPPEPCDataResult($po_id);
+    $ppepc_data = $this->Fpdf_Model->fetchPPEPCDataByPOID($po_id,$id);
+    $Datas = $this->Fpdf_Model->fetchPPEPCDataResult($po_id,$id);
     
             $pdf = new PDF();
            

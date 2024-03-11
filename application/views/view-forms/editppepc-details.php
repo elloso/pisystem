@@ -7,8 +7,10 @@
             <div class=""> 
                 <!-- <button type="button" class="btn btn-secondary" style="width: 6%;" onclick="history.back()">Back</button> -->
                 <?php if($remaining->remaining_quantity == 0){ ?>
+                    <a href="<?php echo base_url('propertycardpar') ?>"><button type="button" class="btn btn-secondary">Back</button></a>
                     <button type="button" class="btn btn-danger"style="cursor:not-allowed"  >Assign Item</button>
                 <?php }else{ ?>
+                    <a href="<?php echo base_url('propertycardpar') ?>"><button type="button" class="btn btn-secondary">Back</button></a>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Assign Item</button>
                 <?php } ?>
             </div>

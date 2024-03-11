@@ -7,8 +7,10 @@
             <div class=""> 
                 <!-- <button type="button" class="btn btn-secondary" style="width: 6%;" onclick="history.back()">Back</button> -->
                 <?php if($remaining->remaining_quantity == 0){ ?>
+                    <a href="<?php echo base_url('propertycard') ?>"><button type="button" class="btn btn-secondary">Back</button></a>
                     <button type="button" class="btn btn-danger"style="cursor:not-allowed"  >Assign Item</button>
                 <?php }else{ ?>
+                    <a href="<?php echo base_url('propertycard') ?>"><button type="button" class="btn btn-secondary">Back</button></a>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Assign Item</button>
                 <?php } ?>
             </div>
@@ -71,6 +73,12 @@
                 <input type="hidden" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
                 <input type="hidden" name="hidden_poid" value="<?php echo $Data->po_id; ?>">
                 <input type="hidden" name="hidden_id" value="<?php echo $Data->id; ?>">
+                <?php if($Data->quantity == $Data->remaining_quantity): ?>
+                    <div class="col-lg-12 col-xl-12">
+                        <label class="form-label fw-bold text-dark">Semi-Expendable Property:</label>
+                        <input type="text" id="txtSemiExpendable" class="form-control" name="txtSemiExpendable" required>
+                    </div>
+                <?php endif; ?>
                 <div class="row">
                     <div class="col-lg-3 col-xl-3">
                         <label class="form-label fw-bold text-dark" for="txtDate">Date :</label>
@@ -92,6 +100,7 @@
                         <input type="text" id="txtAssignee" class="form-control" name="txtAssignee" required>
                     </div>
                 </div>
+               
             </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -4,11 +4,11 @@ require('assets/fpdf/fpdf.php');
 
 class SEPCpdf_Controller extends CI_Controller
 {
-    public function PCform($po_id)
+    public function PCform($po_id,$id)
     {
        
-    $sepc_data = $this->Fpdf_Model->fetchSEPCDataByPOID($po_id);
-    $Datas = $this->Fpdf_Model->fetchSEPCDataResult($po_id);
+    $sepc_data = $this->Fpdf_Model->fetchSEPCDataByPOID($po_id,$id);
+    $Datas = $this->Fpdf_Model->fetchSEPCDataResult($po_id,$id);
     
             $pdf = new PDF();
            
@@ -30,11 +30,22 @@ class SEPCpdf_Controller extends CI_Controller
 
             $pdf->SetFont('times', '', 10);
 
+              //Line
+              $pdf->Line(30, 98, 30, 188);
+              $pdf->Line(60, 98, 60, 188);
+              $pdf->Line(75, 98, 75, 188);
+              $pdf->Line(100, 98, 100, 188);
+              $pdf->Line(132, 98, 132, 188);
+              $pdf->Line(145, 98, 145, 188);
+              $pdf->Line(207, 98, 207, 188);
+              $pdf->Line(227, 58, 227, 188);
+              $pdf->Line(252, 98, 252, 188);
+
             $x = $pdf->GetX();
             $y = $pdf->GetY() + 3; 
 
             $contentWidth = 277;
-            $contentHeight = 157;
+            $contentHeight = 140;
             $pdf->Rect($x, $y, $contentWidth, $contentHeight);
 
             $pdf->SetXY($x, $y);
@@ -86,7 +97,12 @@ class SEPCpdf_Controller extends CI_Controller
             $pdf->SetXY($x+242, $y+40);
             $pdf->multicell(35, 5, 'Remarks / Estimated Useful Life ', 'TBL', 'C');
 
+
             foreach ($Datas as $Data) {
+                if ($pdf->GetY() + 10 > $pdf->GetPageHeight() - $pdf->getBottomMargin()) {
+                    $pdf->AddPage();
+                    $y = $pdf->getTopMargin() - 30;
+                }
                 $pdf->SetFont('times', '', 10); 
                                 
                 $pdf->SetXY($x, $y+50);
@@ -123,24 +139,13 @@ class SEPCpdf_Controller extends CI_Controller
                 $y += 10; // Adjust as needed
             }
             
-               
-
-            //Line
-            $pdf->Line(30, 98, 30, 205);
-            $pdf->Line(60, 98, 60, 205);
-            $pdf->Line(75, 98, 75, 205);
-            $pdf->Line(100, 98, 100, 205);
-            $pdf->Line(132, 98, 132, 205);
-            $pdf->Line(145, 98, 145, 205);
-            $pdf->Line(207, 98, 207, 205);
-            $pdf->Line(227, 58, 227, 205);
-            $pdf->Line(252, 98, 252, 205);
             $pdf->Output(); 
     }
 }
 
 class PDF extends FPDF
 {
+    private $topMargin; // Store the top margin
     function Header()
     {
         $this->SetFont('times', 'I', 12);
@@ -158,4 +163,12 @@ class PDF extends FPDF
     {
         parent::__construct('L', 'mm', 'A4'); // 'L' for landscape orientation, 'A4' for paper size
     }
+    // Method to retrieve the top margin
+    function getTopMargin() {
+        return $this->topMargin;
+    }
+    function getBottomMargin() {
+        return $this->bMargin;
+    }
+
 }

@@ -797,6 +797,7 @@ class Function_Controller extends CI_Controller
         $id = $this->input->post('hidden_id');
         $assignee = $this->input->post('txtAssignee');
         $quantity = $this->input->post('txtQuantity');
+        $semiExpendable = $this->input->post('txtSemiExpendable');
     
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
@@ -814,6 +815,7 @@ class Function_Controller extends CI_Controller
             'assignee ' => $assignee,
             'issued_quantity ' => $quantity,
             'balance_quantity ' => $DeductQuantity1,
+            'semi_expendable' => $semiExpendable,
         );
     
         $this->Function_Model->SubmitPotoSEPCData($dataSEPC);

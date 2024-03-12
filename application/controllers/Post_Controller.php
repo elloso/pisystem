@@ -342,7 +342,7 @@ class Post_Controller extends CI_Controller
             $data['user_email'] = $this->session->userdata('email');
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
-            $data['PO_SEPCDatas'] = $this->Post_model->viewSEPCtable();
+            // $data['PO_SEPCDatas'] = $this->Post_model->viewSEPCtable();
             $data['userDetails'] = $userEmail;
             $this->load->view('template/header', $data);
             $this->load->view('forms/rspi');

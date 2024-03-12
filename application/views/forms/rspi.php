@@ -3,7 +3,7 @@
         <div class="card-header border-success" style="border-top:solid;">
             <div class="card-title">Report of Semi-Expendable Property Issued</div>
         </div>
-        <button class="bn632-hover bn23">Generate Report</button>
+        <a href="<?php echo base_url('print-rspiicsform'); ?>" title="Generate" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
         <div class="card-body">
             <div class="table-responsive">
                 <table id="sepc-data-table" class="table table-hover">
@@ -12,20 +12,24 @@
                             <th class="text-center">ICS No.</th>
                             <th class="text-center">RCC</th>
                             <th class="text-center">Property No.</th>
-                            <th class="text-center">DESCRIPTION</th>
-                            <th class="text-center">ACTION</th>
+                            <th class="text-center">Item Description</th>
+                            <!-- <th class="text-center">Unit</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Unit Cost</th>
+                            <th class="text-center">Amount</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($PO_SEPCDatas as $PO_SEPCData ): ?>
                         <tr>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
+                            <!-- <td class="text-center"></td>
                             <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td> -->
                         </tr>
-                        <?php endforeach; ?>
                     </tbody>
                  </table>
             </div>

@@ -802,6 +802,9 @@ class Function_Controller extends CI_Controller
     
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
+
+        $yearDate = date('Y');
+        $monthDate = date('F');
     
         if($O_Quantity == $R_Quantity){
             $DeductQuantity1 = ($O_Quantity - $quantity);
@@ -839,7 +842,7 @@ class Function_Controller extends CI_Controller
             $existingData = $this->Function_Model->getSemiExpendableData($po_id);
             $semiExpendable = $existingData['semi_expendable'];
         }
-    
+     
         $dataSEPC = array(
             'date' => $date,
             'id_tblpo_item' => $po_id,
@@ -849,10 +852,11 @@ class Function_Controller extends CI_Controller
             'balance_quantity ' => $DeductQuantity1,
             'semi_expendable' => $semiExpendable,
             'quantity_property_no' => $Modified_propertyno,
+            'rspi_month' => $monthDate,
+            'rspi_year' => $yearDate,
         );
     
         $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
-
 
         if($O_Quantity == $R_Quantity){
             $DeductQuantity = ($O_Quantity - $quantity);

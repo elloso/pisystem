@@ -73,7 +73,7 @@
                 <input type="hidden" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
                 <input type="hidden" name="hidden_poid" value="<?php echo $Data->po_id; ?>">
                 <input type="hidden" name="hidden_id" value="<?php echo $Data->id; ?>">
-                <input type="text" name="hidden_property_no" value="<?php echo $Data->property_no; ?>">
+                <input type="hidden" name="hidden_property_no" value="<?php echo $Data->property_no; ?>">
                 <?php if (!$this->Function_Model->checkExistingRecord($Data->po_id)): ?>
                     <div class="col-lg-12 col-xl-12">
                         <label class="form-label fw-bold text-dark">Semi-Expendable Property:</label>

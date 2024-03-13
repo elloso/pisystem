@@ -443,6 +443,18 @@ class Post_Model extends CI_Model
             return array();
         }
     }
-
+    public function propertyTypeShow()
+    {
+        $this->db->select('semi_expendable, COUNT(*) as count');
+        $this->db->from('tbl_icssepc');
+        $this->db->group_by('semi_expendable');
+        $this->db->order_by('semi_expendable', 'asc');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
 
 }

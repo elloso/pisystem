@@ -149,7 +149,7 @@ class PDF extends FPDF
     function Header()
     {
         $this->SetFont('times', 'I', 12);
-        $this->Cell(0, 10, 'Appendix 69', 0, 1, 'R');
+        $this->Cell(0, 10, 'Annex A.1', 0, 1, 'R');
     }
 
     function Footer()

@@ -136,6 +136,7 @@ class Function_Controller extends CI_Controller
                     'item_description' => $txtDescription[$i],
                     'unit_cost' => $txtItemUnitCost[$i],
                     'total_unit_cost' => $txtTotalUnitCost[$i],
+                    'useful_life' => "3 years",
                 );
         
                 $poId = $this->Function_Model->SubmitPoItemData($itemData);
@@ -798,6 +799,7 @@ class Function_Controller extends CI_Controller
         $assignee = $this->input->post('txtAssignee');
         $quantity = $this->input->post('txtQuantity');
         $semiExpendable = $this->input->post('txtSemiExpendable');
+        $txtRemarksFC= $this->input->post('txtRemarksFC');
         $O_propertyno = $this->input->post('hidden_property_no');
     
         $O_Quantity = $this->input->post('hidden_quantity');
@@ -838,9 +840,10 @@ class Function_Controller extends CI_Controller
         // }
         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
         
-        if ($this->Function_Model->checkExistingRecord($po_id)) {
-            $existingData = $this->Function_Model->getSemiExpendableData($po_id);
+        if ($this->Function_Model->checkExistingRecord($id)) {
+            $existingData = $this->Function_Model->getSemiExpendableData($id);
             $semiExpendable = $existingData['semi_expendable'];
+            $txtRemarksFC = $existingData['remarksFC'];
         }
      
         $dataSEPC = array(
@@ -854,6 +857,7 @@ class Function_Controller extends CI_Controller
             'quantity_property_no' => $Modified_propertyno,
             'rspi_month' => $monthDate,
             'rspi_year' => $yearDate,
+            'remarksFC' => $txtRemarksFC,
         );
     
         $this->Function_Model->SubmitPotoSEPCData($dataSEPC);

@@ -4,7 +4,7 @@
             <div class="card-title">Registry of Semi-expandable Property Issued (ICS)</div>
         </div> 
         <div class="col-lg-2 col-xl-2">
-            <a href="<?php echo base_url('print-rsepiform'); ?> " target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
+          <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#semiexpendableproperty">Generate Report</button></a>
         </div>
 
         <div class="card-body">
@@ -99,6 +99,64 @@
         </div>
     </div>
 </div>  
+<!-- Modal -->
+<form action="<?php echo base_url('print-rsepiform'); ?>" method="post" target="_blank">
+<div class="modal fade" id="semiexpendableproperty" tabindex="-1" aria-labelledby="semiexpendablepropertyLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 font-weight-bold" id="semiexpendablepropertyLabel">Generation Report</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <div class="row">
+                <div class="col-6">
+                    <label class="badge badge-info" style="color:black;">Semi-expendable Property:</label>
+                    <select class="form-control" name="PropertyDropdown" >
+                        <?php foreach($TypePropertys as $Type): ?>
+                            <option value="<?php echo $Type->semi_expendable ?>" class="text-center"><?php echo $Type->semi_expendable ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label class="badge badge-info" style="color:black;">Year:</label>
+                        <select class="form-control" name="YearDropdown">
+                            <?php foreach ($Years as $Year): ?>
+                                <option value="<?php echo $Year->rspi_year ?>" class="text-center"><?php echo $Year->rspi_year ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Generate</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- For Returned, Reissued and Disposal -->
 <form action="<?php echo base_url('respi-returned'); ?>" method="post" class="needs-validation" novalidate>
     <!-- Modal -->
     <div class="modal fade" id="Modal_ReturnedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

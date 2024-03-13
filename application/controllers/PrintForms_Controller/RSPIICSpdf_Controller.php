@@ -152,7 +152,7 @@ class RSPIICSpdf_Controller extends CI_Controller
                 $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
                 $descriptionHeight = 7 * $descriptionLines;
 
-                if ($y + $descriptionHeight > 230) {
+                if ($y + $descriptionHeight > 220) {
                     $pdf->AddPage();
                     $y = 15; 
                     $pdf->SetFont('times', 'B', 14);
@@ -243,12 +243,6 @@ class RSPIICSpdf_Controller extends CI_Controller
            
                 }
                 $pdf->SetXY($x, $y);
-        
-                $descriptionWidth = 39;
-                $descriptionText = '* ' . $Datas->item_description;
-                $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
-                $descriptionHeight = 7 * $descriptionLines;
-    
                 $UnitCost = number_format($Datas->unit_cost, 2);
                 $Total = $Datas->issued_quantity * $Datas->unit_cost;
                 $totalUnitCost = number_format($Total, 2);

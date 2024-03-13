@@ -285,6 +285,8 @@ class Post_Controller extends CI_Controller
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
             $data['RSEPIlists'] = $this->Post_model->getRSEPI();
+            $data['TypePropertys'] = $this->Post_model->propertyTypeShow();
+            $data['Years'] = $this->Post_model->yearShow();
             $this->load->view('template/header', $data);
             $this->load->view('forms2/rsepi', $data);
             $this->load->view('template/footer');

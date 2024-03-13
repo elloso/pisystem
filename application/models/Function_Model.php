@@ -210,9 +210,9 @@ class Function_Model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function getSemiExpendableData($po_id) {
-        $this->db->select('semi_expendable');
-        $this->db->where('id_tblpo_item', $po_id);
+    public function getSemiExpendableData($id) {
+        $this->db->select('semi_expendable, remarksFC');
+        $this->db->where('ics_sepc_id', $id);
         $query = $this->db->get('tbl_icssepc');
     
         if ($query->num_rows() > 0) {
@@ -223,8 +223,8 @@ class Function_Model extends CI_Model
         }
     }
 
-    public function checkExistingRecord($po_id) {
-        $this->db->where('id_tblpo_item', $po_id);
+    public function checkExistingRecord($id) {
+        $this->db->where('ics_sepc_id', $id);
         $query = $this->db->get('tbl_icssepc');
         if ($query->num_rows() > 0) {
             return true;

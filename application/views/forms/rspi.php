@@ -5,7 +5,7 @@
         </div>
         <div>
             <!-- <a href="<?php echo base_url('print-rspiicsform'); ?>" title="Generate" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a> -->
-            <a href="#" title="Generate"><button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#yearandmonth">Generate Report</button></a>
+          <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#yearandmonth">Generate Report</button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -110,8 +110,7 @@
             </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button></a>
+        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Generate</button></a>
       </div>
     </div>
   </div>

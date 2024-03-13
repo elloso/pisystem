@@ -97,7 +97,8 @@
             <ul>
               <li><a href="<?php echo base_url('custodian'); ?>">Inventory Custodian Slip</a></li>
               <li><a href="<?php echo base_url('propertycard'); ?>">Semi-Expendable Property Card</a></li>
-              <li><a href="<?php echo base_url('ReportRSPI');?>">RSPI</a></li>
+              <li><a href="<?php echo base_url('ReportRSPI');?>">Report of SPI</a></li>
+              <li><a href="<?php echo base_url('respi');?>">Registry of SPI</a></li>
               <li><a href="#">RPCSEP</a></li>
             </ul>
           </li> 
@@ -108,12 +109,12 @@
              <li><a href="#">RPCPPE</a></li>
             </ul>
           </li> 
-          <li class="dropdown"><a href="#"><span>Summary Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <!-- <li class="dropdown"><a href="#"><span>Summary Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url('respi'); ?>">Registry SPI (ICS)</a></li>
               <li><a href="<?php echo base_url('respi-par'); ?>">Registry SPI (PAR)</a></li>
             </ul>
-          </li>
+          </li> -->
           <li class="dropdown"><a href="#"><span>Settings</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url(); ?>my-account">My Account</a></li>

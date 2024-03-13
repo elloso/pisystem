@@ -1930,5 +1930,6 @@ protected function _enddoc()
 	$this->_put('%%EOF');
 	$this->state = 3;
 }
+
 }
 ?>

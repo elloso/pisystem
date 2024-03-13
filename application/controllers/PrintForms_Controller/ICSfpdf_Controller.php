@@ -114,38 +114,7 @@ class ICSfpdf_Controller extends CI_Controller
         $pdf->SetXY($x + 112 , $y + 165);
         $formattedtotal_cost = number_format($ics_form->total_cost, 2);
         $pdf->Cell(18, 5, $formattedtotal_cost , 'T', 0, 'C');  
-
-        // foreach ($po_items as $item) {
-        //     $pdf->SetXY($x, $y);
-        //     $descriptionWidth = 65;
-        //     $descriptionText = $item->item_description;
-        //     $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
-        //     $descriptionHeight = 7 * $descriptionLines;
-
-        //     $pdf->SetX(9);
-        //     $pdf->Cell(19, 90, $item->quantity, 0, 0, 'C');
-
-        //     $pdf->SetX(23);
-        //     $pdf->Cell(19, 90, $item->unit, 0, 0, 'C');
-
-        //     $pdf->SetX(103);
-        //     $pdf->Cell(19, 90, $item->unit_cost, 0, 0, 'C');
-
-        //     $pdf->SetX(121);
-        //     $pdf->Cell(19, 90, $item->total_unit_cost, 0, 0, 'C');
-
-        //     $pdf->SetX(149);
-        //     $pdf->MultiCell(27, 20, $item->property_no, 0, 'C');
-
-        //     $pdf->SetX(176);
-        //     $pdf->Cell(19, 90, $item->useful_life, 0, 0, 'C');
-
-        //     $pdf->SetXY(40, $y + 40);
-        //     $pdf->MultiCell($descriptionWidth, 6, '* ' . $descriptionText, 0, 'L');
-
-        //     $y += max(8, $descriptionHeight);
-        // }
-
+       
         foreach ($po_items as $item) {
             $pdf->SetXY($x, $y);
         

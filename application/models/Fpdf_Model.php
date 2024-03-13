@@ -275,5 +275,41 @@ class Fpdf_Model extends CI_Model
             return null;
         }
     }
+    public function rspi_item($selectMonth,$selectYear)
+    {
+
+        $this->db->select('tblpo_item.*,tbl_icssepc.*,tblics.*,tbliar.rcc,tbliar.iar_po_id'); 
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
+        $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('tbl_icssepc.rspi_month', $selectMonth);
+        $this->db->where('tbl_icssepc.rspi_year', $selectYear);
+        $query = $this->db->get('tblpo_item');
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
+
+    public function rspi_data($selectMonth,$selectYear)
+    {
+        $this->db->select('tblpo_item.*,tbl_icssepc.*,tblics.*,tbliar.rcc,tbliar.iar_po_id'); 
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
+        $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
+        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('tbl_icssepc.rspi_month', $selectMonth);
+        $this->db->where('tbl_icssepc.rspi_year', $selectYear);
+        $query = $this->db->get('tblpo_item');
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return [];
+        }
+    }
   
 }

@@ -401,8 +401,6 @@ class Post_Model extends CI_Model
             return row();
         }
     }
-
-
     public function getQuantityById($id) {
         $query = $this->db->get_where('tblpo_item', array('md5(id)' => $id));
         $row = $query->row();
@@ -418,6 +416,32 @@ class Post_Model extends CI_Model
             return $row->remaining_quantity;
         }
         return false; 
+    }
+    public function yearShow()
+    {
+        $this->db->select('rspi_year, COUNT(*) as count');
+        $this->db->from('tbl_icssepc');
+        $this->db->group_by('rspi_year');
+        $this->db->order_by('rspi_year', 'asc');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    public function monthShow()
+    {
+        $this->db->select('rspi_month, COUNT(*) as count');
+        $this->db->from('tbl_icssepc');
+        $this->db->group_by('rspi_month');
+        $this->db->order_by('rspi_month', 'asc');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
     }
 
 

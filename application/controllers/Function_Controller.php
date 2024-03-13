@@ -804,7 +804,7 @@ class Function_Controller extends CI_Controller
         $R_Quantity = $this->input->post('hidden_rquantity');
 
         $yearDate = date('Y');
-        $monthDate = date('F');
+        $monthDate = date('n');
     
         if($O_Quantity == $R_Quantity){
             $DeductQuantity1 = ($O_Quantity - $quantity);

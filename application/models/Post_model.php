@@ -263,7 +263,6 @@ class Post_Model extends CI_Model
         $this->db->select('tblpo_item.*, tblics.*, tblics_rsepi.*');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
         $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item', 'inner');
-        // $this->db->where('tblpo_item.unit_cost >=', 1500);
         $this->db->where('tblpo_item.unit_cost <', 50000);
         $rsepidata = $this->db->get('tblpo_item')->result();
         return $rsepidata;
@@ -454,6 +453,23 @@ class Post_Model extends CI_Model
             return $query->result();
         } else {
             return array();
+        }
+    }
+    public function regspi_item()
+    {
+        $this->db->select('tbl_icssepc.*'); 
+        // $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        // $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
+        // $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
+        // $this->db->where('tblpo_item.unit_cost <', 50000);
+        // $this->db->where('tbl_icssepc.semi_expendable', $Property);
+        // $this->db->where('tbl_icssepc.rspi_year', $PropertyYear);
+        $query = $this->db->get('tbl_icssepc');
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
         }
     }
 

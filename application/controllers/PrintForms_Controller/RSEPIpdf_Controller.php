@@ -42,7 +42,7 @@ class RSEPIpdf_Controller extends CI_Controller
             $y = $pdf->GetY() + 3; 
 
             $contentWidth = 277;
-            $contentHeight = 125;
+            $contentHeight = 110;
             $pdf->Rect($x, $y, $contentWidth, $contentHeight);
 
             $pdf->SetXY($x, $y); 
@@ -97,20 +97,20 @@ class RSEPIpdf_Controller extends CI_Controller
             $pdf->SetXY($x + 260, $y); 
             $pdf->Cell(17, 14, 'Remarks', 'B', 0, 'C');
 
-            $pdf->Line(25, 201, 25, 90);
-            $pdf->Line(43, 201, 43, 90);
-            $pdf->Line(65, 201, 65, 90);
-            $pdf->Line(120, 201, 120, 90);
-            $pdf->Line(135, 201, 135, 90);
-            $pdf->Line(143, 201, 143, 90);
-            $pdf->Line(165, 201, 165, 90);
-            $pdf->Line(173, 201, 173, 90);
-            $pdf->Line(195, 201, 195, 90);
-            $pdf->Line(205, 201, 205, 90);
-            $pdf->Line(225, 201, 225, 90);
-            $pdf->Line(239, 201, 239, 90);
-            $pdf->Line(253, 201, 253, 90);
-            $pdf->Line(270, 201, 270, 90);
+            $pdf->Line(25, 186, 25, 90);
+            $pdf->Line(43, 186, 43, 90);
+            $pdf->Line(65, 186, 65, 90);
+            $pdf->Line(120, 186, 120, 90);
+            $pdf->Line(135, 186, 135, 90);
+            $pdf->Line(143, 186, 143, 90);
+            $pdf->Line(165, 186, 165, 90);
+            $pdf->Line(173, 186, 173, 90);
+            $pdf->Line(195, 186, 195, 90);
+            $pdf->Line(205, 186, 205, 90);
+            $pdf->Line(225, 186, 225, 90);
+            $pdf->Line(239, 186, 239, 90);
+            $pdf->Line(253, 186, 253, 90);
+            $pdf->Line(270, 186, 270, 90);
 
             foreach($RegSPIDatas as $Data){
                 $Total = $Data->issued_quantity * $Data->unit_cost;
@@ -123,7 +123,7 @@ class RSEPIpdf_Controller extends CI_Controller
                 $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
                 $descriptionHeight = 6 * $descriptionLines;
 
-                if ($y + $descriptionHeight > 180) {
+                if ($y + $descriptionHeight > 170) {
                     $pdf->AddPage();
                     $y = 15; 
                     $pdf->SetFont('times', 'B', 12);
@@ -155,7 +155,7 @@ class RSEPIpdf_Controller extends CI_Controller
                     $y = $pdf->GetY() + 3; 
         
                     $contentWidth = 277;
-                    $contentHeight = 125;
+                    $contentHeight = 110;
                     $pdf->Rect($x, $y, $contentWidth, $contentHeight);
         
                     $pdf->SetXY($x, $y); 
@@ -210,20 +210,21 @@ class RSEPIpdf_Controller extends CI_Controller
                     $pdf->SetXY($x + 260, $y); 
                     $pdf->Cell(17, 14, 'Remarks', 'B', 0, 'C');
         
-                    $pdf->Line(25, 201, 25, 90);
-                    $pdf->Line(43, 201, 43, 90);
-                    $pdf->Line(65, 201, 65, 90);
-                    $pdf->Line(120, 201, 120, 90);
-                    $pdf->Line(135, 201, 135, 90);
-                    $pdf->Line(143, 201, 143, 90);
-                    $pdf->Line(165, 201, 165, 90);
-                    $pdf->Line(173, 201, 173, 90);
-                    $pdf->Line(195, 201, 195, 90);
-                    $pdf->Line(205, 201, 205, 90);
-                    $pdf->Line(225, 201, 225, 90);
-                    $pdf->Line(239, 201, 239, 90);
-                    $pdf->Line(253, 201, 253, 90);
-                    $pdf->Line(270, 201, 270, 90);
+                    $pdf->Line(25, 186, 25, 90);
+                    $pdf->Line(43, 186, 43, 90);
+                    $pdf->Line(65, 186, 65, 90);
+                    $pdf->Line(120, 186, 120, 90);
+                    $pdf->Line(135, 186, 135, 90);
+                    $pdf->Line(143, 186, 143, 90);
+                    $pdf->Line(165, 186, 165, 90);
+                    $pdf->Line(173, 186, 173, 90);
+                    $pdf->Line(195, 186, 195, 90);
+                    $pdf->Line(205, 186, 205, 90);
+                    $pdf->Line(225, 186, 225, 90);
+                    $pdf->Line(239, 186, 239, 90);
+                    $pdf->Line(253, 186, 253, 90);
+                    $pdf->Line(270, 186, 270, 90);
+        
                 }
 
                 $pdf->SetFont('times', '', 7);
@@ -252,9 +253,8 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->SetXY($x+260, $y + 14); 
                 $pdf->multicell(17, 6, $Data->remarksFC , '','C');  
 
-                $y += max(7, $descriptionHeight);
-            
-            
+                $y += max(9, $descriptionHeight);
+ 
             }
             $pdf->Output(); 
     }

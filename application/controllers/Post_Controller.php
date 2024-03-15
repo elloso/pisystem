@@ -284,7 +284,8 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
-            $data['RSEPIlists'] = $this->Post_model->getRSEPI();
+            // $data['RSEPIlists'] = $this->Post_model->getRSEPI();
+            $data['RSEPIlists'] = $this->Post_model->regspi_item();
             $data['TypePropertys'] = $this->Post_model->propertyTypeShow();
             $data['Years'] = $this->Post_model->yearShow();
             $this->load->view('template/header', $data);
@@ -320,7 +321,6 @@ class Post_Controller extends CI_Controller
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
-
         }
     }
     public function editppepcDetails($ppepcPoID,$id)
@@ -337,7 +337,6 @@ class Post_Controller extends CI_Controller
 
         }
     }
-
     public function ReportSemiExpendable()
     {
         if ($this->session->userdata('is_login') == TRUE) {
@@ -353,7 +352,5 @@ class Post_Controller extends CI_Controller
         } else {
             redirect(base_url('login'));
         }
-    }
-    
-    
+    } 
 } // End Bracket

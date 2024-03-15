@@ -6,7 +6,6 @@
         <div class="col-lg-2 col-xl-2">
           <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#semiexpendableproperty">Generate Report</button></a>
         </div>
-
         <div class="card-body">
             <div class="table-responsive">
                 <table id="respi-data-table" class="table table-hover">
@@ -14,12 +13,26 @@
                         <tr>
                             <th style="width: 20%;" class="text-center">DATE</th>
                             <th style="width: 20%;" class="text-center">ICS / RRSP No.</th>
-                            <th style="width: 20%;" class="text-center">SEMI-EXPANDABLE PROPERTY NO.</th>
-                            <th style="width: 20%;" class="text-center">REMARKS</th>
+                            <th style="width: 20%;" class="text-center">Semi-Expendable Property No.</th>
+                            <th style="width: 20%;" class="text-center"></th>
                             <th style="width: 20%;" class="text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach ($RSEPIlists as $RSEPIlist):  ?>
+                            <tr>
+                                <td class="text-center"></td>
+                                <td class="text-center"></td>
+                                <td class="text-center"><?php echo $RSEPIlist->quantity_property_no ?></td>
+                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <?php echo $RSEPIlist->pcid ?>
+                                    <button type="button" class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" title="Return"><i class="fa-solid fa-share-from-square"></i></button> 
+                                </td>
+                            </tr>   
+                        <?php endforeach; ?>
+                    </tbody>
+                    <!-- <tbody>
                 <?php foreach ($RSEPIlists as $RSEPIlist):  ?>
                     <?php if (!empty($RSEPIlist->ics_no)) : ?>
                     <tr>
@@ -93,13 +106,14 @@
                     </tr>
                     <?php endif; ?>
                     <?php endforeach; ?>
-                    </tbody>
+                    </tbody> -->
                  </table>
             </div>
         </div>
     </div>
 </div>  
-<!-- Modal -->
+
+<!-- Modal For Generation Report-->
 <form action="<?php echo base_url('print-rsepiform'); ?>" method="post" target="_blank">
 <div class="modal fade" id="semiexpendableproperty" tabindex="-1" aria-labelledby="semiexpendablepropertyLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -136,29 +150,8 @@
 </div>
 </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- For Returned, Reissued and Disposal -->
-<form action="<?php echo base_url('respi-returned'); ?>" method="post" class="needs-validation" novalidate>
-    <!-- Modal -->
+ <form action="<?php echo base_url('respi-returned'); ?>" method="post" class="needs-validation" novalidate>
     <div class="modal fade" id="Modal_ReturnedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -168,7 +161,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="border p-2 mb-2 rounded">
-                    <input type="hidden" id="recordId" name="recordId" value="">
+                    <input type="text" name="recordId" value="">
+                    <input type="text" name="recordId" value="">
+                    <input type="text" name="recordId" value="">
+                    <input type="text" name="recordId" value="">
                         <div class="row">
                             <div class="col-lg-3 col-xl-3">
                                 <div class="form-floating mb-2">
@@ -204,8 +200,7 @@
             </div>
         </div>
     </div>
-     <!-- Second Modal for Additional Confirmation -->
-     <div class="modal fade" id="Modal_ReturnedSecondConfirmation" tabindex="-1" aria-labelledby="Modal_ReturnedSecondConfirmationLabel" aria-hidden="true">
+     <!-- <div class="modal fade" id="Modal_ReturnedSecondConfirmation" tabindex="-1" aria-labelledby="Modal_ReturnedSecondConfirmationLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -221,11 +216,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </form>
 
-<form action="<?php echo base_url('respi-dispose'); ?>" method="post" class="needs-validation" novalidate>
-<!-- Modal for Deletion -->
+<!--<form action="<?php echo base_url('respi-dispose'); ?>" method="post" class="needs-validation" novalidate>
 <div class="modal fade" id="Modal_DisposeRSEPI" tabindex="-1" aria-labelledby="Modal_DisposeRSEPILabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -261,7 +255,6 @@
 </form>
 
 <form action="<?php echo base_url('respi-reissue'); ?>" method="post" class="needs-validation" novalidate>
-    <!-- Modal -->
     <div class="modal fade" id="Modal_ReissuedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -352,6 +345,8 @@
     </div>
 </form>
 
+
+
 <script>
 var firstModal = $('#Modal_ReturnedRSEPI');
 var secondModal = $('#Modal_ReturnedSecondConfirmation');
@@ -399,7 +394,7 @@ document.getElementById('cancelButton').addEventListener('click', function () {
         function displayEditModalDisposed(id) {
             document.getElementById('recordIdDisposed').value = id;
         }
-</script>
+</script> -->
 
 <script>
     $(document).ready(function() {

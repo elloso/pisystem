@@ -26,8 +26,9 @@
                                 <td class="text-center"><?php echo $RSEPIlist->quantity_property_no ?></td>
                                 <td class="text-center"></td>
                                 <td class="text-center">
-                                    <?php echo $RSEPIlist->pcid ?>
-                                    <button type="button" class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" title="Return"><i class="fa-solid fa-share-from-square"></i></button> 
+                                    <button type="button" class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" title="Return">
+                                        <i class="fa-solid fa-share-from-square fa-xs"></i>
+                                    </button> 
                                 </td>
                             </tr>   
                         <?php endforeach; ?>

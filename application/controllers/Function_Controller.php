@@ -838,7 +838,12 @@ class Function_Controller extends CI_Controller
         // } else {
         //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
         // }
-        $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+
+        if ($O_Quantity == 1) {
+            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
+        } else {
+            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+        }
         
         if ($this->Function_Model->checkExistingRecord($id)) {
             $existingData = $this->Function_Model->getSemiExpendableData($id);

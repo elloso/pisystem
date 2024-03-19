@@ -244,7 +244,6 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->SetXY($x+133, $y + 14); 
                 $pdf->multicell(22, 6, $Data->assignee, '','C'); 
 
-
                 $pdf->SetXY($x+229, $y + 14); 
                 $pdf->multicell(14, 6, $Data->issued_quantity, '','C');
                 $pdf->SetXY($x+243, $y + 14); 

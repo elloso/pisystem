@@ -194,10 +194,10 @@ class Function_Model extends CI_Model
         $this->db->delete('tbl_icssepc');
         return $this->db->affected_rows();
     }
-    public function updateItemReturn($id, $data)
+    public function updateItemReturn($id, $Item_return)
     {
-        $this->db->where('md5(id)', $id);
-        return $this->db->update('tblics_rsepi', $data);
+        $this->db->where('monid', $id);
+        return $this->db->update('tbl_icspcmonitoring', $Item_return);
     }
     public function SubmitPotoRSEPIData($dataPOtoRSEPI)
     {
@@ -207,6 +207,12 @@ class Function_Model extends CI_Model
     public function SubmitPotoSEPCData($dataPOtoSEPC)
     {
         $this->db->insert('tbl_icssepc', $dataPOtoSEPC);
+        return $this->db->insert_id();
+        return $dataPOtoSEPC['pcid'];
+    }
+    public function SubmitSEPCMonitoring($dataSEPCMonitoring)
+    {
+        $this->db->insert('tbl_icspcmonitoring', $dataSEPCMonitoring);
         return $this->db->insert_id();
     }
 

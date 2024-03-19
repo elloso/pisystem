@@ -655,18 +655,22 @@ class Function_Controller extends CI_Controller
     }
     public function updateItem_return()
     {
+        $idpo = $this->input->post('hidden_id_tblpo_item');
+        $id = $this->input->post('hidden_pcid');
         $txtreturn = $this->input->post('returnedconfirmButton');
         $txtreturnname = $this->input->post('txtReturnedName');
-        $itemId = $this->input->post('recordId'); 
+        $itemId = $this->input->post('hidden_uniqueid'); 
     
         $Item_return = array(
-            'remarks' => $txtreturn,
-            'returned' => $txtreturnname
+            'Monitoring_Status' => $txtreturn,
+            'returned_name' => $txtreturnname,
+            'mquantity_returned' => 1,
+
         );
     
         $this->Function_Model->updateItemReturn($itemId, $Item_return);
         $this->session->set_flashdata('returned', 'Item was already returned.');
-        redirect(base_url('respi'));
+        redirect(base_url('sepc-monitoring/'.$idpo.'/'.$id));
         
     }
     public function updateItem_returnPAR()
@@ -687,9 +691,11 @@ class Function_Controller extends CI_Controller
     }
     public function updateItem_reissued()
     {
+        $idpo = $this->input->post('hidden_id_tblpo_item');
+        $id = $this->input->post('hidden_pcid');
+        $itemId = $this->input->post('hidden_uniqueid');
         $txtreissued = $this->input->post('reissuedconfirmButton');
         $newname = $this->input->post('txtOfficeOfficerReissue');
-        $itemId = $this->input->post('recordIdReissue'); 
 
         $ReissueDate = $this->input->post('txtReissueDate'); 
         $TransferType = $this->input->post('OptionTT'); 
@@ -701,25 +707,26 @@ class Function_Controller extends CI_Controller
         $ReleasedReissue = $this->input->post('txtReleased'); 
         $ReceivedReissue = $this->input->post('txtReceived'); 
         
-    
         $Item_reissued = array(
-            'remarks' => $txtreissued,
-            'reissued' => $newname,
+            'Monitoring_Status' => $txtreissued,
+            'mnew_assignee' => $newname,
             'date_transfer' => $ReissueDate,
             'transfer_type' => $TransferType,
-            'others_specifiy' => $Specify,
-            'itr_no' => $ITRno,
+            'others_type' => $Specify,
+            'ITRNo' => $ITRno,
             'condition_inventory' => $Condition,
-            'approved' => $Approved,
-            'released' => $ReleasedReissue,
-            'received' => $ReceivedReissue,
-            'reason_transfer' => $Reasontransfer
-            
+            'approvedby' => $Approved,
+            'releaseby' => $ReleasedReissue,
+            'receiveby' => $ReceivedReissue,
+            'reason' => $Reasontransfer,
+            'mquantity_reissued' => 1,
+            'mquantity_returned' => 0,
+            'returned_name' => null,
         );
     
         $this->Function_Model->updateItemReturn($itemId, $Item_reissued);
         $this->session->set_flashdata('reissued', 'Item already re-issued.');
-        redirect(base_url('respi'));
+        redirect(base_url('sepc-monitoring/'.$idpo.'/'.$id));
     }
     public function updateItem_reissuedPAR()
     {
@@ -832,13 +839,6 @@ class Function_Controller extends CI_Controller
             $next_end = $next_start + $quantity - 1;
         }
 
-        // Construct the next property number
-        // if ($quantity == 1) {
-        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
-        // } else {
-        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
-        // }
-
         if ($O_Quantity == 1) {
             $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
         } else {
@@ -865,7 +865,35 @@ class Function_Controller extends CI_Controller
             'remarksFC' => $txtRemarksFC,
         );
     
-        $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+        $icssepc_id = $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+        //Second Table
+        if ($O_Quantity == 1) {
+            $dataSEPCMonitoring = array(
+                'mpcid' => $icssepc_id,
+                'mid_tblpo_item' => $po_id,
+                'mics_sepc_id' => $id,
+                'mextracted_property' => $Modified_propertyno, // Use the modified property number directly
+            );
+        
+            $this->Function_Model->SubmitSEPCMonitoring($dataSEPCMonitoring);
+        } else {
+            $propertyNumbers = explode('-', $Modified_propertyno);
+            $start_number = (int)$propertyNumbers[1];
+            $end_number = (int)$propertyNumbers[2];
+        
+            for ($i = $start_number; $i <= $end_number; $i++) {
+                $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT);
+                $dataSEPCMonitoring = array(
+                    'mpcid' => $icssepc_id,
+                    'mid_tblpo_item' => $po_id,
+                    'mics_sepc_id' => $id,
+                    'mextracted_property' => $individual_property_no,
+                );
+        
+                $this->Function_Model->SubmitSEPCMonitoring($dataSEPCMonitoring);
+            }
+        }
+        
 
         if($O_Quantity == $R_Quantity){
             $DeductQuantity = ($O_Quantity - $quantity);

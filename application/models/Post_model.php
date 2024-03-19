@@ -456,7 +456,7 @@ class Post_Model extends CI_Model
         }
     }
     public function regspi_item()
-    {
+    { 
         $this->db->select('tbl_icssepc.*'); 
         // $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
         // $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
@@ -464,8 +464,8 @@ class Post_Model extends CI_Model
         // $this->db->where('tblpo_item.unit_cost <', 50000);
         // $this->db->where('tbl_icssepc.semi_expendable', $Property);
         // $this->db->where('tbl_icssepc.rspi_year', $PropertyYear);
+        $this->db->order_by('quantity_property_no', 'asc');
         $query = $this->db->get('tbl_icssepc');
-
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
@@ -476,8 +476,8 @@ class Post_Model extends CI_Model
     // public function get_monitoringsepcitemList($sepcPoID,$id)
     // {
     //     $this->db->select('*');
-    //     $this->db->from('tbl_icssepc');
-    //     $this->db->where('md5(pcid)', $id); 
+    //     $this->db->from('tbl_icspcmonitoring');
+    //     $this->db->where('md5(mpcid)', $id); 
     //     $query = $this->db->get();
     //     if ($query->num_rows() > 0) {
     //         return $query->result();
@@ -488,11 +488,11 @@ class Post_Model extends CI_Model
     public function get_monitoringsepcdata($sepcPoID, $id)
     {
         $this->db->select('*');
-        $this->db->from('tbl_icssepc');
-        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
-        $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
-        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $sepcPoID); 
-        $this->db->where('md5(tblpo_item.id)', $id); 
+        $this->db->from('tbl_icspcmonitoring');
+        $this->db->join('tbl_icssepc', 'tbl_icspcmonitoring.mpcid = tbl_icssepc.pcid');
+        // $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
+        // $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $sepcPoID); 
+        // $this->db->where('md5(tblpo_item.id)', $id); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();

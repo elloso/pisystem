@@ -357,7 +357,7 @@ class Post_Controller extends CI_Controller
     {
         if ($this->session->userdata('is_login') == TRUE) {
             // $data['spec_details'] =  $this->Post_model->get_monitoringsepcitemList($sepcPoID, $id);
-            $data['spec_datas'] = $this->Post_model->get_sepcdata($sepcPoID, $id);
+            $data['spec_datas'] = $this->Post_model->get_monitoringsepcdata($sepcPoID, $id);
             $data['remaining'] = $this->Post_model->get_specificmonitoringdata($id);
             $this->load->view('template/header', $data);
             $this->load->view('view-forms/editsepcmonitoring-details');

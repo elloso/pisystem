@@ -472,5 +472,46 @@ class Post_Model extends CI_Model
             return [];
         }
     }
+    
+    // public function get_monitoringsepcitemList($sepcPoID,$id)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('tbl_icssepc');
+    //     $this->db->where('md5(pcid)', $id); 
+    //     $query = $this->db->get();
+    //     if ($query->num_rows() > 0) {
+    //         return $query->result();
+    //     } else {
+    //         return array();
+    //     }
+    // }
+    public function get_monitoringsepcdata($sepcPoID, $id)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+        $this->db->join('tblics', 'tbl_icssepc.id_tblpo_item = tblics.ics_po_id');
+        $this->db->where('md5(tbl_icssepc.id_tblpo_item)', $sepcPoID); 
+        $this->db->where('md5(tblpo_item.id)', $id); 
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    public function get_specificmonitoringdata($id)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_icssepc');
+        $this->db->where('md5(pcid)', $id); 
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return row();
+        }
+    }
+
 
 }

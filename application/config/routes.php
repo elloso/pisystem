@@ -33,6 +33,8 @@ $route['editics-details/(:any)/(:any)'] = 'Post_Controller/editicsDetails/$1/$2'
 $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2';
 $route['sepc-assignee/(:any)/(:any)'] = 'Post_Controller/editsepcDetails/$1/$2';
 $route['ppepc-assignee/(:any)/(:any)'] = 'Post_Controller/editppepcDetails/$1/$2';
+$route['sepc-monitoring/(:any)/(:any)'] = 'Post_Controller/editsepcMonitoringDetails/$1/$2';
+
 
 $route['submit-SPECAssignee'] = 'Function_Controller/insertSEPCData';
 $route['submit-PPEPCAssignee'] = 'Function_Controller/insertPPEPCData';

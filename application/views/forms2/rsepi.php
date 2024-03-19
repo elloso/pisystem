@@ -26,9 +26,10 @@
                                 <td class="text-center"><?php echo $RSEPIlist->quantity_property_no ?></td>
                                 <td class="text-center"></td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" title="Return">
+                                    <!-- <button type="button" class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" title="Return">
                                         <i class="fa-solid fa-share-from-square fa-xs"></i>
-                                    </button> 
+                                    </button>  -->
+                                    <a href="<?php echo base_url('sepc-monitoring/' . md5($RSEPIlist->id_tblpo_item) .'/'. md5($RSEPIlist->pcid)) ?>" title="Assign Item" class="text-primary mx-2" onclick="return confirm('Please confirm to proceed Assignee allocation.')"><i class="fa-solid fa-user-plus"></i></a>
                                 </td>
                             </tr>   
                         <?php endforeach; ?>

@@ -29,7 +29,7 @@
                                                     <td class="text-center"><?php echo $spec_data->assignee ?></td>
                                                     <td class="text-center"><?php echo $spec_data->Monitoring_Status ?></td>
                                                     <td class="text-center">
-                                                        <?php if($spec_data->Monitoring_Status != "Returned"): ?>
+                                                        <?php if(empty($spec_data->Monitoring_Status) || $spec_data->Monitoring_Status == "Re-issued" ): ?>
                                                             <button type="button" class="btn btn-primary rounded-circle btn-sm open-modal" 
                                                                     data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" 
                                                                     data-monid="<?php echo $spec_data->monid ?>" title="Return">
@@ -47,6 +47,9 @@
                                                                     data-monid="<?php echo $spec_data->monid ?>" title="Re-issued">
                                                                     <i class="fa-solid fa-trash-can fa-xs"></i>
                                                             </button> 
+                                                        <?php endif; ?>
+                                                        <?php if($spec_data->Monitoring_Status == "Disposed"): ?>
+                                                          
                                                         <?php endif; ?>
                                                     </td>
                                                 </tr>
@@ -202,7 +205,7 @@
             <div class="row">
                 <div class="col-lg-8 col-xl-8">
                     <label class="form-label fw-bold text-dark" for="">Reason :</label>
-                    <input type="text" id="txtReturnedName" class="form-control" name="txtReturnedName" style="text-align: center;" value="" >
+                    <input type="text" id="txtReasonDisposal" class="form-control" name="txtReasonDisposal" style="text-align: center;" value="" required>
                 </div>
                 <!-- <div class="col-lg-8 col-xl-8">
                     <div class="form-floating mb-2">
@@ -218,7 +221,7 @@
                 </div> -->
                 <div class="col-lg-4 col-xl-4">
                     <label class="form-label fw-bold text-dark" for="">Date Dispose :</label>
-                    <input id="txtDateSEPC" style="text-align: center;" class="form-control" name="txtDisposeDate" type="date" required>
+                    <input id="txtDateSEPC" style="text-align: center;" class="form-control" name="txtDateDisposal" type="date" required>
                 </div>
             </div>                            
             </div>

@@ -766,19 +766,25 @@ class Function_Controller extends CI_Controller
     }
     public function updateItem_disposed()
     {
+        $idpo = $this->input->post('hidden_id_tblpo_item');
+        $id = $this->input->post('hidden_pcid');
+        $itemId = $this->input->post('hidden_uniqueid');
+
         $txtdisposed = $this->input->post('txtDisposed');
         $reason = $this->input->post('txtReasonDisposal');
         $datedisposed = $this->input->post('txtDateDisposal');
-        $itemId = $this->input->post('recordIdDisposed'); 
     
         $Item_redisposed = array(
-            'remarks' => $txtdisposed,
+            'Monitoring_Status' => $txtdisposed,
             'disposal_reason' => $reason,
-            'date_disposed' => $datedisposed
+            'date_disposed' => $datedisposed,
+            'mquantity_disposal' => 1,
+            'mquantity_reissued' => 0,
+
         );
         $this->Function_Model->updateItemReturn($itemId, $Item_redisposed);
         $this->session->set_flashdata('dispose', 'Item already disposed.');
-        redirect(base_url('respi'));
+       redirect(base_url('sepc-monitoring/'.$idpo.'/'.$id));
     }
     public function updateItem_disposedPAR()
     {

@@ -111,10 +111,15 @@ class PARfpdf_Controller extends CI_Controller
         $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(45, 5, 'Total Amount', 'TR',0, 'C');
 
+        $totalUnitCostSum = 0; 
+        foreach ($po_items as $item) {
+            $totalUnitCostSum += $item->total_unit_cost;
+        }
+
         $pdf->SetXY($x + 155, $y + 165); 
         $pdf->SetFont('times', '', 10);
-        $formattedtotal_cost = number_format($par_form->unit_cost * $par_form->quantity, 2);
-        $pdf->Cell(35, 5, $formattedtotal_cost , 'T', 0, 'C');  
+        $totalUnitCostSum = number_format($totalUnitCostSum, 2);
+        $pdf->Cell(35, 5, $totalUnitCostSum , 'T', 0, 'C');
 
         foreach ($po_items as $item) {
             $pdf->SetXY($x, $y);
@@ -155,7 +160,7 @@ class PARfpdf_Controller extends CI_Controller
             // $pdf->SetXY(176, $y);
             // $cellWidth = 40;
             // $pdf->Cell($cellWidth, $descriptionHeight, $totalUnitCost, 0, 0);
-            $y += max(8, $descriptionHeight);
+            $y += max(9, $descriptionHeight);
         }
 
         //Line

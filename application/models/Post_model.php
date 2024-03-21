@@ -75,7 +75,7 @@ class Post_Model extends CI_Model
         $this->db->select('ics_id,ics_po_id,ics_no, ics_iar_no, ics_fund, ics_supplier');
         $this->db->from('tblics');
         $this->db->join('tblpo_item', 'tblics.ics_po_id = tblpo_item.po_id');
-        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
 
         $query = $this->db->get();
 
@@ -198,8 +198,8 @@ class Post_Model extends CI_Model
         $this->db->select('*');
         $this->db->from('tblpo_item');
         $this->db->where('md5(po_id)', $icsPoID);
-        // $this->db->where('unit_cost >=', 1500);
-        $this->db->where('unit_cost <', 50000);
+        // $this->db->where('unit_cost >', 1500);
+        $this->db->where('unit_cost <=', 50000);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -225,7 +225,7 @@ class Post_Model extends CI_Model
         $this->db->select('par_id,par_po_id,par_no, par_iarno, par_fund, par_supplier');
         $this->db->from('tblpar');
         $this->db->join('tblpo_item', 'tblpar.par_po_id = tblpo_item.po_id');
-        $this->db->where('tblpo_item.unit_cost >=', 50000);
+        $this->db->where('tblpo_item.unit_cost >', 50000);
 
         $query = $this->db->get();
 
@@ -263,7 +263,7 @@ class Post_Model extends CI_Model
         $this->db->select('tblpo_item.*, tblics.*, tblics_rsepi.*');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id', 'inner');
         $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item', 'inner');
-        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
         $rsepidata = $this->db->get('tblpo_item')->result();
         return $rsepidata;
     }
@@ -284,7 +284,7 @@ class Post_Model extends CI_Model
         $this->db->from('tblpo');
         $this->db->join('tblpo_item', 'tblpo.po_id = tblpo_item.po_id');
         $this->db->join('tblics', 'tblpo.po_id = tblics.ics_po_id');
-        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
 
         $query = $this->db->get();
 
@@ -467,7 +467,7 @@ class Post_Model extends CI_Model
         $this->db->join('tblpo_item', 'tbl_icssepc.ics_sepc_id = tblpo_item.id');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
         $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
-        $this->db->where('tblpo_item.unit_cost <', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
         $this->db->order_by('quantity_property_no', 'asc');
         $query = $this->db->get('tbl_icssepc');
         if ($query->num_rows() > 0) {

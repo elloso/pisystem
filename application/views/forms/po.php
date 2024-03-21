@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-floating mb-2">
                                     <input id="txtDate" class="form-control" name="txtDate" type="date" required>
-                                    <label class="form-label fw-bold text-dark" for="txtDate">Date :</label>
+                                    <label class="form-label fw-bold text-dark" for="txtDate"><small><i>(Purchase Order Date)</i></small>:</label>
                                     <div class="invalid-feedback">
                                         Please choose a date.
                                     </div>

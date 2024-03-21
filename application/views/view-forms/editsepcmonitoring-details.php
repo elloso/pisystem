@@ -24,7 +24,7 @@
                                     <tbody>
                                         <?php foreach ($spec_datas as $spec_data): ?>
                                             <?php if(md5($spec_data->pcid) == $this->uri->segment(3) ): ?>
-                                                <tr>
+                                                <tr <?php if($spec_data->Monitoring_Status == "Disposed"): ?>class="table-danger"<?php endif; ?>>
                                                     <td class="text-center"><?php echo $spec_data->mextracted_property ?></td>
                                                     <td class="text-center"><?php echo $spec_data->assignee ?></td>
                                                     <td class="text-center"><?php echo $spec_data->Monitoring_Status ?></td>
@@ -49,7 +49,7 @@
                                                             </button> 
                                                         <?php endif; ?>
                                                         <?php if($spec_data->Monitoring_Status == "Disposed"): ?>
-                                                          
+                                                        
                                                         <?php endif; ?>
                                                     </td>
                                                 </tr>

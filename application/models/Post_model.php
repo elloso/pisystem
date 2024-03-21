@@ -225,7 +225,7 @@ class Post_Model extends CI_Model
         $this->db->select('par_id,par_po_id,par_no, par_iarno, par_fund, par_supplier');
         $this->db->from('tblpar');
         $this->db->join('tblpo_item', 'tblpar.par_po_id = tblpo_item.po_id');
-        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $this->db->where('tblpo_item.unit_cost >=', 50000);
 
         $query = $this->db->get();
 
@@ -420,6 +420,8 @@ class Post_Model extends CI_Model
     {
         $this->db->select('rspi_year, COUNT(*) as count');
         $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
         $this->db->group_by('rspi_year');
         $this->db->order_by('rspi_year', 'asc');
         $query = $this->db->get();
@@ -433,6 +435,8 @@ class Post_Model extends CI_Model
     {
         $this->db->select('rspi_month, COUNT(*) as count');
         $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
         $this->db->group_by('rspi_month');
         $this->db->order_by('rspi_month', 'asc');
         $query = $this->db->get();
@@ -446,6 +450,8 @@ class Post_Model extends CI_Model
     {
         $this->db->select('semi_expendable, COUNT(*) as count');
         $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tbl_icssepc.id_tblpo_item = tblpo_item.po_id');
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
         $this->db->group_by('semi_expendable');
         $this->db->order_by('semi_expendable', 'asc');
         $query = $this->db->get();
@@ -457,13 +463,11 @@ class Post_Model extends CI_Model
     }
     public function regspi_item()
     { 
-        $this->db->select('tbl_icssepc.*'); 
-        // $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
-        // $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
-        // $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
-        // $this->db->where('tblpo_item.unit_cost <', 50000);
-        // $this->db->where('tbl_icssepc.semi_expendable', $Property);
-        // $this->db->where('tbl_icssepc.rspi_year', $PropertyYear);
+        $this->db->select('tbl_icssepc.*,tblpo_item.*,tblics.*,tbliar.*'); 
+        $this->db->join('tblpo_item', 'tbl_icssepc.ics_sepc_id = tblpo_item.id');
+        $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
+        $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
+        $this->db->where('tblpo_item.unit_cost <', 50000);
         $this->db->order_by('quantity_property_no', 'asc');
         $query = $this->db->get('tbl_icssepc');
         if ($query->num_rows() > 0) {

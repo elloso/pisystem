@@ -144,41 +144,41 @@ class Function_Controller extends CI_Controller
             }
         
            // Second property number explode
-            foreach ($propertyNumbers as $propertyNumber) {
-                $propertynoParts = explode('-', $propertyNumber);
-                $prefix = 'SLSU' . $currentYear;
+            // foreach ($propertyNumbers as $propertyNumber) {
+            //     $propertynoParts = explode('-', $propertyNumber);
+            //     $prefix = 'SLSU' . $currentYear;
 
-                if (count($propertynoParts) == 2) {
-                    $individual_property_no = $prefix . '-' . $propertynoParts[1];
+            //     if (count($propertynoParts) == 2) {
+            //         $individual_property_no = $prefix . '-' . $propertynoParts[1];
 
-                    $key = array_search($propertyNumber, $propertyNumbers); 
-                    if ($key !== false) {
-                        $dataPOtoRSEPI = array(
-                            'icsrsepi_po_id' => $po_id,
-                            'id_tblpo_item' => $poIds[$key], 
-                            'rsepi_property_no' => $individual_property_no
-                        );
-                        $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
-                    }
-                } elseif (count($propertynoParts) >= 3) {
-                    $start_number = (int) $propertynoParts[1];
-                    $end_number = (int) $propertynoParts[2];
+            //         $key = array_search($propertyNumber, $propertyNumbers); 
+            //         if ($key !== false) {
+            //             $dataPOtoRSEPI = array(
+            //                 'icsrsepi_po_id' => $po_id,
+            //                 'id_tblpo_item' => $poIds[$key], 
+            //                 'rsepi_property_no' => $individual_property_no
+            //             );
+            //             $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+            //         }
+            //     } elseif (count($propertynoParts) >= 3) {
+            //         $start_number = (int) $propertynoParts[1];
+            //         $end_number = (int) $propertynoParts[2];
 
-                    for ($j = $start_number; $j <= $end_number; $j++) {
-                        $individual_property_no = $prefix . '-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
+            //         for ($j = $start_number; $j <= $end_number; $j++) {
+            //             $individual_property_no = $prefix . '-' . str_pad($j, strlen($propertynoParts[1]), '0', STR_PAD_LEFT);
 
-                        $key = array_search($propertyNumber, $propertyNumbers); 
-                        if ($key !== false) {
-                            $dataPOtoRSEPI = array(
-                                'icsrsepi_po_id' => $po_id,
-                                'id_tblpo_item' => $poIds[$key], 
-                                'rsepi_property_no' => $individual_property_no
-                            );
-                            $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
-                        }
-                    }
-                }
-            }
+            //             $key = array_search($propertyNumber, $propertyNumbers); 
+            //             if ($key !== false) {
+            //                 $dataPOtoRSEPI = array(
+            //                     'icsrsepi_po_id' => $po_id,
+            //                     'id_tblpo_item' => $poIds[$key], 
+            //                     'rsepi_property_no' => $individual_property_no
+            //                 );
+            //                 $this->Function_Model->SubmitPotoRSEPIData($dataPOtoRSEPI);
+            //             }
+            //         }
+            //     }
+            // }
            
         } else {
             $this->session->set_flashdata('error', 'Insert Data Failed!');
@@ -431,7 +431,7 @@ class Function_Controller extends CI_Controller
     {
         $ics_id = $this->input->post('icsid');
         $txtIarno = strip_tags($this->input->post('txtIarno'));
-        $txtICSDate = strip_tags($this->input->post('txtICSDate'));
+        $txtICSDate = $this->input->post('txtICSDate');
         $txtFund = strip_tags($this->input->post('txtFund'));
         $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
         $txtDateby = strip_tags($this->input->post('txtDateby'));
@@ -474,12 +474,12 @@ class Function_Controller extends CI_Controller
         }
         // $this->db->where('ics_id ', $ics_id);
         // $this->db->update('tblics', $data);
-        // if ($this->db->affected_rows() > 0) {
-        //     $this->session->set_flashdata('success', 'Data updated successfully!');
-        // } else {
-        //     $this->session->set_flashdata('error', 'Data update failed!');
-        // }
-        // echo '<script>window.history.back();</script>';
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data updated successfully!');
+        } else {
+            $this->session->set_flashdata('error', 'Data update failed!');
+        }
+        echo '<script>window.history.back();</script>';
     }
     public function editItemDetails()
     {
@@ -552,7 +552,7 @@ class Function_Controller extends CI_Controller
                 'ics_iar_no' => $iar_editiarnumber,
             );
 
-            if ($this->Function_Model->editIARData($iar_id, $editdataiar) && $this->Function_Model->editIARNOtoICSData($iar_ics_id, $editdataIARtoICS)) {
+            if ($this->Function_Model->editIARData($iar_id, $editdataiar) || $this->Function_Model->editIARNOtoICSData($iar_ics_id, $editdataIARtoICS)) {
                 if ($this->db->affected_rows() > 0) {
                     $this->session->set_flashdata('success', 'Data updated successfully.');
                 } else {
@@ -644,10 +644,10 @@ class Function_Controller extends CI_Controller
         if ($this->session->userdata('is_login') == TRUE) {
             $affected_rows = $this->Function_Model->deletePOData($delete_po_id);
             if ($affected_rows > 0) {
-                $this->session->set_flashdata('delete', 'Data deleted successfully.');
                 redirect(base_url('purchase'));
             } else {
-                // $this->session->set_flashdata('error', 'Data deleted successfully.');
+                $this->session->set_flashdata('delete', 'Data deleted successfully.');
+                redirect(base_url('purchase'));
             }
         } else {
             redirect(base_url('login'));
@@ -900,7 +900,6 @@ class Function_Controller extends CI_Controller
             }
         }
         
-
         if($O_Quantity == $R_Quantity){
             $DeductQuantity = ($O_Quantity - $quantity);
         }else{
@@ -924,9 +923,14 @@ class Function_Controller extends CI_Controller
         $assignee = $this->input->post('txtAssignee');
         $quantity = $this->input->post('txtQuantity');
         $semiExpendable = $this->input->post('txtSemiExpendable');
+        $txtRemarksFC= $this->input->post('txtRemarksFC');
+        $O_propertyno = $this->input->post('hidden_property_no');
     
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
+
+        $yearDate = date('Y');
+        $monthDate = date('n');
     
         if($O_Quantity == $R_Quantity){
             $DeductQuantity1 = ($O_Quantity - $quantity);
@@ -934,9 +938,34 @@ class Function_Controller extends CI_Controller
             $DeductQuantity1 = ($R_Quantity - $quantity);
         }
 
-        if ($this->Function_Model->checkExistingRecord($po_id)) {
-            $existingData = $this->Function_Model->getSemiExpendableData($po_id);
+        $O_propertyno = $this->input->post('hidden_property_no');
+        $range = explode('-', $O_propertyno);
+        $start = intval($range[1]);
+        $end = intval($range[2]);
+
+        $last_property_number = $this->Function_Model->getLastPropertyNumberICS($id);
+
+        if (!$last_property_number) {
+            $next_start = $start;
+            $next_end = $start + $quantity - 1;
+        } else {
+            $last_range = explode('-', $last_property_number);
+            $last_end = intval($last_range[2]);
+            
+            $next_start = $last_end + 1;
+            $next_end = $next_start + $quantity - 1;
+        }
+
+        if ($O_Quantity == 1) {
+            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
+        } else {
+            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+        }
+
+        if ($this->Function_Model->checkExistingRecord($id)) {
+            $existingData = $this->Function_Model->getSemiExpendableData($id);
             $semiExpendable = $existingData['semi_expendable'];
+            $txtRemarksFC = $existingData['remarksFC'];
         }
     
         $dataSEPC = array(
@@ -947,9 +976,40 @@ class Function_Controller extends CI_Controller
             'issued_quantity ' => $quantity,
             'balance_quantity ' => $DeductQuantity1,
             'semi_expendable' => $semiExpendable,
+            'quantity_property_no' => $Modified_propertyno,
+            'rspi_month' => $monthDate,
+            'rspi_year' => $yearDate,
+            'remarksFC' => $txtRemarksFC,
         );
     
-        $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+        $parsepc_id = $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+         //Second Table
+         if ($O_Quantity == 1) {
+            $dataSEPCMonitoring = array(
+                'mpcid' => $parsepc_id,
+                'mid_tblpo_item' => $po_id,
+                'mics_sepc_id' => $id,
+                'mextracted_property' => $Modified_propertyno, // Use the modified property number directly
+            );
+        
+            $this->Function_Model->SubmitSEPCMonitoring($dataSEPCMonitoring);
+        } else {
+            $propertyNumbers = explode('-', $Modified_propertyno);
+            $start_number = (int)$propertyNumbers[1];
+            $end_number = (int)$propertyNumbers[2];
+        
+            for ($i = $start_number; $i <= $end_number; $i++) {
+                $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT);
+                $dataSEPCMonitoring = array(
+                    'mpcid' => $parsepc_id,
+                    'mid_tblpo_item' => $po_id,
+                    'mics_sepc_id' => $id,
+                    'mextracted_property' => $individual_property_no,
+                );
+        
+                $this->Function_Model->SubmitSEPCMonitoring($dataSEPCMonitoring);
+            }
+        }
 
         if($O_Quantity == $R_Quantity){
             $DeductQuantity = ($O_Quantity - $quantity);

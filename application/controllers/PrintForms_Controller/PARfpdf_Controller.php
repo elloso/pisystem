@@ -113,8 +113,8 @@ class PARfpdf_Controller extends CI_Controller
 
         $pdf->SetXY($x + 155, $y + 165); 
         $pdf->SetFont('times', '', 10);
-        $formattedtotal_cost = number_format($par_form->total_cost, 2);
-        $pdf->Cell(35, 5, $formattedtotal_cost, 'T',0, 'C');
+        $formattedtotal_cost = number_format($par_form->unit_cost * $par_form->quantity, 2);
+        $pdf->Cell(35, 5, $formattedtotal_cost , 'T', 0, 'C');  
 
         foreach ($po_items as $item) {
             $pdf->SetXY($x, $y);

@@ -66,7 +66,12 @@ class RSPIICSpdf_Controller extends CI_Controller
             $pdf->SetFont('times', 'B', 12);
             $pdf->Cell(33, 8, 'Serial No.:', '', 0, 'R');
             $pdf->SetFont('times', '', 12);
-            $pdf->Cell(47, 8, $selectYear.'-'.$selectMonth.'-0001', 'B', 1, 'C');
+            if(empty($selectMonth) || empty($selectYear) ){
+                $pdf->Cell(47, 8, '', 'B', 1, 'C');
+            }else{
+                $pdf->Cell(47, 8, $selectYear.'-'.$selectMonth.'-0001', 'B', 1, 'C');
+            }
+           
             $pdf->SetFont('times', 'B', 12);
             $pdf->Cell(25, 8, 'Fund Cluster:', '', 0, 'L');
             $pdf->SetFont('times', '', 12);
@@ -74,7 +79,11 @@ class RSPIICSpdf_Controller extends CI_Controller
             $pdf->SetFont('times', 'B', 12);
             $pdf->Cell(33, 8, 'Date:', '', 0, 'R');
             $pdf->SetFont('times', '', 12);
-            $pdf->Cell(47, 8, $txtMonth.', '.$selectYear, '', 1, 'L');
+            if(empty($txtMonth) || empty($selectYear) ){
+                $pdf->Cell(47, 8, $txtMonth.' '.$selectYear, '', 1, 'L');
+            }else{
+                $pdf->Cell(47, 8, $txtMonth.', '.$selectYear, '', 1, 'L');
+            }
 
             $pdf->SetFont('times', '', 10);
 

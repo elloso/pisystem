@@ -42,8 +42,9 @@ class Fpdf_Model extends CI_Model
         $this->db->select('*');
         $this->db->from('tblics');
         $this->db->join('tblpo', 'tblics.ics_po_id = tblpo.po_id', 'inner');
+        $this->db->join('tblpo_item', 'tblpo.po_id = tblpo_item.po_id', 'inner');
         $this->db->where('md5(tblics.ics_po_id)', $icsForm);
-    
+        $this->db->where('unit_cost <', 50000);
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {
@@ -56,7 +57,6 @@ class Fpdf_Model extends CI_Model
     public function ics_item($ics_item)
     {
         $this->db->where('md5(po_id)', $ics_item);
-        // $this->db->where('unit_cost >=', 1500);
         $this->db->where('unit_cost <', 50000);
         $query = $this->db->get('tblpo_item');
 
@@ -72,8 +72,9 @@ class Fpdf_Model extends CI_Model
         $this->db->select('*');
         $this->db->from('tblpar');
         $this->db->join('tblpo', 'tblpar.par_po_id = tblpo.po_id', 'inner');
+        $this->db->join('tblpo_item', 'tblpo.po_id = tblpo_item.po_id', 'inner');
         $this->db->where('md5(par_po_id)', $parForm);
-    
+        $this->db->where('unit_cost >', 50000);
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {

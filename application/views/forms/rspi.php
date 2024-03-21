@@ -7,7 +7,7 @@
             <!-- <a href="<?php echo base_url('print-rspiicsform'); ?>" title="Generate" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a> -->
           <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#yearandmonth">Generate Report</button>
         </div>
-        <div class="card-body">
+        <!-- <div class="card-body">
             <div class="table-responsive">
                 <table id="sepc-data-table" class="table table-hover">
                     <thead>
@@ -16,10 +16,6 @@
                             <th class="text-center">RCC</th>
                             <th class="text-center">Property No.</th>
                             <th class="text-center">Item Description</th>
-                            <!-- <th class="text-center">Unit</th>
-                            <th class="text-center">Quantity</th>
-                            <th class="text-center">Unit Cost</th>
-                            <th class="text-center">Amount</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -28,15 +24,11 @@
                             <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
-                            <!-- <td class="text-center"></td>
-                            <td class="text-center"></td>
-                            <td class="text-center"></td>
-                            <td class="text-center"></td> -->
                         </tr>
                     </tbody>
                  </table>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- Modal -->

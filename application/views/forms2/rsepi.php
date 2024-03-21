@@ -14,17 +14,15 @@
                             <th style="width: 20%;" class="text-center">DATE</th>
                             <th style="width: 20%;" class="text-center">ICS / RRSP No.</th>
                             <th style="width: 20%;" class="text-center">Semi-Expendable Property No.</th>
-                            <th style="width: 20%;" class="text-center"></th>
                             <th style="width: 20%;" class="text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($RSEPIlists as $RSEPIlist):  ?>
                             <tr>
-                                <td class="text-center"></td>
-                                <td class="text-center"></td>
+                                <td class="text-center"><?php echo $RSEPIlist->invoice_date ?></td>
+                                <td class="text-center"><?php echo $RSEPIlist->ics_no ?>    </td>
                                 <td class="text-center"><?php echo $RSEPIlist->quantity_property_no ?></td>
-                                <td class="text-center"></td>
                                 <td class="text-center">
                                     <!-- <button type="button" class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" title="Return">
                                         <i class="fa-solid fa-share-from-square fa-xs"></i>

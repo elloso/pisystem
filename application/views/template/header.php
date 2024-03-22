@@ -99,7 +99,7 @@
               <li><a href="<?php echo base_url('propertycard'); ?>">Semi-Expendable Property Card</a></li>
               <li><a href="<?php echo base_url('ReportRSPI');?>">Report of SPI</a></li>
               <li><a href="<?php echo base_url('respi');?>">Registry of SPI</a></li>
-              <li><a href="#">RPCSEP</a></li>
+              <li><a href="<?php echo base_url('ReportRPCSEP'); ?>">RPCSEP</a></li>
             </ul>
           </li> 
           <li class="dropdown"><a href="#"><span>PAR</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>

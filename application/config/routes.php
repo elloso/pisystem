@@ -54,6 +54,7 @@ $route['print-ptrform/(:any)/(:any)'] = 'PrintForms_Controller/PTRpdf_Controller
 $route['print-rsepiparform'] = 'PrintForms_Controller/RSEPIPARpdf_Controller/RSEPIPARform';
 $route['print-ptrparform/(:any)/(:any)'] = 'PrintForms_Controller/PTRPARpdf_Controller/PTRPARform/$1/$2';
 $route['print-rspiicsform'] = 'PrintForms_Controller/RSPIICSpdf_Controller/RSPIform';
+$route['print-rpcsepform'] = 'PrintForms_Controller/RPCSEPpdf_Controller/RPCSEPform';
 
 
 // Post

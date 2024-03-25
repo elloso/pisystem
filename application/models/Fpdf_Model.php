@@ -330,4 +330,16 @@ class Fpdf_Model extends CI_Model
             return [];
         }
     }
+    public function rpcsep_data()
+    {
+        $this->db->select('*'); 
+        $this->db->where('tblpo_item.unit_cost <=', 50000);
+        $query = $this->db->get('tblpo_item');
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
 }

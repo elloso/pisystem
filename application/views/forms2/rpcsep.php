@@ -4,84 +4,36 @@
             <div class="card-title">Report on the Physical Count of Semi-Expendable Property</div>
         </div>
         <div>
-          <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#yearandmonth">Generate Report</button>
+          <a href="<?php echo base_url('print-rpcsepform'); ?>" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="rpcsep-data-table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;" class="text-center">Stock Number</th>
+                            <th style="width: 20%;" class="text-center">Balance Per Card (Quantity)</th>
+                            <th style="width: 20%;" class="text-center">On Hand Per Count (Quantity)</th>
+                            <th style="width: 20%;" class="text-center">Shortage/Overage (Quantity)</th>
+                            <th style="width: 20%;" class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($RCSEPDatas as $Data):  ?>
+                            <tr>
+                                <td class="text-center"><?php echo $Data->property_no ?></td>
+                                <td class="text-center"></td>
+                                <td class="text-center"></td>
+                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <!-- <a href="<?php echo base_url('sepc-monitoring/' . md5($RSEPIlist->id_tblpo_item) .'/'. md5($RSEPIlist->pcid)) ?>" title="Assign Item" class="text-primary mx-2" onclick="return confirm('Please confirm to proceed Assignee allocation.')"><i class="fa-solid fa-user-plus"></i></a> -->
+                                </td>
+                            </tr>   
+                        <?php endforeach; ?>
+                    </tbody>
+                 </table>
+            </div>
         </div>
     </div>
 </div>
-<!-- Modal -->
-<form action="<?php echo base_url('print-rspiicsform'); ?>" method="post" target="_blank">
-<div class="modal fade" id="yearandmonth" tabindex="-1" aria-labelledby="eyearandmonthLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 font-weight-bold" id="yearandmonthLabel">Generation Report</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            <div class="row">
-                <div class="col-6">
-                <label class="badge badge-info" style="color:black;">Month:</label>
-                    <select class="form-control" name="MonthDropdown" >
-                        <?php foreach($Months as $Month): ?>
-                            <?php 
-                                if($Month->rspi_month == 1){
-                                    $txtMonth = "January";
-                                }
-                                elseif ($Month->rspi_month == 2){
-                                    $txtMonth = "February";
-                                }
-                                elseif ($Month->rspi_month == 3){
-                                    $txtMonth = "March";
-                                }
-                                elseif ($Month->rspi_month == 4){
-                                    $txtMonth = "April";
-                                }
-                                elseif ($Month->rspi_month == 5){
-                                    $txtMonth = "May";
-                                }
-                                elseif ($Month->rspi_month == 6){
-                                    $txtMonth = "June";
-                                }
-                                elseif ($Month->rspi_month == 7){
-                                    $txtMonth = "July";
-                                }
-                                elseif ($Month->rspi_month == 8){
-                                    $txtMonth = "August";
-                                }
-                                elseif ($Month->rspi_month == 9){
-                                    $txtMonth = "September";
-                                }
-                                elseif ($Month->rspi_month == 10){
-                                    $txtMonth = "October";
-                                }
-                                elseif ($Month->rspi_month == 11){
-                                    $txtMonth = "November";
-                                }
-                                elseif ($Month->rspi_month == 12){
-                                    $txtMonth = "December";
-                                }
-                                else {
-                                    $txtMonth = "";
-                                }
-                            ?>
-                            <option value="<?php echo $Month->rspi_month ?>" class="text-center"><?php echo $txtMonth; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label class="badge badge-info" style="color:black;">Year:</label>
-                        <select class="form-control" name="YearDropdown">
-                            <?php foreach ($Years as $Year): ?>
-                                <option value="<?php echo $Year->rspi_year ?>" class="text-center"><?php echo $Year->rspi_year ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                </div>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Generate</button></a>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
+

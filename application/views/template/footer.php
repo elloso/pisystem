@@ -156,6 +156,13 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $('#rpcsep-data-table').DataTable({
+        });
+    });
+</script>
+
 <!-- <script>
     var originalQuantity = parseInt(document.querySelector('input[name="hidden_quantity"]').value);
     var remainingQuantity = parseInt(document.querySelector('input[name="hidden_rquantity"]').value);

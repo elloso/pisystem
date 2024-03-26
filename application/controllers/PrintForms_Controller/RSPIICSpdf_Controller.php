@@ -281,7 +281,7 @@ class RSPIICSpdf_Controller extends CI_Controller
                 $pdf->SetXY($x+170, $y + 15); 
                 $pdf->multicell(20, 10, $totalUnitCost , '', 'C');
             
-                $y += max(8, $descriptionHeight);
+                $y += max(9, $descriptionHeight);
             
             }
             

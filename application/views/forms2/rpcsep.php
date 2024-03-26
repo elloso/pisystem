@@ -22,7 +22,14 @@
                         <?php foreach ($RCSEPDatas as $Data):  ?>
                             <tr>
                                 <td class="text-center"><?php echo $Data->property_no ?></td>
-                                <td class="text-center"></td>
+                                <?php 
+                                    if($Data->remaining_quantity == 0){
+                                        $issued = $Data->quantity;
+                                    }else{
+                                        $issued = $Data->quantity - $Data->remaining_quantity;
+                                    }
+                                ?>
+                                <td class="text-center"><?php echo $issued ?></td>
                                 <td class="text-center"></td>
                                 <td class="text-center"></td>
                                 <td class="text-center">

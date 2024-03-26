@@ -313,9 +313,9 @@ class Fpdf_Model extends CI_Model
         }
     }
 
-    public function regspi_item($Property,$PropertyYear)
+    public function regspi_item($Property, $PropertyYear)
     {
-        $this->db->select('tblpo_item.*,tbl_icssepc.*,tblics.*,tbliar.invoice_date,tbliar.iar_po_id'); 
+        $this->db->select('tblpo_item.*, tbl_icssepc.*, tblics.*, tbliar.invoice_date, tbliar.iar_po_id');
         $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
         $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
@@ -323,13 +323,14 @@ class Fpdf_Model extends CI_Model
         $this->db->where('tbl_icssepc.semi_expendable', $Property);
         $this->db->where('tbl_icssepc.rspi_year', $PropertyYear);
         $query = $this->db->get('tblpo_item');
-
+    
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
             return [];
         }
     }
+    
     public function rpcsep_data()
     {
         $this->db->select('*'); 
@@ -340,6 +341,32 @@ class Fpdf_Model extends CI_Model
             return $query->result();
         } else {
             return [];
+        }
+    }
+    public function get_data_by_pcid($pcid) {
+        $this->db->where('mpcid', $pcid);
+        $this->db->where('mquantity_returned', 1);
+        
+        $query = $this->db->get('tbl_icspcmonitoring');
+        if ($query->num_rows() > 0) {
+            return $query->result_array(); 
+        } else {
+            return array(); 
+        }
+    }
+    public function get_names_by_pcid($pcid) {
+        $this->db->select('returned_name');
+        $this->db->where('mpcid', $pcid);
+        $query = $this->db->get('tbl_icspcmonitoring'); 
+        
+        if ($query->num_rows() > 0) {
+            $names = array();
+            foreach ($query->result_array() as $row) {
+                $names[] = $row['returned_name']; 
+            }
+            return $names; 
+        } else {
+            return array(); 
         }
     }
 }

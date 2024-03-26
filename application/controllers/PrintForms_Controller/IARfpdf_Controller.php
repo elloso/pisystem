@@ -159,7 +159,7 @@ class IARfpdf_Controller extends CI_Controller
                 $pdf->MultiCell($quantityWidth, 7, $item->quantity, 0, 'C');
             
                 $pdf->SetXY(65, $y + 13);
-                $pdf->MultiCell($descriptionWidth, 7, "* " . $item->item_description, 0, 'L');
+                $pdf->MultiCell($descriptionWidth, 7, "* " .$item->specific_description.' - '.$item->item_description, 0, 'L');
             
                 $y += max(8, $descriptionHeight);
             }

@@ -51,7 +51,7 @@ class SEPCpdf_Controller extends CI_Controller
             $pdf->SetXY($x, $y);
             $pdf->SetFont('times', 'B', 10); 
             $pdf->Cell(50, 10, 'Semi-Expendable Property :', '', 0, 'L');
-            $pdf->Cell(167, 10, '', '', 0, 'L');
+            $pdf->Cell(167, 10, $sepc_data->semi_expendable, '', 0, 'L');
             $pdf->multicell(60, 10, 'Semi expendable Property Number :', 'L', 'L');
             $pdf->SetXY($x, $y+10);
             $pdf->Cell(20, 7.5, 'Description:', 'T', 0, 'L');
@@ -61,7 +61,7 @@ class SEPCpdf_Controller extends CI_Controller
             $pdf->Cell(20, 10, '', '', 0, 'L');
             $pdf->SetFont('times', '', 10); 
             $pdf->SetXY($x+20, $y+10);
-            $pdf->multicell(197, 7.5, $sepc_data->item_description, 'T', 'L');
+            $pdf->multicell(197, 7.5, $sepc_data->specific_description, 'T', 'L');
             $pdf->SetFont('times', 'B', 10); 
             //For Property Number
             $pdf->SetXY($x+217, $y+10);
@@ -115,10 +115,12 @@ class SEPCpdf_Controller extends CI_Controller
                 $pdf->multicell(15, 10, $Data->quantity, 'B','C');
             
                 $pdf->SetXY($x+65, $y+50);
-                $pdf->multicell(25, 10, $Data->unit_cost, 'B','C');
+                $TotalUnitCost = number_format($Data->unit_cost, 2);
+                $pdf->multicell(25, 10, $TotalUnitCost , 'B','C');
             
                 $pdf->SetXY($x+90, $y+50);
-                $pdf->multicell(32, 10, $Data->total_unit_cost, 'B','C');
+                $TotalCost = number_format($Data->total_unit_cost, 2);
+                $pdf->multicell(32, 10, $TotalCost, 'B','C');
             
                 $pdf->SetXY($x+122, $y+50);
                 $pdf->multicell(13, 10, $Data->issued_quantity, 'B','C');
@@ -130,7 +132,9 @@ class SEPCpdf_Controller extends CI_Controller
                 $pdf->multicell(20, 10, $Data->balance_quantity, 'B', 'C');
             
                 $pdf->SetXY($x+217, $y+50);
-                $pdf->multicell(25, 10, $Data->issued_quantity * $Data->unit_cost , 'B','C');
+                $Multiplied_cost = $Data->issued_quantity * $Data->unit_cost;
+                $Cost = number_format($Multiplied_cost, 2);
+                $pdf->multicell(25, 10, $Cost, 'B','C');
             
                 $pdf->SetXY($x+242, $y+50);
                 $pdf->multicell(35, 10, $Data->useful_life, 'B', 'C');

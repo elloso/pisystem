@@ -116,14 +116,19 @@ class RSEPIpdf_Controller extends CI_Controller
                 $Total = $Data->issued_quantity * $Data->unit_cost;
                 $totalUnitCost = number_format($Total, 2);
               
-                $pdf->SetXY($x, $y);
-
                 $descriptionWidth = 55;
                 $descriptionText = '* ' . $Data->item_description;
                 $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
-                $descriptionHeight = 6 * $descriptionLines;
+                $descriptionHeight = 5 * $descriptionLines;
 
-                if ($y + $descriptionHeight > 170) {
+                $dataquantity_returned = $this->Fpdf_Model->get_data_by_pcid($Data->pcid);
+                $count = count($dataquantity_returned);
+
+                $data_from_other_table = $this->Fpdf_Model->get_names_by_pcid($Data->pcid);
+                $additionalLines = count($data_from_other_table);
+                $additionalHeight = 5 * $additionalLines;
+                
+                if ($y + $descriptionHeight > 170 || $y + $additionalHeight > 170) {
                     $pdf->AddPage();
                     $y = 15; 
                     $pdf->SetFont('times', 'B', 12);
@@ -227,6 +232,8 @@ class RSEPIpdf_Controller extends CI_Controller
         
                 }
 
+                $pdf->SetXY($x, $y);
+
                 $pdf->SetFont('times', '', 7);
                 $pdf->SetXY($x, $y + 14); 
                 $pdf->multicell(15, 6, $Data->invoice_date, '','C'); 
@@ -236,7 +243,7 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->SetXY($x+33, $y + 14); 
                 $pdf->multicell(23, 6, $Data->quantity_property_no, '','C'); 
                 $pdf->SetXY($x+55, $y + 14); 
-                $pdf->multicell($descriptionWidth, 5, $descriptionText, '','L'); 
+                $pdf->multicell($descriptionWidth, 6, $descriptionText, '','L'); 
                 $pdf->SetXY($x+110, $y + 14); 
                 $pdf->multicell(15, 6, $Data->useful_life, '','C'); 
                 $pdf->SetXY($x+125, $y + 14); 
@@ -245,14 +252,21 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->multicell(22, 6, $Data->assignee, '','C'); 
 
                 $pdf->SetXY($x+229, $y + 14); 
-                $pdf->multicell(14, 6, $Data->issued_quantity, '','C');
+                $pdf->multicell(14, 6, ($Data->issued_quantity-$count), '','C');
                 $pdf->SetXY($x+243, $y + 14); 
-                $pdf->multicell(17, 6, $totalUnitCost , '','C');  
-                $pdf->SetFont('times', '', 7);
+                $pdf->multicell(17, 6, $totalUnitCost , '','C');
+
+                $pdf->SetXY($x+155, $y + 14); 
+                $pdf->multicell(8, 6, $count , '','C');  
+
+                $pdf->SetXY($x+163, $y + 14); 
+                $data_from_other_table_filtered = array_filter($data_from_other_table);
+                $pdf->MultiCell(22, 4, implode("\n",$data_from_other_table_filtered), '', 'L');
+             
                 $pdf->SetXY($x+260, $y + 14); 
                 $pdf->multicell(17, 6, $Data->remarksFC , '','C');  
 
-                $y += max(9, $descriptionHeight);
+                $y += max(9,$descriptionHeight, $additionalHeight);
  
             }
             $pdf->Output(); 

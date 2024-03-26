@@ -120,7 +120,7 @@
                                             </button>
                                             <table id="table-itemno-data" class="table table-bordered table-hover">
                                                 <tr>
-                                                    <th style="width: 20%;">Stock/Property No.</th>
+                                                    <th style="width: 20%;">Specific Item Name</th>
                                                     <th style="width: 12%;">Quantity</th>
                                                     <th style="width: 14%;">Unit</th>
                                                     <th style="width: 23%;">Items / Description</th>
@@ -128,10 +128,12 @@
                                                     <th style="width: 16%;">Total Unit Cost</th>
                                                 </tr>
                                                 <tr>
-                                                    <td><input required type="hidden" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>
-                                                        <input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" placeholder="Auto Generated"readonly>
+                                                    <td>
+                                                        <input required type="hidden" class=" form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly>
+                                                        <input type="hidden" class=" form-control" id="txtPropNo" name="txtPropNo[]" placeholder="Auto Generated"readonly>
+                                                        <input type="text" class=" form-control" id="txtSpecificItem" name="txtSpecificItem[]" placeholder="Specific Item" required>
                                                         <div class="invalid-feedback">
-                                                            Stock/Property No.
+                                                            Please enter Specific Item name.
                                                         </div>
                                                     </td>
                                                     <td><input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" oninput="this.value = Math.abs(this.value)" value="1">
@@ -145,7 +147,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <textarea required class="form-control" name="txtDescription[]" style="height: 4em;"></textarea>
+                                                        <textarea required class="form-control" name="txtDescription[]" style="height: 4em;" placeholder="Enter item description"></textarea>
                                                         <div class="invalid-feedback">
                                                             Please enter item description.
                                                         </div>
@@ -292,10 +294,10 @@
         var itemdescriptionCell = newRow.insertCell(3);
         var itemunitcostCell = newRow.insertCell(4);
         var itemtotalunitcostCell = newRow.insertCell(5);
-        itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly><input type="text" class=" form-control" id="txtPropNo" name="txtPropNo[]" placeholder="Auto Generated"readonly><div class="invalid-feedback">Stock/Property No.</div>';
+        itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '" class="form-control" id="txtItemNo" name="txtItemNo[]" value="1" readonly><input type="hidden" class=" form-control" id="txtPropNo" name="txtPropNo[]" placeholder="Auto Generated"readonly><input type="text" class=" form-control" id="txtSpecificItem" name="txtSpecificItem[]" placeholder="Specific Item"><div class="invalid-feedback">Please enter Specific Item name.</div>';
         itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" value="1">';
         itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="txtUnit" name="txtUnit[]" size="1">';
-        itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;"></textarea> <div class="invalid-feedback">Please enter item description.</div>';
+        itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="txtDescription[]" style="height: 4em; width: 100%;" placeholder="Enter item description"></textarea> <div class="invalid-feedback">Please enter item description.</div>';
         itemunitcostCell.innerHTML = '<input required type="text" class="form-control" id="txtItemUnitCost" name="txtItemUnitCost[]" placeholder="0" autocomplete="off" oninput="formatCurrency(this)"><div class="invalid-feedback">Please enter a unit cost.</div>';
         itemtotalunitcostCell.innerHTML = '<input required type="number" class="form-control" id="txtTotalUnitCost" name="txtTotalUnitCost[]" placeholder="0" readonly><div class="invalid-feedback">Auto-calculated total unit cost.</div>';
         currentItemNo++;

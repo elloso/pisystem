@@ -82,7 +82,7 @@
                             <div class="table-responsive">
                                 <table id="table-po-data" class="table table-hover">
                                     <tr>
-                                        <th style="width: 18%;">Stock / Property No.</th>
+                                        <th style="width: 18%;">Specific Item Name</th>
                                         <th style="width: 10%;">Quantity</th>
                                         <th style="width: 12%;">Unit</th>
                                         <th style="width: 33%;">Items / Description</th>
@@ -100,9 +100,10 @@
                                                 <td>
                                                     <input required type="hidden" value="<?php echo $poitem->id ?>" class="form-control" id="txtPOItem_id" name="txtPOItem_id[]">
                                                     <input required type="hidden" value="<?php echo $itemNoCounter; ?>" class=" form-control" id="txtItemNo" name="txtItemNo[]" readonly>
-                                                    <input required type="text" value="<?php echo $poitem->property_no ?>" class=" form-control" id="txtStockProperty" name="txtStockProperty[]" placeholder="Auto Generated" readonly>
+                                                    <input required type="hidden" value="<?php echo $poitem->property_no ?>" class=" form-control" id="txtStockProperty" name="txtStockProperty[]" placeholder="Auto Generated" readonly>
+                                                    <input required type="text" value="<?php echo $poitem->specific_description ?>" class=" form-control" id="txtSpecificItem" name="txtSpecificItem[]" readonly>
                                                     <div class="invalid-feedback">
-                                                        Please enter Item No.
+                                                        Please enter Specific Item name.
                                                     </div>
                                                 </td>
                                                 <td><input required type="number" value="<?php echo $poitem->quantity ?>" class="form-control" maxlength="28" id="txtItemQuantity" name="txtItemQuantity[]" size="1" oninput="calculateRowTotal(this)" readonly>
@@ -263,7 +264,7 @@
             var itemunitcostCell = newRow.insertCell(4);
             var itemtotalunitcostCell = newRow.insertCell(5);
 
-            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input  type="text" value="" class=" form-control" id="UtxtStockProperty"name="UtxtStockProperty[]" placeholder="Auto Generated" readonly>';
+            itemnoCell.innerHTML = '<input required type="hidden" value="' + currentItemNo + '"  oninput="this.value = Math.abs(this.value)" class="form-control" id="UtxtItemNo" name="UtxtItemNo[]" readonly><input  type="hidden" value="" class=" form-control" id="UtxtStockProperty"name="UtxtStockProperty[]" placeholder="Auto Generated" readonly><input type="text" class=" form-control" id="UtxtDescriptionSpecific" name="UtxtDescriptionSpecific[]" placeholder="Specific Item">';
             itemquantityCell.innerHTML = '<input required type="number" class="form-control" maxlength="28" id="UtxtItemQuantity" name="UtxtItemQuantity[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemunitCell.innerHTML = '<input required type="text" class="form-control" maxlength="28" id="UtxtUnit" name="UtxtUnit[]" size="1" oninput="calculateTotalUnitCost(this)">';
             itemdescriptionCell.innerHTML = '<textarea required class="form-control" name="UtxtDescription[]" style="height: 4em;"></textarea><div class="invalid-feedback">Please enter item description.</div>';

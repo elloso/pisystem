@@ -71,6 +71,7 @@ class Function_Controller extends CI_Controller
         $txtPRNumber = $this->input->post('txtPRNumber');
         $txtPGEFNumber = $this->input->post('txtPGEFNumber');
         $txtTotalCost = $this->input->post('txtTotalCost');
+        $txtTotalCost = $this->input->post('txtTotalCost');
 
         $dataPO = array(
             'po_id' => $po_id,
@@ -92,6 +93,7 @@ class Function_Controller extends CI_Controller
         $this->Function_Model->SubmitPotoIarData($dataPotoIar);
         $txtItemNo = $this->input->post('txtItemNo');
         $txtItemQuantity = $this->input->post('txtItemQuantity');
+        $txtSpecificDescription = $this->input->post('txtSpecificItem');
         $txtDescription = $this->input->post('txtDescription');
         $txtItemUnitCost = $this->input->post('txtItemUnitCost');
         $txtUnit = $this->input->post('txtUnit');
@@ -100,7 +102,7 @@ class Function_Controller extends CI_Controller
         
         if (
             is_array($txtItemNo) && is_array($txtPropNo) && is_array($txtItemQuantity) && is_array($txtDescription) && is_array($txtItemUnitCost) && is_array($txtUnit) && is_array($txtTotalUnitCost) &&
-            count($txtItemNo) === count($txtPropNo) && count($txtItemQuantity) === count($txtDescription) && count($txtItemUnitCost) === count($txtUnit) && count($txtTotalUnitCost)
+            count($txtItemNo) === count($txtPropNo) && count($txtItemQuantity) === count($txtSpecificDescription) && count($txtItemQuantity) === count($txtDescription) && count($txtItemUnitCost) === count($txtUnit) && count($txtTotalUnitCost)
         ) {
             $count = count($txtItemNo);
             $currentYear = date('Y');
@@ -133,6 +135,7 @@ class Function_Controller extends CI_Controller
                     'quantity' => $txtItemQuantity[$i],
                     'remaining_quantity' => $txtItemQuantity[$i],
                     'unit' => $txtUnit[$i],
+                    'specific_description' => $txtSpecificDescription[$i],
                     'item_description' => $txtDescription[$i],
                     'unit_cost' => $txtItemUnitCost[$i],
                     'total_unit_cost' => $txtTotalUnitCost[$i],
@@ -371,13 +374,14 @@ class Function_Controller extends CI_Controller
         $UtxtItemNo = $this->input->post('UtxtItemNo');
         $UtxtItemQuantity = $this->input->post('UtxtItemQuantity');
         $UtxtUnit = $this->input->post('UtxtUnit');
+        $UtxtDescriptionSpecific = $this->input->post('UtxtDescriptionSpecific');
         $UtxtDescription = $this->input->post('UtxtDescription');
         $UtxtItemUnitCost = $this->input->post('UtxtItemUnitCost');
         $UtxtStockProperty = $this->input->post('UtxtStockProperty');
         $UtxtTotalUnitCost = $this->input->post('UtxtTotalUnitCost');
         
         if (
-            is_array($UtxtItemNo) && is_array($UtxtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtStockProperty) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($UtxtStockProperty) && count($UtxtItemQuantity) === count($UtxtUnit) && count($UtxtDescription) === count($UtxtItemUnitCost) && count($UtxtTotalUnitCost)
+            is_array($UtxtItemNo) && is_array($UtxtItemQuantity) && is_array($UtxtUnit) && is_array($UtxtDescriptionSpecific) && is_array($UtxtDescription) && is_array($UtxtItemUnitCost) && is_array($UtxtStockProperty) && is_array($UtxtTotalUnitCost) && count($UtxtItemNo) === count($UtxtStockProperty) && count($UtxtItemQuantity) === count($UtxtUnit) && count($UtxtDescription) === count($UtxtItemUnitCost) && count($UtxtTotalUnitCost)
         ) {
             $count = count($UtxtItemNo);
             $currentYear = date('Y');
@@ -397,11 +401,14 @@ class Function_Controller extends CI_Controller
                     'pgr_number' => $txtPGEFNumber,
                     'item_no' => $UtxtItemNo[$i],
                     'property_no' => $propertyNumber,
-                    'quantity' => $UtxtItemQuantity[$i],
+                    'quantity' => $UtxtItemQuantity[$i],    
+                    'remaining_quantity' => $UtxtItemQuantity[$i],
                     'unit' => $UtxtUnit[$i],
+                    'specific_description' => $UtxtDescriptionSpecific[$i],
                     'item_description' => $UtxtDescription[$i],
                     'unit_cost' => $UtxtItemUnitCost[$i],
                     'total_unit_cost' => $UtxtTotalUnitCost[$i],
+                    'useful_life' => "3 years",
                 );
         
                 $this->db->where('po_id', $po_id);
@@ -643,12 +650,14 @@ class Function_Controller extends CI_Controller
     {
         if ($this->session->userdata('is_login') == TRUE) {
             $affected_rows = $this->Function_Model->deletePOData($delete_po_id);
-            if ($affected_rows > 0) {
-                redirect(base_url('purchase'));
-            } else {
-                $this->session->set_flashdata('delete', 'Data deleted successfully.');
-                redirect(base_url('purchase'));
-            }
+            $this->session->set_flashdata('delete', 'Data deleted successfully.');
+            redirect(base_url('purchase'));
+            // if ($affected_rows > 0) {
+            //     redirect(base_url('purchase'));
+            // } else {
+            //     $this->session->set_flashdata('delete', 'Data deleted successfully.');
+            //     redirect(base_url('purchase'));
+            // }
         } else {
             redirect(base_url('login'));
         }

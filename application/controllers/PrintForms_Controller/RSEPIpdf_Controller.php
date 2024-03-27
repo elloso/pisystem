@@ -54,32 +54,32 @@ class RSEPIpdf_Controller extends CI_Controller
             $pdf->SetXY($x + 33, $y+4); 
             $pdf->MultiCell(22, 5, 'Semi-expendable Property No.', 'B', 'C');
             $pdf->SetXY($x + 55, $y); 
-            $pdf->Cell(55, 14, 'Item Description', 'LB', 0, 'C');
+            $pdf->Cell(40, 14, 'Item Description', 'LB', 0, 'C');
+            $pdf->SetXY($x + 95, $y); 
+            $pdf->MultiCell(15, 7, 'Estimated Useful Life', 'LRB', 'C');
+
             $pdf->SetXY($x + 110, $y); 
-            $pdf->MultiCell(15, 7, 'Estimated Useful Life', 'LB', 'C');
-
-            $pdf->SetXY($x + 125, $y); 
-            $pdf->Cell(30, 4, 'Issued', 'L', 0, 'C');
-            $pdf->SetXY($x + 125, $y+4); 
-            $pdf->MultiCell(8, 10, 'Qty.', 'LTB', 'C');
-            $pdf->SetXY($x + 133, $y+4); 
-            $pdf->MultiCell(22, 10, 'Office/Officer', 'TLB', 'C');
+            $pdf->Cell(45, 4, 'Issued', '', 0, 'C');
+            $pdf->SetXY($x + 110, $y+4); 
+            $pdf->MultiCell(8, 10, 'Qty.', 'TB', 'C');
+            $pdf->SetXY($x + 118, $y+4); 
+            $pdf->MultiCell(27, 10, 'Office/Officer', 'TLB', 'C');
             $pdf->SetXY($x + 50, $y); 
 
-            $pdf->SetXY($x + 155, $y); 
-            $pdf->Cell(30, 4, 'Returned', 'RL', 0, 'C');
-            $pdf->SetXY($x + 155, $y+4); 
+            $pdf->SetXY($x + 145, $y); 
+            $pdf->Cell(35, 4, 'Returned', 'RL', 0, 'C');
+            $pdf->SetXY($x + 145, $y+4); 
             $pdf->MultiCell(8, 10, 'Qty.', 'LTB', 'C');
-            $pdf->SetXY($x + 163, $y+4); 
-            $pdf->MultiCell(22, 10, 'Office/Officer', 'LTB', 'C');
+            $pdf->SetXY($x + 153, $y+4); 
+            $pdf->MultiCell(27, 10, 'Office/Officer', 'LTB', 'C');
             $pdf->SetXY($x + 50, $y); 
 
-            $pdf->SetXY($x + 185, $y); 
-            $pdf->Cell(30, 4, 'Re-Issued', 'BR', 0, 'C');
-            $pdf->SetXY($x + 185, $y+4); 
+            $pdf->SetXY($x + 180, $y); 
+            $pdf->Cell(35, 4, 'Re-Issued', 'BR', 0, 'C');
+            $pdf->SetXY($x + 180, $y+4); 
             $pdf->MultiCell(10, 10, 'Qty.', 'LRB', 'C');
-            $pdf->SetXY($x + 195, $y+4); 
-            $pdf->MultiCell(20, 10, 'Office/Officer', 'BR', 'C');
+            $pdf->SetXY($x + 190, $y+4); 
+            $pdf->MultiCell(25, 10, 'Office/Officer', 'BR', 'C');
             $pdf->SetXY($x + 50, $y); 
 
             $pdf->SetXY($x + 215, $y); 
@@ -100,13 +100,13 @@ class RSEPIpdf_Controller extends CI_Controller
             $pdf->Line(25, 186, 25, 90);
             $pdf->Line(43, 186, 43, 90);
             $pdf->Line(65, 186, 65, 90);
+            $pdf->Line(105, 186, 105, 90);
             $pdf->Line(120, 186, 120, 90);
-            $pdf->Line(135, 186, 135, 90);
-            $pdf->Line(143, 186, 143, 90);
-            $pdf->Line(165, 186, 165, 90);
-            $pdf->Line(173, 186, 173, 90);
-            $pdf->Line(195, 186, 195, 90);
-            $pdf->Line(205, 186, 205, 90);
+            $pdf->Line(128, 186, 128, 90);
+            $pdf->Line(155, 186, 155, 90);
+            $pdf->Line(163, 186, 163, 90);
+            $pdf->Line(190, 186, 190, 90);
+            $pdf->Line(200, 186, 200, 90);
             $pdf->Line(225, 186, 225, 90);
             $pdf->Line(239, 186, 239, 90);
             $pdf->Line(253, 186, 253, 90);
@@ -116,10 +116,10 @@ class RSEPIpdf_Controller extends CI_Controller
                 $Total = $Data->issued_quantity * $Data->unit_cost;
                 $totalUnitCost = number_format($Total, 2);
               
-                $descriptionWidth = 55;
+                $descriptionWidth = 40;
                 $descriptionText = '* ' . $Data->item_description;
                 $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
-                $descriptionHeight = 7 * $descriptionLines;
+                $descriptionHeight = 6 * $descriptionLines;
 
                 $dataquantity_returned = $this->Fpdf_Model->get_data_by_pcid($Data->pcid);
                 $count = count($dataquantity_returned);
@@ -128,7 +128,7 @@ class RSEPIpdf_Controller extends CI_Controller
                 $additionalLines = count($data_from_other_table);
                 $additionalHeight = 5 * $additionalLines;
                 
-                if ($y + $descriptionHeight > 170 || $y + $additionalHeight > 170) {
+                if ($y + $descriptionHeight > 195 || $y + $additionalHeight > 195) {
                     $pdf->AddPage();
                     $y = 15; 
                     $pdf->SetFont('times', 'B', 12);
@@ -150,19 +150,18 @@ class RSEPIpdf_Controller extends CI_Controller
                     $pdf->SetFont('times', 'B', 10);
                     $pdf->Cell(43, 10, 'Semi-expendable Property:', '', 0, 'L');
                     $pdf->SetFont('times', '', 10);
-                    $pdf->Cell(59, 10, '', 'B', 0, 'C');
+                    $pdf->Cell(59, 8, $Property, 'B', 0, 'C');
                     $pdf->SetFont('times', '', 10);
                     $pdf->Cell(85, 10, '', '', 1, 'C');
-        
                     $pdf->SetFont('times', '', 8);
                     
                     $x = $pdf->GetX();
                     $y = $pdf->GetY() + 3; 
-        
+
                     $contentWidth = 277;
                     $contentHeight = 110;
                     $pdf->Rect($x, $y, $contentWidth, $contentHeight);
-        
+
                     $pdf->SetXY($x, $y); 
                     $pdf->Cell(15, 14, 'Date', 'RB', 0, 'C');
                     $pdf->SetXY($x + 15, $y); 
@@ -172,34 +171,34 @@ class RSEPIpdf_Controller extends CI_Controller
                     $pdf->SetXY($x + 33, $y+4); 
                     $pdf->MultiCell(22, 5, 'Semi-expendable Property No.', 'B', 'C');
                     $pdf->SetXY($x + 55, $y); 
-                    $pdf->Cell(55, 14, 'Item Description', 'LB', 0, 'C');
+                    $pdf->Cell(40, 14, 'Item Description', 'LB', 0, 'C');
+                    $pdf->SetXY($x + 95, $y); 
+                    $pdf->MultiCell(15, 7, 'Estimated Useful Life', 'LRB', 'C');
+
                     $pdf->SetXY($x + 110, $y); 
-                    $pdf->MultiCell(15, 7, 'Estimated Useful Life', 'LB', 'C');
-        
-                    $pdf->SetXY($x + 125, $y); 
-                    $pdf->Cell(30, 4, 'Issued', 'L', 0, 'C');
-                    $pdf->SetXY($x + 125, $y+4); 
-                    $pdf->MultiCell(8, 10, 'Qty.', 'LTB', 'C');
-                    $pdf->SetXY($x + 133, $y+4); 
-                    $pdf->MultiCell(22, 10, 'Office/Officer', 'TLB', 'C');
+                    $pdf->Cell(45, 4, 'Issued', '', 0, 'C');
+                    $pdf->SetXY($x + 110, $y+4); 
+                    $pdf->MultiCell(8, 10, 'Qty.', 'TB', 'C');
+                    $pdf->SetXY($x + 118, $y+4); 
+                    $pdf->MultiCell(27, 10, 'Office/Officer', 'TLB', 'C');
                     $pdf->SetXY($x + 50, $y); 
-        
-                    $pdf->SetXY($x + 155, $y); 
-                    $pdf->Cell(30, 4, 'Returned', 'RL', 0, 'C');
-                    $pdf->SetXY($x + 155, $y+4); 
+
+                    $pdf->SetXY($x + 145, $y); 
+                    $pdf->Cell(35, 4, 'Returned', 'RL', 0, 'C');
+                    $pdf->SetXY($x + 145, $y+4); 
                     $pdf->MultiCell(8, 10, 'Qty.', 'LTB', 'C');
-                    $pdf->SetXY($x + 163, $y+4); 
-                    $pdf->MultiCell(22, 10, 'Office/Officer', 'LTB', 'C');
+                    $pdf->SetXY($x + 153, $y+4); 
+                    $pdf->MultiCell(27, 10, 'Office/Officer', 'LTB', 'C');
                     $pdf->SetXY($x + 50, $y); 
-        
-                    $pdf->SetXY($x + 185, $y); 
-                    $pdf->Cell(30, 4, 'Re-Issued', 'BR', 0, 'C');
-                    $pdf->SetXY($x + 185, $y+4); 
+
+                    $pdf->SetXY($x + 180, $y); 
+                    $pdf->Cell(35, 4, 'Re-Issued', 'BR', 0, 'C');
+                    $pdf->SetXY($x + 180, $y+4); 
                     $pdf->MultiCell(10, 10, 'Qty.', 'LRB', 'C');
-                    $pdf->SetXY($x + 195, $y+4); 
-                    $pdf->MultiCell(20, 10, 'Office/Officer', 'BR', 'C');
+                    $pdf->SetXY($x + 190, $y+4); 
+                    $pdf->MultiCell(25, 10, 'Office/Officer', 'BR', 'C');
                     $pdf->SetXY($x + 50, $y); 
-        
+
                     $pdf->SetXY($x + 215, $y); 
                     $pdf->Cell(14, 4, 'Disposed', 'RB', 0, 'C');
                     $pdf->SetXY($x + 215, $y+4); 
@@ -208,28 +207,27 @@ class RSEPIpdf_Controller extends CI_Controller
                     $pdf->Cell(14, 4, 'Balance', 'RB', 0, 'C');
                     $pdf->SetXY($x + 229, $y+4); 
                     $pdf->Cell(14, 10, 'Qty.', 'RB', 0, 'C');
-        
+
                     $pdf->SetXY($x + 243, $y); 
                     $pdf->Cell(17, 14, 'Amount', 'RB', 0, 'C');
-        
+
                     $pdf->SetXY($x + 260, $y); 
                     $pdf->Cell(17, 14, 'Remarks', 'B', 0, 'C');
-        
+
                     $pdf->Line(25, 186, 25, 90);
                     $pdf->Line(43, 186, 43, 90);
                     $pdf->Line(65, 186, 65, 90);
+                    $pdf->Line(105, 186, 105, 90);
                     $pdf->Line(120, 186, 120, 90);
-                    $pdf->Line(135, 186, 135, 90);
-                    $pdf->Line(143, 186, 143, 90);
-                    $pdf->Line(165, 186, 165, 90);
-                    $pdf->Line(173, 186, 173, 90);
-                    $pdf->Line(195, 186, 195, 90);
-                    $pdf->Line(205, 186, 205, 90);
+                    $pdf->Line(128, 186, 128, 90);
+                    $pdf->Line(155, 186, 155, 90);
+                    $pdf->Line(163, 186, 163, 90);
+                    $pdf->Line(190, 186, 190, 90);
+                    $pdf->Line(200, 186, 200, 90);
                     $pdf->Line(225, 186, 225, 90);
                     $pdf->Line(239, 186, 239, 90);
                     $pdf->Line(253, 186, 253, 90);
                     $pdf->Line(270, 186, 270, 90);
-        
                 }
 
                 $pdf->SetXY($x, $y);
@@ -244,24 +242,24 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->multicell(23, 6, $Data->quantity_property_no, '','C'); 
                 $pdf->SetXY($x+55, $y + 14); 
                 $pdf->multicell($descriptionWidth, 6, $descriptionText, '','L'); 
-                $pdf->SetXY($x+110, $y + 14); 
+                $pdf->SetXY($x+95, $y + 14); 
                 $pdf->multicell(15, 6, $Data->useful_life, '','C'); 
-                $pdf->SetXY($x+125, $y + 14); 
+                $pdf->SetXY($x+110, $y + 14); 
                 $pdf->multicell(8, 6, $Data->issued_quantity, '','C'); 
-                $pdf->SetXY($x+133, $y + 14); 
-                $pdf->multicell(22, 6, $Data->assignee, '','C'); 
+                $pdf->SetXY($x+118, $y + 14); 
+                $pdf->multicell(27, 6, $Data->assignee, '','L'); 
 
                 $pdf->SetXY($x+229, $y + 14); 
                 $pdf->multicell(14, 6, ($Data->issued_quantity-$count), '','C');
                 $pdf->SetXY($x+243, $y + 14); 
                 $pdf->multicell(17, 6, $totalUnitCost , '','C');
 
-                $pdf->SetXY($x+155, $y + 14); 
+                $pdf->SetXY($x+145, $y + 14); 
                 $pdf->multicell(8, 6, $count , '','C');  
 
-                $pdf->SetXY($x+163, $y + 14); 
+                $pdf->SetXY($x+153, $y + 14); 
                 $data_from_other_table_filtered = array_filter($data_from_other_table);
-                $pdf->MultiCell(22, 4, implode("\n",$data_from_other_table_filtered), '', 'L');
+                $pdf->MultiCell(27, 4, implode("\n",$data_from_other_table_filtered), '', 'L');
              
                 $pdf->SetXY($x+260, $y + 14); 
                 $pdf->multicell(17, 6, $Data->remarksFC , '','C');  

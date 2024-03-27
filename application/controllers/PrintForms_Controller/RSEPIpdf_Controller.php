@@ -119,7 +119,7 @@ class RSEPIpdf_Controller extends CI_Controller
                 $descriptionWidth = 55;
                 $descriptionText = '* ' . $Data->item_description;
                 $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
-                $descriptionHeight = 5 * $descriptionLines;
+                $descriptionHeight = 7 * $descriptionLines;
 
                 $dataquantity_returned = $this->Fpdf_Model->get_data_by_pcid($Data->pcid);
                 $count = count($dataquantity_returned);
@@ -266,7 +266,7 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->SetXY($x+260, $y + 14); 
                 $pdf->multicell(17, 6, $Data->remarksFC , '','C');  
 
-                $y += max(9,$descriptionHeight, $additionalHeight);
+                $y += max(9,$descriptionHeight);
  
             }
             $pdf->Output(); 

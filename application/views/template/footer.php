@@ -232,6 +232,12 @@
         }
     });
 </script>
+<script>
+    var currentDate = new Date();
+    var formattedDate = currentDate.toISOString().split('T')[0];
+    document.getElementById('txtDateDispose').value = formattedDate;
+    document.getElementById('txtDateTransfer').value = formattedDate;
+</script>
 
 
 <!-- End    editsepc-details -->

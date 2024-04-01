@@ -119,7 +119,7 @@
                             </div>
                             <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateDispose" class="form-control" name="txtReissueDate" type="date" />
+                                    <input id="txtDateTransfer" class="form-control" name="txtReissueDate" type="date" />
                                     <label class="form-label fw-bold text-dark" for="txtReissueDate">Date of Transfer :</label>
                                 </div>
                             </div>
@@ -233,9 +233,5 @@
     </div>
 </div>
 </form>
-<script>
-    var currentDate = new Date();
-    var formattedDate = currentDate.toISOString().split('T')[0];
-    document.getElementById('txtDateDispose').value = formattedDate;
-</script>
+
 

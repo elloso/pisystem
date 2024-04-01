@@ -22,18 +22,11 @@
                         <?php foreach ($RCSEPDatas as $Data):  ?>
                             <tr>
                                 <td class="text-center"><?php echo $Data->property_no ?></td>
-                                <?php 
-                                    if($Data->remaining_quantity == 0){
-                                        $issued = $Data->quantity;
-                                    }else{
-                                        $issued = $Data->quantity - $Data->remaining_quantity;
-                                    }
-                                ?>
-                                <td class="text-center"><?php echo $issued ?></td>
-                                <td class="text-center"></td>
-                                <td class="text-center"></td>
+                                <td class="text-center"><?php echo $Data->quantity ?></td>
+                                <td class="text-center"><?php echo $Data->quantity ?></td>
+                                <td class="text-center"><?php echo $Data->quantity-$Data->quantity ?></td>
                                 <td class="text-center">
-                                    <!-- <a href="<?php echo base_url('sepc-monitoring/' . md5($RSEPIlist->id_tblpo_item) .'/'. md5($RSEPIlist->pcid)) ?>" title="Assign Item" class="text-primary mx-2" onclick="return confirm('Please confirm to proceed Assignee allocation.')"><i class="fa-solid fa-user-plus"></i></a> -->
+                                    <a href="#" title='edit details' class='text-primary po-data' data-bs-toggle="modal" data-bs-target="#modalRPCSEP" onclick="transferID('<?php echo $Data->id ?>')"><i class="fa-solid fa-pen-to-square"></i></a>
                                 </td>
                             </tr>   
                         <?php endforeach; ?>
@@ -43,4 +36,46 @@
         </div>
     </div>
 </div>
-
+<form action="<?php echo base_url('') ?>" method="post" target="_blank">
+    <div class="modal fade" id="modalRPCSEP" tabindex="-1" aria-labelledby="modalRPCSEPLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 font-weight-bold" id="modalRPCSEPLabel">RPCSEP Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editID" name="hidden_tblpoitem_id">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtWhereabouts" class="form-control" name="txtWhereabouts" required>
+                                <label class="form-label fw-bold text-dark" for="txtWhereabouts">Whereabouts :</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtCondition" class="form-control" name="txtCondition" required>
+                                <label class="form-label fw-bold text-dark" for="txtCondition">Condition :</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating mb-2">
+                                <input type="text" id="txtCustodian" class="form-control" name="txtCustodian" required>
+                                <label class="form-label fw-bold text-dark" for="txtCustodian">Custodian :</label>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Update</button></a>
+            </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    function transferID(id) {
+        document.getElementById('editID').value = id;
+    }
+</script>

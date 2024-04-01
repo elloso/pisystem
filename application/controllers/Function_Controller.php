@@ -1034,6 +1034,23 @@ class Function_Controller extends CI_Controller
         $this->Function_Model->SubmitPPEPCtoICSData($encrypttblpoid,$dataICS);
         redirect(base_url('ppepc-assignee/'.$encryptpoid.'/'.$encrypttblpoid));
     }
+
+    public function Updatetblpoitem_wcc()
+    {
+        $txtHiddenID = strip_tags($this->input->post('hidden_tblpoitem_id'));
+        $txtwhereabouts = strip_tags($this->input->post('txtWhereabouts'));
+        $txtcondition = strip_tags($this->input->post('txtCondition'));
+        $txtcustodian= strip_tags($this->input->post('txtCustodian'));
+
+        $datatblpoitem_wcc = array(
+            'whereabouts' => $txtwhereabouts,
+            'condition_text' => $txtcondition,
+            'custodian' => $txtcustodian,
+        );
+
+        $this->Function_Model->Updatetblpoitem_wcc($datatblpoitem_wcc,$txtHiddenID);
+    
+    }
     // ajax
     public function checkPoNumber()
     {

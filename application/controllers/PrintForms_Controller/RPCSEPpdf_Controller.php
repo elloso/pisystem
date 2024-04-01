@@ -195,9 +195,9 @@ class RPCSEPpdf_Controller  extends CI_Controller
             $pdf->SetXY($x + 140, $y + 10 ); 
             $pdf->multicell(20, 7, $data->quantity, '', 'C');
             $pdf->SetXY($x + 160, $y + 10 ); 
-            $pdf->multicell(20, 7, '', '', 'C');
+            $pdf->multicell(20, 7, $data->quantity, '', 'C');
             $pdf->SetXY($x + 180, $y + 10 ); 
-            $pdf->multicell(15, 7, '', '', 'C');
+            $pdf->multicell(15, 7, ($data->quantity-$data->quantity), '', 'C');
             $pdf->SetXY($x + 195, $y + 10 ); 
             $pdf->multicell(25, 7, $TotalUnit, '', 'C');
 
@@ -214,6 +214,7 @@ class PDF extends FPDF
 {
     function Header()
     {
+        $currentDate = date('F j, Y');
         $imagePath = 'assets/img/slsu/slsu_logo.png'; 
         $this->Image($imagePath, $this->GetX() + 4, $this->GetY(), 25);
         $this->SetFont('times', 'I', 12);
@@ -221,8 +222,8 @@ class PDF extends FPDF
         $this->SetFont('times', 'B', 12);
         $this->Cell(0, 6, 'REPORT ON THE PHYSICAL COUNT OF SEMI-EXPENDABLE PROPERTTY', 0, 1, 'C');
         $this->Cell(0, 6, 'INFORMATION & COMMUNICATION TECHNOLOGY', 0, 1, 'C');
-        $this->SetFont('times', 'B', 10);
-        $this->Cell(0, 6, 'As of DECEMBER 31, 2023', 0, 1, 'C');
+        $this->SetFont('times', 'IB', 10);
+        $this->Cell(0, 6, 'As of ' . $currentDate, 0, 1, 'C');
     }
     function __construct()
     {

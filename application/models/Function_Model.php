@@ -216,7 +216,6 @@ class Function_Model extends CI_Model
         $this->db->insert('tbl_icspcmonitoring', $dataSEPCMonitoring);
         return $this->db->insert_id();
     }
-
     public function getSemiExpendableData($id) {
         $this->db->select('semi_expendable, remarksFC');
         $this->db->where('ics_sepc_id', $id);
@@ -229,7 +228,6 @@ class Function_Model extends CI_Model
             return null;
         }
     }
-
     public function checkExistingRecord($id) {
         $this->db->where('ics_sepc_id', $id);
         $query = $this->db->get('tbl_icssepc');
@@ -239,17 +237,20 @@ class Function_Model extends CI_Model
             return false;
         }
     }
-    
     public function SubmitSEPCtoICSData($encrypttblpoid, $dataSEPCtoICS)
     {
         $this->db->where('md5(id)', $encrypttblpoid);
         return $this->db->update('tblpo_item', $dataSEPCtoICS);
     }
-
     public function SubmitPPEPCtoICSData($encrypttblpoid, $dataSEPCtoICS)
     {
         $this->db->where('md5(id)', $encrypttblpoid);
         return $this->db->update('tblpo_item', $dataSEPCtoICS);
+    }
+    public function Updatetblpoitem_wcc()
+    {
+        $this->db->where('id)');
+        return $this->db->update('tblpo_item');
     }
     // AJAX
     public function checkPoNumber($txtPONumber)

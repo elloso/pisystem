@@ -121,14 +121,29 @@ class RSEPIpdf_Controller extends CI_Controller
                 $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
                 $descriptionHeight = 6 * $descriptionLines;
 
+                //Returned Qty
                 $dataquantity_returned = $this->Fpdf_Model->get_data_by_pcid($Data->pcid);
                 $count = count($dataquantity_returned);
 
+                //Reissued Qty
+                $dataquantity_reissued = $this->Fpdf_Model->get_data_by_pcid_reissued($Data->pcid);
+                $countReissued = count($dataquantity_reissued);
+
+                 //Reissued Qty
+                 $dataquantity_disposal = $this->Fpdf_Model->get_data_by_pcid_disposal($Data->pcid);
+                 $countDisposal = count($dataquantity_disposal);
+
+                //Returned Name
                 $data_from_other_table = $this->Fpdf_Model->get_names_by_pcid($Data->pcid);
-                $additionalLines = count($data_from_other_table);
-                $additionalHeight = 5 * $additionalLines;
+
+                //Reissued Name
+                $data_from_other_table_reissued = $this->Fpdf_Model->get_names_by_pcidreissued($Data->pcid);
+
+                // $additionalLines = count($data_from_other_table);
+                // $additionalHeight = 5 * $additionalLines;
                 
-                if ($y + $descriptionHeight > 195 || $y + $additionalHeight > 195) {
+                // if ($y + $descriptionHeight > 195 || $y + $additionalHeight > 195) {
+                if ($y + $descriptionHeight > 195) {
                     $pdf->AddPage();
                     $y = 15; 
                     $pdf->SetFont('times', 'B', 12);
@@ -260,6 +275,16 @@ class RSEPIpdf_Controller extends CI_Controller
                 $pdf->SetXY($x+153, $y + 14); 
                 $data_from_other_table_filtered = array_filter($data_from_other_table);
                 $pdf->MultiCell(27, 4, implode("\n",$data_from_other_table_filtered), '', 'L');
+
+                $pdf->SetXY($x+180, $y + 14); 
+                $pdf->multicell(10, 6, $countReissued , '','C');  
+
+                $pdf->SetXY($x+190, $y + 14); 
+                $data_from_other_table_filtered_reissued = array_filter($data_from_other_table_reissued);
+                $pdf->MultiCell(25, 4, implode("\n",$data_from_other_table_filtered_reissued), ' ', 'L');
+                
+                $pdf->SetXY($x+215, $y + 14); 
+                $pdf->multicell(14, 6, $countDisposal , '','C');  
              
                 $pdf->SetXY($x+260, $y + 14); 
                 $pdf->multicell(17, 6, $Data->remarksFC , '','C');  

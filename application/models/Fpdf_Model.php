@@ -354,23 +354,55 @@ class Fpdf_Model extends CI_Model
             return array(); 
         }
     }
+    public function get_data_by_pcid_reissued($pcid) {
+        $this->db->where('mpcid', $pcid);
+        $this->db->where('mquantity_reissued', 1);
+        
+        $query = $this->db->get('tbl_icspcmonitoring');
+        if ($query->num_rows() > 0) {
+            return $query->result_array(); 
+        } else {
+            return array(); 
+        }
+    }
+    public function get_data_by_pcid_disposal($pcid) {
+        $this->db->where('mpcid', $pcid);
+        $this->db->where('mquantity_disposal', 1);
+        
+        $query = $this->db->get('tbl_icspcmonitoring');
+        if ($query->num_rows() > 0) {
+            return $query->result_array(); 
+        } else {
+            return array(); 
+        }
+    }
     public function get_names_by_pcid($pcid) {
-        // Select only 'returned_name' column from the table where 'mpcid' matches $pcid
         $this->db->select('returned_name');
         $this->db->where('mpcid', $pcid);
         $query = $this->db->get('tbl_icspcmonitoring'); 
         
-        // If there are rows returned from the query
         if ($query->num_rows() > 0) {
             $names = array();
-            // Loop through each row returned and extract 'returned_name' column value
             foreach ($query->result_array() as $row) {
                 $names[] = $row['returned_name']; 
             }
-            // Return an array of names
             return $names; 
         } else {
-            // If no rows returned, return an empty array
+            return array(); 
+        }
+    }
+    public function get_names_by_pcidreissued($pcid) {
+        $this->db->select('mnew_assignee');
+        $this->db->where('mpcid', $pcid);
+        $query = $this->db->get('tbl_icspcmonitoring'); 
+        
+        if ($query->num_rows() > 0) {
+            $names = array();
+            foreach ($query->result_array() as $row) {
+                $names[] = $row['mnew_assignee']; 
+            }
+            return $names; 
+        } else {
             return array(); 
         }
     }

@@ -200,6 +200,38 @@
         }
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.addEventListener('click', function(event) {
+            const clickedButton = event.target.closest('.open-modal');
+            if (clickedButton) {
+                const modalTarget = clickedButton.getAttribute('data-bs-target');
+                const modal = document.querySelector(modalTarget);
+                const monid = clickedButton.getAttribute('data-monid');
+                modal.querySelector('#monid_input').value = monid;
+            }
+        });
+    });
+</script>
+<script>
+    var txtSpecify = document.getElementById('txtSpecify');
+    var optionTT = document.getElementById('OptionTT');
+
+    optionTT.addEventListener('change', function() {
+        if (this.value === 'Others (Specify)') {
+            txtSpecify.disabled = false;
+        } else {
+            txtSpecify.disabled = true;
+            txtSpecify.value = ''; 
+        }
+    });
+
+    txtSpecify.addEventListener('input', function() {
+        if (txtSpecify.disabled) {
+            txtSpecify.value = ''; 
+        }
+    });
+</script>
 
 
 <!-- End    editsepc-details -->

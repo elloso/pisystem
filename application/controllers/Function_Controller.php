@@ -673,6 +673,8 @@ class Function_Controller extends CI_Controller
         $Item_return = array(
             'Monitoring_Status' => $txtreturn,
             'returned_name' => $txtreturnname,
+            'mnew_assignee' => NULL,
+            'mquantity_reissued' => 0,
             'mquantity_returned' => 1,
 
         );

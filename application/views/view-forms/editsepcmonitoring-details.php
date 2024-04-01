@@ -44,7 +44,7 @@
                                                             </button> 
                                                             <button type="button" class="btn btn-danger rounded-circle btn-sm open-modal" 
                                                                     data-bs-toggle="modal" data-bs-target="#Modal_DisposeRSEPI" 
-                                                                    data-monid="<?php echo $spec_data->monid ?>" title="Re-issued">
+                                                                    data-monid="<?php echo $spec_data->monid ?>" title="Disposed">
                                                                     <i class="fa-solid fa-trash-can fa-xs"></i>
                                                             </button> 
                                                         <?php endif; ?>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
-                                    <input id="txtReissueDate" class="form-control" name="txtReissueDate" type="date" />
+                                    <input id="txtDateDispose" class="form-control" name="txtReissueDate" type="date" />
                                     <label class="form-label fw-bold text-dark" for="txtReissueDate">Date of Transfer :</label>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="col-lg-6 col-xl-6">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtSpecify" class="form-control" name="txtSpecify" style="text-align: center;" value="" required>
+                                    <input type="text" id="txtSpecify" class="form-control" name="txtSpecify" style="text-align: center;" value="" required disabled>
                                     <label class="form-label text-dark" for="txtSpecify"><i>Please Specify</i></label>
                                 </div>
                             </div>
@@ -221,7 +221,7 @@
                 </div> -->
                 <div class="col-lg-4 col-xl-4">
                     <label class="form-label fw-bold text-dark" for="">Date Dispose :</label>
-                    <input id="txtDateSEPC" style="text-align: center;" class="form-control" name="txtDateDisposal" type="date" required>
+                    <input id="txtDateDispose" style="text-align: center;" class="form-control" name="txtDateDisposal" type="date" required>
                 </div>
             </div>                            
             </div>
@@ -234,16 +234,8 @@
 </div>
 </form>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.body.addEventListener('click', function(event) {
-            const clickedButton = event.target.closest('.open-modal');
-            if (clickedButton) {
-                const modalTarget = clickedButton.getAttribute('data-bs-target');
-                const modal = document.querySelector(modalTarget);
-                const monid = clickedButton.getAttribute('data-monid');
-                modal.querySelector('#monid_input').value = monid;
-            }
-        });
-    });
+    var currentDate = new Date();
+    var formattedDate = currentDate.toISOString().split('T')[0];
+    document.getElementById('txtDateDispose').value = formattedDate;
 </script>
 

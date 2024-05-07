@@ -2,12 +2,12 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 require('assets/fpdf/fpdf.php');
 
-class RPCSEPpdf_Controller  extends CI_Controller
+class RPCPPEpdf_Controller  extends CI_Controller
 {
-    public function RPCSEPform()
+    public function RPCPPEform()
     {
 
-        $rpcsepdata = $this->Fpdf_Model->rpcsep_data();
+        $rpcppedata = $this->Fpdf_Model->rpcppe_data();
 
 
         $pdf = new PDF();
@@ -75,7 +75,7 @@ class RPCSEPpdf_Controller  extends CI_Controller
         $pdf->SetXY($x + 220, $y + 4); 
         $pdf->multicell(17, 6, 'Whereabouts', 'BR', 'C');
         $pdf->SetXY($x + 237, $y + 4); 
-        $pdf->multicell(20, 6, 'Condition', 'BR', 'C');
+        $pdf->multicell(20, 6, 'Date Acquired', 'BR', 'C');
         $pdf->SetXY($x + 257, $y + 4); 
         $pdf->multicell(20, 6, 'Custodian', 'B', 'C');
 
@@ -91,7 +91,7 @@ class RPCSEPpdf_Controller  extends CI_Controller
         $pdf->Line(247, 188, 247, 73);
         $pdf->Line(267, 188, 267, 73);
 
-        foreach($rpcsepdata as $data){
+        foreach($rpcppedata as $data){
 
             $descriptionWidth = 50;
             $descriptionText = '* ' . $data->item_description;
@@ -203,7 +203,7 @@ class RPCSEPpdf_Controller  extends CI_Controller
             $pdf->SetXY($x + 220, $y + 10); 
             $pdf->multicell(17, 7, ($data->whereabouts), '', 'C');
             $pdf->SetXY($x + 237, $y + 10); 
-            $pdf->multicell(20, 7, ($data->condition_text), '', 'C');
+            $pdf->multicell(20, 7, ($data->date_acquired), '', 'C');
             $pdf->SetXY($x + 257, $y + 10); 
             $pdf->multicell(20, 7, ($data->custodian), '', 'C');
             
@@ -225,7 +225,7 @@ class PDF extends FPDF
         $imagePath = 'assets/img/slsu/slsu_logo.png'; 
         $this->Image($imagePath, $this->GetX() + 4, $this->GetY(), 25);
         $this->SetFont('times', 'I', 12);
-        $this->Cell(0, 10, 'Annex A.8', 0, 1, 'R');
+        $this->Cell(0, 10, 'Annex 73', 0, 1, 'R');
         $this->SetFont('times', 'B', 12);
         $this->Cell(0, 6, 'REPORT ON THE PHYSICAL COUNT OF SEMI-EXPENDABLE PROPERTTY', 0, 1, 'C');
         $this->Cell(0, 6, 'INFORMATION & COMMUNICATION TECHNOLOGY', 0, 1, 'C');

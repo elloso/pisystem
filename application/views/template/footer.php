@@ -238,6 +238,30 @@
     document.getElementById('txtDateDispose').value = formattedDate;
     document.getElementById('txtDateTransfer').value = formattedDate;
 </script>
+<script>
+    function transferID(id,quantity) {
+        document.getElementById('editID').value = id;
+        document.getElementById('editQuantity').value = quantity;
+        document.getElementById('actualCount').setAttribute('max', quantity);
+        document.getElementById('actualCount').addEventListener('input', function() {
+            var enteredValue = parseInt(this.value); 
+            var maxValue = parseInt(this.getAttribute('max')); 
+            if (enteredValue > maxValue) {
+                this.value = maxValue;
+            }
+        });
+    }
+</script>
+<script>
+    $('#modalRPCSEP').on('hidden.bs.modal', function () {
+        document.getElementById('editID').value = '';
+        document.getElementById('editQuantity').value = '';
+        document.getElementById('actualCount').value = '';
+        document.getElementById('txtWhereabouts').value = '';
+        document.getElementById('txtCondition').value = '';
+        document.getElementById('txtCustodian').value = '';
+    });
+</script>
 
 
 <!-- End    editsepc-details -->

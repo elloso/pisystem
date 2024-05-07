@@ -1051,6 +1051,46 @@ class Function_Controller extends CI_Controller
         $this->Function_Model->Updatetblpoitem_wcc($datatblpoitem_wcc,$txtHiddenID);
     
     }
+    public function updateRPCSEPData()
+    {
+        $IDrpcsep = strip_tags($this->input->post('hidden_tblpoitem_id'));
+        $Actualcount = strip_tags($this->input->post('txtactualCount'));
+        $Whereabout = strip_tags($this->input->post('txtWhereabouts'));
+        $Condition = strip_tags($this->input->post('txtCondition'));
+        $Custodian= strip_tags($this->input->post('txtCustodian'));
+        $RPCSEP_editData = array(
+            'onhand_percount' => $Actualcount,
+            'whereabouts' => $Whereabout,
+            'condition_text' => $Condition,
+            'custodian' => $Custodian,
+        );
+        $result = $this->Function_Model->editRPCSEPData($IDrpcsep,$RPCSEP_editData);
+        if ($result) {
+            $this->session->set_flashdata('success', 'Data updated successfully.');
+            redirect(base_url('ReportRPCSEP'));
+        } else {
+            echo "Error Updating";
+        }
+    }
+    public function updateRPCPPEData()
+    {
+        $IDrpcppe = strip_tags($this->input->post('hidden_tblpoitem_id'));
+        $Actualcount = strip_tags($this->input->post('txtactualCount'));
+        $Whereabout = strip_tags($this->input->post('txtWhereabouts'));
+        $Custodian= strip_tags($this->input->post('txtCustodian'));
+        $RPCPPE_editData = array(
+            'onhand_percount' => $Actualcount,
+            'whereabouts' => $Whereabout,
+            'custodian' => $Custodian,
+        );
+        $result = $this->Function_Model->editRPCPPEData($IDrpcppe,$RPCPPE_editData);
+        if ($result) {
+            $this->session->set_flashdata('success', 'Data updated successfully.');
+            redirect(base_url('ReportRPCPPE'));
+        } else {
+            echo "Error Updating";
+        }
+    }
     // ajax
     public function checkPoNumber()
     {

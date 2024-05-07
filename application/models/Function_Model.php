@@ -252,6 +252,16 @@ class Function_Model extends CI_Model
         $this->db->where('id)');
         return $this->db->update('tblpo_item');
     }
+    public function editRPCSEPData($IDrpcsep,$RPCSEP_editData)
+    {
+        $this->db->where('id', $IDrpcsep);
+        return $this->db->update('tblpo_item',$RPCSEP_editData);
+    }
+    public function editRPCPPEData($IDrpcppe,$RPCPPE_editData)
+    {
+        $this->db->where('id', $IDrpcppe);
+        return $this->db->update('tblpo_item',$RPCPPE_editData);
+    }
     // AJAX
     public function checkPoNumber($txtPONumber)
     {

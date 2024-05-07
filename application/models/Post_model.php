@@ -527,6 +527,17 @@ class Post_Model extends CI_Model
             return [];
         }
     }
+    public function rpcppe_item()
+    { 
+        $this->db->select('tblpo_item.*'); 
+        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $query = $this->db->get('tblpo_item');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
 
 
 }

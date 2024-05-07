@@ -1,10 +1,10 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title">Report on the Physical Count of Semi-Expendable Property</div>
+            <div class="card-title">Report on the Physical Count of Property, Plant and Equipment</div>
         </div>
         <div>
-          <a href="<?php echo base_url('print-rpcsepform'); ?>" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
+          <a href="<?php echo base_url('print-rpcppeform'); ?>" target="_blank"><button class="bn632-hover bn23">Generate Report</button></a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($RCSEPDatas as $Data):  ?>
+                        <?php foreach ($RPCPPEDatas as $Data):  ?>
                             <tr>
                                 <td class="text-center"><?php echo $Data->property_no ?></td>
                                 <td class="text-center"><?php echo $Data->quantity ?></td>
@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<form action="<?php echo base_url('update-RPCSEP') ?>" method="post" target="_blank">
+<form action="<?php echo base_url('update-RPCPPE') ?>" method="post" target="_blank">
     <div class="modal fade" id="modalRPCSEP" tabindex="-1" aria-labelledby="modalRPCSEPLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -61,12 +61,6 @@
                             <div class="form-floating mb-2">
                                 <input type="text" id="txtWhereabouts" class="form-control" name="txtWhereabouts" style="text-align:center">
                                 <label class="form-label fw-bold text-dark">Whereabouts :</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating mb-2">
-                                <input type="text" id="txtCondition" class="form-control" name="txtCondition" style="text-align:center">
-                                <label class="form-label fw-bold text-dark">Condition :</label>
                             </div>
                         </div>
                         <div class="col-12">

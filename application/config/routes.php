@@ -34,11 +34,10 @@ $route['editpar-details/(:any)/(:any)'] = 'Post_Controller/editparDetails/$1/$2'
 $route['sepc-assignee/(:any)/(:any)'] = 'Post_Controller/editsepcDetails/$1/$2';
 $route['ppepc-assignee/(:any)/(:any)'] = 'Post_Controller/editppepcDetails/$1/$2';
 $route['sepc-monitoring/(:any)/(:any)'] = 'Post_Controller/editsepcMonitoringDetails/$1/$2';
-
-
 $route['submit-SPECAssignee'] = 'Function_Controller/insertSEPCData';
 $route['submit-PPEPCAssignee'] = 'Function_Controller/insertPPEPCData';
-
+$route['update-RPCSEP'] = 'Function_Controller/updateRPCSEPData';
+$route['update-RPCPPE'] = 'Function_Controller/updateRPCPPEData';
 
 $route['deletepo-data/(:any)'] = 'Function_Controller/deleteData_po_id/$1';
 
@@ -55,6 +54,7 @@ $route['print-rsepiparform'] = 'PrintForms_Controller/RSEPIPARpdf_Controller/RSE
 $route['print-ptrparform/(:any)/(:any)'] = 'PrintForms_Controller/PTRPARpdf_Controller/PTRPARform/$1/$2';
 $route['print-rspiicsform'] = 'PrintForms_Controller/RSPIICSpdf_Controller/RSPIform';
 $route['print-rpcsepform'] = 'PrintForms_Controller/RPCSEPpdf_Controller/RPCSEPform';
+$route['print-rpcppeform'] = 'PrintForms_Controller/RPCPPEpdf_Controller/RPCPPEform';
 
 
 // Post
@@ -71,6 +71,8 @@ $route['suppliesledger'] = 'Post_Controller/SuppliesLedgerCard';
 $route['countinventories'] = 'Post_Controller/ReportPhysicalCountInventories';
 $route['ReportRSPI'] = 'Post_Controller/ReportSemiExpendable';
 $route['ReportRPCSEP'] = 'Post_Controller/ReportPhysicalCount';
+$route['ReportRPCPPE'] = 'Post_Controller/ReportPhysicalCountPPE';
+
 //Forms2
 $route['respi'] = 'Post_Controller/viewRSEPI';
 $route['respi-returned'] = 'Function_Controller/updateItem_return';

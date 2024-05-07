@@ -106,7 +106,7 @@
             <ul>
              <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment Receipt</a></li>
              <li><a href="<?php echo base_url('propertycardpar'); ?>">PPE Property Card</a></li>
-             <li><a href="#">RPCPPE</a></li>
+             <li><a href="<?php echo base_url('ReportRPCPPE'); ?>">RPCPPE</a></li>
             </ul>
           </li> 
           <!-- <li class="dropdown"><a href="#"><span>Summary Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>

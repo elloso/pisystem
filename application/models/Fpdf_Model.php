@@ -44,7 +44,7 @@ class Fpdf_Model extends CI_Model
         $this->db->join('tblpo', 'tblics.ics_po_id = tblpo.po_id', 'inner');
         $this->db->join('tblpo_item', 'tblpo.po_id = tblpo_item.po_id', 'inner');
         $this->db->where('md5(tblics.ics_po_id)', $icsForm);
-        $this->db->where('unit_cost <=', 50000);
+        $this->db->where('unit_cost <=', 49999);
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {
@@ -57,7 +57,7 @@ class Fpdf_Model extends CI_Model
     public function ics_item($ics_item)
     {
         $this->db->where('md5(po_id)', $ics_item);
-        $this->db->where('unit_cost <=', 50000);
+        $this->db->where('unit_cost <=', 49999);
         $query = $this->db->get('tblpo_item');
 
         if ($query->num_rows() > 0) {
@@ -74,7 +74,7 @@ class Fpdf_Model extends CI_Model
         $this->db->join('tblpo', 'tblpar.par_po_id = tblpo.po_id', 'inner');
         $this->db->join('tblpo_item', 'tblpo.po_id = tblpo_item.po_id', 'inner');
         $this->db->where('md5(par_po_id)', $parForm);
-        $this->db->where('unit_cost >', 50000);
+        $this->db->where('unit_cost >=', 50000);
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {
@@ -87,7 +87,7 @@ class Fpdf_Model extends CI_Model
     public function par_item($par_item)
     {
         $this->db->where('md5(po_id)', $par_item);
-        $this->db->where('unit_cost >', 50000);
+        $this->db->where('unit_cost >=', 50000);
         $query = $this->db->get('tblpo_item');
 
         if ($query->num_rows() > 0) {
@@ -283,7 +283,7 @@ class Fpdf_Model extends CI_Model
         $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
         $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
-        $this->db->where('tblpo_item.unit_cost <=', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 49999);
         $this->db->where('tbl_icssepc.rspi_month', $selectMonth);
         $this->db->where('tbl_icssepc.rspi_year', $selectYear);
         $query = $this->db->get('tblpo_item');
@@ -301,7 +301,7 @@ class Fpdf_Model extends CI_Model
         $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
         $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
-        $this->db->where('tblpo_item.unit_cost <=', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 49999);
         $this->db->where('tbl_icssepc.rspi_month', $selectMonth);
         $this->db->where('tbl_icssepc.rspi_year', $selectYear);
         $query = $this->db->get('tblpo_item');
@@ -319,7 +319,7 @@ class Fpdf_Model extends CI_Model
         $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
         $this->db->join('tblics', 'tblpo_item.po_id = tblics.ics_po_id');
         $this->db->join('tbliar', 'tblics.ics_po_id = tbliar.iar_po_id');
-        $this->db->where('tblpo_item.unit_cost <=', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 49999);
         $this->db->where('tbl_icssepc.semi_expendable', $Property);
         $this->db->where('tbl_icssepc.rspi_year', $PropertyYear);
         $query = $this->db->get('tblpo_item');
@@ -334,7 +334,7 @@ class Fpdf_Model extends CI_Model
     public function rpcsep_data()
     {
         $this->db->select('*'); 
-        $this->db->where('tblpo_item.unit_cost <=', 50000);
+        $this->db->where('tblpo_item.unit_cost <=', 49999);
         $query = $this->db->get('tblpo_item');
 
         if ($query->num_rows() > 0) {
@@ -346,7 +346,7 @@ class Fpdf_Model extends CI_Model
     public function rpcppe_data()
     {
         $this->db->select('*'); 
-        $this->db->where('tblpo_item.unit_cost >', 50000);
+        $this->db->where('tblpo_item.unit_cost >=', 50000);
         $query = $this->db->get('tblpo_item');
 
         if ($query->num_rows() > 0) {

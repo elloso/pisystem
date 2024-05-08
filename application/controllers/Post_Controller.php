@@ -219,7 +219,6 @@ class Post_Controller extends CI_Controller
             $editpo_details = $this->Post_model->get_podetails_by_id($editPodetails);
             $poitemList = $this->Post_model->get_poitemList($itemDetails);
             $poitemListrow = $this->Post_model->get_poitemListrow($itemDetails);
-            
             $data['poitemList'] = $poitemList;
             $data['editpo_details'] = $editpo_details;
             $data['add_details'] = $poitemListrow;
@@ -234,6 +233,10 @@ class Post_Controller extends CI_Controller
     public function editiarDetails($editiardetails, $iarPoID)
     {
         if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
             $editiardetails = $this->Post_model->get_iardetails_by_id($editiardetails);
             $iaritemList = $this->Post_model->get_iaritemList($iarPoID);
             $iarpropertyno = $this->Post_model->get_iarproperty_no($iarPoID);
@@ -251,6 +254,10 @@ class Post_Controller extends CI_Controller
     public function editicsDetails($editicsdetails, $icsPoID)
     {
         if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
             $editicsdetails = $this->Post_model->get_icsdetails_by_id($editicsdetails);
             $icsitemList = $this->Post_model->get_icsitemList($icsPoID);
             $data['editicsdetails'] = $editicsdetails;
@@ -265,6 +272,10 @@ class Post_Controller extends CI_Controller
     public function editparDetails($editpardetails, $parPoID)
     {
         if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
             $editpardetails = $this->Post_model->get_pardetails_by_id($editpardetails);
             $paritemList = $this->Post_model->get_paritemList($parPoID);
             $data['editpar_details'] = $editpardetails;
@@ -326,6 +337,10 @@ class Post_Controller extends CI_Controller
     public function editppepcDetails($ppepcPoID,$id)
     {
         if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
             $data['ppepc_details'] = $this->Post_model->get_ppepcitemList($ppepcPoID,$id);
             $data['ppepc_datas'] = $this->Post_model->get_ppepcdata($ppepcPoID,$id);
             $data['remaining'] = $this->Post_model->get_specificppepcdata($id);

@@ -11,10 +11,10 @@
                     </button>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>User Type</th>
-                            <th>Action</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">User Type</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@
                                 <td><?php echo $userlist->first_name . ' ' .  $userlist->last_name ?></td>
                                 <td><?php echo $userlist->email ?></td>
                                 <td><?php echo $userlist->user_type ?></td>
-                                <td>
+                                <td class="text-center">
                                     <a href="<?= base_url('generate-password/' . md5($userlist->id)) ?>" onclick="return confirm('Are you sure you want to generate new password for <?php echo $userlist->first_name . ' ' .  $userlist->last_name ?>?');" class="m-1 text-primary" title="Generate new password"><i class="fa-solid fa-key"></i></a>
                                     <a href="<?php echo base_url('delete-user/' . md5($userlist->id)); ?>" onclick="return confirm('Are you sure you want to delete <?php echo $userlist->first_name . ' ' .  $userlist->last_name ?>?');" class="m-1 text-primary" title="Delete user"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>

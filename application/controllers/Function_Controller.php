@@ -116,9 +116,9 @@ class Function_Controller extends CI_Controller
             
                 // Check if quantity is 1, then don't append quantity
                 if ($txtItemQuantity[$i] == 1) {
-                    $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber;
+                        $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber;
                 } else {
-                    $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
+                        $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]);
                 }
             
                 $lastPropertyNumber = $propertyNumber;
@@ -828,6 +828,7 @@ class Function_Controller extends CI_Controller
     
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
+        $UnitCost = $this->input->post('hidden_unitcost');
 
         $yearDate = date('Y');
         $monthDate = date('n');
@@ -857,9 +858,9 @@ class Function_Controller extends CI_Controller
         }
 
         if ($O_Quantity == 1) {
-            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
         } else {
-            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
         }
         
         if ($this->Function_Model->checkExistingRecord($id)) {

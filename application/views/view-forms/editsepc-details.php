@@ -69,6 +69,7 @@
                     $quantity = $this->Post_model->getQuantityById($this->uri->segment(3));
                     $rquantity = $this->Post_model->RgetQuantityById($this->uri->segment(3));
                 ?>
+                <input type="hidden" name="hidden_unitcost" value="<?php echo $Data->unit_cost; ?>">
                 <input type="hidden" name="hidden_quantity" value="<?php echo $quantity; ?>">
                 <input type="hidden" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
                 <input type="hidden" name="hidden_poid" value="<?php echo $Data->po_id; ?>">

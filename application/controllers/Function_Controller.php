@@ -843,24 +843,38 @@ class Function_Controller extends CI_Controller
         $range = explode('-', $O_propertyno);
         $start = intval($range[1]);
         $end = intval($range[2]);
-
+        
         $last_property_number = $this->Function_Model->getLastPropertyNumberICS($id);
-
+        
         if (!$last_property_number) {
             $next_start = $start;
             $next_end = $start + $quantity - 1;
         } else {
             $last_range = explode('-', $last_property_number);
             $last_end = intval($last_range[2]);
-            
+        
             $next_start = $last_end + 1;
             $next_end = $next_start + $quantity - 1;
         }
+        
+        // if ($O_Quantity == 1) {
+        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
+        // } else {
+        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+        // }
 
         if ($O_Quantity == 1) {
-                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
+            if($UnitCost <= 4999){
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'LV';
+            }else{
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'HV';
+            }
         } else {
-                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+            if($UnitCost <= 4999){
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'LV';
+            }else{
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'HV';
+            }
         }
         
         if ($this->Function_Model->checkExistingRecord($id)) {
@@ -890,7 +904,7 @@ class Function_Controller extends CI_Controller
                 'mpcid' => $icssepc_id,
                 'mid_tblpo_item' => $po_id,
                 'mics_sepc_id' => $id,
-                'mextracted_property' => $Modified_propertyno, // Use the modified property number directly
+                'mextracted_property' => $Modified_propertyno, 
             );
         
             $this->Function_Model->SubmitSEPCMonitoring($dataSEPCMonitoring);
@@ -900,7 +914,12 @@ class Function_Controller extends CI_Controller
             $end_number = (int)$propertyNumbers[2];
         
             for ($i = $start_number; $i <= $end_number; $i++) {
-                $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT);
+                if($UnitCost <= 4999){
+                    $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT).'LV';
+                }else{
+                    $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT).'LV';
+
+                }
                 $dataSEPCMonitoring = array(
                     'mpcid' => $icssepc_id,
                     'mid_tblpo_item' => $po_id,

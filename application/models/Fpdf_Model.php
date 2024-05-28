@@ -331,10 +331,13 @@ class Fpdf_Model extends CI_Model
         }
     }
     
-    public function rpcsep_data()
+    public function rpcsep_data($PropertyName, $YearSelected)
     {
         $this->db->select('*'); 
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
         $this->db->where('tblpo_item.unit_cost <=', 49999);
+        $this->db->where('tbl_icssepc.semi_expendable',$PropertyName);
+        $this->db->where('tbl_icssepc.rspi_year',$YearSelected);
         $query = $this->db->get('tblpo_item');
 
         if ($query->num_rows() > 0) {

@@ -516,17 +516,33 @@ class Post_Model extends CI_Model
             return row();
         }
     }
+    // public function rpcsep_item()
+    // { 
+    //     $this->db->select('tblpo_item.*'); 
+    //     $this->db->where('tblpo_item.unit_cost <=', 49999);
+    //     $query = $this->db->get('tblpo_item');
+    //     if ($query->num_rows() > 0) {
+    //         return $query->result();
+    //     } else {
+    //         return [];
+    //     }
+    // }
     public function rpcsep_item()
-    { 
-        $this->db->select('tblpo_item.*'); 
-        $this->db->where('tblpo_item.unit_cost <=', 49999);
-        $query = $this->db->get('tblpo_item');
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return [];
-        }
+{
+    $this->db->select('tblpo_item.*, tbl_icssepc.ics_sepc_id, tbl_icssepc.semi_expendable,tbl_icssepc.balance_quantity');
+    $this->db->from('tblpo_item');
+    $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id'); 
+    $this->db->where('tblpo_item.unit_cost <=', 49999);
+    
+    $query = $this->db->get();
+    
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    } else {
+        return [];
     }
+}
+
     public function rpcppe_item()
     { 
         $this->db->select('tblpo_item.*'); 

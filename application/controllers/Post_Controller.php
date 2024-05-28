@@ -375,7 +375,8 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['Years'] = $this->Post_model->yearShow();
-            $data['Months'] = $this->Post_model->monthShow();
+            // $data['Months'] = $this->Post_model->monthShow();
+            $data['TypePropertys'] = $this->Post_model->propertyTypeShow();
             $data['RCSEPDatas'] = $this->Post_model->rpcsep_item();
             $data['userDetails'] = $userEmail;
             $this->load->view('template/header', $data);

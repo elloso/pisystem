@@ -124,7 +124,7 @@ class ICSfpdf_Controller extends CI_Controller
             $pdf->SetXY($x, $y);
         
             $descriptionWidth = 65;
-            $descriptionText = '* ' . $item->item_description;
+            $descriptionText = '* ' .$item->specific_description . ' - '. $item->item_description;
             $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
             $descriptionHeight = 7 * $descriptionLines;
 

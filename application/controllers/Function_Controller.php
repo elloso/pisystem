@@ -124,7 +124,7 @@ class Function_Controller extends CI_Controller
                     if($txtItemUnitCost[$i] <= 4999){
                         $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]). 'LV';
                     }else{
-                        $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]). 'HV' ;
+                        $propertyNumber = 'SLSU' . $currentYear . '-' . $sequenceNumber . '-' . sprintf('%05d', intval(substr($lastPropertyNumber, -5)) + $txtItemQuantity[$i]). 'HV'                             ;
                     }
                 }
             
@@ -833,17 +833,30 @@ class Function_Controller extends CI_Controller
         //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
         // }
 
+        // if ($O_Quantity == 1) {
+        //     if($UnitCost <= 4999){
+        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'LV';
+        //     }else{
+        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'HV';
+        //     }
+        // } else {
+        //     if($UnitCost <= 4999){
+        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'LV';
+        //     }else{
+        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'HV';
+        //     }
+        // }
         if ($O_Quantity == 1) {
-            if($UnitCost <= 4999){
-                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'LV';
-            }else{
-                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'HV';
+            if ($UnitCost <= 4999) {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . 'LV';
+            } else {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . 'HV';
             }
         } else {
-            if($UnitCost <= 4999){
-                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'LV';
-            }else{
-                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'HV';
+            if ($UnitCost <= 4999) {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT) . 'LV';
+            } else {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT) . 'HV';
             }
         }
         
@@ -868,6 +881,7 @@ class Function_Controller extends CI_Controller
         );
     
         $icssepc_id = $this->Function_Model->SubmitPotoSEPCData($dataSEPC);
+
         //Second Table
         if ($O_Quantity == 1) {
             $dataSEPCMonitoring = array(
@@ -887,7 +901,7 @@ class Function_Controller extends CI_Controller
                 if($UnitCost <= 4999){
                     $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT).'LV';
                 }else{
-                    $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT).'LV';
+                    $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT).'HV';
 
                 }
                 $dataSEPCMonitoring = array(

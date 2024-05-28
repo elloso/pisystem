@@ -21,7 +21,7 @@ class IARfpdf_Controller extends CI_Controller
             $pdf->Cell(0, 6, 'Supply and Property Office', 0, 1, 'C');
 
             $pdf->Ln(7);
-            $pdf->SetFont('times', 'B', 10);
+            $pdf->SetFont('times', 'B', 10);    
             $pdf->Cell(25, 7, 'Entity Name :', 'LTR', 0, 'L');
             $pdf->Cell(110, 7, 'SOUTHERN LUZON STATE UNIVERSITY', 'TR', 0, 'L');
             $pdf->Cell(25, 7, 'Fund Cluster:', 'T', 0, 'C');
@@ -147,7 +147,7 @@ class IARfpdf_Controller extends CI_Controller
                 $xQuantity = $xUnit + $unitWidth;
             
                 $pdf->SetXY(10, $y + 13);
-                $pdf->MultiCell(35, 8, $item->property_no,0,'L');
+                $pdf->MultiCell(35, 7, $item->property_no,'','L');
             
                 $pdf->SetXY($xDescription + 12, $y + 13);
                 $pdf->MultiCell($descriptionWidth, 7, $item->item_no, 0, 'L');
@@ -161,7 +161,7 @@ class IARfpdf_Controller extends CI_Controller
                 $pdf->SetXY(65, $y + 13);
                 $pdf->MultiCell($descriptionWidth, 7, "* " .$item->specific_description.' - '.$item->item_description, 0, 'L');
             
-                $y += max(8, $descriptionHeight);
+                $y += max(10, $descriptionHeight);
             }
             
             //Line

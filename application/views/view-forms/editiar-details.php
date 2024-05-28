@@ -20,10 +20,6 @@
                         <label class="form-label fw-bold text-dark" for="txtSupplier">Entity Name :</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" id="edit_propertyno" value="<?php echo $iar_propertyno->property_no ?>" class="form-control" name="edit_propertyno" readonly>
-                        <label class="form-label fw-bold text-dark" for="txtSupplier">Stock / Property No. :</label>
-                    </div>
-                    <div class="form-floating mb-2">
                             <input type="text" id="edit_supplier" value="<?php echo $editiar_details->iar_supplier ?>" class="form-control" name="edit_supplier" readonly>
                             <label class="form-label fw-bold text-dark" for="edit_supplier">Supplier :</label>
                         </div>

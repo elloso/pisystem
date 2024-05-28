@@ -157,7 +157,7 @@ class RSPIICSpdf_Controller extends CI_Controller
             foreach($rspidatas as $Datas){
                 // Check if adding this item will exceed the page height
                 $descriptionWidth = 39;
-                $descriptionText = '* ' . $Datas->item_description;
+                $descriptionText = '* ' . $Datas->specific_description .' - '. $Datas->item_description;
                 $descriptionLines = ceil($pdf->GetStringWidth($descriptionText) / $descriptionWidth);
                 $descriptionHeight = 7 * $descriptionLines;
 

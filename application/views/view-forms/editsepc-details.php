@@ -79,7 +79,19 @@
                     <div class="row">
                         <div class="col-lg-6 col-xl-6">
                             <label class="form-label fw-bold text-dark">Semi-Expendable Property:</label>
-                            <input type="text" id="txtSemiExpendable" class="form-control" name="txtSemiExpendable" required>
+                            <!-- <input type="text" id="txtSemiExpendable" class="form-control" name="txtSemiExpendable" required> -->
+                            <select class="form-select" aria-label="Default select example" id="txtSemiExpendable" name="txtSemiExpendable" required>
+                                <option style="text-align:center;"value="" disabled selected>---- Select Property Name ----</option>
+                                <option>OFFICE EQUIPMENT</option>
+                                <option>ICT EQUIPMENT</option>
+                                <option>MARINE AND FISHERY EQUIPMENT</option>
+                                <option>MEDICAL EQUIPMENT</option>
+                                <option>SPORTS EQUIPMENT</option>
+                                <option>TECHNICAL & SCIENTIFIC EQUIPMENT</option>
+                                <option>OTHER MACHINERIES & EQUIPMENT</option>
+                                <option>FURNITURE & FIXTURES</option>
+                                <option>BOOKS</option>
+                            </select>
                         </div>
                         <div class="col-lg-6 col-xl-6">
                             <label class="form-label fw-bold text-dark">Remarks Fund Cluster:</label>

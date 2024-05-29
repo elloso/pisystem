@@ -420,4 +420,32 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     } 
+    public function disposedlist()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
+            $this->load->view('template/header', $data);
+            $this->load->view('summary/disposed');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    public function accountablelist()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
+            $this->load->view('template/header', $data);
+            $this->load->view('summary/accountable');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }
 } // End Bracket

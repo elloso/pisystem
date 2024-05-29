@@ -115,6 +115,12 @@
               <li><a href="<?php echo base_url('respi-par'); ?>">Registry SPI (PAR)</a></li>
             </ul>
           </li> -->
+          <li class="dropdown"><a href="#"><span>Summary</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="<?php echo base_url('Disposed'); ?>">Disposed Item List</a></li>
+              <li><a href="<?php echo base_url('Accountable'); ?>">List of User Accountable</a></li>
+            </ul>
+          </li>
           <li class="dropdown"><a href="#"><span>Settings</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url(); ?>my-account">My Account</a></li>

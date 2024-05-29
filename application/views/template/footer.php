@@ -262,6 +262,16 @@
         document.getElementById('txtCustodian').value = '';
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $('#user-disposedlist-table').DataTable({});
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#user-accountablelist-table').DataTable({});
+    });
+</script>
 
 
 <!-- End    editsepc-details -->

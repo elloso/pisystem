@@ -258,6 +258,7 @@ class PDF extends FPDF
         $this->Cell(0, 10, 'Annex A.8', 0, 1, 'R');
         $this->SetFont('times', 'B', 12);
         $this->Cell(0, 6, 'REPORT ON THE PHYSICAL COUNT OF SEMI-EXPENDABLE PROPERTY', 0, 1, 'C');
+        $this->SetFont('times', 'U', 12);
         $this->Cell(0, 6, $this->propertyName, 0, 1, 'C');
         $this->SetFont('times', 'IB', 10);
         $this->Cell(0, 6, 'As of ' . $currentDate, 0, 1, 'C');

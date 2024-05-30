@@ -82,15 +82,9 @@
                             <!-- <input type="text" id="txtSemiExpendable" class="form-control" name="txtSemiExpendable" required> -->
                             <select class="form-select" aria-label="Default select example" id="txtSemiExpendable" name="txtSemiExpendable" required>
                                 <option style="text-align:center;"value="" disabled selected>---- Select Property Name ----</option>
-                                <option>OFFICE EQUIPMENT</option>
-                                <option>ICT EQUIPMENT</option>
-                                <option>MARINE AND FISHERY EQUIPMENT</option>
-                                <option>MEDICAL EQUIPMENT</option>
-                                <option>SPORTS EQUIPMENT</option>
-                                <option>TECHNICAL & SCIENTIFIC EQUIPMENT</option>
-                                <option>OTHER MACHINERIES & EQUIPMENT</option>
-                                <option>FURNITURE & FIXTURES</option>
-                                <option>BOOKS</option>
+                                <?php foreach ($lists as $list): ?>
+                                    <option value="<?php echo $list->P_NAME ?>"><?php echo $list->P_NAME ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-lg-6 col-xl-6">

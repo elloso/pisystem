@@ -324,9 +324,14 @@ class Post_Controller extends CI_Controller
     public function editsepcDetails($sepcPoID,$id)
     {
         if ($this->session->userdata('is_login') == TRUE) {
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
             $data['spec_details'] =  $this->Post_model->get_sepcitemList($sepcPoID, $id);
             $data['spec_datas'] = $this->Post_model->get_sepcdata($sepcPoID, $id);
             $data['remaining'] = $this->Post_model->get_specificdata($id);
+            $data['lists'] = $this->Post_model->ICSPropertyName();
             $this->load->view('template/header', $data);
             $this->load->view('view-forms/editsepc-details');
             $this->load->view('template/footer');
@@ -344,6 +349,7 @@ class Post_Controller extends CI_Controller
             $data['ppepc_details'] = $this->Post_model->get_ppepcitemList($ppepcPoID,$id);
             $data['ppepc_datas'] = $this->Post_model->get_ppepcdata($ppepcPoID,$id);
             $data['remaining'] = $this->Post_model->get_specificppepcdata($id);
+            $data['lists'] = $this->Post_model->PARPropertyName();
             $this->load->view('template/header', $data);
             $this->load->view('view-forms/editppepc-details');
             $this->load->view('template/footer');
@@ -410,7 +416,8 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['Years'] = $this->Post_model->yearShow();
-            $data['Months'] = $this->Post_model->monthShow();
+            // $data['Months'] = $this->Post_model->monthShow();
+            $data['TypePropertys'] = $this->Post_model->PARPropertyTypeShow();
             $data['RPCPPEDatas'] = $this->Post_model->rpcppe_item();
             $data['userDetails'] = $userEmail;
             $this->load->view('template/header', $data);

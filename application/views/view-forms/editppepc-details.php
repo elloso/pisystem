@@ -69,6 +69,7 @@
                     $quantity = $this->Post_model->getQuantityById($this->uri->segment(3));
                     $rquantity = $this->Post_model->RgetQuantityById($this->uri->segment(3));
                 ?>
+                <input type="hidden" name="hidden_unitcost" value="<?php echo $Data->unit_cost; ?>">
                 <input type="hidden" name="hidden_quantity" value="<?php echo $quantity; ?>">
                 <input type="hidden" name="hidden_rquantity" value="<?php echo $rquantity; ?>">
                 <input type="hidden" name="hidden_poid" value="<?php echo $Data->po_id; ?>">
@@ -85,36 +86,9 @@
                             <!-- <input type="text" id="txtSemiExpendable" class="form-control" name="txtSemiExpendable" required> -->
                             <select class="form-select" aria-label="Default select example" id="txtSemiExpendable" name="txtSemiExpendable" required>
                                 <option style="text-align:center;"value="" disabled selected>---- Select Property Name ----</option>
-                                <option>LAND</option>
-                                <option>LAND IMPROVEMENT</option>
-                                <option>INFRASTRUCTURE/ROAD NETWORK</option>
-                                <option>OFFICE BUILDINGS</option>
-                                <option>INVESTMENT PROPERTY</option>
-                                <option>SCHOOL BUILDINGS</option>
-                                <option>HOSTELS & DORMITORIES</option>
-                                <option>OTHER STRUCTURE</option>
-                                <option>WATER SUPPLY SYSTEM</option>
-                                <option>POWER SUPPLY SYSTEM</option>
-                                <option>COMMUNICATION NETWORKS</option>
-                                <option>OTHER MACHINERIES & EQUIPMENT</option>
-                                <option>MACHINERY</option>
-                                <option>OFFICE EQUIPMENT</option>
-                                <option>ICT EQUIPMENT</option>
-                                <option>AGRICULTURAL & FORESTRY EQUIPMENT</option>
-                                <option>MARINE AND FISHERY EQUIPMENT</option>
-                                <option>COMMUNICATION EQUIPMENT</option>
-                                <option>CONSTRUCTION AND HEAVY EQUIPMENT</option>
-                                <option>DISASTER REPONSE AND RESCUE EQUIPMENT </option>
-                                <option>MEDICAL EQUIPMENT</option>
-                                <option>PRINTING EQUIPMENT</option>
-                                <option>TECHNICAL & SCIENTIFIC EQUIPMENT</option>
-                                <option>SPORTS EQUIPMENT</option>
-                                <option>MOTOR VEHICLES</option>
-                                <option>FURNITURE & FIXTURES</option>
-                                <option>BOOKS</option>
-                                <option>WORK/ZOO ANIMALS</option>
-                                <option>OTHER PROPERTY, PLANT & EQUIPMENT</option>
-                                <option>COMPUTER SOFTWARE</option>
+                                <?php foreach ($lists as $list): ?>
+                                    <option value="<?php echo $list->P_NAME ?>"><?php echo $list->P_NAME ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-lg-6 col-xl-6">

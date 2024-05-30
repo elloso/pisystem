@@ -6,11 +6,12 @@ class RPCPPEpdf_Controller  extends CI_Controller
 {
     public function RPCPPEform()
     {
+        $PropertyName = $this->input->post('PropertyDropdown');
+        $YearSelected = $this->input->post('YearDropdown');
+        $rpcppedata = $this->Fpdf_Model->rpcppe_data($PropertyName,$YearSelected);
 
-        $rpcppedata = $this->Fpdf_Model->rpcppe_data();
 
-
-        $pdf = new PDF();
+        $pdf = new PDF($PropertyName);
         $pdf->AddPage();
         $pdf->Ln(7);
         $pdf->SetFont('times', '', 10);
@@ -219,6 +220,14 @@ class RPCPPEpdf_Controller  extends CI_Controller
 
 class PDF extends FPDF
 {
+    protected $propertyName;
+
+    function __construct($propertyName)
+    {
+        parent::__construct('L', 'mm', 'A4');
+        $this->propertyName = $propertyName;
+    }
+
     function Header()
     {
         $currentDate = date('F j, Y');
@@ -227,13 +236,11 @@ class PDF extends FPDF
         $this->SetFont('times', 'I', 12);
         $this->Cell(0, 10, 'Annex 73', 0, 1, 'R');
         $this->SetFont('times', 'B', 12);
-        $this->Cell(0, 6, 'REPORT ON THE PHYSICAL COUNT OF SEMI-EXPENDABLE PROPERTTY', 0, 1, 'C');
-        $this->Cell(0, 6, 'INFORMATION & COMMUNICATION TECHNOLOGY', 0, 1, 'C');
+        $this->Cell(0, 6, 'REPORT ON THE PHYSICAL COUNT OF PROPERTY, PLANT AND EQUIPMENT', 0, 1, 'C');
+        $this->SetFont('times', 'U', 12);
+        $this->Cell(0, 6, $this->propertyName, 0, 1, 'C');
         $this->SetFont('times', 'IB', 10);
         $this->Cell(0, 6, 'As of ' . $currentDate, 0, 1, 'C');
     }
-    function __construct()
-    {
-        parent::__construct('L', 'mm', 'A4'); 
-    }
+    
 }

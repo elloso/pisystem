@@ -827,25 +827,6 @@ class Function_Controller extends CI_Controller
             $next_end = $next_start + $quantity - 1;
         }
         
-        // if ($O_Quantity == 1) {
-        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
-        // } else {
-        //     $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
-        // }
-
-        // if ($O_Quantity == 1) {
-        //     if($UnitCost <= 4999){
-        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'LV';
-        //     }else{
-        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT).'HV';
-        //     }
-        // } else {
-        //     if($UnitCost <= 4999){
-        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'LV';
-        //     }else{
-        //         $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT).'HV';
-        //     }
-        // }
         if ($O_Quantity == 1) {
             if ($UnitCost <= 4999) {
                 $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . 'LV';
@@ -943,6 +924,7 @@ class Function_Controller extends CI_Controller
     
         $O_Quantity = $this->input->post('hidden_quantity');
         $R_Quantity = $this->input->post('hidden_rquantity');
+        $UnitCost = $this->input->post('hidden_unitcost');
 
         $yearDate = date('Y');
         $monthDate = date('n');
@@ -972,9 +954,17 @@ class Function_Controller extends CI_Controller
         }
 
         if ($O_Quantity == 1) {
-            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT);
+            if ($UnitCost <= 4999) {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . 'LV';
+            } else {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . 'HV';
+            }
         } else {
-            $Modified_propertyno = $range[0] . '-' . str_pad($next_start, strlen($range[1]), '0', STR_PAD_LEFT) . '-' . str_pad($next_end, strlen($range[2]), '0', STR_PAD_LEFT);
+            if ($UnitCost <= 4999) {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT) . 'LV';
+            } else {
+                $Modified_propertyno = $range[0] . '-' . str_pad($next_start, 5, '0', STR_PAD_LEFT) . '-' . str_pad($next_end, 5, '0', STR_PAD_LEFT) . 'HV';
+            }
         }
 
         if ($this->Function_Model->checkExistingRecord($id)) {
@@ -1004,7 +994,7 @@ class Function_Controller extends CI_Controller
                 'mpcid' => $parsepc_id,
                 'mid_tblpo_item' => $po_id,
                 'mics_sepc_id' => $id,
-                'mextracted_property' => $Modified_propertyno, // Use the modified property number directly
+                'mextracted_property' => $Modified_propertyno,
             );
         
             $this->Function_Model->SubmitSEPCMonitoring($dataSEPCMonitoring);
@@ -1014,7 +1004,11 @@ class Function_Controller extends CI_Controller
             $end_number = (int)$propertyNumbers[2];
         
             for ($i = $start_number; $i <= $end_number; $i++) {
-                $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT);
+                if($UnitCost <= 4999){
+                    $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT).'LV';
+                }else{
+                    $individual_property_no = $propertyNumbers[0] . '-' . str_pad($i, strlen($propertyNumbers[1]), '0', STR_PAD_LEFT).'HV';
+                }
                 $dataSEPCMonitoring = array(
                     'mpcid' => $parsepc_id,
                     'mid_tblpo_item' => $po_id,

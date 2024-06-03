@@ -74,6 +74,8 @@ $route['ReportRPCSEP'] = 'Post_Controller/ReportPhysicalCount';
 $route['ReportRPCPPE'] = 'Post_Controller/ReportPhysicalCountPPE';
 $route['Disposed'] = 'Post_Controller/disposedlist';
 $route['Accountable'] = 'Post_Controller/accountablelist';
+$route['Generallist/(:any)'] = 'Post_Controller/listdata/$1';
+
 
 
 

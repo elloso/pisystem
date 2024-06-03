@@ -12,15 +12,19 @@
                             <th class="text-center">Item</th>
                             <th class="text-center">Returned By</th>
                             <th class="text-center">Date Disposed</th>
+                            <th class="text-center">Reason</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($DisposedLists as $Data): ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $Data->mextracted_property ?></td>
+                            <td><?php echo $Data->specific_description ." - " ?><?php echo $Data->item_description ?></td>
+                            <td><?php echo $Data->returned_name ?></td>
+                            <td><?php echo $Data->date_disposed ?></td>
+                            <td><?php echo $Data->disposal_reason ?></td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

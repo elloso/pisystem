@@ -64,7 +64,7 @@
         </div>
     </div>
 <!-- For Returned, Reissued and Disposal -->
-<form action="<?php echo base_url('respi-returned'); ?>" method="post" class="needs-validation" novalidate>
+<form action="<?php echo base_url('respi-returned'); ?>" method="post">
     <div class="modal fade" id="Modal_ReturnedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-lg-8 col-xl-8">
                                 <label class="form-label fw-bold text-dark" for="">Returned By :</label>
-                                <input type="text" id="txtReturnedName" class="form-control" name="txtReturnedName" style="text-align: center;" value="" >
+                                <input type="text" id="txtReturnedName" class="form-control" name="txtReturnedName" style="text-align: center;" value="" required>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
         </div>
     </div>
 </form>
-<form action="<?php echo base_url('respi-reissue'); ?>" method="post" class="needs-validation" novalidate>
+<form action="<?php echo base_url('respi-reissue'); ?>" method="post">
     <div class="modal fade" id="Modal_ReissuedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -127,7 +127,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-xl-6">
                                 <div>
-                                    <select class="form-select " aria-label="Default select example" name="OptionTT" id="OptionTT">
+                                    <select class="form-select " aria-label="Default select example" name="OptionTT" id="OptionTT" required>
                                         <option disabled selected style="text-align:center">Select Transfer Type</option>
                                         <option value="Donation">Donation</option>
                                         <option value="Reassignment">Reassignment</option>
@@ -189,7 +189,7 @@
         </div>
     </div>
 </form>
-<form action="<?php echo base_url('respi-dispose'); ?>" method="post" class="needs-validation" novalidate>
+<form action="<?php echo base_url('respi-dispose'); ?>" method="post">
 <div class="modal fade" id="Modal_DisposeRSEPI" tabindex="-1" aria-labelledby="Modal_DisposeRSEPILabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

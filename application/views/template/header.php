@@ -85,12 +85,6 @@
             <ul>
               <li><a href="<?php echo base_url('purchase'); ?>">Purchase Order</a></li>
               <li><a href="<?php echo base_url('inspection'); ?>">Inspection / Acceptance Report</a></li>
-             
-             
-              <!-- <li><a href="<?php echo base_url('propertycard'); ?>">Property Card</a></li>
-              <li><a href="<?php echo base_url('stockcard'); ?>">Stock Card</a></li>
-              <li><a href="<?php echo base_url('suppliesledger'); ?>">Supplies Ledger Card</a></li>
-              <li><a href="<?php echo base_url('countinventories'); ?>">Report on the physical count of Inventories</a></li> -->
             </ul>
           </li>
           <li class="dropdown"><a href="#"><span>ICS</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -106,15 +100,10 @@
             <ul>
              <li><a href="<?php echo base_url('acknowledgement'); ?>">Property Acknowledgment Receipt</a></li>
              <li><a href="<?php echo base_url('propertycardpar'); ?>">PPE Property Card</a></li>
+             <li><a href="<?php echo base_url('respi-par');?>">Registry of SPI</a></li>
              <li><a href="<?php echo base_url('ReportRPCPPE'); ?>">RPCPPE</a></li>
             </ul>
           </li> 
-          <!-- <li class="dropdown"><a href="#"><span>Summary Forms</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="<?php echo base_url('respi'); ?>">Registry SPI (ICS)</a></li>
-              <li><a href="<?php echo base_url('respi-par'); ?>">Registry SPI (PAR)</a></li>
-            </ul>
-          </li> -->
           <li class="dropdown"><a href="#"><span>Summary</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url('Disposed'); ?>">Disposed Item List</a></li>

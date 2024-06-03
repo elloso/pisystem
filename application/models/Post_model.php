@@ -267,15 +267,15 @@ class Post_Model extends CI_Model
         $rsepidata = $this->db->get('tblpo_item')->result();
         return $rsepidata;
     }
-    public function getRSEPIPAR()
-    {
-        $this->db->select('tblpo_item.*, tblpar.*, tblics_rsepi.*');
-        $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id', 'inner');
-        $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item', 'inner');
-        $this->db->where('tblpo_item.unit_cost >=', 50000);
-        $rsepidata = $this->db->get('tblpo_item')->result();
-        return $rsepidata;
-    }
+    // public function getRSEPIPAR()
+    // {
+    //     $this->db->select('tblpo_item.*, tblpar.*, tblics_rsepi.*');
+    //     $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id', 'inner');
+    //     $this->db->join('tblics_rsepi', 'tblpo_item.id = tblics_rsepi.id_tblpo_item', 'inner');
+    //     $this->db->where('tblpo_item.unit_cost >=', 50000);
+    //     $rsepidata = $this->db->get('tblpo_item')->result();
+    //     return $rsepidata;
+    // }
 
     public function viewSEPCtable()
     {
@@ -476,6 +476,21 @@ class Post_Model extends CI_Model
             return [];
         }
     }
+    public function parregspi_item()
+    { 
+        $this->db->select('tbl_icssepc.*,tblpo_item.*,tblpar.*,tbliar.*'); 
+        $this->db->join('tblpo_item', 'tbl_icssepc.ics_sepc_id = tblpo_item.id');
+        $this->db->join('tblpar', 'tblpo_item.po_id = tblpar.par_po_id');
+        $this->db->join('tbliar', 'tblpar.par_po_id = tbliar.iar_po_id');
+        $this->db->where('tblpo_item.unit_cost >=', 50000);
+        $this->db->order_by('quantity_property_no', 'asc');
+        $query = $this->db->get('tbl_icssepc');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
     
     // public function get_monitoringsepcitemList($sepcPoID,$id)
     // {
@@ -542,18 +557,34 @@ class Post_Model extends CI_Model
             return [];
         }
     }
-
     public function rpcppe_item()
-    { 
-        $this->db->select('tblpo_item.*'); 
+    {
+        $this->db->select('tblpo_item.*, tbl_icssepc.ics_sepc_id, tbl_icssepc.semi_expendable,tbl_icssepc.balance_quantity');
+        $this->db->from('tblpo_item');
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id'); 
         $this->db->where('tblpo_item.unit_cost >=', 50000);
-        $query = $this->db->get('tblpo_item');
+        
+        $query = $this->db->get();
+        
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
             return [];
         }
     }
+
+
+    // public function rpcppe_item()
+    // { 
+    //     $this->db->select('tblpo_item.*'); 
+    //     $this->db->where('tblpo_item.unit_cost >=', 50000);
+    //     $query = $this->db->get('tblpo_item');
+    //     if ($query->num_rows() > 0) {
+    //         return $query->result();
+    //     } else {
+    //         return [];
+    //     }
+    // }
     public function PARPropertyTypeShow()
     {
         $this->db->select('semi_expendable, COUNT(*) as count');
@@ -595,6 +626,49 @@ class Post_Model extends CI_Model
             return [];
         }
     }
-
+    public function disposedlist()
+    {
+        $this->db->select('tbl_icspcmonitoring.*,tblpo_item.*');
+        $this->db->from('tbl_icspcmonitoring');
+        $this->db->join('tblpo_item', 'tbl_icspcmonitoring.mics_sepc_id = tblpo_item.id');
+        $this->db->where('tbl_icspcmonitoring.Monitoring_Status', 'Disposed');
+        $query = $this->db->get();
+        
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
+    public function custodianlist()
+    {
+        $this->db->select('tblpo_item.*, COUNT(tblpo_item.id) as custodian_count');
+        $this->db->from('tblpo_item');
+        $this->db->group_by('custodian'); 
+        $query = $this->db->get();
+        
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
+    public function generalcustodianlist()
+    {
+        $Custodian = $this->uri->segment(2);
+        $this->db->select('*');
+        $this->db->from('tblpo_item');
+        $this->db->where('md5(custodian)', $Custodian);
+        $query = $this->db->get();
+        
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
+    
+    
+    
 
 }

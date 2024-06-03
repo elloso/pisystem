@@ -264,7 +264,12 @@
 </script>
 <script>
     $(document).ready(function() {
-        $('#user-disposedlist-table').DataTable({});
+        $('#user-disposedlist-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 
+            ]
+        });
     });
 </script>
 <script>
@@ -272,6 +277,18 @@
         $('#user-accountablelist-table').DataTable({});
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $('#user-generalaccountablelist-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 
+            ]
+        });
+    });
+</script>
+
+
 
 
 <!-- End    editsepc-details -->

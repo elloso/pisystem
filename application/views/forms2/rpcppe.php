@@ -21,6 +21,7 @@
                     </thead>
                     <tbody>
                         <?php foreach ($RPCPPEDatas as $Data):  ?>
+                            <?php if($Data->semi_expendable && $Data->balance_quantity == 0): ?>
                             <tr>
                                 <td class="text-center"><?php echo $Data->property_no ?></td>
                                 <td class="text-center"><?php echo $Data->quantity ?></td>
@@ -31,8 +32,8 @@
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                 </td>
-
                             </tr>   
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </tbody>
                  </table>

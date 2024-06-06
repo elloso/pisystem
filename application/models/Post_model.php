@@ -531,17 +531,6 @@ class Post_Model extends CI_Model
             return row();
         }
     }
-    // public function rpcsep_item()
-    // { 
-    //     $this->db->select('tblpo_item.*'); 
-    //     $this->db->where('tblpo_item.unit_cost <=', 49999);
-    //     $query = $this->db->get('tblpo_item');
-    //     if ($query->num_rows() > 0) {
-    //         return $query->result();
-    //     } else {
-    //         return [];
-    //     }
-    // }
     public function rpcsep_item()
     {
         $this->db->select('tblpo_item.*, tbl_icssepc.ics_sepc_id, tbl_icssepc.semi_expendable,tbl_icssepc.balance_quantity');
@@ -667,8 +656,32 @@ class Post_Model extends CI_Model
             return [];
         }
     }
-    
-    
-    
+    public function get_ICSproperties($query) {
+        $this->db->select('tbl_icssepc.quantity_property_no, tblpo_item.unit_cost');
+        $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->where('tblpo_item.unit_cost <=', 49999);
+        $this->db->like('tbl_icssepc.quantity_property_no', $query);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function get_PARproperties($query) {
+        $this->db->select('tbl_icssepc.quantity_property_no, tblpo_item.unit_cost');
+        $this->db->from('tbl_icssepc');
+        $this->db->join('tblpo_item', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->where('tblpo_item.unit_cost >=', 50000);
+        $this->db->like('tbl_icssepc.quantity_property_no', $query);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function OfficialSupplyHead() {
+        $query = $this->db->get('tbl_supplyhead');
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
 
-}
+    
+}   

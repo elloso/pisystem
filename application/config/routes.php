@@ -38,8 +38,9 @@ $route['submit-SPECAssignee'] = 'Function_Controller/insertSEPCData';
 $route['submit-PPEPCAssignee'] = 'Function_Controller/insertPPEPCData';
 $route['update-RPCSEP'] = 'Function_Controller/updateRPCSEPData';
 $route['update-RPCPPE'] = 'Function_Controller/updateRPCPPEData';
-
 $route['deletepo-data/(:any)'] = 'Function_Controller/deleteData_po_id/$1';
+$route['Transfer-SupplyHead'] = 'Function_Controller/UpdateSupplyHead';
+
 
 //Print Forms
 $route['print-iarform/(:any)'] = 'PrintForms_Controller/IARfpdf_Controller/IARform/$1';
@@ -101,6 +102,10 @@ $route['checkIAR-number'] = 'Function_Controller/checkIARNumber';
 $route['checkInvoice-number'] = 'Function_Controller/checkInvoiceNumber';
 $route['checkICS-number'] = 'Function_Controller/checkICSNumber';
 $route['checkPAR-number'] = 'Function_Controller/checkPARNumber';
+$route['checkProperty-number'] = 'Post_Controller/propertySearch';
+$route['checkPropertyPAR-number'] = 'Post_Controller/propertySearchPAR';
+
+
 
 
 $route['404_override'] = '';

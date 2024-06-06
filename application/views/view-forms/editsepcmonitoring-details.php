@@ -4,9 +4,9 @@
             <div class="card-title fw-bold">Monitoring Item (Returned, Reissue and Disposal)</div>
         </div>
         <div class="card-body">   
-            <div class=""> 
-                    <a href="<?php echo base_url('respi') ?>"><button type="button" class="btn btn-secondary">Back</button></a>
-            </div>
+                <div class=""> 
+                    <a href="javascript:history.back()"><button type="button" class="btn btn-secondary">Back</button></a>
+                </div>
                 <div class="col-lg-6 col-xl-12 pt-3">
                     <div class="card" style="max-width: 1500px;">
                         <div class="card-body">

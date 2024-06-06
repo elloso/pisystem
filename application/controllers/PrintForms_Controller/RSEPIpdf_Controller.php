@@ -9,8 +9,15 @@ class RSEPIpdf_Controller extends CI_Controller
 
         $Property = $this->input->post('PropertyDropdown');
         $PropertyYear = $this->input->post('YearDropdown');
-        $RegSPIDatas = $this->Fpdf_Model->regspi_item($Property,$PropertyYear);
-       
+        $GeneralReport = $this->input->post('generalreport');
+        $IndividualReport = $this->input->post('txtSearchProperty');
+        
+        if($GeneralReport == "1"){
+            $RegSPIDatas = $this->Fpdf_Model->regspi_item($Property,$PropertyYear);
+        }
+        if($GeneralReport == "2"){
+            $RegSPIDatas = $this->Fpdf_Model->regspi_individual($Property,$PropertyYear,$IndividualReport);
+        }
 
         $pdf = new PDF();
             $pdf->AddPage();

@@ -359,6 +359,22 @@ public function getLastPropertyNumberICS($id) {
     }
 }
 
+public function ChangeSupplyHead() {
+    $NewName = $this->input->post('txtSupplyHead', TRUE);
+    $Date = $this->input->post('txtDateChangeHead');
+    $data = array(
+        'Supply_Head' => $NewName,
+        'Date_transfer' => $Date
+    );
+    $this->db->where('ID', 1);
+    $this->db->update('tbl_supplyhead', $data);
+    if ($this->db->affected_rows() > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 
 

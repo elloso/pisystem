@@ -10,7 +10,7 @@
                         <button type="button" class="btn btn-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#Modal_InspectionAcceptance">
                             Add User
                         </button>
-                        <button type="button" class="btn btn-success btn-sm mb-2"  data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" >
+                        <button type="button" class="btn btn-success btn-sm mb-2"  data-bs-toggle="modal" data-bs-target="#Modal_SupplyHead" >
                             Supply Head
                         </button>   
                     </div>
@@ -102,35 +102,30 @@
         </div>
     </div>
 </div>
-<!-- For Returned, Reissued and Disposal -->
-<form action="<?php echo base_url('respi-returned'); ?>" method="post">
-    <div class="modal fade" id="Modal_ReturnedRSEPI" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<form action="<?php echo base_url('Transfer-SupplyHead'); ?>" method="post">
+    <div class="modal fade" id="Modal_SupplyHead" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="Modal_ReturnedRSEPILabel">Item Return</h1>
+                    <h1 class="modal-title fs-5" id="Modal_SupplyHeadLabel">Item Return</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="border p-2 mb-2 rounded">
-                        <input type="hidden" name="hidden_id_tblpo_item" value="<?php echo $this->uri->segment(2) ?>">
-                        <input type="hidden" name="hidden_pcid" value="<?php echo $this->uri->segment(3) ?>">
-                        <input type="hidden" name="hidden_uniqueid" id="monid_input">
                         <div class="row">
                             <div class="col-lg-4 col-xl-4">
-                                <label class="form-label fw-bold text-dark" for="">Date Returned :</label>
-                                <input id="txtDateSEPC" style="text-align: center;" class="form-control" name="txtReturnedDate" type="date" required>
+                                <label class="form-label fw-bold text-dark" for="">Date Changed :</label>
+                                <input id="txtDateSEPC" style="text-align: center;" class="form-control" name="txtDateChangeHead" type="date" required>
                             </div>
                             <div class="col-lg-8 col-xl-8">
-                                <label class="form-label fw-bold text-dark" for="">Returned By :</label>
-                                <input type="text" id="txtReturnedName" class="form-control" name="txtReturnedName" style="text-align: center;" value="" required>
+                                <label class="form-label fw-bold text-dark" for="">Supply Head :</label>
+                                <input type="text" id="txtSupplyHead" class="form-control" name="txtSupplyHead" style="text-align: center;" value="<?php echo $HeadName->Supply_Head; ?>" required>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="returnedconfirmButton" value="Returned" class="btn btn-primary">Returned</button>
+                    <button type="submit" name="txtNewSupplyhead" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </div>

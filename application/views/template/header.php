@@ -67,7 +67,13 @@
   );
   box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
 }
-
+.search-item {
+    cursor: pointer;
+    padding: 10px;
+}
+.search-item:hover {
+    background-color: #f0f0f0;
+}
   </style>
 </head>
 

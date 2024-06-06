@@ -189,13 +189,14 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
+            $data['HeadName'] = $this->Post_model->OfficialSupplyHead();
             $this->load->view('template/header', $data);
             $this->load->view('accounts/account-list');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
         }
-    }
+    }   
     public function changePassword()
     {
         if ($this->session->userdata('is_login') == TRUE) {
@@ -488,5 +489,16 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
+    public function propertySearch() {
+        $query = $this->input->post('query');
+        $data = $this->Post_model->get_ICSproperties($query);
+        echo json_encode($data);
+    }
+    public function propertySearchPAR() {
+        $query = $this->input->post('query');
+        $data = $this->Post_model->get_PARproperties($query);
+        echo json_encode($data);
+    }
+
     
 } // End Bracket

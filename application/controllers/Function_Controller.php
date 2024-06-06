@@ -1089,6 +1089,16 @@ class Function_Controller extends CI_Controller
             echo "Error Updating";
         }
     }
+    public function UpdateSupplyHead() {
+        $result = $this->Function_Model->ChangeSupplyHead();
+        if ( $result ) {
+            $this->session->set_flashdata( 'success', 'New Supply Head Successfully Changed' );
+        } else {
+            $this->session->set_flashdata( 'error', 'Failed to Change Supply Head' );
+        }
+        redirect(base_url('account-list'));
+    
+    }
     // ajax
     public function checkPoNumber()
     {

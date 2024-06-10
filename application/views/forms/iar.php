@@ -135,12 +135,12 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark" for="txtIARDate">Inspection :</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer">
+                                    <input type="text" id="txtInspectionOfficer" class="form-control" name="txtInspectionOfficer" style="text-align:center;">
                                     <label class="form-label fw-bold text-dark" for="txtInspectionOfficer">Officer:</label>
                                     <div class="invalid-feedback">Please input Officer name. </div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" />
+                                    <input id="txtDateInspected" class="form-control" name="txtDateInspected" type="date" style="text-align:center;" />
                                     <label class="form-label fw-bold text-dark" for="txtDateInspected">Date Inspected :</label>
                                     <div class="invalid-feedback">Please select Date.</div>
                                 </div>
@@ -150,12 +150,12 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted">
+                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted" value="<?php echo $HeadName->Supply_Head ?>" style="text-align:center;">
                                     <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
                                     <div class="invalid-feedback">Please input Property Custodian Name.</div>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" />
+                                    <input id="txtAcceptedDate" class="form-control" name="txtAcceptedDate" type="date" style="text-align:center;" />
                                     <label class="form-label fw-bold text-dark" for="txtAcceptedDate">Date Received :</label>
                                     <div class="invalid-feedback">Please select Date.</div>
                                 </div>

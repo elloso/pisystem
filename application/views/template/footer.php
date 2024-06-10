@@ -150,6 +150,18 @@
     document.getElementById("txtDateSEPC").value = today;
 </script>
 <script>
+    var today = new Date().toISOString().substr(0, 10);
+    document.getElementById("txtDateSupplyHead").value = today;
+</script>
+<script>
+    var today = new Date().toISOString().substr(0, 10);
+    document.getElementById("txtDateInspectedFrom").value = today;
+</script>
+<script>
+    var today = new Date().toISOString().substr(0, 10);
+    document.getElementById("txtDateRecivedBy").value = today;
+</script>
+<script>
     $(document).ready(function() {
         $('#sepc-data-table').DataTable({
          

@@ -115,7 +115,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-xl-4">
                                 <label class="form-label fw-bold text-dark" for="">Date Changed :</label>
-                                <input id="txtDateSEPC" style="text-align: center;" class="form-control" name="txtDateChangeHead" type="date" required>
+                                <input id="txtDateSupplyHead" style="text-align: center;" class="form-control" name="txtDateChangeHead" type="date" required>
                             </div>
                             <div class="col-lg-8 col-xl-8">
                                 <label class="form-label fw-bold text-dark" for="">Supply Head :</label>

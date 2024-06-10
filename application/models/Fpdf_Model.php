@@ -478,5 +478,15 @@ class Fpdf_Model extends CI_Model
             return array(); 
         }
     }
+    public function get_data_supplyhead() {
+        $this->db->select('*');
+        $this->db->where('ID', 1);
+        $query = $this->db->get('tbl_supplyhead');
+        if ($query->num_rows() > 0) {
+            return $query->row_array(); // Use row_array() to get a single row as an associative array
+        } else {
+            return array();
+        }
+    }
     
 }

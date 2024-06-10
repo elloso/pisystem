@@ -41,6 +41,7 @@ class Post_Controller extends CI_Controller
             $data['userDetails'] = $userEmail;
             $data['PO_IARDatas'] = $this->Post_model->viewIARtable();
             $data['IARDatas'] = $this->Post_model->viewIARtable();
+            $data['HeadName'] = $this->Post_model->OfficialSupplyHead();
             $this->load->view('template/header', $data);
             $this->load->view('forms/iar');
             $this->load->view('template/footer');
@@ -82,8 +83,9 @@ class Post_Controller extends CI_Controller
             $data['user_email'] = $this->session->userdata('email');
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
-            $data['PO_ICSDatas'] = $this->Post_model->viewICStable();
             $data['userDetails'] = $userEmail;
+            $data['PO_ICSDatas'] = $this->Post_model->viewICStable();
+            $data['S_Head'] = $this->Post_model->OfficialSupplyHead();
             $this->load->view('template/header', $data);
             $this->load->view('forms/ics');
             $this->load->view('template/footer');

@@ -9,6 +9,7 @@ class RPCSEPpdf_Controller  extends CI_Controller
         $PropertyName = $this->input->post('PropertyDropdown');
         $YearSelected = $this->input->post('YearDropdown');
         $rpcsepdata = $this->Fpdf_Model->rpcsep_data($PropertyName,$YearSelected);
+        $data = $this->Fpdf_Model->get_data_supplyhead();
 
         $pdf = new PDF($PropertyName);
         $pdf->AddPage();
@@ -21,12 +22,28 @@ class RPCSEPpdf_Controller  extends CI_Controller
         $pdf->cell(190, 6, '', '',1,'L');
         $pdf->cell(15.5, 5, 'For which', '',0,'L');
         $pdf->SetFont('times', 'B', 10);
-        $pdf->cell(40, 4, 'Victor V. Villalon', 'B',0,'C');
+        // $pdf->cell(40, 4, 'Victor V. Villalon', 'B',0,'C');
+         // Check if data is not empty
+        if (!empty($data)) {
+            $supply_head = $data['Supply_Head'];
+            $pdf->cell(40, 4, $supply_head, 'B',0,'C');
+        } else {
+            $pdf->Cell(40, 4, '');
+        }
         $pdf->SetFont('times', '', 10);
         $pdf->cell(2, 4, ',', '',0,'L');
         $pdf->cell(120, 4, 'Head, Supply and Property Office,  Southern Luzon State University is accountable,', 'B',0,'L');
         $pdf->cell(56, 4, 'having assumed such accountability on', '',0,'L');
-        $pdf->cell(20, 4, 'July 12, 2023.', 'B',0,'L');
+        // $pdf->cell(20, 4, 'July 12, 2023.', 'B',0,'L');
+        if (!empty($data)) {
+            $Datetransferred = $data['Date_transfer'];
+            $date = new DateTime($Datetransferred);
+            $formattedDate = $date->format('F j, Y');
+                $pdf->Cell(30, 4, $formattedDate, 'B', 0, 'C');
+        } else {
+            $pdf->Cell(30, 4, '');
+        }
+        
         $pdf->cell(190, 7, '', '',1,'L');
         
         $pdf->SetFont('times', '', 10);

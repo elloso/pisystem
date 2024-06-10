@@ -8,7 +8,7 @@
         </div> -->
         <div>
             <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#semiexpendableproperty">Generate Report</button>
-            <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#individualproperty">Individual Report</button>
+            <!-- <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#individualproperty">Individual Report</button> -->
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -32,6 +32,7 @@
                                         <i class="fa-solid fa-share-from-square fa-xs"></i>
                                     </button>  -->
                                     <a href="<?php echo base_url('sepc-monitoring/' . md5($RSEPIlist->id_tblpo_item) .'/'. md5($RSEPIlist->pcid)) ?>" title="Assign Item" class="text-primary mx-2" onclick="return confirm('Please confirm to proceed return item.')"><i class="fa-solid fa-user-plus"></i></a>
+                                    <a href="#" title="Details" class="text-primary mx-2"><i class="fa-solid fa-eye"></i></a>
                                 </td>
                             </tr>   
                         <?php endforeach; ?>
@@ -154,48 +155,7 @@
   </div>
 </div>
 </form>
-<!-- Modal For Generation Report-->
-<form action="<?php echo base_url('print-rsepiform'); ?>" method="post" target="_blank">
-<div class="modal fade" id="individualproperty" tabindex="-1" aria-labelledby="individualpropertyLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 font-weight-bold" id="individualpropertyLabel">Generation Report</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            <div class="row">
-                <input type="hidden" value="2" name="generalreport">
-                <div class="col-6">
-                    <label class="badge badge-info" style="color:black;">Semi-expendable Property:</label>
-                    <select class="form-control" name="PropertyDropdown" >
-                        <?php foreach($TypePropertys as $Type): ?>
-                            <option value="<?php echo $Type->semi_expendable ?>" class="text-center"><?php echo $Type->semi_expendable ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label class="badge badge-info" style="color:black;">Year:</label>
-                    <select class="form-control" name="YearDropdown">
-                        <?php foreach ($Years as $Year): ?>
-                            <option value="<?php echo $Year->rspi_year ?>" class="text-center"><?php echo $Year->rspi_year ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <label class="badge badge-info" style="color:black;">Property Number:</label>
-                    <input type="text" class="form-control" id="txtSearchProperty" name="txtSearchProperty" style="text-align:center" required>
-                    <div id="searchResult"></div>
-                </div>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" id="generateButton" class="btn btn-primary">Generate</button>
-      </div>  
-    </div>
-  </div>
-</div>
-</form>
+
 
 <script>
     $(document).ready(function() {

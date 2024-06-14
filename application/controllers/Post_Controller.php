@@ -302,11 +302,17 @@ class Post_Controller extends CI_Controller
             $data['TypePropertys'] = $this->Post_model->propertyTypeShow();
             $data['Years'] = $this->Post_model->yearShow();
             $this->load->view('template/header', $data);
-            $this->load->view('forms2/rsepi', $data);
+            $this->load->view('forms2/rsepi');
             $this->load->view('template/footer');
         } else {
             redirect(base_url('login'));
         }
+    }
+    public function fetch_data_by_pcid() {
+        $ics_sepc_id = $this->input->post('pcid');
+        $data['record'] = $this->Post_model->get_data_by_pcid($ics_sepc_id); 
+        $data['datas'] = $this->Post_model->get_arraydata_by_pcid($ics_sepc_id); 
+        $this->load->view('view-forms/show-rsepi', $data);
     }
     public function viewRSEPI_PAR()
     {
@@ -491,16 +497,20 @@ class Post_Controller extends CI_Controller
             redirect(base_url('login'));
         }
     }
-    public function propertySearch() {
-        $query = $this->input->post('query');
-        $data = $this->Post_model->get_ICSproperties($query);
-        echo json_encode($data);
-    }
-    public function propertySearchPAR() {
-        $query = $this->input->post('query');
-        $data = $this->Post_model->get_PARproperties($query);
-        echo json_encode($data);
-    }
-
-    
+    public function dataList()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $data['userlistResult'] = $this->Post_model->get_userlist();
+            $data['user_email'] = $this->session->userdata('email');
+            $email = $data['user_email'];
+            $userEmail = $this->Post_model->get_userDetails($email);
+            $data['userDetails'] = $userEmail;
+            $data['HeadName'] = $this->Post_model->OfficialSupplyHead();
+            $this->load->view('template/header', $data);
+            $this->load->view('data_option/update_data');
+            $this->load->view('template/footer');
+        } else {
+            redirect(base_url('login'));
+        }
+    }   
 } // End Bracket

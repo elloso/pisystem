@@ -124,6 +124,7 @@
               if ($userDetails->user_type === 'Admin') {
               ?>
                 <li><a href="<?php echo base_url(); ?>account-list">Account list</a></li>
+                <li><a href="<?php echo base_url(); ?>data-list">User Management</a></li>
               <?php } ?>
               <li><a href="#" data-bs-toggle="modal" data-bs-target="#logutModal">Logout</a></li>
             </ul>

@@ -8,7 +8,6 @@
         </div> -->
         <div>
             <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#semiexpendableproperty">Generate Report</button>
-            <!-- <button class="bn632-hover bn23" data-bs-toggle="modal" data-bs-target="#individualproperty">Individual Report</button> -->
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -28,90 +27,12 @@
                                 <td class="text-center"><?php echo $RSEPIlist->ics_no ?>    </td>
                                 <td class="text-center"><?php echo $RSEPIlist->quantity_property_no ?></td>
                                 <td class="text-center">
-                                    <!-- <button type="button" class="btn btn-primary rounded-circle btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_ReturnedRSEPI" title="Return">
-                                        <i class="fa-solid fa-share-from-square fa-xs"></i>
-                                    </button>  -->
                                     <a href="<?php echo base_url('sepc-monitoring/' . md5($RSEPIlist->id_tblpo_item) .'/'. md5($RSEPIlist->pcid)) ?>" title="Assign Item" class="text-primary mx-2" onclick="return confirm('Please confirm to proceed return item.')"><i class="fa-solid fa-user-plus"></i></a>
-                                    <a href="#" title="Details" class="text-primary mx-2"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="#" title="Details" class="text-primary mx-2" onclick="showDetails('<?php echo $RSEPIlist->id ?>')"><i class="fa-solid fa-eye"></i></a>
                                 </td>
                             </tr>   
                         <?php endforeach; ?>
                     </tbody>
-                    <!-- <tbody>
-                <?php foreach ($RSEPIlists as $RSEPIlist):  ?>
-                    <?php if (!empty($RSEPIlist->ics_no)) : ?>
-                    <tr>
-                        <td><?php echo $RSEPIlist->date_acquired ?></td>
-                        <td><?php echo $RSEPIlist->ics_no ?></td>
-                        <td><?php echo $RSEPIlist->rsepi_property_no ?></td>
-                        <td class="text-center"><?php echo $RSEPIlist->remarks ?></td>
-                        <td class="text-center">
-                            <?php
-                                $formattedAmount = number_format($RSEPIlist->unit_cost, 2); 
-                            ?>
-                            <?php if ($RSEPIlist->remarks == "Returned"): ?>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-share-from-square"></i>
-                                </a>
-                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Reissued" data-bs-target="#Modal_ReissuedRSEPI" onclick="displayEditModalReissued('<?php echo md5($RSEPIlist->id); ?>')"> 
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </a>
-                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#Modal_DisposeRSEPI" onclick="displayEditModalDisposed('<?php echo md5($RSEPIlist->id); ?>')"> 
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                                <?php if ($RSEPIlist->itr_no == 0): ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
-                                        <i class="fa-solid fa-print"></i>
-                                    </a>
-                                <?php else: ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
-                                        <i class="fa-solid fa-print"></i>
-                                    </a>
-                                 <?php endif; ?>
-                            <?php elseif ($RSEPIlist->remarks == "Disposed"): ?>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-share-from-square"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Re-issue" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                                <?php if ($RSEPIlist->itr_no == 0): ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
-                                        <i class="fa-solid fa-print"></i>
-                                    </a>
-                                <?php else: ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
-                                        <i class="fa-solid fa-print"></i>
-                                    </a>
-                                 <?php endif; ?>
-                            <?php else: ?>
-                                <a href="#" class="text-primary mx-2" data-bs-toggle="modal" title="Return" data-bs-target="#Modal_ReturnedRSEPI" onclick="displayEditModal('<?php echo md5($RSEPIlist->id); ?>','<?php echo $RSEPIlist->ics_receivedby; ?>','<?php echo $RSEPIlist->item_description; ?>','<?php echo $formattedAmount; ?>')"> 
-                                    <i class="fa-solid fa-share-from-square"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Re-issue" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </a>
-                                <a href="#" class="text-danger mx-2" data-bs-toggle="modal" title="Dispose" data-bs-target="#" style="cursor: not-allowed; color: red;"> 
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                                <?php if ($RSEPIlist->remarks == "Re-issued"): ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-primary mx-2">
-                                        <i class="fa-solid fa-print"></i>
-                                    </a>
-                                <?php else: ?>
-                                    <a href="<?php echo base_url('print-ptrform/'.md5($RSEPIlist->po_id) ."/".md5($RSEPIlist->id_tblpo_item) );?>" target="_blank" title="Print" class="text-danger mx-2">
-                                        <i class="fa-solid fa-print"></i>
-                                    </a>
-                                 <?php endif; ?>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                    </tbody> -->
                  </table>
             </div>
         </div>
@@ -155,8 +76,22 @@
   </div>
 </div>
 </form>
-
-
+<!-- View Data -->
+<div class="modal fade" id="statiDatashows" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statiDatashowsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="statiDatashowsLabel">Data Additional</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function() {
         $('#respi-data-table').DataTable({
@@ -164,58 +99,21 @@
         });
     });
 </script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#txtSearchProperty').on('keyup', function() {
-            var query = $(this).val();
-            if (query.length > 0) {
-                $.ajax({
-                    url: "<?php echo base_url('checkProperty-number'); ?>",
-                    method: "POST",
-                    data: {query: query},
-                    dataType: 'json',
-                    success: function(data) {
-                        var output = '<ul class="list-group">';
-                        $.each(data, function(index, value) {
-                            output += '<li class="list-group-item search-item">' + value.quantity_property_no + '</li>';
-                        });
-                        output += '</ul>';
-                        $('#searchResult').html(output);
-
-                        $('.search-item').on('click', function() {
-                            var selectedValue = $(this).text();
-                            $('#txtSearchProperty').val(selectedValue);
-                            $('#searchResult').html(''); 
-                        });
-                    }
-                });
-            } else {
-                $('#searchResult').html('');
-            }
-        });
-    });
-</script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const txtSearchProperty = document.getElementById("txtSearchProperty");
-        const generateButton = document.getElementById("generateButton");
-
-        txtSearchProperty.addEventListener("input", function () {
-            if (txtSearchProperty.value.trim() === "") {
-                generateButton.setAttribute("type", "submit");
-                generateButton.removeAttribute("data-bs-dismiss");
-            } else {
-                generateButton.setAttribute("data-bs-dismiss", "modal");
-                generateButton.setAttribute("type", "submit");
-            }
-        });
-
-        if (txtSearchProperty.value.trim() === "") {
-            generateButton.setAttribute("type", "submit");
-            generateButton.removeAttribute("data-bs-dismiss");
-        } else {
-            generateButton.setAttribute("data-bs-dismiss", "modal");
-            generateButton.setAttribute("type", "submit");
+function showDetails(ics_sepc_id) {
+    $.ajax({
+        url: '<?php echo base_url('rsepiAJAX') ?>', 
+        type: 'POST',
+        data: { pcid: ics_sepc_id },
+        success: function(response) {
+            $('#statiDatashows .modal-body').html(response); 
+            $('#statiDatashows').modal('show'); 
+        },
+        error: function() {
+            alert('Error fetching data.');
         }
     });
+}
 </script>
+
+

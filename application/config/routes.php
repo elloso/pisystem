@@ -93,8 +93,10 @@ $route['respi-disposePAR'] = 'Function_Controller/updateItem_disposedPAR';
 
 
 
-// account/maintenance
+//Maintenance
 $route['account-list'] = 'Post_Controller/accountList';
+$route['data-list'] = 'Post_Controller/dataList';
+
 // ajax
 $route['checkPo-number'] = 'Function_Controller/checkPoNumber';
 $route['checkPr-number'] = 'Function_Controller/checkPrNumber';
@@ -102,8 +104,7 @@ $route['checkIAR-number'] = 'Function_Controller/checkIARNumber';
 $route['checkInvoice-number'] = 'Function_Controller/checkInvoiceNumber';
 $route['checkICS-number'] = 'Function_Controller/checkICSNumber';
 $route['checkPAR-number'] = 'Function_Controller/checkPARNumber';
-$route['checkProperty-number'] = 'Post_Controller/propertySearch';
-$route['checkPropertyPAR-number'] = 'Post_Controller/propertySearchPAR';
+$route['rsepiAJAX'] = 'Post_Controller/fetch_data_by_pcid';
 
 
 

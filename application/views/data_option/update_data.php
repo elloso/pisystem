@@ -1,43 +1,38 @@
 <div class="container justify-content-center align-items-center container_table" style="min-height: 40vh;">
     <div class="card" style="max-width: 1500px;">
         <div class="card-header border-success" style="border-top:solid;">
-            <div class="card-title fw-bold">Manage User Account</div>
+            <div class="card-title fw-bold">User Management</div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table id="user-list-table" class="table table-hover">
-                    <div>
-                        <button type="button" class="btn btn-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#Modal_InspectionAcceptance">
-                            Add User
-                        </button>
-                        <button type="button" class="btn btn-success btn-sm mb-2"  data-bs-toggle="modal" data-bs-target="#Modal_SupplyHead" >
-                            Supply Head
-                        </button>   
-                    </div>
                     <thead>
                         <tr>
-                            <th class="text-center">Name</th>
-                            <th class="text-center">Email</th>
-                            <th class="text-center">User Type</th>
+                            <th class="text-center">Module Changes</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        foreach ($userlistResult as $userlist) {
-                        ?>
-                            <tr>
-                                <td><?php echo $userlist->first_name . ' ' .  $userlist->last_name ?></td>
-                                <td><?php echo $userlist->email ?></td>
-                                <td><?php echo $userlist->user_type ?></td>
+                            <tr >
                                 <td class="text-center">
-                                    <a href="<?= base_url('generate-password/' . md5($userlist->id)) ?>" onclick="return confirm('Are you sure you want to generate new password for <?php echo $userlist->first_name . ' ' .  $userlist->last_name ?>?');" class="m-1 text-primary" title="Generate new password"><i class="fa-solid fa-key"></i></a>
-                                    <a href="<?php echo base_url('delete-user/' . md5($userlist->id)); ?>" onclick="return confirm('Are you sure you want to delete <?php echo $userlist->first_name . ' ' .  $userlist->last_name ?>?');" class="m-1 text-primary" title="Delete user"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="#">
+                                    <button type="button" class="btn btn-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#Modal_InspectionAcceptance">
+                                        ICS Property Name
+                                    </button>
+                                    </a>
                                 </td>
+                                <td class="text-center"></td>
                             </tr>
-                        <?php
-                        }
-                        ?>
+                            <tr >
+                                <td class="text-center">
+                                <a href="#">
+                                    <button type="button" class="btn btn-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#Modal_InspectionAcceptance" style="font-size: 13.5px;">
+                                        PAR Property Name
+                                    </button>
+                                    </a>
+                                </td>
+                                <td class="text-center"></td>
+                            </tr>
                     </tbody>
                 </table>
             </div>
@@ -55,6 +50,7 @@
             </div>
             <div class="modal-body">
                 <form action="<?php echo base_url() ?>save-user" method="post" class="needs-validation" novalidate>
+                    <div class="row">
                         <div class="form-floating mb-2">
                             <input type="text" id="rfirst_name" class="form-control " name="rfirst_name" required>
                             <label class="form-label fw-bold text-dark" for="rfirst_name">Name:</label>
@@ -90,6 +86,7 @@
                                 Please choose a user.
                             </div>
                         </div>
+                    </div>
                     <!-- End Modal body -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>

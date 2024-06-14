@@ -656,24 +656,6 @@ class Post_Model extends CI_Model
             return [];
         }
     }
-    public function get_ICSproperties($query) {
-        $this->db->select('tbl_icssepc.quantity_property_no, tblpo_item.unit_cost');
-        $this->db->from('tbl_icssepc');
-        $this->db->join('tblpo_item', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
-        $this->db->where('tblpo_item.unit_cost <=', 49999);
-        $this->db->like('tbl_icssepc.quantity_property_no', $query);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-    public function get_PARproperties($query) {
-        $this->db->select('tbl_icssepc.quantity_property_no, tblpo_item.unit_cost');
-        $this->db->from('tbl_icssepc');
-        $this->db->join('tblpo_item', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
-        $this->db->where('tblpo_item.unit_cost >=', 50000);
-        $this->db->like('tbl_icssepc.quantity_property_no', $query);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
     public function OfficialSupplyHead() {
         $query = $this->db->get('tbl_supplyhead');
         if ($query->num_rows() > 0) {
@@ -682,6 +664,45 @@ class Post_Model extends CI_Model
             return false;
         }
     }
+    // public function get_data_by_pcid($pcid) {
+    //     $this->db->where('id', $pcid);
+    //     $query = $this->db->get('tblpo_item');
 
+    //     if ($query->num_rows() > 0) {
+    //         return $query->row(); 
+    //     } else {
+    //         return false; 
+    //     }
+    // }
+    public function get_data_by_pcid($ics_sepc_id) {
+        $this->db->select('tblpo_item.*, tbl_icssepc.*,tbl_icspcmonitoring.*'); 
+        $this->db->from('tblpo_item');
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id'); 
+        $this->db->join('tbl_icspcmonitoring', 'tbl_icssepc.pcid = tbl_icspcmonitoring.mpcid'); 
+        $this->db->where('tblpo_item.id', $ics_sepc_id); 
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->row(); 
+        } else {
+            return false; 
+        }
+    }
+    public function get_arraydata_by_pcid($ics_sepc_id) {
+        $this->db->select('tblpo_item.*, tbl_icssepc.*, tbl_icspcmonitoring.*');
+        $this->db->from('tblpo_item');
+        $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
+        $this->db->join('tbl_icspcmonitoring', 'tbl_icssepc.pcid = tbl_icspcmonitoring.mpcid');
+        $this->db->where('tblpo_item.id', $ics_sepc_id);
+        // Adding the additional condition to join with mics_sepc_id
+        $this->db->or_where('tbl_icspcmonitoring.mics_sepc_id', $ics_sepc_id);
+        $query = $this->db->get();
+        
+        if ($query->num_rows() > 0) {
+            return $query->result();  // Changed to result() to fetch multiple rows
+        } else {
+            return false;
+        }
+    }
+    
     
 }   

@@ -2,6 +2,11 @@
 
 class Post_Controller extends CI_Controller
 {
+    public function DashboardUser()
+    {
+        $this->load->view('dashboard2');
+        
+    }
     public function Dashboard()
     {
         if ($this->session->userdata('is_login') == TRUE) {

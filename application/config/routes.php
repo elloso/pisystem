@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // Login
-$route['default_controller'] = 'Login_Controller/loginPage';
+$route['default_controller'] = 'Post_Controller/DashboardUser';
 $route['login'] = 'Login_Controller/loginPage';
 $route['logout-page'] = 'Login_Controller/logoutPage';
 // account

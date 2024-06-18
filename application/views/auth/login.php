@@ -62,6 +62,9 @@
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-dark btn-block">Sign in</button>
+                  <a href="<?php echo base_url(''); ?>">
+                    <button type="button" class="btn btn-dark btn-block">Dashboard</button>
+                  </a>
                 </div>
               </div>
             </div>

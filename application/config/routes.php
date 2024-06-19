@@ -60,6 +60,7 @@ $route['print-rpcppeform'] = 'PrintForms_Controller/RPCPPEpdf_Controller/RPCPPEf
 
 // Post
 $route['dashboard'] = 'Post_Controller/Dashboard';
+$route['downloadforms'] = 'Post_Controller/Downloadforms';
 // forms
 $route['purchase'] = 'Post_Controller/PurchaseOrder';
 $route['inspection'] = 'Post_Controller/InspectionAcceptance';

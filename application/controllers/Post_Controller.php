@@ -7,6 +7,11 @@ class Post_Controller extends CI_Controller
         $this->load->view('dashboard2');
         
     }
+    public function Downloadforms()
+    {
+        $this->load->view('downloadable');
+        
+    }
     public function Dashboard()
     {
         if ($this->session->userdata('is_login') == TRUE) {

@@ -63,9 +63,9 @@ class Login_Controller extends CI_Controller
 				);
 				$this->session->set_userdata($user_data);
 				if ($is_authenticated->user_type == 'Admin') {
-					redirect(base_url('dashboard'));
+					redirect(base_url('purchase'));
 				} else if ($is_authenticated->user_type == 'User') {
-					redirect(base_url('dashboard'));
+					redirect(base_url('purchase'));
 				}
 			} else {
 				$this->session->set_flashdata('login-error', 'Invalid email or password.');

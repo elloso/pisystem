@@ -86,7 +86,7 @@
       </a>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="<?php echo base_url('dashboard'); ?>">Home</a></li>
+          <!-- <li><a href="<?php echo base_url('dashboard'); ?>">Home</a></li> -->
           <li class="dropdown"><a href="#"><span>PO & IAR</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?php echo base_url('purchase'); ?>">Purchase Order</a></li>

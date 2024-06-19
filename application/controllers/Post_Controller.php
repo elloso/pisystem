@@ -9,7 +9,8 @@ class Post_Controller extends CI_Controller
     }
     public function Downloadforms()
     {
-        $this->load->view('downloadable');
+        $data['forms'] = $this->Post_model->SPOforms();
+        $this->load->view('downloadable',$data);
         
     }
     public function Dashboard()
@@ -515,7 +516,9 @@ class Post_Controller extends CI_Controller
             $email = $data['user_email'];
             $userEmail = $this->Post_model->get_userDetails($email);
             $data['userDetails'] = $userEmail;
-            $data['HeadName'] = $this->Post_model->OfficialSupplyHead();
+            $data['ICSDatas'] = $this->Post_model->ICSPropertynamelist();
+            $data['PARDatas'] = $this->Post_model->PARPropertynamelist();
+            $data['forms'] = $this->Post_model->SPOforms();
             $this->load->view('template/header', $data);
             $this->load->view('data_option/update_data');
             $this->load->view('template/footer');

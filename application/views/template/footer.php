@@ -299,6 +299,39 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $('#ics-list-table').DataTable({});
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#par-list-table').DataTable({});
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#forms-update-table').DataTable({});
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.ICSBody').hide();
+        $('.ICSHeader').click(function(){
+            $(this).next('.ICSBody').toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('.PARBody').hide();
+        $('.PARHeader').click(function(){
+            $('.PARBody').toggle();
+        });
+    });
+</script>
+
 
 
 

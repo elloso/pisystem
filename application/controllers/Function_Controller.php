@@ -622,12 +622,6 @@ class Function_Controller extends CI_Controller
             $affected_rows = $this->Function_Model->deletePOData($delete_po_id);
             $this->session->set_flashdata('delete', 'Data deleted successfully.');
             redirect(base_url('purchase'));
-            // if ($affected_rows > 0) {
-            //     redirect(base_url('purchase'));
-            // } else {
-            //     $this->session->set_flashdata('delete', 'Data deleted successfully.');
-            //     redirect(base_url('purchase'));
-            // }
         } else {
             redirect(base_url('login'));
         }
@@ -1098,6 +1092,81 @@ class Function_Controller extends CI_Controller
         }
         redirect(base_url('account-list'));
     
+    }
+    public function addics_propertyname()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $newics_propertyname = $this->input->post('txtICSPropertyname');
+            $dataICSPname = array(
+                'P_NAME' => $newics_propertyname,
+            );
+            $this->Function_Model->SubmitICSPnameData($dataICSPname);
+            $this->session->set_flashdata('success', 'New ICS Property name already Added.');
+            redirect(base_url('data-list'));
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    public function addpar_propertyname()
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $newpar_propertyname = $this->input->post('txtPARPropertyname');
+            $dataPARPname = array(
+                'P_NAME' => $newpar_propertyname,
+            );
+            $this->Function_Model->SubmitPARPnameData($dataPARPname);
+            $this->session->set_flashdata('success', 'New PAR Property name already Added.');
+            redirect(base_url('data-list'));
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    
+    public function deleteics_propertyname_id($delete_icspnameid)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $this->Function_Model->deleteICSPropertynameData($delete_icspnameid);
+            $this->session->set_flashdata('delete', 'Data deleted successfully.');
+            redirect(base_url('data-list'));
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    public function deletepar_propertyname_id($delete_parpnameid)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $this->Function_Model->deletePARPropertynameData($delete_parpnameid);
+            $this->session->set_flashdata('delete', 'Data deleted successfully.');
+            redirect(base_url('data-list'));
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    public function uploadforms() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('txtforms', 'Form Name', 'required');
+        $this->form_validation->set_rules('txtformsdescription', 'Description', 'required');
+
+            $config['upload_path'] = 'assets/uploads';
+            $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx';
+            $config['max_size'] = 2048;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('forms_dowload')) {
+                $data['error'] = $this->upload->display_errors();
+                echo "error";
+            } else {
+                $file_data = $this->upload->data();
+                $data = array(
+                    'form' => $this->input->post('txtforms'),
+                    'Description' => $this->input->post('txtformsdescription'),
+                    'file_form' => $file_data['forms_dowload']
+                );
+
+                $this->Function_Model->insert_form($data);
+                $this->session->set_flashdata('success', 'New forms uploaded.');
+            }
     }
     // ajax
     public function checkPoNumber()

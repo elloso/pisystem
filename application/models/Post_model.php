@@ -693,16 +693,38 @@ class Post_Model extends CI_Model
         $this->db->join('tbl_icssepc', 'tblpo_item.id = tbl_icssepc.ics_sepc_id');
         $this->db->join('tbl_icspcmonitoring', 'tbl_icssepc.pcid = tbl_icspcmonitoring.mpcid');
         $this->db->where('tblpo_item.id', $ics_sepc_id);
-        // Adding the additional condition to join with mics_sepc_id
         $this->db->or_where('tbl_icspcmonitoring.mics_sepc_id', $ics_sepc_id);
         $query = $this->db->get();
         
         if ($query->num_rows() > 0) {
-            return $query->result();  // Changed to result() to fetch multiple rows
+            return $query->result();
         } else {
             return false;
         }
     }
-    
+    public function ICSPropertynamelist() {
+        $query = $this->db->get('icspropertynamelist');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+    public function PARPropertynamelist() {
+        $query = $this->db->get('parpropertynamelist');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+    public function SPOforms() {
+        $query = $this->db->get('tbl_downloadable');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
     
 }   

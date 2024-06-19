@@ -51,15 +51,17 @@
                             <tr>
                                 <th class="text-center">Forms</th>
                                 <th class="text-center">Description</th>
-                                <th class="text-center"></th>
+                                <th class="text-center">File Link</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center" style="font-weight: bold;  width: 20%;">BIR Form No. 0217</td>
-                                <td style="width: 70%;">This form shall be accomplished/filed by all contractors before the release of final payment by the Department of Public Works and Highway (DPWH) in regards to contracts with the DPWH.</td>
-                                <td class="text-center" style="width: 10%;"><a href="" style="font-style: italic;">Download</a></td>
-                            </tr>
+                            <?php foreach($forms as $form): ?>
+                                <tr>
+                                    <td class="text-center" style="font-weight: bold;  width: 20%;"><?php echo $form->form ?></td>
+                                    <td style="width: 70%;"><?php echo $form->Description ?></td>
+                                    <td class="text-center" style="width: 10%;"><a href="#" style="font-style: italic;"><?php echo $form->file_form ?></a></td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>

@@ -200,11 +200,6 @@ class Function_Model extends CI_Model
         $this->db->where('monid', $id);
         return $this->db->update('tbl_icspcmonitoring', $Item_return);
     }
-    // public function SubmitPotoRSEPIData($dataPOtoRSEPI)
-    // {
-    //     $this->db->insert('tblics_rsepi', $dataPOtoRSEPI);
-    //     return $this->db->insert_id();
-    // }
     public function SubmitPotoSEPCData($dataPOtoSEPC)
     {
         $this->db->insert('tbl_icssepc', $dataPOtoSEPC);
@@ -261,6 +256,25 @@ class Function_Model extends CI_Model
     {
         $this->db->where('id', $IDrpcppe);
         return $this->db->update('tblpo_item',$RPCPPE_editData);
+    }
+    public function deleteICSPropertynameData($delete_icspname_id)
+    {
+        $id = $delete_icspname_id;
+        $this->db->where('md5(PNID)', $id);
+        $this->db->delete('icspropertynamelist');
+        
+        return $this->db->affected_rows();
+    }
+    public function deletePARPropertynameData($delete_parpname_id)
+    {
+        $id = $delete_parpname_id;
+        $this->db->where('md5(PNID)', $id);
+        $this->db->delete('parpropertynamelist');
+        
+        return $this->db->affected_rows();
+    }
+    public function insert_form($data) {
+        return $this->db->insert('tbl_downloadable', $data);
     }
     // AJAX
     public function checkPoNumber($txtPONumber)
@@ -374,5 +388,12 @@ public function ChangeSupplyHead() {
         return false;
     }
 }
-
+public function SubmitICSPnameData($dataICSPname){
+    $this->db->insert('icspropertynamelist', $dataICSPname);
+    return $this->db->insert_id();
+}
+public function SubmitPARPnameData($dataICSPname){
+    $this->db->insert('parpropertynamelist', $dataICSPname);
+    return $this->db->insert_id();
+}
 }

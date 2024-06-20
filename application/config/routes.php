@@ -44,6 +44,7 @@ $route['submit-icspname'] = 'Function_Controller/addics_propertyname';
 $route['submit-parpname'] = 'Function_Controller/addpar_propertyname';
 $route['deleteicspropertyname-data/(:any)'] = 'Function_Controller/deleteics_propertyname_id/$1';
 $route['deleteparpropertyname-data/(:any)'] = 'Function_Controller/deletepar_propertyname_id/$1';
+$route['deleteforms-data/(:any)'] = 'Function_Controller/deleteforms_id/$1';
 $route['uploadforms-data'] = 'Function_Controller/uploadforms';
 
 

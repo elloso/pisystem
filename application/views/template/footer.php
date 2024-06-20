@@ -331,6 +331,14 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function(){
+        $('.Formsbody').hide();
+        $('.Formsheader').click(function(){
+            $('.Formsbody').toggle();
+        });
+    });
+</script>
 
 
 

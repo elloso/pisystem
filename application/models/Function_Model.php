@@ -276,6 +276,26 @@ class Function_Model extends CI_Model
     public function insert_form($data) {
         return $this->db->insert('tbl_downloadable', $data);
     }
+    public function deleteFormsData($deleteforms_id)
+    {
+        $this->db->where('md5(ID)', $deleteforms_id);
+        $this->db->delete('tbl_downloadable');
+        
+        return $this->db->affected_rows();
+    }
+    public function getFileName($deleteforms_id)
+    {
+        $this->db->select('file_form'); 
+        $this->db->where('md5(ID)', $deleteforms_id);
+        $query = $this->db->get('tbl_downloadable');
+    
+        if ($query->num_rows() == 1) {
+            return $query->row()->file_form; 
+        } else {
+            return false;
+        }
+    }
+    
     // AJAX
     public function checkPoNumber($txtPONumber)
     {

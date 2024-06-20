@@ -8,6 +8,9 @@
 <title>Services Downloadable Forms</title>
 <link rel="icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/img/slsu/slsu_logo.png" />
 <link href="<?php echo base_url(); ?>assets/css/styles2.css" rel="stylesheet" />
+  <!-- Datatables -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables/buttons.dataTables.min.css">
 <style>
 .logo {
     width: 70px; 
@@ -58,8 +61,24 @@
                             <?php foreach($forms as $form): ?>
                                 <tr>
                                     <td class="text-center" style="font-weight: bold;  width: 20%;"><?php echo $form->form ?></td>
-                                    <td style="width: 70%;"><?php echo $form->Description ?></td>
-                                    <td class="text-center" style="width: 10%;"><a href="#" style="font-style: italic;"><?php echo $form->file_form ?></a></td>
+                                    <td style="width: 50%;"><?php echo $form->Description ?></td>
+                                    <!-- <td class="text-center" style="width: 10%;"><a href="#" style="font-style: italic;"><?php echo $form->file_form ?></a></td> -->
+                                    <td class="text-center" style="width: 30%; font-style: italic;">
+                                        <?php
+                                            $fileNames = explode(",", $form->file_form);
+                                            $fileNames = array_filter($fileNames, 'strlen');
+                                            ?>
+                                            <?php if (!empty($fileNames)) : ?>
+                                                <ul>
+                                                    <?php foreach ($fileNames as $fileName) : ?>
+                                                        <?php
+                                                        $filePath = "assets/uploads/" . $fileName;
+                                                        ?>
+                                                        <i class="fa-regular fa-file p-1"></i> <a href="<?php echo $filePath; ?>" target="_blank"><?php echo $fileName; ?></a><br/>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -68,7 +87,20 @@
             </div>
         </div>
     </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/scripts2.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/jquery-3.7.0.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/scripts2.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/jszip.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/pdfmake.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/vfs_fonts.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/datatables/buttons.print.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#po-data-table').DataTable({
+        });
+    });
+</script>
     </body>
 </html>

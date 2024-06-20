@@ -1143,31 +1143,84 @@ class Function_Controller extends CI_Controller
         }
     }
     public function uploadforms() {
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('txtforms', 'Form Name', 'required');
-        $this->form_validation->set_rules('txtformsdescription', 'Description', 'required');
-
-            $config['upload_path'] = 'assets/uploads';
-            $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx';
-            $config['max_size'] = 2048;
-
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload('forms_dowload')) {
-                $data['error'] = $this->upload->display_errors();
-                echo "error";
+        $this->load->library('upload');
+        $forms_name = $this->input->post('txtforms');
+        $forms_description = $this->input->post('txtformsdescription');
+        $config['upload_path'] = 'assets/uploads/'; 
+        $config['allowed_types'] = 'pdf|doc|docx'; 
+    
+        $this->upload->initialize($config);
+    
+        if ($this->upload->do_upload('forms_download')) {
+            $upload_data = $this->upload->data();
+            $forms_filename = $upload_data['file_name'];
+    
+            $data = array(
+                'form' => $forms_name,
+                'Description' => $forms_description,
+                'file_form' => $forms_filename
+            );
+    
+            if ($this->Function_Model->insert_form($data)) {
+                $this->session->set_flashdata('success', 'New Forms successfully added.');
+                redirect(base_url('data-list'));
             } else {
-                $file_data = $this->upload->data();
-                $data = array(
-                    'form' => $this->input->post('txtforms'),
-                    'Description' => $this->input->post('txtformsdescription'),
-                    'file_form' => $file_data['forms_dowload']
-                );
-
-                $this->Function_Model->insert_form($data);
-                $this->session->set_flashdata('success', 'New forms uploaded.');
+                $this->session->set_flashdata('error', 'New Forms denied.');
             }
+        } else {
+            $this->session->set_flashdata('error', $this->upload->display_errors());
+            redirect(base_url('data-list')); 
+        }
     }
+    
+    public function deleteforms_id($delete_forms)
+    {
+        if ($this->session->userdata('is_login') == TRUE) {
+            $file_name = $this->Function_Model->getFileName($delete_forms);
+    
+            if ($file_name) {
+                $this->Function_Model->deleteFormsData($delete_forms);
+                $file_path = FCPATH . 'assets/uploads/' . $file_name; // Adjust 'assets/uploads/' according to your directory structure
+                
+                if (file_exists($file_path)) {
+                    if (unlink($file_path)) {
+                        $this->session->set_flashdata('delete', 'Forms deleted successfully.');
+                    } else {
+                        $this->session->set_flashdata('error', 'Failed to delete file.');
+                    }
+                } else {
+                    $this->session->set_flashdata('error', 'File not found on server.');
+                }
+                redirect(base_url('data-list'));
+            } else {
+                $this->session->set_flashdata('error', 'File not found for deletion.');
+                redirect(base_url('data-list'));
+            }
+        } else {
+            redirect(base_url('login'));
+        }
+    }
+    
+    
+    // public function uploadforms() {
+    //     $forms_name = $this->input->post('txtforms');
+    //     $forms_description = $this->input->post('txtformsdescription');
+    //     $forms_filename = $this->input->post('forms_dowload');
+
+    //     $data = array(
+    //         'form' => $forms_name,
+    //         'Description' => $forms_description,
+    //         'file_form' => $forms_filename
+    //     );
+
+    //     if ($this->Function_Model->insert_form($data)) {
+    //         $this->session->set_flashdata('success', 'New Forms successfully added.');
+    //         redirect(base_url('data-list'));
+    //     } else {
+    //         $this->session->set_flashdata('error', 'New Forms denied.');
+    //     }
+    // }
+   
     // ajax
     public function checkPoNumber()
     {

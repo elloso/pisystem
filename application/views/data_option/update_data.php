@@ -73,10 +73,10 @@
     </div>
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header border-success" style="border-top:solid;">
-                <div class="card-title fw-bold">List of Forms</div>
+            <div class="card-header border-success Formsheader" style="border-top:solid;">
+                <div class="card-title fw-bold" style="cursor: pointer;">List of Forms</div>
             </div>
-            <div class="card-body">
+            <div class="card-body Formsbody">
                 <div class="table-responsive">
                     <table id="forms-update-table" class="table table-hover">
                     <button type="button" class="btn btn-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#Modal_SPOForms">
@@ -91,19 +91,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <?php if (is_array($forms) || is_object($forms)) : ?>
                             <?php foreach($forms as $form): ?>
                                 <tr>
-                                    <td class="text-center" style="font-weight: bold;  width: 20%;"><?php echo $form->form ?></td>
+                                    <td class="text-center" style="font-weight: bold; width: 20%;"><?php echo $form->form ?></td>
                                     <td style="width: 70%;"><?php echo $form->Description ?></td>
                                     <td class="text-center" style="width: 10%;"><a href="#" style="font-style: italic;"><?php echo $form->file_form ?></a></td>
                                     <td class="text-center">
                                         <a class="p-2 text-danger" title="Delete" style="cursor: pointer;">
-                                            <i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#deletePARPnameModal"></i>
+                                            <i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#deleteFormsModal"></i>
                                         </a>
                                     </td>   
                                 </tr>
                             <?php endforeach ?>
-                        </tbody>
+                        <?php endif; ?>
                     </table>
                 </div>
             </div>
@@ -160,7 +161,7 @@
         </div>
     </div>
 </form>
-<form action="<?php echo base_url('uploadforms-data'); ?>" method="post">
+<form action="<?php echo base_url('uploadforms-data'); ?>" method="post" enctype="multipart/form-data">
     <div class="modal fade" id="Modal_SPOForms" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
@@ -172,7 +173,7 @@
                     <div class="border p-2 mb-2 rounded">
                         <div class="row">
                             <div class="col-lg-12 col-xl-12">
-                                <label class="form-label fw-bold text-dark" for="">Forms :</label>
+                                <label class="form-label fw-bold text-dark" for="">Forms Name :</label>
                                 <input type="text" id="txtforms" class="form-control" name="txtforms" style="text-align: center;" required>
                             </div>
                             <div class="col-lg-12 col-xl-12">
@@ -181,7 +182,7 @@
                             </div>
                             <div class="col-lg-12 col-xl-12 p-2">
                                 <label for="txtDocuments">Documents</label><br>
-                                <input type="file" name="forms_dowload" id="forms_dowload" required>
+                                <input type="file" name="forms_download" id="forms_download" required>
                             </div>
                         </div>
                     </div>
@@ -193,6 +194,7 @@
         </div>
     </div>
 </form>
+
 
 
 <div class="modal fade" id="deleteICSPnameModal" tabindex="-1" aria-labelledby="deleteICSPnameModalLabel" aria-hidden="true">
@@ -227,6 +229,25 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                 <a href="<?php echo base_url('deleteparpropertyname-data/' . md5($PARData->PNID)) ?>">
+                    <button type="button" class="btn btn-primary">Yes</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteFormsModal" tabindex="-1" aria-labelledby="deleteFormsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteFormsModalLabel"><i class="text-warning fa-solid fa-triangle-exclamation mt-2"></i> Deletion confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <i>Are you sure you want to remove ?</i>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a href="<?php echo base_url('deleteforms-data/' . md5($form->ID)) ?>">
                     <button type="button" class="btn btn-primary">Yes</button>
                 </a>
             </div>

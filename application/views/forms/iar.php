@@ -150,7 +150,7 @@
                             <div class="border p-2 mb-2">
                                 <label class="form-label fw-bold text-dark" for="txtIARDate">Acceptance:</label>
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted" value="<?php echo $HeadName->Supply_Head ?>" style="text-align:center;">
+                                    <input type="text" id="txtAccepted" class="form-control" name="txtAccepted" value="<?php echo $HeadName->Supply_Head ?>" style="text-align:center;" readonly>
                                     <label class="form-label fw-bold text-dark" for="txtAccepted">Property Custodian:</label>
                                     <div class="invalid-feedback">Please input Property Custodian Name.</div>
                                 </div>

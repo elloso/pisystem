@@ -84,7 +84,7 @@
                     <div class="col-lg-4 col-xl-6">
                             <div class="border p-2 mb-2">
                                 <div class="form-floating mb-2">
-                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom" value="<?php echo $S_Head->Supply_Head ?>" style="text-align:center;">
+                                    <input type="text" id="txtReceivedfrom" class="form-control" name="txtReceivedfrom" value="<?php echo $S_Head->Supply_Head ?>" style="text-align:center;" readonly>
                                     <label class="form-label fw-bold text-dark" for="txtReceivedfrom">Received From:</label>
                                     <div class="invalid-feedback">
                                         Please choose received from.

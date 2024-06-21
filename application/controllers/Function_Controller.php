@@ -900,6 +900,7 @@ class Function_Controller extends CI_Controller
             
         );
         $this->Function_Model->SubmitSEPCtoICSData($encrypttblpoid,$dataICS);
+        $this->session->set_flashdata('success', 'Item was successfully assigned.');
         redirect(base_url('sepc-assignee/'.$encryptpoid.'/'.$encrypttblpoid));
     }
 
@@ -1024,6 +1025,7 @@ class Function_Controller extends CI_Controller
             
         );
         $this->Function_Model->SubmitPPEPCtoICSData($encrypttblpoid,$dataICS);
+        $this->session->set_flashdata('success', 'Item was successfully assigned.');
         redirect(base_url('ppepc-assignee/'.$encryptpoid.'/'.$encrypttblpoid));
     }
 

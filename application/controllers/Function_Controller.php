@@ -1149,7 +1149,7 @@ class Function_Controller extends CI_Controller
         $forms_name = $this->input->post('txtforms');
         $forms_description = $this->input->post('txtformsdescription');
         $config['upload_path'] = 'assets/uploads/'; 
-        $config['allowed_types'] = 'pdf|doc|docx'; 
+        $config['allowed_types'] = 'pdf|doc|docx|xlsx|xls'; 
     
         $this->upload->initialize($config);
     

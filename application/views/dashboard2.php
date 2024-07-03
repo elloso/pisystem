@@ -23,7 +23,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-success bg-success">
             <div class="container">
-                <a class="navbar-brand text-white" href="<?php echo base_url(); ?>">Souther Luzon State University (Supply & Property Office)</a>
+                <a class="navbar-brand text-white" href="<?php echo base_url(); ?>">Southern Luzon State University (Supply & Property Office)</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="<?php echo base_url(''); ?>">About Us</a></li>
@@ -63,7 +63,11 @@
                 <div class="copyright text-center my-auto">
                     <img src="<?php echo base_url('assets/img/slsu/mislogo.png'); ?>" alt="MIS Logo" class="logo">
                     <span class="text-white">&copy; 2024 <b>SLSU</b> All Rights Reserved | Management By MIS-ICT Team</span>
-                    <img src="<?php echo base_url('assets/img/slsu/slsu_logo.png'); ?>" alt="SLSU Logo" class="logo1">
+                    <img src="<?php echo base_url('assets/img/slsu/slsu_logo.png'); ?>" alt="SLSU Logo" class="logo1"><br/>
+                    <span class="text-white">Office Address</span><br/>
+                    <span class="text-white">Supply & Property Office near CAM Bldg, SLSU  Main Campus, Lucban Quezon</span><br/>
+                    <span class="text-white">Email Address: <u>slsusupply@slsu.edu.ph</u></span>
+                    
                 </div>
             </div>
         </footer>

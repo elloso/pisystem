@@ -79,10 +79,9 @@
 
 <body>
   <header id="header" class="header d-flex align-items-center">
-
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
       <a href="<?php echo base_url('dashboard'); ?>" class="logo d-flex align-items-center">
-        <h1>Property Inventory System</h1>
+        <h1>Supply & Property Management System</h1>
       </a>
       <nav id="navbar" class="navbar">
         <ul>

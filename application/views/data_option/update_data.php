@@ -91,20 +91,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php if (is_array($forms) || is_object($forms)) : ?>
-                            <?php foreach($forms as $form): ?>
-                                <tr>
-                                    <td class="text-center" style="font-weight: bold; width: 20%;"><?php echo $form->form ?></td>
-                                    <td style="width: 70%;"><?php echo $form->Description ?></td>
-                                    <td class="text-center" style="width: 10%;"><a href="#" style="font-style: italic;"><?php echo $form->file_form ?></a></td>
-                                    <td class="text-center">
-                                        <a class="p-2 text-danger" title="Delete" style="cursor: pointer;">
-                                            <i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#deleteFormsModal"></i>
-                                        </a>
-                                    </td>   
-                                </tr>
-                            <?php endforeach ?>
-                        <?php endif; ?>
+                            <?php if (is_array($forms) || is_object($forms)) : ?>
+                                <?php foreach($forms as $form): ?>
+                                    <?php
+                                        // Get file name without extension
+                                        $file_info = pathinfo($form->file_form);
+                                        $file_name_without_extension = $file_info['filename'];
+                                    ?>
+                                    <tr>
+                                        <td class="text-center" style="font-weight: bold; width: 20%;"><?php echo $form->form ?></td>
+                                        <td style="width: 70%;"><?php echo $form->Description ?></td>
+                                        <td class="text-center" style="width: 10%;"><a href="#" style="font-style: italic;"><?php echo $file_name_without_extension ?></a></td>
+                                        <td class="text-center">
+                                            <a class="p-2 text-danger delete-button" title="Delete" style="cursor: pointer;" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#deleteFormsModal" 
+                                            data-form-id="<?php echo md5($form->ID); ?>" 
+                                            data-file-name="<?php echo $form->file_form; ?>">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        </td>   
+                                    </tr>
+                                <?php endforeach ?>
+                            <?php endif; ?>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -239,18 +249,36 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteFormsModalLabel"><i class="text-warning fa-solid fa-triangle-exclamation mt-2"></i> Deletion confirmation</h1>
+                <h1 class="modal-title fs-5" id="deleteFormsModalLabel">
+                    <i class="text-warning fa-solid fa-triangle-exclamation mt-2"></i> Deletion confirmation
+                </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <i>Are you sure you want to remove ?</i>
+                <i>Are you sure you want to remove <span id="file-name"></span> ?</i>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <a href="<?php echo base_url('deleteforms-data/' . md5($form->ID)) ?>">
+                <a id="confirm-delete-btn" href="#">
                     <button type="button" class="btn btn-primary">Yes</button>
                 </a>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    const deleteButtons = document.querySelectorAll('.delete-button');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // const fileName = this.getAttribute('data-file-name');
+            const formId = this.getAttribute('data-form-id');
+
+            // document.getElementById('file-name').textContent = fileName;
+            document.getElementById('confirm-delete-btn').setAttribute('href', `<?php echo base_url('deleteforms-data/'); ?>${formId}`);
+        });
+    });
+});
+
+</script>

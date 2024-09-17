@@ -139,6 +139,11 @@ class Function_Model extends CI_Model
         $this->db->where('ics_iar_no', $selectICSIARNo);
         return $this->db->update('tblics', $data);
     }
+    public function SubmitinsertIcs($data)
+    {
+        $this->db->insert('tblics', $data);
+        return $this->db->insert_id();
+    }
     public function updatePARData($par_iarno, $datapar)
     {
         $this->db->where('par_iarno', $par_iarno);

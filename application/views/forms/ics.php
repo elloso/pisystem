@@ -54,8 +54,14 @@
                 <form action="<?php echo base_url(); ?>update-ics" method="post" class="needs-validation" novalidate>
                     <div class="row">
                         <div class="col-lg-6 col-xl-6">
+                            <div class="form-check">
+                                <input class="form-check-input" name="check_box" type="checkbox" value="1" id="CheckIarnumber" onchange="toggleIARSelect(this)">
+                                <label class="form-check-label" for="CheckIarnumber" style="font-size:12px;">
+                                    Please check box if No IAR Number (Optional)
+                                </label>
+                            </div>
                             <div class="form-floating mb-2">
-                                <select class="form-select" aria-label="Default select example" name="selectICSIARNo" required>
+                                <select class="form-select" aria-label="Default select example" name="selectICSIARNo" id="selectICSIARNo" required>
                                     <option value="" disabled selected>-- Select IAR No. --</option>
                                     <?php foreach ($PO_ICSDatas as $PO_ICSData) : ?>
                                         <?php if (empty($PO_ICSData->ics_no)) : ?>
@@ -70,6 +76,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-6">
+                            <div class="form-check"></div>
                             <div class="form-floating mb-2">
                                 <input type="text" id="txtICSNo" class="form-control" name="txtICSNo" required>
                                 <label class="form-label fw-bold text-dark" for="txtICSNo">ICS No. :</label>
@@ -190,4 +197,16 @@
             }
         });
     });
+</script>
+<script>
+    function toggleIARSelect(checkbox) {
+        const iarSelect = document.getElementById("selectICSIARNo");
+        if (checkbox.checked) {
+            iarSelect.disabled = true;
+            iarSelect.removeAttribute('required'); 
+        } else {
+            iarSelect.disabled = false;
+            iarSelect.setAttribute('required', 'required'); 
+        }
+    }
 </script>

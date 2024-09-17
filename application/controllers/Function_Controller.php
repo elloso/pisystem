@@ -265,31 +265,64 @@ class Function_Controller extends CI_Controller
     }
     public function updatetIcs()
     {
-        $selectICSIARNo = strip_tags($this->input->post('selectICSIARNo'));
-        $txtICSNo = strip_tags($this->input->post('txtICSNo'));
-        $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
-        $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
-        $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
-        $txtDateInspectedFrom = strip_tags($this->input->post('txtDateInspectedFrom'));
-        $txtICSDate = $this->input->post('txtICSDate');
-        $txtrole = $this->input->post('txtRole');
-        $data = array(
-            'ics_no' => $txtICSNo,
-            'ics_receivedby' => $txtReceivedby,
-            'ics_received_date' => $txtDateRecivedBy,
-            'ics_receivedfrom' => $txtReceivedfrom,
-            'ics_receivedfrom_date' => $txtDateInspectedFrom,
-            'ics_date' => $txtICSDate,
-            'ics_position' => $txtrole,
-        );
+        $enabledCheckbox = $this->input->post('check_box');
+        if($enabledCheckbox == 1){
+            // echo'Test';
+            // $selectICSIARNo = strip_tags($this->input->post('selectICSIARNo'));
+            $txtICSNo = strip_tags($this->input->post('txtICSNo'));
+            $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
+            $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
+            $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
+            $txtDateInspectedFrom = strip_tags($this->input->post('txtDateInspectedFrom'));
+            // $txtICSDate = $this->input->post('txtICSDate');
+            $txtrole = $this->input->post('txtRole');
+            $data = array(
+                'ics_no' => $txtICSNo,
+                'ics_receivedby' => $txtReceivedby,
+                'ics_received_date' => $txtDateRecivedBy,
+                'ics_receivedfrom' => $txtReceivedfrom,
+                'ics_receivedfrom_date' => $txtDateInspectedFrom,
+                // 'ics_date' => $txtICSDate,
+                'ics_position' => $txtrole,
+            );
 
-        $result = $this->Function_Model->SubmitupdatetIcs($data, $selectICSIARNo);
-        if ($result) {
-            $this->session->set_flashdata('success', 'ICS successfully added.');
-            echo '<script>window.history.back();</script>';
-        } else {
-            $this->session->set_flashdata('error', 'ICS update failed.');
-            echo '<script>window.history.back();</script>';
+            $result = $this->Function_Model->SubmitinsertIcs($data);
+            if ($result) {
+                $this->session->set_flashdata('success', 'ICS successfully added.');
+                echo '<script>window.history.back();</script>';
+            } else {
+                $this->session->set_flashdata('error', 'ICS update failed.');
+                echo '<script>window.history.back();</script>';
+            }
+        }else {
+            // echo'Test1';
+            // $selectICSIARNo = strip_tags($this->input->post('selectICSIARNo'));
+            $txtICSNo = strip_tags($this->input->post('txtICSNo'));
+            $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
+            $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
+            $txtReceivedfrom = strip_tags($this->input->post('txtReceivedfrom'));
+            $txtDateInspectedFrom = strip_tags($this->input->post('txtDateInspectedFrom'));
+            $txtICSDate = $this->input->post('txtICSDate');
+            $txtrole = $this->input->post('txtRole');
+            $data = array(
+                'ics_no' => $txtICSNo,
+                'ics_receivedby' => $txtReceivedby,
+                'ics_received_date' => $txtDateRecivedBy,
+                'ics_receivedfrom' => $txtReceivedfrom,
+                'ics_receivedfrom_date' => $txtDateInspectedFrom,
+                'ics_date' => $txtICSDate,
+                'ics_position' => $txtrole,
+            );
+
+            $result = $this->Function_Model->SubmitupdatetIcs($data, $selectICSIARNo);
+            if ($result) {
+                $this->session->set_flashdata('success', 'ICS successfully added.');
+                echo '<script>window.history.back();</script>';
+            } else {
+                $this->session->set_flashdata('error', 'ICS update failed.');
+                echo '<script>window.history.back();</script>';
+            }
+
         }
     }
     public function updatepoDetails()

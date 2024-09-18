@@ -296,7 +296,7 @@ class Function_Controller extends CI_Controller
             }
         }else {
             // echo'Test1';
-            // $selectICSIARNo = strip_tags($this->input->post('selectICSIARNo'));
+            $selectICSIARNo = strip_tags($this->input->post('selectICSIARNo'));
             $txtICSNo = strip_tags($this->input->post('txtICSNo'));
             $txtReceivedby = strip_tags($this->input->post('txtReceivedby'));
             $txtDateRecivedBy = strip_tags($this->input->post('txtDateRecivedBy'));
